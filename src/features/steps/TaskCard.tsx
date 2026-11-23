@@ -94,7 +94,7 @@ export function TaskCard({ study, phase, view, highlight }: { study: Study; phas
 			<TaskFields
 				rows={[
 					...taskRows(task, format, {
-						...(format === "tasks" || task.skills.length ? { tools } : {}),
+						...(format === "tasks" || task.tools || task.skills.length ? { tools } : {}),
 					}),
 					{
 						label: "Method",

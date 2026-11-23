@@ -124,7 +124,8 @@ export function taskRows(task: MethodTask, format: MethodFormat, slots: Partial<
 			{ label: "What", value: v("what", task.what, Boolean(task.what)) },
 			{ label: "How", value: v("how", <Lines text={task.how} />, Boolean(task.how)) },
 			{ label: "Watch out", value: v("watch_out", <Lines text={task.watch_out ?? ""} tone="attention" />, Boolean(task.watch_out)) },
-			...("tools" in slots ? [{ label: "Skills", value: slots.tools }] : []),
+			// Tools are read from the step's text (the SML file has no Tools column).
+			...("tools" in slots ? [{ label: "Tools", value: slots.tools }] : task.tools ? [{ label: "Tools", value: task.tools }] : []),
 			{ label: "Deliverable", value: v("output", task.output, Boolean(task.output)) },
 		].filter((r) => !(r.label === "Watch out" && !task.watch_out && !("watch_out" in slots)));
 	}

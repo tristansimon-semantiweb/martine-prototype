@@ -7,7 +7,7 @@ import { TopBand } from "@/shared/components/layout/TopBand";
 import { useToast } from "@/shared/components/ui/Toast";
 import { useMartine } from "@/shared/hooks/useMartine";
 import { methodEntry, methodFile, personById } from "@/shared/lib/data";
-import { costed, plannedLabel, plural } from "@/shared/lib/format";
+import { costed, costedDays, plannedLabel, plural } from "@/shared/lib/format";
 import { cn } from "@/shared/lib/cn";
 import { methodDays, methodPhases } from "./methodModel";
 import { MethodPhaseDrawer } from "./MethodPhaseDrawer";
@@ -41,7 +41,7 @@ export function MethodDetailView({ id }: { id: string }) {
 	const phases = methodPhases(id, draft, suggestions);
 	const pending = suggestions.filter((s) => s.method === id && s.status === "pending");
 	const usedBy = studies.filter((s) => s.method.id === id && s.status !== "delivered").length;
-	const planned = plannedLabel(m.planned) ?? costed(methodDays(id)).replace(/ d$/, " days");
+	const planned = plannedLabel(m.planned) ?? costedDays(methodDays(id));
 	const file = methodFile(id);
 	const isOwner = role === "method_owner";
 	const openId = params.get("phase");

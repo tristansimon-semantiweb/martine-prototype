@@ -5,7 +5,7 @@ import { Plus } from "lucide-react";
 import { useMartine } from "@/shared/hooks/useMartine";
 import { useToast } from "@/shared/components/ui/Toast";
 import { methodEntry, personById, skillById } from "@/shared/lib/data";
-import { costed } from "@/shared/lib/format";
+import { costedDays } from "@/shared/lib/format";
 import { Chip, PhaseSheet, TaskFields, formatOf, taskMeta, taskRows, toolChips } from "@/features/phase/PhaseParts";
 import type { MethodPhaseView, MethodTaskView } from "./methodModel";
 
@@ -33,7 +33,7 @@ export function MethodPhaseDrawer({
 		<PhaseSheet
 			open={Boolean(phase)}
 			onClose={onClose}
-			kicker={phase ? `Phase ${phase.id} of the method, ${phase.days ? `planned ${costed(phase.days).replace(/ d$/, " days")}` : "not costed in the method file"}` : ""}
+			kicker={phase ? `Phase ${phase.id} of the method, ${phase.days ? `planned ${costedDays(phase.days)}` : "not costed in the method file"}` : ""}
 			title={phase?.name ?? ""}
 			footer={
 				!phase ? null : isOwner ? (

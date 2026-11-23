@@ -15,6 +15,7 @@ export function SkillBlock({ study, phase, taskKey, skillId }: { study: Study; p
 	const skill = skillById(skillId);
 	const note = study.state.notes[phase.id];
 	const reads = whatClaudeReads(study, phase, taskKey);
+	const task = phase.tasks.find((t) => t.key === taskKey)?.task;
 
 	return (
 		<div className="rounded-[var(--radius)] bg-[var(--color-accent-dim)] px-3 py-2.5">
@@ -23,7 +24,7 @@ export function SkillBlock({ study, phase, taskKey, skillId }: { study: Study; p
 					<span className="font-bold text-[var(--color-accent)]">Skill: {skill?.label ?? skillId}.</span> {skill?.does}
 					<br />
 					<span className="text-[var(--color-ink-secondary)]">
-						Claude receives the study {refs.study(study)}: the brief, this task and its check
+						Claude receives the study {refs.study(study)}: the brief, this {task?.check ? "task and its check" : "step and its points of attention"}
 						{note ? `, ${personById(note.by)?.name.split(" ")[0]}’s note` : ""}, and the study’s data on the data platform.
 					</span>
 				</div>

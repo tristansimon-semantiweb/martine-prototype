@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useMartine } from "@/shared/hooks/useMartine";
 import { useToast } from "@/shared/components/ui/Toast";
 import { personById } from "@/shared/lib/data";
-import { costed, plural } from "@/shared/lib/format";
+import { costedDays, plural } from "@/shared/lib/format";
 import type { PhaseView } from "@/shared/lib/studyModel";
 import type { Study } from "@/shared/lib/types";
 import { PhaseSheet, ownerLabel } from "@/features/phase/PhaseParts";
@@ -31,7 +31,7 @@ function kicker(p: PhaseView) {
 	const owners = [...new Set(p.tasks.map((t) => ownerLabel(t.task.owner)).filter(Boolean))];
 	const owner = owners.length === 1 ? `, ${owners[0]}` : "";
 	if (p.addedBy) return `Phase ${p.id}, added for this study by ${personById(p.addedBy)?.name}`;
-	return p.days ? `Phase ${p.id}, planned ${costed(p.days).replace(/ d$/, " days")}${owner}` : `Phase ${p.id}, not costed in the method file${owner}`;
+	return p.days ? `Phase ${p.id}, planned ${costedDays(p.days)}${owner}` : `Phase ${p.id}, not costed in the method file${owner}`;
 }
 
 function consultantOf(study: Study) {

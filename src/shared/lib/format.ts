@@ -25,6 +25,12 @@ export function plannedLabel(s: string | null | undefined): string | null {
 	return `${m[2] ? `${m[1]} to ${m[2]}` : m[1]} days${m[3] ? ` (${m[3]} phases costed)` : ""}`;
 }
 
+// The same, spelled out: "1 day", "2 to 4 days".
+export function costedDays(d: { min: number; max: number } | null): string {
+	if (!d) return "not costed";
+	return `${dayRange(d.min, d.max).replace(/ d$/, "")} ${d.max === 1 ? "day" : "days"}`;
+}
+
 export function dueDate(iso: string): string {
 	return new Date(`${iso}T12:00:00`).toLocaleDateString("en-US", { month: "long", day: "numeric" });
 }

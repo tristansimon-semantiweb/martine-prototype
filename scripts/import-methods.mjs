@@ -87,7 +87,42 @@ const round = (n) => Math.round(n * 1000) / 1000;
 
 const catalog = JSON.parse(readFileSync(join(ROOT, "data/catalog.json"), "utf8"));
 const SKILL_IDS = catalog.skills.map((s) => s.id);
-const skillsIn = (...texts) => SKILL_IDS.filter((id) => texts.some((t) => t.includes(id)));
+// A skill is named by its id, with hyphens or spaces ("building radarly queries").
+const skillPattern = (id) => new RegExp(`\\b${id.replace(/-/g, "[-\\s]")}\\b`, "i");
+// The SML file has no Tools column: the tools a step uses are read from its
+// text (the applications a person works in, as named in the method file).
+const TOOLS = [
+	"Radarly", "Meltwater", "Talkwalker", "Visibrain", "Sprinklr", "Synthesio", "Spate", "Trajaan",
+	"Corpus Manager", "Live Fix", "HypeAuditor", "Traackr", "Export Comments", "Sorter",
+	"Claude", "ChatGPT", "Gemini", "Perplexity",
+	["Google Drive", /\b(?:Google )?Drive\b/], "Google News", "Google Trends", "Slack", "Float", "Notion",
+	"Excel", "PowerPoint", "Canva", "WordArt",
+];
+const toolsIn = (...texts) =>
+	TOOLS.filter((t) => {
+		const re = Array.isArray(t) ? t[1] : new RegExp(`\\b${t}\\b`);
+		return texts.some((x) => re.test(x));
+	})
+		.map((t) => (Array.isArray(t) ? t[0] : t))
+		.join(", ");
+
+// Skills named by a description rather than their id.
+const ALIASES = [[/\bradarly query skill\b/i, "building-radarly-queries"]];
+const skillsIn = (...texts) => [
+	...new Set([
+		...SKILL_IDS.filter((id) => texts.some((t) => skillPattern(id).test(t))),
+		...ALIASES.filter(([re]) => texts.some((t) => re.test(t))).map(([, id]) => id),
+	]),
+];
+// Skills a method names ('the Claude skill "x"') that the catalog doesn't have.
+const unknownSkills = new Set();
+const noteUnknown = (...texts) => {
+	for (const t of texts)
+		for (const m of t.matchAll(/skill "([^"]+)"/gi)) {
+			const id = m[1].trim().toLowerCase().replace(/\s+/g, "-");
+			if (!SKILL_IDS.includes(id)) unknownSkills.add(id);
+		}
+};
 
 const cells = (line) =>
 	line
@@ -213,7 +248,7 @@ for (const raw of md) {
 			days_min: min,
 			days_max: max,
 			owner: clean(owner ?? ""),
-			skills: skillsIn(tools, how),
+			skills: (noteUnknown(tools, how), skillsIn(tools, how)),
 		});
 	} else {
 		const [step, what, how, watch, owner, time, output] = c;
@@ -234,14 +269,14 @@ for (const raw of md) {
 			what: clean(what ?? ""),
 			how: bullets(how ?? ""),
 			watch_out: bullets(watch ?? ""),
-			tools: "",
+			tools: toolsIn(what ?? "", how ?? "", watch ?? ""),
 			check: "",
 			output: clean(output ?? ""),
 			time: clean(time ?? "").replace(/^-$/, "") || null,
 			days_min: min,
 			days_max: max,
 			owner: clean(owner ?? ""),
-			skills: skillsIn(how ?? "", watch ?? ""),
+			skills: (noteUnknown(how ?? "", watch ?? ""), skillsIn(how ?? "", watch ?? "")),
 		});
 	}
 }
@@ -322,3 +357,4 @@ writeFileSync(join(ROOT, "src/shared/lib/methodFiles.generated.ts"), gen.join("\
 
 console.log(`${methods.length} methods imported, ${index.length - methods.length} to document.`);
 for (const x of index) console.log(`  ${x.id}: ${x.phases ?? "-"} phases, ${x.tasks ?? "-"} tasks, ${x.skills ?? "-"} skills`);
+if (unknownSkills.size) console.log(`Skills named in the methods but missing from data/catalog.json: ${[...unknownSkills].join(", ")}`);
