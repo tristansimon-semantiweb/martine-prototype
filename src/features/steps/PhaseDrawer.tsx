@@ -31,7 +31,7 @@ function kicker(p: PhaseView) {
 	const owners = [...new Set(p.tasks.map((t) => ownerLabel(t.task.owner)).filter(Boolean))];
 	const owner = owners.length === 1 ? `, ${owners[0]}` : "";
 	if (p.addedBy) return `Phase ${p.id}, added for this study by ${personById(p.addedBy)?.name}`;
-	return p.days ? `Phase ${p.id}, planned ${costedDays(p.days)}${owner}` : `Phase ${p.id}, not costed in the method file${owner}`;
+	return p.days ? `Phase ${p.id}, planned ${p.time ?? costedDays(p.days)}${owner}` : `Phase ${p.id}, not costed in the method file${owner}`;
 }
 
 function consultantOf(study: Study) {

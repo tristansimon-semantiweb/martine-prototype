@@ -18,6 +18,7 @@ export interface PhaseView {
 	tasks: TaskView[];
 	added: AddedTask[];
 	days: DayRange; // null: not costed in the method file
+	time?: string | null; // the phase's time as the method file writes it ("3 hours")
 	doneCount: number;
 	total: number;
 	status: PhaseStatus;
@@ -38,7 +39,7 @@ export function phaseViews(study: Study): PhaseView[] {
 			const key = taskKey(id, i);
 			return { key, task, state: st.tasks[key] ?? { done: false } };
 		});
-		return { id, label: `${p.phase}. ${p.name}`, name: p.name, tasks, days: phaseDays(p) };
+		return { id, label: `${p.phase}. ${p.name}`, name: p.name, tasks, days: phaseDays(p), time: p.time };
 	});
 	const extra = st.addedSteps.map((s, i) => ({
 		id: s.id,
