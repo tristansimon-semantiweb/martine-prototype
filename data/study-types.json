@@ -1,0 +1,100 @@
+{
+  "_meta": {
+    "note": "What each study type is and the question it answers, by method id. 'journeys': translated from data/parcours-etudes.json (French, written by the team). 'draft': written from the method file's phases for the prototype (AI-generated), to validate by the method owner. null: to write."
+  },
+  "types": {
+    "category_audit": {
+      "source": "journeys",
+      "question": "How does this category work, and who is winning it?",
+      "definition": "A study of a whole category in one or more markets: size, dynamics, competitive landscape, topics and audiences. Optional: brand zoom-in, personas with ID cards, ratings & reviews and benchmark."
+    },
+    "brand_audit": {
+      "source": "journeys",
+      "question": "How do consumers perceive the brand?",
+      "definition": "An analysis of the brand’s equity and performance as consumers see it, benchmarked against competitors. Fashion / beauty split for luxury houses."
+    },
+    "topic_audit": {
+      "source": "journeys",
+      "question": "What is happening around this theme, and what to do with it?",
+      "definition": "An audit on a question or a theme that is neither a brand nor a whole category. Innovation variant: the future of a category, an industry or an ingredient, with innovation drivers and recommendations."
+    },
+    "brand_digest": {
+      "source": "journeys",
+      "question": "How is the brand evolving over the period, against its competitors?",
+      "definition": "A recurring report on a brand, a product or a topic: perception, how the conversation evolves, platforms, seasonality, sentiment, reviews, TikTok, search. Fixed structure reused from one client to the next; only visuals and colors change. Unlike the other M&T methods, it also relies on the Corpus Manager and the ICC (reviews, facets). Filed in the SML family as a short brand audit; produced by M&T, recurring for some brands."
+    },
+    "tribes_sourcing": {
+      "source": "journeys",
+      "question": "Which communities naturally embody our territory?",
+      "definition": "Identifies the communities (shared codes, rituals and belonging) that embody a brand territory, among current or future customers. A marketing tool, not a sociological portrait."
+    },
+    "toolkit": {
+      "source": "journeys",
+      "question": "How do we activate the chosen tribe?",
+      "definition": "Follows a tribes sourcing: the client picks 1 or 2 communities to explore in depth. Where they go, what they watch, how they dress, whom they follow. A common thread for communication, marketing and creative teams."
+    },
+    "archetype": {
+      "source": "journeys",
+      "question": "Who does this fragrance represent? (rather than who should buy it)",
+      "definition": "A very qualitative study, built around an ideal rather than a community. A basis for choosing ambassadors and creators, creative direction, campaign narratives and partnerships."
+    },
+    "persona": {
+      "source": "journeys",
+      "question": "Why does each person engage with the brand or the category?",
+      "definition": "An individual archetype defined by why they engage and how it shows, not by what they post or by demographics. Brand or category personas, usually 5 to 7."
+    },
+    "recurring_report_a": {
+      "source": "journeys",
+      "question": "What happened this month, or this quarter, on the brand and its topics?",
+      "definition": "Reporting at a fixed cadence for one client (monthly, quarterly, half-yearly): topic detection, a quantitative part, a written qualitative part, recommendations, on a deck whose structure stays the same from one edition to the next. Little tooling, a lot of writing."
+    },
+    "recurring_report_b": {
+      "source": "journeys",
+      "question": "What happened this month, or this quarter, on the brand and its topics?",
+      "definition": "Reporting at a fixed cadence for one client (monthly, quarterly, half-yearly): topic detection, a quantitative part, a written qualitative part, recommendations, on a deck whose structure stays the same from one edition to the next. Little tooling, a lot of writing."
+    },
+    "maintenance_sprinklr": {
+      "source": "journeys",
+      "question": "Is the data in the client’s workspace clean and up to date this week?",
+      "definition": "Recurring upkeep of the client’s listening workspaces (Talkwalker, Sprinklr) and dashboards: noise control, exclusions, tag rules and filters, sentiment, new keywords, quotas, change log. Not a study: no analysis deliverable, a cleaning report."
+    },
+    "maintenance_luxury": {
+      "source": "journeys",
+      "question": "Is the data in the client’s workspace clean and up to date this week?",
+      "definition": "Recurring upkeep of the client’s listening workspaces (Talkwalker, Sprinklr) and dashboards: noise control, exclusions, tag rules and filters, sentiment, new keywords, quotas, change log. Not a study: no analysis deliverable, a cleaning report."
+    },
+    "trend_report": {
+      "source": "journeys",
+      "question": "Which trends are emerging on this topic, and what should the client take from them?",
+      "definition": "A one-off or wave-based M&T project: trend observatory, ingredient refresh, trend bulletin at each edition, local trends. Desk research, multilingual queries in Talkwalker or Radarly, measurement, coded TikTok sample, storyline, deck. The work stays in the listening tools, without the Corpus Manager or the ICC."
+    },
+    "bb_report": {
+      "source": "draft",
+      "question": null,
+      "definition": "A trend bulletin on a beauty theme, edition after edition: desk research and an outline the client validates, queries and measurement, slides and a video, internal QA, then sharing and client feedback."
+    },
+    "ingredients_tracker": {
+      "source": "draft",
+      "question": null,
+      "definition": "Tracks ingredients wave after wave: review of the previous wave, desk research, measurements and a sample, storyline and deck, client review and feedback."
+    },
+    "local_makeup_trends": {
+      "source": "draft",
+      "question": null,
+      "definition": "Make-up trends in a local market: desk research, a list of influencers and brands the client validates, a sample of posts built then expanded, storyline, supporting assets and deck."
+    },
+    "activation_monitoring": {
+      "source": "draft",
+      "question": null,
+      "definition": "Measures how a brand’s own posts performed over a period: inventory of owned posts, quantitative analysis, best and least performing posts, and the brand’s desirability pillars."
+    },
+    "dashboarding": {
+      "source": "draft",
+      "question": null,
+      "definition": "Recurring checks of a client’s listening dashboard: noise and exclusion query, tagging, filters, accounts, dashboard widgets, sentiment correction and change control."
+    },
+    "ratings_reviews": null,
+    "influence_report": null,
+    "newsletter": null
+  }
+}

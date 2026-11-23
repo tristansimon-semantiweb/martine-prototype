@@ -6,6 +6,7 @@ import briefsRaw from "../../../data/briefs-exemples.json";
 import studiesRaw from "../../../data/studies.json";
 import readingsRaw from "../../../data/brief-readings.json";
 import askScriptsRaw from "../../../data/ask-martine-scripts.json";
+import studyTypesRaw from "../../../data/study-types.json";
 import { METHOD_FILES } from "./methodFiles.generated";
 import type {
 	AskScript,
@@ -17,6 +18,7 @@ import type {
 	MethodSuggestion,
 	Person,
 	Study,
+	StudyTypeDefinition,
 } from "./types";
 
 export const methodsIndex = methodsIndexRaw.methods as MethodIndexEntry[];
@@ -27,6 +29,11 @@ export const seedSuggestions = studiesRaw.methodSuggestions as MethodSuggestion[
 export const briefs = briefsRaw as unknown as Record<string, string>;
 export const briefReadings = readingsRaw.readings as Record<string, BriefReading>;
 export const askScripts = askScriptsRaw.scripts as AskScript[];
+const studyTypes = studyTypesRaw.types as unknown as Record<string, StudyTypeDefinition | null>;
+
+export function studyTypeDefinition(id: string): StudyTypeDefinition | null {
+	return studyTypes[id] ?? null;
+}
 
 export function methodEntry(id: string): MethodIndexEntry | undefined {
 	return methodsIndex.find((m) => m.id === id);

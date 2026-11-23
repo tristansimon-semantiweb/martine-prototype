@@ -6,7 +6,7 @@ import { TopBand } from "@/shared/components/layout/TopBand";
 import { FamilyPill } from "@/shared/components/ui/Family";
 import { useToast } from "@/shared/components/ui/Toast";
 import { useMartine } from "@/shared/hooks/useMartine";
-import { methodsIndex } from "@/shared/lib/data";
+import { methodsIndex, studyTypeDefinition } from "@/shared/lib/data";
 import { plural } from "@/shared/lib/format";
 import { cn } from "@/shared/lib/cn";
 import type { Family } from "@/shared/lib/types";
@@ -90,6 +90,9 @@ export function MethodsView() {
 												</Link>
 												<FamilyPill family={m.family} />
 											</div>
+											<p className="m-0 mt-0.5 line-clamp-2 max-w-[520px] text-[13px] text-[var(--color-ink-muted)]">
+												{studyTypeDefinition(m.id)?.question ?? studyTypeDefinition(m.id)?.definition ?? "[definition to write]"}
+											</p>
 										</td>
 										<td className={cn("px-3 py-3.5", !m.owner && "text-[var(--color-ink-muted)]")}>{m.owner ?? "To name"}</td>
 										<td className="px-3 py-3.5 text-right">{imported ? m.phases : ""}</td>

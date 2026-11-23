@@ -6,7 +6,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { TopBand } from "@/shared/components/layout/TopBand";
 import { useToast } from "@/shared/components/ui/Toast";
 import { useMartine } from "@/shared/hooks/useMartine";
-import { methodEntry, methodFile, personById } from "@/shared/lib/data";
+import { methodEntry, methodFile, personById, studyTypeDefinition } from "@/shared/lib/data";
 import { costed, costedDays, plannedLabel, plural } from "@/shared/lib/format";
 import { cn } from "@/shared/lib/cn";
 import { methodDays, methodPhases } from "./methodModel";
@@ -43,6 +43,7 @@ export function MethodDetailView({ id }: { id: string }) {
 	const usedBy = studies.filter((s) => s.method.id === id && s.status !== "delivered").length;
 	const planned = plannedLabel(m.planned) ?? costedDays(methodDays(id));
 	const file = methodFile(id);
+	const def = studyTypeDefinition(id);
 	const isOwner = role === "method_owner";
 	const openId = params.get("phase");
 	const addKey = params.get("add");
@@ -74,6 +75,24 @@ export function MethodDetailView({ id }: { id: string }) {
 			</TopBand>
 
 			<div className="mx-auto flex max-w-[820px] flex-col gap-[18px] px-6 py-8">
+				<section aria-label="What this study type is" className="rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-surface)] px-[26px] py-5 shadow-[var(--shadow-xs)]">
+					{def ? (
+						<>
+							{def.question && (
+								<p className="m-0 font-[family-name:var(--font-heading)] text-[22px] font-medium leading-snug">{def.question}</p>
+							)}
+							<p className="m-0 mt-2 text-[16px] leading-relaxed text-[var(--color-ink-secondary)]">{def.definition}</p>
+							{def.source === "draft" && (
+								<p className="m-0 mt-2.5 inline-block rounded-[var(--radius-sm)] bg-[var(--color-attention-bg)] px-2.5 py-1 text-[13px] text-[var(--color-attention)]">
+									Draft written from the method file, to validate by the method owner
+								</p>
+							)}
+						</>
+					) : (
+						<p className="m-0 text-[var(--color-ink-muted)]">[Definition to write: what this study type is and the question it answers]</p>
+					)}
+				</section>
+
 				<dl className="m-0 grid grid-cols-2 gap-3.5 sm:grid-cols-4">
 					{[
 						["Method owner", m.owner ?? "To name"],

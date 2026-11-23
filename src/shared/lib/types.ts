@@ -67,6 +67,13 @@ export interface MethodIndexEntry {
 	planned?: string | null;
 }
 
+// What a study type is, and the question it answers (data/study-types.json).
+export interface StudyTypeDefinition {
+	source: "journeys" | "draft"; // written by the team, or drafted for the prototype
+	question: string | null;
+	definition: string;
+}
+
 export interface MethodSuggestion {
 	id: string;
 	method: string;
