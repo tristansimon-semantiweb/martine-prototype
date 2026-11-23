@@ -31,3 +31,22 @@ export function toolUsage(toolId: string, drafts: Record<string, MethodDraft>): 
 		),
 	);
 }
+
+// The same for a skill: every step that names it (or adds it in a draft).
+export function skillUsage(skillId: string, drafts: Record<string, MethodDraft>): ToolUse[] {
+	return methodsIndex.flatMap((m) =>
+		methodPhases(m.id, drafts[m.id], []).flatMap((p) =>
+			p.tasks
+				.filter((t) => t.task.skills.includes(skillId))
+				.map((t) => ({
+					methodId: m.id,
+					methodName: m.name,
+					phaseId: p.id,
+					phaseLabel: p.label,
+					taskKey: t.key,
+					taskName: t.task.task,
+					inDraft: t.addedSkills.includes(skillId),
+				})),
+		),
+	);
+}

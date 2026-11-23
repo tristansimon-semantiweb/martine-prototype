@@ -16,7 +16,7 @@ const NAV = [
 	{ href: "/", label: "Studies", match: (p: string) => p === "/" },
 	{ href: "/study-types", label: "Study types", match: (p: string) => p.startsWith("/study-types") },
 	{ href: "/tools", label: "Tools", match: (p: string) => p.startsWith("/tools") },
-	{ href: "/oversight", label: "Oversight", match: (p: string) => p.startsWith("/oversight") },
+	{ href: "/skills", label: "Skills", match: (p: string) => p.startsWith("/skills") },
 ];
 
 export function Sidebar() {

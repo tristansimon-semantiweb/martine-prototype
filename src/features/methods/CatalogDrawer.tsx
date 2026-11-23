@@ -6,17 +6,13 @@ import { useToast } from "@/shared/components/ui/Toast";
 import { useMartine } from "@/shared/hooks/useMartine";
 import { catalog, methodEntry } from "@/shared/lib/data";
 import { cn } from "@/shared/lib/cn";
-import type { CatalogSkill, MethodTask, SkillStatus } from "@/shared/lib/types";
+import type { CatalogSkill, MethodTask } from "@/shared/lib/types";
+import { SkillStatusBadge } from "@/shared/components/ui/SkillStatus";
 import type { MethodPhaseView } from "./methodModel";
 
 type Tab = "Skills" | "Tools" | "Documents" | "Guides";
 const TABS: Tab[] = ["Skills", "Tools", "Documents", "Guides"];
 
-const STATUS: Record<SkillStatus, { label: string; cls: string }> = {
-	validated: { label: "Validated", cls: "bg-[var(--color-positive-bg)] text-[var(--color-positive)]" },
-	experimental: { label: "Experimental", cls: "bg-[var(--color-attention-bg)] text-[var(--color-attention)]" },
-	deprecated: { label: "Deprecated", cls: "bg-[var(--color-elevated)] text-[var(--color-ink-muted)]" },
-};
 
 const STOP = new Set(["with", "from", "each", "that", "this", "their", "until", "then", "into", "when", "same", "above", "study", "studies", "task"]);
 const words = (s: string) => new Set(s.toLowerCase().match(/[a-z]{4,}/g)?.filter((w) => !STOP.has(w)) ?? []);
@@ -81,7 +77,7 @@ export function CatalogDrawer({
 					) : inPhase.has(s.id) ? (
 						<span className="text-sm text-[var(--color-ink-muted)]">already in phase {phase?.id}</span>
 					) : (
-						<span className={cn("rounded-[var(--radius-xl)] px-2 py-0.5 text-xs font-semibold", STATUS[s.status].cls)}>{STATUS[s.status].label}</span>
+						<SkillStatusBadge status={s.status} />
 					)}
 					{!onTask && s.status !== "deprecated" && (
 						<button onClick={() => addSkill(s.id, s.label)} className="rounded-[var(--radius)] bg-[var(--color-accent)] px-3 py-1 text-sm font-semibold text-white">

@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "note": "The Semantiweb catalog: one entry per skill, tool, document template and guide. Skill statuses are illustrative until the owners validate them. Tools: the applications people work in, the tool repository; 'aliases' are patterns that find a tool in the method files' text; claude_connector null means not checked yet."
+    "note": "The Semantiweb catalog: one entry per skill, tool, document template and guide. Skill statuses are illustrative until the owners validate them. Tools: the applications people work in, the tool repository; 'aliases' are patterns that find a tool in the method files' text; claude_connector null means not checked yet. Skills: the Semantiweb skills available in Claude, without the tech delivery ones; status null means not set yet."
   },
   "skills": [
     {
@@ -16,7 +16,7 @@
     {
       "id": "building-radarly-queries",
       "label": "Radarly queries",
-      "does": "Same job as above, for Radarly.",
+      "does": "Writes Radarly queries with synonyms per language and checks the Boolean syntax.",
       "needs": "The study brief",
       "produces": "One query per market",
       "connectors": [],
@@ -52,6 +52,32 @@
       "connectors": [],
       "owner": null,
       "status": "experimental"
+    },
+    {
+      "id": "onboarding-files-tools-to-cm",
+      "label": "Files to the Corpus Manager",
+      "does": "Takes an analyst from a source export to files the Corpus Manager accepts: which Files Tools treatment, which options, why rows were lost (deduplication, language detection, labelling).",
+      "needs": "An export (Radarly, Meltwater, Talkwalker, Visibrain, crawls, ratings & reviews)",
+      "produces": "Files ready for the Corpus Manager",
+      "connectors": [],
+      "owner": null,
+      "status": null
+    },
+    {
+      "id": "preparing-files-for-corpus-manager",
+      "label": "Preparing files for the Corpus Manager",
+      "does": "[to describe]",
+      "connectors": [],
+      "owner": null,
+      "status": null
+    },
+    {
+      "id": "reddit-briefing",
+      "label": "Reddit briefing",
+      "does": "[to describe]",
+      "connectors": [],
+      "owner": null,
+      "status": null
     },
     {
       "id": "social-listening-project",

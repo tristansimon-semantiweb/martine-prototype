@@ -96,7 +96,7 @@ export interface CatalogSkill {
 	does: string;
 	needs?: string;
 	produces?: string;
-	status: SkillStatus;
+	status: SkillStatus | null; // null: not set yet
 }
 
 // A tool: an application people work in. The catalog's tools are the tool

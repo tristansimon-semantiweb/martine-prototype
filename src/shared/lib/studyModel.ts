@@ -1,6 +1,6 @@
 // What a study looks like once its method and its local state are put
 // together: phases with their tasks, the current phase, days used.
-import { methodFile, phaseDays, phaseId, studyPhases, sumDays, taskKey, type DayRange } from "./data";
+import { methodFile, phaseDays, phaseId, studyPhases, taskKey, type DayRange } from "./data";
 import type { AddedTask, MethodTask, Study, TaskState } from "./types";
 
 export interface TaskView {
@@ -73,11 +73,6 @@ export function daysActual(study: Study): number {
 	if (study.snapshot) return study.snapshot.daysActual;
 	const tasks = Object.values(study.state.tasks).reduce((n, t) => n + (t.done ? (t.days ?? 0) : 0), 0);
 	return tasks + study.state.addedTasks.reduce((n, t) => n + (t.done ? (t.days ?? 0) : 0), 0);
-}
-
-export function daysPlanned(study: Study): DayRange {
-	if (study.snapshot) return { min: study.snapshot.daysPlanned, max: study.snapshot.daysPlanned };
-	return sumDays(phaseViews(study).map((p) => p.days));
 }
 
 // Share of the study's phases that are done (0 to 1).
