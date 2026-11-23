@@ -12,3 +12,4 @@ This version has breaking changes: APIs, conventions, and file structure may all
 - All data is mocked (raw JSON in `/data`, read through `src/shared/lib/data.ts`). All AI answers are scripted. State that changes is kept in localStorage (`src/shared/hooks/useMartine.tsx`). This is a clickable prototype, not a technical PoC.
 - Studies, phases and tasks are known by stable identifiers (`TR-2611-01`, `TR-2611-01/2.2`, `trend_report@1.2`). Anything that tells Claude about a study goes through `src/shared/lib/martineContext.ts`.
 - Interface in English, typographic apostrophes (’). Fictional clients only (Maison Arlette, Lumen Café).
+- The whole prototype sits behind an access code: `MARTINE_ACCESS_CODE` (environment variable, never committed), checked in `src/proxy.ts`. With no code set, it stays open in `next dev` and closed everywhere else.

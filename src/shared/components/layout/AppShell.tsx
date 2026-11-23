@@ -11,9 +11,14 @@ import { Sidebar } from "./Sidebar";
 import { AskMartineButton } from "./AskMartineButton";
 
 // Adapted from R&R's AppShell: the sidebar on the left, the page on the right,
-// Ask Martine floating on top. No auth, no filters, no banner: each page draws
+// Ask Martine floating on top. No filters, no banner (the access code is
+// checked before any page, in src/proxy.ts): each page draws
 // its own top band (TopBand).
 export function AppShell({ children }: { children: React.ReactNode }) {
+	const pathname = usePathname();
+	// The access code page renders on its own, without the app around it.
+	if (pathname === "/access") return <>{children}</>;
+
 	return (
 		<SidebarProvider>
 			<MartineProvider>
