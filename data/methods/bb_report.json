@@ -27,6 +27,7 @@
 					"days_min": 0.1,
 					"days_max": 0.1,
 					"owner": "Analysts",
+					"tool_ids": [],
 					"skills": []
 				},
 				{
@@ -38,6 +39,7 @@
 					"days_min": 0.1,
 					"days_max": 0.1,
 					"owner": "Analysts",
+					"tool_ids": [],
 					"skills": []
 				},
 				{
@@ -49,6 +51,7 @@
 					"days_min": 0.1,
 					"days_max": 0.1,
 					"owner": "Analysts",
+					"tool_ids": [],
 					"skills": []
 				},
 				{
@@ -60,6 +63,9 @@
 					"days_min": null,
 					"days_max": null,
 					"owner": "Project lead",
+					"tool_ids": [
+						"float"
+					],
 					"skills": []
 				}
 			]
@@ -81,6 +87,10 @@
 					"days_min": 0.5,
 					"days_max": 1,
 					"owner": "Analysts",
+					"tool_ids": [
+						"radarly",
+						"google_search"
+					],
 					"skills": []
 				},
 				{
@@ -92,6 +102,7 @@
 					"days_min": 0.5,
 					"days_max": 1,
 					"owner": "Analysts",
+					"tool_ids": [],
 					"skills": []
 				},
 				{
@@ -103,6 +114,7 @@
 					"days_min": null,
 					"days_max": null,
 					"owner": "Project lead",
+					"tool_ids": [],
 					"skills": []
 				}
 			]
@@ -124,6 +136,7 @@
 					"days_min": null,
 					"days_max": null,
 					"owner": "Project lead or Analysts",
+					"tool_ids": [],
 					"skills": []
 				}
 			]
@@ -145,6 +158,9 @@
 					"days_min": 0.4,
 					"days_max": 0.4,
 					"owner": "Analysts",
+					"tool_ids": [
+						"radarly"
+					],
 					"skills": [
 						"building-radarly-queries"
 					]
@@ -158,6 +174,9 @@
 					"days_min": 0.1,
 					"days_max": 0.1,
 					"owner": "Analysts",
+					"tool_ids": [
+						"radarly"
+					],
 					"skills": [
 						"cleaning-social-volume"
 					]
@@ -171,6 +190,9 @@
 					"days_min": null,
 					"days_max": null,
 					"owner": "Analysts",
+					"tool_ids": [
+						"radarly"
+					],
 					"skills": []
 				}
 			]
@@ -192,6 +214,7 @@
 					"days_min": null,
 					"days_max": null,
 					"owner": "Analysts",
+					"tool_ids": [],
 					"skills": []
 				},
 				{
@@ -203,6 +226,7 @@
 					"days_min": null,
 					"days_max": null,
 					"owner": "Analysts",
+					"tool_ids": [],
 					"skills": []
 				},
 				{
@@ -214,6 +238,9 @@
 					"days_min": null,
 					"days_max": null,
 					"owner": "Analysts",
+					"tool_ids": [
+						"slack"
+					],
 					"skills": []
 				},
 				{
@@ -225,6 +252,9 @@
 					"days_min": null,
 					"days_max": null,
 					"owner": "Analysts",
+					"tool_ids": [
+						"spate"
+					],
 					"skills": []
 				},
 				{
@@ -236,6 +266,9 @@
 					"days_min": null,
 					"days_max": null,
 					"owner": "Analysts",
+					"tool_ids": [
+						"radarly"
+					],
 					"skills": []
 				},
 				{
@@ -247,6 +280,9 @@
 					"days_min": null,
 					"days_max": null,
 					"owner": "Analysts",
+					"tool_ids": [
+						"spate"
+					],
 					"skills": []
 				},
 				{
@@ -258,6 +294,9 @@
 					"days_min": null,
 					"days_max": null,
 					"owner": "Analysts",
+					"tool_ids": [
+						"spate"
+					],
 					"skills": []
 				},
 				{
@@ -269,6 +308,9 @@
 					"days_min": null,
 					"days_max": null,
 					"owner": "Analysts",
+					"tool_ids": [
+						"radarly"
+					],
 					"skills": []
 				},
 				{
@@ -280,6 +322,7 @@
 					"days_min": null,
 					"days_max": null,
 					"owner": "Analysts",
+					"tool_ids": [],
 					"skills": []
 				}
 			]
@@ -301,6 +344,10 @@
 					"days_min": 0.5,
 					"days_max": 1,
 					"owner": "Analysts (project lead support)",
+					"tool_ids": [
+						"claude",
+						"canva"
+					],
 					"skills": []
 				}
 			]
@@ -322,6 +369,7 @@
 					"days_min": 0.2,
 					"days_max": 0.2,
 					"owner": "Analysts + Project lead",
+					"tool_ids": [],
 					"skills": []
 				}
 			]
@@ -343,6 +391,9 @@
 					"days_min": null,
 					"days_max": null,
 					"owner": "Analysts",
+					"tool_ids": [
+						"google_drive"
+					],
 					"skills": []
 				},
 				{
@@ -354,6 +405,7 @@
 					"days_min": 0.5,
 					"days_max": 0.5,
 					"owner": "Analysts",
+					"tool_ids": [],
 					"skills": []
 				},
 				{
@@ -365,6 +417,7 @@
 					"days_min": null,
 					"days_max": null,
 					"owner": "Analysts",
+					"tool_ids": [],
 					"skills": []
 				}
 			]
@@ -386,6 +439,7 @@
 					"days_min": null,
 					"days_max": null,
 					"owner": "Project lead",
+					"tool_ids": [],
 					"skills": []
 				},
 				{
@@ -397,6 +451,7 @@
 					"days_min": 1,
 					"days_max": 1,
 					"owner": "Analysts",
+					"tool_ids": [],
 					"skills": []
 				}
 			]

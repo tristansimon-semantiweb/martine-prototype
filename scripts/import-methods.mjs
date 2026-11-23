@@ -89,22 +89,16 @@ const catalog = JSON.parse(readFileSync(join(ROOT, "data/catalog.json"), "utf8")
 const SKILL_IDS = catalog.skills.map((s) => s.id);
 // A skill is named by its id, with hyphens or spaces ("building radarly queries").
 const skillPattern = (id) => new RegExp(`\\b${id.replace(/-/g, "[-\\s]")}\\b`, "i");
-// The SML file has no Tools column: the tools a step uses are read from its
-// text (the applications a person works in, as named in the method file).
-const TOOLS = [
-	"Radarly", "Meltwater", "Talkwalker", "Visibrain", "Sprinklr", "Synthesio", "Spate", "Trajaan",
-	"Corpus Manager", "Live Fix", "HypeAuditor", "Traackr", "Export Comments", "Sorter",
-	"Claude", "ChatGPT", "Gemini", "Perplexity",
-	["Google Drive", /\b(?:Google )?Drive\b/], "Google News", "Google Trends", "Slack", "Float", "Notion",
-	"Excel", "PowerPoint", "Canva", "WordArt",
-];
-const toolsIn = (...texts) =>
-	TOOLS.filter((t) => {
-		const re = Array.isArray(t) ? t[1] : new RegExp(`\\b${t}\\b`);
-		return texts.some((x) => re.test(x));
-	})
-		.map((t) => (Array.isArray(t) ? t[0] : t))
-		.join(", ");
+// The tool repository is data/catalog.json: each task is linked to the tools
+// it names, by label or by the tool's aliases. Tasks format: in the Tools
+// column. Steps format (no Tools column): in the step's text.
+const TOOL_MATCHERS = catalog.tools.map((t) => ({
+	id: t.id,
+	label: t.label,
+	res: (t.aliases ?? [`\\b${t.label.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\b`]).map((a) => new RegExp(a)),
+}));
+const toolIdsIn = (...texts) => TOOL_MATCHERS.filter((t) => t.res.some((re) => texts.some((x) => re.test(x)))).map((t) => t.id);
+const labelsOf = (ids) => ids.map((id) => TOOL_MATCHERS.find((t) => t.id === id).label).join(", ");
 
 // Skills named by a description rather than their id.
 const ALIASES = [[/\bradarly query skill\b/i, "building-radarly-queries"]];
@@ -248,6 +242,7 @@ for (const raw of md) {
 			days_min: min,
 			days_max: max,
 			owner: clean(owner ?? ""),
+			tool_ids: toolIdsIn(tools),
 			skills: (noteUnknown(tools, how), skillsIn(tools, how)),
 		});
 	} else {
@@ -269,7 +264,8 @@ for (const raw of md) {
 			what: clean(what ?? ""),
 			how: bullets(how ?? ""),
 			watch_out: bullets(watch ?? ""),
-			tools: toolsIn(what ?? "", how ?? "", watch ?? ""),
+			tools: labelsOf(toolIdsIn(what ?? "", how ?? "", watch ?? "")),
+			tool_ids: toolIdsIn(what ?? "", how ?? "", watch ?? ""),
 			check: "",
 			output: clean(output ?? ""),
 			time: clean(time ?? "").replace(/^-$/, "") || null,

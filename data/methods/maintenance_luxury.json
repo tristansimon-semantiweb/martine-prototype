@@ -27,6 +27,9 @@
 					"days_min": 0.02,
 					"days_max": 0.03,
 					"owner": "Analyst",
+					"tool_ids": [
+						"talkwalker"
+					],
 					"skills": []
 				}
 			]
@@ -48,6 +51,9 @@
 					"days_min": 0.1,
 					"days_max": 0.12,
 					"owner": "Analyst",
+					"tool_ids": [
+						"talkwalker"
+					],
 					"skills": []
 				},
 				{
@@ -59,6 +65,9 @@
 					"days_min": 0.08,
 					"days_max": 0.1,
 					"owner": "Analyst",
+					"tool_ids": [
+						"talkwalker"
+					],
 					"skills": []
 				},
 				{
@@ -70,6 +79,9 @@
 					"days_min": 0.02,
 					"days_max": 0.02,
 					"owner": "Analyst",
+					"tool_ids": [
+						"talkwalker"
+					],
 					"skills": []
 				},
 				{
@@ -81,6 +93,7 @@
 					"days_min": 0.06,
 					"days_max": 0.08,
 					"owner": "Analyst",
+					"tool_ids": [],
 					"skills": []
 				},
 				{
@@ -92,6 +105,9 @@
 					"days_min": 0.01,
 					"days_max": 0.02,
 					"owner": "Analyst",
+					"tool_ids": [
+						"talkwalker"
+					],
 					"skills": []
 				}
 			]
@@ -113,6 +129,9 @@
 					"days_min": 0.05,
 					"days_max": 0.06,
 					"owner": "Analyst",
+					"tool_ids": [
+						"talkwalker"
+					],
 					"skills": []
 				}
 			]
@@ -134,6 +153,9 @@
 					"days_min": 0.03,
 					"days_max": 0.04,
 					"owner": "Analyst",
+					"tool_ids": [
+						"talkwalker"
+					],
 					"skills": []
 				},
 				{
@@ -145,6 +167,9 @@
 					"days_min": 0.04,
 					"days_max": 0.05,
 					"owner": "Analyst",
+					"tool_ids": [
+						"talkwalker"
+					],
 					"skills": []
 				},
 				{
@@ -156,6 +181,9 @@
 					"days_min": 0.03,
 					"days_max": 0.04,
 					"owner": "Analyst",
+					"tool_ids": [
+						"talkwalker"
+					],
 					"skills": []
 				}
 			]
@@ -177,6 +205,9 @@
 					"days_min": 0.04,
 					"days_max": 0.05,
 					"owner": "Analyst",
+					"tool_ids": [
+						"talkwalker"
+					],
 					"skills": []
 				}
 			]
@@ -198,6 +229,7 @@
 					"days_min": 0.01,
 					"days_max": 0.01,
 					"owner": "Analyst",
+					"tool_ids": [],
 					"skills": []
 				}
 			]
@@ -219,6 +251,9 @@
 					"days_min": 0.1,
 					"days_max": 0.15,
 					"owner": "Analyst",
+					"tool_ids": [
+						"talkwalker"
+					],
 					"skills": []
 				},
 				{
@@ -230,6 +265,9 @@
 					"days_min": 0.6,
 					"days_max": 0.7,
 					"owner": "Analyst",
+					"tool_ids": [
+						"talkwalker"
+					],
 					"skills": []
 				},
 				{
@@ -241,6 +279,9 @@
 					"days_min": 0.3,
 					"days_max": 0.4,
 					"owner": "Analyst",
+					"tool_ids": [
+						"talkwalker"
+					],
 					"skills": []
 				}
 			]
@@ -262,6 +303,9 @@
 					"days_min": 0.6,
 					"days_max": 0.7,
 					"owner": "Analyst",
+					"tool_ids": [
+						"talkwalker"
+					],
 					"skills": []
 				},
 				{
@@ -273,6 +317,7 @@
 					"days_min": 0.4,
 					"days_max": 0.5,
 					"owner": "Analyst",
+					"tool_ids": [],
 					"skills": []
 				}
 			]
@@ -294,6 +339,9 @@
 					"days_min": 0.05,
 					"days_max": 0.1,
 					"owner": "Analyst",
+					"tool_ids": [
+						"talkwalker"
+					],
 					"skills": []
 				},
 				{
@@ -305,6 +353,9 @@
 					"days_min": 0.05,
 					"days_max": 0.1,
 					"owner": "Analyst",
+					"tool_ids": [
+						"talkwalker"
+					],
 					"skills": []
 				}
 			]
@@ -326,6 +377,7 @@
 					"days_min": 0.01,
 					"days_max": 0.01,
 					"owner": "Analyst",
+					"tool_ids": [],
 					"skills": []
 				},
 				{
@@ -337,6 +389,9 @@
 					"days_min": 0.01,
 					"days_max": 0.02,
 					"owner": "Analyst",
+					"tool_ids": [
+						"talkwalker"
+					],
 					"skills": []
 				},
 				{
@@ -348,6 +403,9 @@
 					"days_min": 0.03,
 					"days_max": 0.06,
 					"owner": "Analyst",
+					"tool_ids": [
+						"talkwalker"
+					],
 					"skills": []
 				},
 				{
@@ -359,6 +417,9 @@
 					"days_min": 0.01,
 					"days_max": 0.02,
 					"owner": "Analyst",
+					"tool_ids": [
+						"talkwalker"
+					],
 					"skills": []
 				},
 				{
@@ -370,6 +431,9 @@
 					"days_min": 0.03,
 					"days_max": 0.06,
 					"owner": "Analyst",
+					"tool_ids": [
+						"talkwalker"
+					],
 					"skills": []
 				},
 				{
@@ -381,6 +445,9 @@
 					"days_min": 0.03,
 					"days_max": 0.06,
 					"owner": "Analyst",
+					"tool_ids": [
+						"talkwalker"
+					],
 					"skills": []
 				},
 				{
@@ -392,6 +459,9 @@
 					"days_min": 0.01,
 					"days_max": 0.02,
 					"owner": "Analyst",
+					"tool_ids": [
+						"talkwalker"
+					],
 					"skills": []
 				}
 			]

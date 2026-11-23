@@ -12,6 +12,8 @@ export interface MethodDraft {
 	saved: boolean;
 	edits: Record<string, Partial<Pick<MethodTask, "how" | "check" | "output" | "tools" | "what" | "watch_out">>>; // key: task key
 	addedSkills: Record<string, string[]>; // key: task key
+	addedTools?: Record<string, string[]>; // key: task key; tool ids
+	removedTools?: Record<string, string[]>;
 	addedTasks: { id: string; phase: string; task: string; by: string }[];
 	addedPhases: { id: string; name: string; by: string }[];
 }
@@ -40,7 +42,7 @@ function seed(): MartineData {
 
 function emptyDraft(version: string | null): MethodDraft {
 	const [major, minor] = (version ?? "1.0").split(".").map(Number);
-	return { version: `${major}.${minor + 1}`, saved: false, edits: {}, addedSkills: {}, addedTasks: [], addedPhases: [] };
+	return { version: `${major}.${minor + 1}`, saved: false, edits: {}, addedSkills: {}, addedTools: {}, removedTools: {}, addedTasks: [], addedPhases: [] };
 }
 
 const uid = () => Math.random().toString(36).slice(2, 8);
@@ -252,6 +254,27 @@ function useMartineState() {
 				patchDraft(methodId, version, (dr) => {
 					const list = dr.addedSkills[key] ?? [];
 					return list.includes(skillId) ? dr : { ...dr, addedSkills: { ...dr.addedSkills, [key]: [...list, skillId] } };
+				}),
+			// Link a repository tool to a task of the method, or unlink it (draft).
+			linkTool: (methodId: string, version: string | null, key: string, toolId: string) =>
+				patchDraft(methodId, version, (dr) => {
+					const removed = (dr.removedTools?.[key] ?? []).filter((t) => t !== toolId);
+					const added = dr.addedTools?.[key] ?? [];
+					return {
+						...dr,
+						removedTools: { ...dr.removedTools, [key]: removed },
+						addedTools: { ...dr.addedTools, [key]: added.includes(toolId) ? added : [...added, toolId] },
+					};
+				}),
+			unlinkTool: (methodId: string, version: string | null, key: string, toolId: string) =>
+				patchDraft(methodId, version, (dr) => {
+					const added = dr.addedTools?.[key] ?? [];
+					const removed = dr.removedTools?.[key] ?? [];
+					return {
+						...dr,
+						addedTools: { ...dr.addedTools, [key]: added.filter((t) => t !== toolId) },
+						removedTools: { ...dr.removedTools, [key]: removed.includes(toolId) ? removed : [...removed, toolId] },
+					};
 				}),
 			addMethodTask: (methodId: string, version: string | null, phase: string, task: string) =>
 				patchDraft(methodId, version, (dr) => ({ ...dr, addedTasks: [...dr.addedTasks, { id: `t${uid()}`, phase, task, by: me }] })),

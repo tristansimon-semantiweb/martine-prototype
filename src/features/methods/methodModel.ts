@@ -10,6 +10,7 @@ export interface MethodTaskView {
 	task: MethodTask; // with the draft's edits applied
 	original?: MethodTask; // as published (absent for a task added in the draft)
 	addedSkills: string[];
+	addedTools: string[]; // linked in the draft
 	edited: boolean;
 	isNew: boolean;
 }
@@ -36,7 +37,15 @@ const blankTask = (task: string): MethodTask => ({
 	days_max: null,
 	owner: "Analyst",
 	skills: [],
+	tool_ids: [],
 });
+
+// The task's tools once the draft's links and unlinks are applied.
+function draftTools(base: string[], draft: MethodDraft | undefined, key: string) {
+	const removed = draft?.removedTools?.[key] ?? [];
+	const added = (draft?.addedTools?.[key] ?? []).filter((t) => !base.includes(t));
+	return { tool_ids: [...base.filter((t) => !removed.includes(t)), ...added], added };
+}
 
 export function methodPhases(methodId: string, draft: MethodDraft | undefined, suggestions: MethodSuggestion[]): MethodPhaseView[] {
 	const file = methodFile(methodId);
@@ -48,11 +57,13 @@ export function methodPhases(methodId: string, draft: MethodDraft | undefined, s
 			const key = taskKey(id, i);
 			const edits = draft?.edits[key];
 			const added = draft?.addedSkills[key] ?? [];
+			const tools = draftTools(t.tool_ids ?? [], draft, key);
 			return {
 				key,
-				task: { ...t, ...edits, skills: [...t.skills, ...added] },
+				task: { ...t, ...edits, skills: [...t.skills, ...added], tool_ids: tools.tool_ids },
 				original: t,
 				addedSkills: added,
+				addedTools: tools.added,
 				edited: Boolean(edits && Object.keys(edits).length),
 				isNew: false,
 			};
@@ -62,10 +73,12 @@ export function methodPhases(methodId: string, draft: MethodDraft | undefined, s
 			.map((t, i) => {
 				const key = taskKey(id, base.length + i);
 				const added = draft?.addedSkills[key] ?? [];
+				const tools = draftTools([], draft, key);
 				return {
 					key,
-					task: { ...blankTask(t.task), ...draft?.edits[key], skills: added },
+					task: { ...blankTask(t.task), ...draft?.edits[key], skills: added, tool_ids: tools.tool_ids },
 					addedSkills: added,
+					addedTools: tools.added,
 					edited: false,
 					isNew: true,
 				};

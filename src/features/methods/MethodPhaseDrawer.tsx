@@ -6,7 +6,7 @@ import { useMartine } from "@/shared/hooks/useMartine";
 import { useToast } from "@/shared/components/ui/Toast";
 import { methodEntry, personById, skillById } from "@/shared/lib/data";
 import { costedDays } from "@/shared/lib/format";
-import { Chip, PhaseSheet, TaskFields, formatOf, taskMeta, taskRows, toolChips } from "@/features/phase/PhaseParts";
+import { PhaseSheet, TaskFields, ToolList, formatOf, taskMeta, taskRows } from "@/features/phase/PhaseParts";
 import type { MethodPhaseView, MethodTaskView } from "./methodModel";
 
 // The study's phase drawer in edit mode, for the method owner: accept or
@@ -153,7 +153,7 @@ const FIELDS: Record<"tasks" | "steps", { key: Field; label: string }[]> = {
 };
 
 function EditableTask({ methodId, index, view, isOwner, onAdd }: { methodId: string; index: number; view: MethodTaskView; isOwner: boolean; onAdd: () => void }) {
-	const { editMethodTask } = useMartine();
+	const { editMethodTask, unlinkTool } = useMartine();
 	const m = methodEntry(methodId);
 	const format = formatOf(methodId);
 	const fields = FIELDS[format];
@@ -161,7 +161,6 @@ function EditableTask({ methodId, index, view, isOwner, onAdd }: { methodId: str
 	const current = () => Object.fromEntries(fields.map((f) => [f.key, view.task[f.key] ?? ""])) as Partial<Record<Field, string>>;
 	const [values, setValues] = useState(current);
 	const { task } = view;
-	const chips = toolChips(task);
 
 	const editor = (f: { key: Field; label: string }) => (
 		<textarea
@@ -173,30 +172,25 @@ function EditableTask({ methodId, index, view, isOwner, onAdd }: { methodId: str
 		/>
 	);
 	const tools = (
-		<span className="flex flex-wrap items-center gap-1.5">
-		{chips.map((c) => (
-			<Chip key={c.label}>{c.label}</Chip>
-		))}
-		{task.skills.map((s) => (
-			<span
-				key={s}
-				className="rounded-[var(--radius-xl)] bg-[var(--color-accent-dim)] px-2.5 py-0.5 text-[13px] font-semibold text-[var(--color-accent)]"
-			>
-				Skill: {skillById(s)?.label ?? s}
-				{view.addedSkills.includes(s) && <span className="font-normal"> (new)</span>}
-			</span>
-		))}
-		{isOwner && (
-			<button
-				onClick={onAdd}
-				className="inline-flex items-center gap-0.5 rounded-[var(--radius-xl)] border border-dashed border-[var(--color-border-active)] px-2.5 py-0.5 text-[13px] font-semibold"
-			>
-				<Plus size={12} aria-hidden /> Add
-			</button>
-		)}
-		{!isOwner && chips.length === 0 && task.skills.length === 0 && <span className="text-[var(--color-ink-muted)]">None named</span>}
-		</span>
+		<ToolList task={task} newIds={view.addedTools} onUnlink={isOwner ? (t) => unlinkTool(methodId, m?.version ?? null, view.key, t) : undefined}>
+			{task.skills.map((s) => (
+				<span key={s} className="rounded-[var(--radius-xl)] bg-[var(--color-accent-dim)] px-2.5 py-0.5 text-[13px] font-semibold text-[var(--color-accent)]">
+					Skill: {skillById(s)?.label ?? s}
+					{view.addedSkills.includes(s) && <span className="font-normal"> (new)</span>}
+				</span>
+			))}
+			{isOwner && (
+				<button
+					onClick={onAdd}
+					className="inline-flex items-center gap-0.5 rounded-[var(--radius-xl)] border border-dashed border-[var(--color-border-active)] px-2.5 py-0.5 text-[13px] font-semibold"
+				>
+					<Plus size={12} aria-hidden /> Add
+				</button>
+			)}
+			{!isOwner && !task.tool_ids.length && !task.skills.length && !task.tools && <span className="text-[var(--color-ink-muted)]">None named</span>}
+		</ToolList>
 	);
+
 
 	return (
 		<article className="flex flex-col gap-3.5 rounded-[14px] border border-[var(--color-border)] p-[18px]">

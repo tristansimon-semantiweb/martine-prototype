@@ -27,6 +27,9 @@
 					"days_min": 0.1,
 					"days_max": 0.25,
 					"owner": "Analyst",
+					"tool_ids": [
+						"radarly"
+					],
 					"skills": []
 				},
 				{
@@ -38,6 +41,7 @@
 					"days_min": 0.1,
 					"days_max": 0.25,
 					"owner": "Analyst",
+					"tool_ids": [],
 					"skills": []
 				}
 			]
@@ -59,6 +63,9 @@
 					"days_min": 0.5,
 					"days_max": 0.5,
 					"owner": "Analyst",
+					"tool_ids": [
+						"radarly"
+					],
 					"skills": []
 				},
 				{
@@ -70,6 +77,9 @@
 					"days_min": 1,
 					"days_max": 1.5,
 					"owner": "Analyst",
+					"tool_ids": [
+						"radarly"
+					],
 					"skills": []
 				}
 			]
@@ -91,6 +101,9 @@
 					"days_min": 0,
 					"days_max": 0.1,
 					"owner": "Analyst",
+					"tool_ids": [
+						"teams"
+					],
 					"skills": []
 				}
 			]
@@ -112,6 +125,9 @@
 					"days_min": 0.1,
 					"days_max": 0.25,
 					"owner": "Analyst",
+					"tool_ids": [
+						"radarly"
+					],
 					"skills": []
 				},
 				{
@@ -123,6 +139,9 @@
 					"days_min": 1,
 					"days_max": 2,
 					"owner": "Analyst",
+					"tool_ids": [
+						"radarly"
+					],
 					"skills": []
 				}
 			]
@@ -144,6 +163,9 @@
 					"days_min": 2,
 					"days_max": 3,
 					"owner": "Analyst",
+					"tool_ids": [
+						"radarly"
+					],
 					"skills": []
 				},
 				{
@@ -155,6 +177,9 @@
 					"days_min": 4,
 					"days_max": 4,
 					"owner": "Analyst",
+					"tool_ids": [
+						"radarly"
+					],
 					"skills": []
 				}
 			]
@@ -176,6 +201,9 @@
 					"days_min": 0.25,
 					"days_max": 0.25,
 					"owner": "Analyst",
+					"tool_ids": [
+						"teams"
+					],
 					"skills": []
 				}
 			]
@@ -197,6 +225,9 @@
 					"days_min": 1,
 					"days_max": 1,
 					"owner": "Analyst",
+					"tool_ids": [
+						"radarly"
+					],
 					"skills": []
 				},
 				{
@@ -208,6 +239,9 @@
 					"days_min": 2,
 					"days_max": 3,
 					"owner": "Analyst",
+					"tool_ids": [
+						"radarly"
+					],
 					"skills": []
 				}
 			]
@@ -229,6 +263,9 @@
 					"days_min": 3,
 					"days_max": 3,
 					"owner": "Analyst",
+					"tool_ids": [
+						"radarly"
+					],
 					"skills": []
 				},
 				{
@@ -240,6 +277,9 @@
 					"days_min": 4,
 					"days_max": 5,
 					"owner": "Analyst",
+					"tool_ids": [
+						"radarly"
+					],
 					"skills": []
 				}
 			]
@@ -261,6 +301,9 @@
 					"days_min": 0.25,
 					"days_max": 0.25,
 					"owner": "Analyst",
+					"tool_ids": [
+						"teams"
+					],
 					"skills": []
 				}
 			]

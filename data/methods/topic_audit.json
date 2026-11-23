@@ -24,6 +24,7 @@
 					"how": "Read the brief.\nUnderstand the client agenda: why is the client asking this question?\nUnderstand the client's activation means: communication, digital, marketing, R&I product... Depending on who the client is, the recommendation will be different.\nHold a kick-off call with the project lead: topic, category, markets, targets, sources, deliverable due date.",
 					"watch_out": "Identify the sub-type first: exploration inside a category (targets, usages, ingredients, sentiments, moments, platforms) or innovation audit. It changes the sources, the duration and the work plan (see Scope & Context below).",
 					"tools": "",
+					"tool_ids": [],
 					"check": "",
 					"output": "Validated scope and timeline",
 					"time": null,
@@ -38,6 +39,9 @@
 					"how": "Check your staffing on Float.\nValidate it with the project lead.",
 					"watch_out": "",
 					"tools": "Float",
+					"tool_ids": [
+						"float"
+					],
 					"check": "",
 					"output": "Staffing validated on Float",
 					"time": null,
@@ -52,6 +56,9 @@
 					"how": "Ask your project lead and the analyst channels whether the topic or category was already covered: facets, queries, insights.\nIf they are not already in the internal brief or the project Slack channel, ask the analyst Slack group where past audits and facets are stored.",
 					"watch_out": "Tomorrow (facet and audit library): launch an internal AI search on facets that can be useful and on all insights linked to the topic already found in previous studies (ODP-01).",
 					"tools": "Slack",
+					"tool_ids": [
+						"slack"
+					],
 					"check": "",
 					"output": "Reusable facets and insights in the working sheet",
 					"time": null,
@@ -76,6 +83,10 @@
 					"how": "Launch a Perplexity and/or Gemini search on the market / category and ask for summaries of all the published market studies on the topic.\nSave the links in a dedicated section of your working sheet.",
 					"watch_out": "AI is a cross-check, not a source: keep a link for every study you use.",
 					"tools": "Gemini, Perplexity",
+					"tool_ids": [
+						"gemini",
+						"perplexity"
+					],
 					"check": "",
 					"output": "Market summary and sources in the working sheet",
 					"time": null,
@@ -89,7 +100,11 @@
 					"what": "Anticipate the kind of answer you expect to find and deliver.",
 					"how": "Imagine the answer you expect to find and deliver to the client.\nAsk the question to an AI (e.g. Gemini), and challenge its answers and the material it used.\nLaunch a Reddit Answers search on the market / category and read some Reddit conversations to inspire the query.\nExplore the top short videos pushed by Google Search on your topic.",
 					"watch_out": "AI answers reflect published web content, not consumer voice: use them to sharpen the query and the analysis, not as findings. These inputs matter for innovation projects: they give visibility on \"technical\" innovations that may already be commercialised and / or commented on by consumers.",
-					"tools": "Gemini",
+					"tools": "Google Search, Gemini",
+					"tool_ids": [
+						"google_search",
+						"gemini"
+					],
 					"check": "",
 					"output": "Hypotheses in the working sheet",
 					"time": null,
@@ -104,6 +119,7 @@
 					"how": "Check with your project lead whether the client gave categories, sub-categories, a list of products, a list of brands or brand segments.\nIf the client gave none, plan a validation meeting to share what you found and how you plan to categorise the products and brands.",
 					"watch_out": "With no client referential and an unknown category, brands, brand segments, categories / sub-categories, expected benefits and positive / negative attributes have to be built later from the frequencies (see 5.3), ideally shared and validated by the client during a checkpoint meeting.",
 					"tools": "",
+					"tool_ids": [],
 					"check": "",
 					"output": "Client referentials, or validation meeting planned",
 					"time": null,
@@ -128,6 +144,7 @@
 					"how": "Write a definition of the topic with explicit inclusions and exclusions.\nExamples: future of \"healthy hydration\" = what is healthy hydration? \"Skin interrogation\" = what is a skin interrogation (concern? outcome? all types?).\nValidate the perimeter with the project lead and the client.",
 					"watch_out": "Much harder than for a brand (brand names, products, proprietary #) or a category (product names) when the topic is not a product category or an ingredient.",
 					"tools": "",
+					"tool_ids": [],
 					"check": "",
 					"output": "Perimeter validated by the project lead and the client",
 					"time": null,
@@ -141,7 +158,12 @@
 					"what": "Translate the perimeter into queries.",
 					"how": "Build the query with Claude's help (cf Claude Skills sheet) and by trial and error.\nBuild it in both Talkwalker and Meltwater for volume testing and coherence.\nDon't forget hashtags.; [client query example removed]; OR; [client query example removed]; [client query example removed]; [client query example removed]",
 					"watch_out": "",
-					"tools": "Meltwater, Talkwalker, Claude",
+					"tools": "Talkwalker, Meltwater, Claude",
+					"tool_ids": [
+						"talkwalker",
+						"meltwater",
+						"claude"
+					],
 					"check": "",
 					"output": "Draft query in Talkwalker and Meltwater",
 					"time": null,
@@ -156,6 +178,10 @@
 					"how": "Check query pollution by comparing your topic with the top keywords and topic breakdown of both platforms, plus the platforms' AI-powered insights.\nIf you are unsure about the quality of your query, extract about 5k random posts with Meltwater, pass them to Claude with its cleaning-social-volume skill, and ask it to identify pollution and propose query amendments with its query-building skill.",
 					"watch_out": "Don't spend too much time on depollution: on 20k verbatims, 50 polluted posts will not change your quantitative insights.",
 					"tools": "Meltwater, Claude",
+					"tool_ids": [
+						"meltwater",
+						"claude"
+					],
 					"check": "",
 					"output": "Cleaned query",
 					"time": null,
@@ -171,7 +197,15 @@
 					"what": "Secure the query and the volume vision before extraction.",
 					"how": "Volume checks by platform:\nRadarly: log the topic volume per platform, per month, per market.\nTalkwalker > Topic Analytics > build or select the topic > filters: Consumer voice + country + 2Y data > log volume and evolution by platform in the working sheet. Check that no other brands or topics are pre-selected.\nMeltwater: ask the Meltwater account owner on Slack for access > log volume and evolution by platform, especially TikTok.\nIf TikTok needs more volume than Meltwater gives: log Spate volumes (Trends and/or Brands > topic hashtags) and/or Visibrain volumes (own access, follow the Visibrain guide). Ask your project lead for the Spate access; never copy logins into shared documents.\nProportion check: compare the volume and platform split with past projects (same client, same or similar topic/category, brand audits covering it). If a ratio looks off (e.g. a platform doubled without explanation), look for the cause: query too narrow / too broad, missing viral topic, noise, perimeter change. Fix or document.\nRecommendation: one volume per platform (Instagram and Reddit from Radarly or Meltwater, TikTok from Meltwater or crawl + Spate), evolutions (L12M vs P12M) fact-checked with Talkwalker, proportion check attached.\nDone when: volumes per platform from the tools are side by side in the working sheet, each gap is fixed or explained, and the project lead approves the final volume. Do not start the corpus before approval.",
 					"watch_out": "Mandatory: validate your final query and volume vision with your project lead.\nBest practice: validate your final query with the client.",
-					"tools": "Radarly, Meltwater, Talkwalker, Visibrain, Spate, Slack",
+					"tools": "Radarly, Talkwalker, Meltwater, Visibrain, Spate, Slack",
+					"tool_ids": [
+						"radarly",
+						"talkwalker",
+						"meltwater",
+						"visibrain",
+						"spate",
+						"slack"
+					],
 					"check": "",
 					"output": "Validated query and volumes",
 					"time": null,
@@ -196,6 +230,10 @@
 					"how": "Example with a FR + US project:\nAll posts from the detected geographic zone (FR & US).\n+ unknown-geo TikTok & Reddit, EN language, with UK, AUS, NZ and India exclusion queries.\n+ unknown-geo TikTok & Reddit, FR language, with Canada, French-speaking Africa, Benelux and Switzerland exclusion queries.\n+ dedicated country subreddit crawls; the crawled Reddit URLs are then reseeded with content by the Reddit crawler.\nDepollute the \"unknown\" geo posts with the exclusion queries from the Notion page \"Depollution Queries\" (created by an analyst): [internal link]",
 					"watch_out": "Reddit and TikTok are key platforms for consumer insights, mostly extracted from Meltwater; the only way to assign them to a country is the language.",
 					"tools": "Meltwater, Notion",
+					"tool_ids": [
+						"meltwater",
+						"notion"
+					],
 					"check": "",
 					"output": "Extracts per country",
 					"time": null,
@@ -210,6 +248,12 @@
 					"how": "Crawl request: list the key products and check whether they are already in the Semantiweb reviews database (ICC > R&R - Semantiweb reviews Live Deduplicate). If not, email the R&R crawl owner the products to crawl and the e-retailer scope (e.g. Sephora, as stated in the brief).\nIf the product is not a beauty product, you may be asked to crawl the reviews yourself with Export Comments: ask Gemini for the 20 most popular products in the category / sub-category for each country / target, and crawl at least one URL per product (ideally 50 reviews minimum per product). Import the Export Comments file as a source in Corpus Manager.",
 					"watch_out": "If you are unsure about the e-retailer scope, validate it with the project lead. If the crawl is not finished after 2 working days, contact the Tech team on Slack.",
 					"tools": "Corpus Manager, Export Comments, Gemini, Slack",
+					"tool_ids": [
+						"corpus_manager",
+						"export_comments",
+						"gemini",
+						"slack"
+					],
 					"check": "",
 					"output": "Reviews available for the corpus",
 					"time": null,
@@ -224,6 +268,9 @@
 					"how": "Use Trajaan = check the platform documentation for search project creation and labelling.",
 					"watch_out": "",
 					"tools": "Trajaan",
+					"tool_ids": [
+						"trajaan"
+					],
 					"check": "",
 					"output": "Search volumes and growth",
 					"time": null,
@@ -238,6 +285,9 @@
 					"how": "Load extracts, crawls and reviews into Corpus Manager.\nPrefer one single corpus mixing reviews and social listening, to better understand what drives expectations, positivity and negativity. This implies clean facets.\nLoading and deduplication (see Corpus Manager methodology): first run each file through the Files tool on ICC (it handles deduplication, translation and format), then add all sources to your Corpus Manager project, and only then create the corpus with its facets and SOB.",
 					"watch_out": "Brand Audit 4.1 recommends a separate reviews corpus: rule to harmonise.; A single corpus with SML and R&R macro-source categories makes it faster to identify top products by SML facet and gives a more exhaustive sentiment analysis, but it requires clean facets.",
 					"tools": "Corpus Manager",
+					"tool_ids": [
+						"corpus_manager"
+					],
 					"check": "",
 					"output": "Deduplicated corpus",
 					"time": null,
@@ -262,6 +312,7 @@
 					"how": "Start from the standard facet list (see Generic Facets sheet) and keep only what fits the topic.\nBasic indicators, normally already there: time frame (L12M vs P12M and months), platforms, countries, language.\nAdd: sentiments, emotions, targets, gender, ages / audiences (generations, life stages, gender cues).\nCategory & sub-category (to be validated by the client).\nBrands and brand segments, with brand names and variants (to be validated by the client).\nExpected benefits / results, positive attributes, negative attributes, drivers (reasons behind sentiment and mentions), if the category is already followed by Semantiweb in R&R.\nDepending on the topic, add from Generic Facets: concerns, skin / hair types, body zones, ingredients, textures, scents, formats, routines & gestures, occasions, seasons, weather, price, packaging.\nOptional modules if the brief needs them: territories, purchase destinations, personas (one facet per persona), brand values.\nDone when: the corpus carries the basic facets and the list of facets used is logged in the working sheet.",
 					"watch_out": "If the category is unknown and the client gave no information, brands, brand segments, categories / sub-categories, expected benefits and attributes are created later, after the frequency analysis (5.3).",
 					"tools": "",
+					"tool_ids": [],
 					"check": "",
 					"output": "Corpus with basic facets",
 					"time": null,
@@ -276,6 +327,9 @@
 					"how": "If sentiment and emotions are not tagged in some of your sources: use AI.\nAsk Claude to label the verbatim emitters (brands, influencers, real consumers, HCPs...) and put them in a facet.",
 					"watch_out": "Manually check the AI tagging on a sample (200 verbatims) before using it.",
 					"tools": "Claude",
+					"tool_ids": [
+						"claude"
+					],
 					"check": "",
 					"output": "Sentiment, emotion and emitter facets",
 					"time": null,
@@ -300,6 +354,11 @@
 					"how": "As soon as the corpus is ready (facets from 4.1 applied), run the frequencies: they feed the topic categories (5.2), the AI labelling (5.3), rising words, sentiment drivers and targets.\nScope: global, by country, by platform, by facet (target, gender, category / sub-category, brand segment, positive, negative).\nPeriods: for each scope, run L12M and P12M (YoY), plus L24M for the overall top words if the corpus covers 2 years.\nICC path (see ICC TOOLS 1.1): select the facets in the corpus > Frequencies tab > choose the type (default: lexical + hashtags; emoji or syntagmatic if useful) > select the right language (FR by default) > tick \"receive an email when ready\" > view on the ICC or download.\nYoY and comparisons (see ICC TOOLS 1.2): run the frequencies on each period or segment with the same settings, then use the \"Difference\" button to read over-represented, under-represented and new words (specificities = L12M rising words).\nFirst reading: pass the downloaded files to Claude to clear the ground (first clusters, noise, pollution check); the Claude Excel extension can colour-code the frequencies. The analyst reviews the output.\nUnclear top word: check its context in the concordancer (ICC TOOLS 4).\nLanguages: frequencies run on one language at a time. On a multi-country corpus (e.g. FR + US, see 3.1), run one batch per language, or on the translated text if the corpus was translated.\nSources: if the corpus mixes social listening and reviews (see 3.4), run the frequencies per macro-source (SML / R&R) on top of the total: review vocabulary (product, rating) differs from social conversation.\nDone when: all frequency exports (scope × period) are saved in the Project Drive and logged in the working sheet.",
 					"watch_out": "Automatable (ODP-06).\nLanguage is set to FR by default: change it if the corpus is not French.\nFrequencies can get queued when many people run them: running icon (walking person) = in progress, warning icon = real issue. Check before alerting Tech.\nDifferential: both batches need the same settings and comparable volumes. A small period 2 produces artificial specificities.\nRemove brand names and generic words before reading top / rising words; group variants and translations.\nSegment and facet runs only (not global frequencies): when a run rests on a small segment (minor country, target, sub-category), tag it \"LOW SIGNAL\" and read it as directional rather than over-reading it (see Category Audit rule on LOW SIGNAL).",
 					"tools": "Claude, Google Drive, Excel",
+					"tool_ids": [
+						"claude",
+						"google_drive",
+						"excel"
+					],
 					"check": "",
 					"output": "Frequency exports",
 					"time": null,
@@ -314,6 +373,9 @@
 					"how": "Take the top 200 words and identify topic categories: is it mainly products, usage, price...?\nFor unclear top words, check the concordancer to identify the context of use.",
 					"watch_out": "Claude can propose 3 to 4 clusterings, on a deeper analysis than 200 words; the analyst validates (ODP-07).",
 					"tools": "Claude",
+					"tool_ids": [
+						"claude"
+					],
 					"check": "",
 					"output": "Topic categories in the working sheet",
 					"time": null,
@@ -328,6 +390,7 @@
 					"how": "Ask AI to label: all brands, products and brand segments (and check whether the facets are exhaustive); formats, ingredients, benefits (if relevant); target (gender, age).\nCheck against the identified keywords whether some existing facets must be enriched.\nAsk AI to identify patterns in facet correlations (e.g. one sub-category and positivity).",
 					"watch_out": "Gender / age labels from AI are estimates: state it in the method slide. Correlations on small segments can be spurious: tag them LOW SIGNAL.",
 					"tools": "",
+					"tool_ids": [],
 					"check": "",
 					"output": "Completed facets, correlation leads",
 					"time": null,
@@ -342,6 +405,7 @@
 					"how": "SOV of brands, top brands and evolutions.\nBrand segments SOV and evolutions.\nPlatforms SOV and evolutions.\nIf relevant: SOV of formats, ingredients, sub-categories and tops.",
 					"watch_out": "",
 					"tools": "",
+					"tool_ids": [],
 					"check": "",
 					"output": "Classic tops by country",
 					"time": null,
@@ -356,6 +420,9 @@
 					"how": "Is it a price, benefit, texture, scent conversation?\nIs it a positive, neutral or negative conversation?\nWhich topics are growing over the period? Which are receding?\nDisplay in word clouds with colour codes, in WordArt: font PT Sans, shape square, layout horizontal, word amount as is, spacing 20%.",
 					"watch_out": "Colour code (sentiment): green = positive, grey = neutral, red = negative. Keep the same colours on every word cloud and sentiment chart in the deck.",
 					"tools": "WordArt",
+					"tool_ids": [
+						"wordart"
+					],
 					"check": "",
 					"output": "Conversation assessment and word clouds",
 					"time": null,
@@ -370,6 +437,7 @@
 					"how": "a/ Brands & products that shape the market: which brands / products are references, which ones are winning over the period, what nourishes the attraction.; b/ How consumers enter the conversation (see 5.5).; c/ Search: what are they mostly searching (products, brands, prices, concerns, ingredients)? What are the fastest-growing searches?; d/ R&R: qualities of the best rated products, defaults of the least rated, positivity drivers and their evolution, main tension points and their evolution.",
 					"watch_out": "",
 					"tools": "",
+					"tool_ids": [],
 					"check": "",
 					"output": "4-pillar assessment",
 					"time": null,
@@ -394,6 +462,7 @@
 					"how": "Establish the top topics of the conversation.\nIf relevant, compare with the top brands, products, ingredients, benefits..., depending on what is predominant in the facets.\nEstablish the differences by target.",
 					"watch_out": "",
 					"tools": "",
+					"tool_ids": [],
 					"check": "",
 					"output": "Top topics",
 					"time": null,
@@ -408,6 +477,7 @@
 					"how": "Choose the 4 first topics.\nFor each, identify the correlations inside the topic: evolution, target / country specificities, tops, what is most correlated to what.\nDeep dive the sentiment for each.",
 					"watch_out": "",
 					"tools": "",
+					"tool_ids": [],
 					"check": "",
 					"output": "Deep dive per topic",
 					"time": null,
@@ -422,6 +492,7 @@
 					"how": "With all the inputs, run a brainstorm and make an argued decision on the innovation drivers.\nIf possible, share them with the client before proceeding with production.\nTBD: brainstorm and decision matrix process.",
 					"watch_out": "Innovation territories are those likely to grow because they matter to the consumer; they translate into ideas depending on need gaps, consumer frustrations and whitespaces.",
 					"tools": "",
+					"tool_ids": [],
 					"check": "",
 					"output": "Validated innovation drivers",
 					"time": null,
@@ -436,6 +507,9 @@
 					"how": "Create specific facets linked to the top topics / innovation pillars identified.\nSometimes enrich existing facets (mostly brands) after additional labelling with Claude (deep frequency analysis).\nComplete / reassess the quality of the first facets with the outputs of Claude's frequency labelling.",
 					"watch_out": "",
 					"tools": "Claude",
+					"tool_ids": [
+						"claude"
+					],
 					"check": "",
 					"output": "Dedicated facets",
 					"time": null,
@@ -450,6 +524,7 @@
 					"how": "Reference: the client R&I Hair Serum US / EU deck, pp. 56-72.\nDriver opener (1 slide per innovation driver): name + share per market (e.g. US | EU); one-line definition of the role; sub-territories with their share per market and 4 to 5 components each; key driver split (Look / style vs Hair health & care, base 100); \"How this role is evolving\": 3 FROM → TO shifts; source line.\nID card slide 1 per sub-territory (who / when / what):; – Name, share per market and evolution in pts.; – Description: \"Perceived as…, where progress is read…\" + one line on the US vs EU difference.; – When / how: top 3 usage moments and top 3 application modes, backed by verbatims (brand, country, translated).; – Most mentioned products: top 6 with brand, product name, average rating and number of reviews.; – Main targets: core demographics (Gen Z / Gen X share per market) and 3 to 4 target profiles with their share per market and a one-line description.; – Top concerns and top expected benefits, ranked #1 to #3-4, each with a one-line explanation.\nID card slide 2 (what they like / don't like): 3 to 4 ranked drivers on each side, with the R&R base shown; each driver = headline, one-line explanation, one verbatim (brand, product, country, original + translation) and the product visual.\nSame blocks in the same order on every ID card so sub-territories can be compared. Flag sampling biases with an asterisk (e.g. a product excluded because of review spikes).\nDone when: each sub-territory has its 2 slides, all shares are base 100 per market, and every insight is backed by a verbatim.",
 					"watch_out": "",
 					"tools": "",
+					"tool_ids": [],
 					"check": "",
 					"output": "Innovation driver ID cards",
 					"time": null,
@@ -464,6 +539,7 @@
 					"how": "Identify products already filling these innovation drivers, and development ideas.\nBuild the innovation mapping / benchmark.\nRecommend for the brand, regarding its positioning and SWOT.",
 					"watch_out": "Recommendations must be actionable for the client and fit the brand image: knowledge of the brand positioning is key.",
 					"tools": "",
+					"tool_ids": [],
 					"check": "",
 					"output": "Innovation mapping and recommendations",
 					"time": null,
@@ -488,6 +564,7 @@
 					"how": "Start from the Topic audit Deck Structure tab: keep the 'Always' slides and select the conditional ones that fit the brief and the sub-type.\nUsual work plan (topic): volumes & overview (footprint, platforms, sentiment, who talks); decode (semantics, top topics); deep dive of the main topics (one part each); deep dive by target; zoom on the brand / product / category inside the topic vs the others; tomorrow (emerging shifts, low signals); recommendations.\nUsual work plan (innovation): the topic today (state of the art); where the topic is heading (evolutions); innovation drivers / territories with their ID cards (see 6.5); innovation mapping / benchmark (see 6.6); recommendations for the brand regarding its positioning & SWOT.\nWrite the storyline in the working sheet: one line per slide with its insight headline, the facets / data it uses and the verbatims to illustrate it.\nWrite the key learnings first (5 to 8 numbered headlines) and check each section of the storyline supports one of them.\nShare the storyline with the project lead and adjust before building the slides (7.2).\nDone when: the project lead has validated the storyline and every planned slide has a headline and a data source.",
 					"watch_out": "The delivered audit can follow another agenda, depending on the specific questions in the brief. References: Hair Serum US / EU (innovation), Deodorant US / FR (category-led topic) and Ceramides US / South Korea (ingredient) decks.",
 					"tools": "",
+					"tool_ids": [],
 					"check": "",
 					"output": "Validated storyline",
 					"time": null,
@@ -502,6 +579,7 @@
 					"how": "Use the template most appropriate for the client.\nAdd an agenda, an objective slide and a method slide.\nAlways start with a slide on volumes & evolutions.\nCreate as many slides as needed to make your story understandable: the argument comes in steps.\nEach slide title delivers an insight that leads to the conclusion you want to communicate.\nUse the same base 100 / calculation modes throughout (volume, % growth...).\nLegend on each slide.\nEach illustration (video turned into a gif, or verbatim) must be real and illustrate the insight exactly.\nAdd a lexicon if needed.\nDon't forget the last slide (your team).",
 					"watch_out": "Verbatims are quoted exactly as written, never rephrased.",
 					"tools": "",
+					"tool_ids": [],
 					"check": "",
 					"output": "Report",
 					"time": null,
@@ -516,6 +594,7 @@
 					"how": "Check the weight of the document; create a lighter version with compressed images and videos if needed.\nMake sure all videos / images carry their links.",
 					"watch_out": "",
 					"tools": "",
+					"tool_ids": [],
 					"check": "",
 					"output": "Final file (+ light version)",
 					"time": null,
@@ -540,6 +619,7 @@
 					"how": "Plan at least 2 to 3 review calls per week with the project team.",
 					"watch_out": "",
 					"tools": "",
+					"tool_ids": [],
 					"check": "",
 					"output": "Review calls in the calendar",
 					"time": null,
@@ -564,6 +644,7 @@
 					"how": "Confirm with the project lead whether you should attend.\nMake sure you have the invitation.\nAfter the restitution, ask the project lead for written feedback (plus a quick coffee or call if needed).",
 					"watch_out": "",
 					"tools": "",
+					"tool_ids": [],
 					"check": "",
 					"output": "Attendance confirmed, written feedback",
 					"time": null,

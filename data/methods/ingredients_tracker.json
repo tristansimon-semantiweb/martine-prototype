@@ -27,6 +27,7 @@
 					"days_min": 0.25,
 					"days_max": 1,
 					"owner": "Project lead & lead analyst",
+					"tool_ids": [],
 					"skills": []
 				},
 				{
@@ -38,6 +39,9 @@
 					"days_min": 0.5,
 					"days_max": 2,
 					"owner": "Analysts",
+					"tool_ids": [
+						"claude"
+					],
 					"skills": []
 				},
 				{
@@ -49,6 +53,9 @@
 					"days_min": 0.25,
 					"days_max": 0.5,
 					"owner": "Project lead & lead analyst",
+					"tool_ids": [
+						"float"
+					],
 					"skills": []
 				}
 			]
@@ -70,6 +77,9 @@
 					"days_min": 1,
 					"days_max": 2,
 					"owner": "Analyst (an analyst)",
+					"tool_ids": [
+						"google_search"
+					],
 					"skills": []
 				}
 			]
@@ -91,6 +101,9 @@
 					"days_min": 0.25,
 					"days_max": 1,
 					"owner": "Analysts",
+					"tool_ids": [
+						"radarly"
+					],
 					"skills": []
 				},
 				{
@@ -102,6 +115,9 @@
 					"days_min": 0.5,
 					"days_max": 1,
 					"owner": "Analysts",
+					"tool_ids": [
+						"radarly"
+					],
 					"skills": []
 				},
 				{
@@ -113,6 +129,9 @@
 					"days_min": 0.5,
 					"days_max": 1,
 					"owner": "Analysts",
+					"tool_ids": [
+						"trajaan"
+					],
 					"skills": []
 				},
 				{
@@ -124,6 +143,9 @@
 					"days_min": 1,
 					"days_max": 2,
 					"owner": "Analysts",
+					"tool_ids": [
+						"claude"
+					],
 					"skills": []
 				},
 				{
@@ -135,6 +157,9 @@
 					"days_min": 1,
 					"days_max": 2,
 					"owner": "Intern / Analyst",
+					"tool_ids": [
+						"claude"
+					],
 					"skills": []
 				},
 				{
@@ -146,6 +171,9 @@
 					"days_min": 1,
 					"days_max": 3,
 					"owner": "Analyst",
+					"tool_ids": [
+						"radarly"
+					],
 					"skills": []
 				}
 			]
@@ -167,6 +195,9 @@
 					"days_min": 0.25,
 					"days_max": 0.5,
 					"owner": "Lead analyst",
+					"tool_ids": [
+						"google_search"
+					],
 					"skills": []
 				},
 				{
@@ -178,6 +209,9 @@
 					"days_min": 1,
 					"days_max": 2,
 					"owner": "Analysts",
+					"tool_ids": [
+						"claude"
+					],
 					"skills": []
 				},
 				{
@@ -189,6 +223,7 @@
 					"days_min": 0.5,
 					"days_max": 0.75,
 					"owner": "Analysts",
+					"tool_ids": [],
 					"skills": []
 				}
 			]
@@ -210,6 +245,9 @@
 					"days_min": 1,
 					"days_max": 2,
 					"owner": "Lead analyst + analyst",
+					"tool_ids": [
+						"claude_design"
+					],
 					"skills": []
 				},
 				{
@@ -221,6 +259,9 @@
 					"days_min": 0.5,
 					"days_max": 0.75,
 					"owner": "Analysts",
+					"tool_ids": [
+						"claude_design"
+					],
 					"skills": []
 				},
 				{
@@ -232,6 +273,7 @@
 					"days_min": 0.5,
 					"days_max": 1,
 					"owner": "Analysts",
+					"tool_ids": [],
 					"skills": []
 				},
 				{
@@ -243,6 +285,9 @@
 					"days_min": 1,
 					"days_max": 2,
 					"owner": "Analysts",
+					"tool_ids": [
+						"claude_design"
+					],
 					"skills": []
 				}
 			]
@@ -264,6 +309,9 @@
 					"days_min": 0.25,
 					"days_max": 0.5,
 					"owner": "Analysts",
+					"tool_ids": [
+						"google_slides"
+					],
 					"skills": []
 				},
 				{
@@ -275,6 +323,9 @@
 					"days_min": 1,
 					"days_max": 3,
 					"owner": "Analysts",
+					"tool_ids": [
+						"google_slides"
+					],
 					"skills": []
 				},
 				{
@@ -286,6 +337,9 @@
 					"days_min": 0.5,
 					"days_max": 0.75,
 					"owner": "Analysts",
+					"tool_ids": [
+						"google_slides"
+					],
 					"skills": []
 				},
 				{
@@ -297,6 +351,9 @@
 					"days_min": 0.25,
 					"days_max": 0.5,
 					"owner": "Project Lead + analysts",
+					"tool_ids": [
+						"google_slides"
+					],
 					"skills": []
 				}
 			]
@@ -318,6 +375,9 @@
 					"days_min": 0.1,
 					"days_max": 0.25,
 					"owner": "Lead analyst",
+					"tool_ids": [
+						"google_slides"
+					],
 					"skills": []
 				},
 				{
@@ -329,6 +389,9 @@
 					"days_min": 0.25,
 					"days_max": 0.5,
 					"owner": "Analysts",
+					"tool_ids": [
+						"google_slides"
+					],
 					"skills": []
 				}
 			]
@@ -350,6 +413,9 @@
 					"days_min": 0.5,
 					"days_max": 3,
 					"owner": "Analysts",
+					"tool_ids": [
+						"google_slides"
+					],
 					"skills": []
 				},
 				{
@@ -361,6 +427,10 @@
 					"days_min": 0.25,
 					"days_max": 0.5,
 					"owner": "Project Lead + lead analyst",
+					"tool_ids": [
+						"claude",
+						"google_drive"
+					],
 					"skills": []
 				}
 			]

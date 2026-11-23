@@ -27,6 +27,7 @@
 					"days_min": 0.1,
 					"days_max": 0.1,
 					"owner": "Team lead",
+					"tool_ids": [],
 					"skills": []
 				},
 				{
@@ -38,6 +39,9 @@
 					"days_min": 0.05,
 					"days_max": 0.1,
 					"owner": "Team lead",
+					"tool_ids": [
+						"google_drive"
+					],
 					"skills": []
 				},
 				{
@@ -49,6 +53,9 @@
 					"days_min": 0.05,
 					"days_max": 0.1,
 					"owner": "Team lead",
+					"tool_ids": [
+						"float"
+					],
 					"skills": []
 				},
 				{
@@ -60,6 +67,9 @@
 					"days_min": 0.1,
 					"days_max": 0.1,
 					"owner": "Team lead",
+					"tool_ids": [
+						"google_drive"
+					],
 					"skills": [
 						"building-radarly-queries",
 						"building-corpus-facets"
@@ -74,6 +84,9 @@
 					"days_min": 0.05,
 					"days_max": 0.1,
 					"owner": "Analyst",
+					"tool_ids": [
+						"talkwalker"
+					],
 					"skills": []
 				},
 				{
@@ -85,6 +98,9 @@
 					"days_min": 0.05,
 					"days_max": 0.1,
 					"owner": "Analyst",
+					"tool_ids": [
+						"radarly"
+					],
 					"skills": []
 				}
 			]
@@ -106,6 +122,7 @@
 					"days_min": 0.5,
 					"days_max": 0.8,
 					"owner": "Analyst",
+					"tool_ids": [],
 					"skills": []
 				},
 				{
@@ -117,6 +134,7 @@
 					"days_min": 0.5,
 					"days_max": 0.8,
 					"owner": "Analyst",
+					"tool_ids": [],
 					"skills": []
 				}
 			]
@@ -138,6 +156,9 @@
 					"days_min": 1,
 					"days_max": 1.2,
 					"owner": "Analyst",
+					"tool_ids": [
+						"talkwalker"
+					],
 					"skills": []
 				},
 				{
@@ -149,6 +170,9 @@
 					"days_min": 1,
 					"days_max": 1.2,
 					"owner": "Analyst",
+					"tool_ids": [
+						"radarly"
+					],
 					"skills": []
 				},
 				{
@@ -160,6 +184,9 @@
 					"days_min": 2,
 					"days_max": 2,
 					"owner": "Analyst",
+					"tool_ids": [
+						"excel"
+					],
 					"skills": []
 				}
 			]
@@ -181,6 +208,10 @@
 					"days_min": 0.5,
 					"days_max": 0.8,
 					"owner": "Analyst",
+					"tool_ids": [
+						"radarly",
+						"talkwalker"
+					],
 					"skills": []
 				},
 				{
@@ -192,6 +223,10 @@
 					"days_min": 0.5,
 					"days_max": 0.8,
 					"owner": "Analyst",
+					"tool_ids": [
+						"radarly",
+						"talkwalker"
+					],
 					"skills": []
 				},
 				{
@@ -203,6 +238,10 @@
 					"days_min": 0.7,
 					"days_max": 0.9,
 					"owner": "Analyst",
+					"tool_ids": [
+						"radarly",
+						"talkwalker"
+					],
 					"skills": []
 				}
 			]
@@ -224,6 +263,10 @@
 					"days_min": 0.5,
 					"days_max": 0.8,
 					"owner": "Analyst",
+					"tool_ids": [
+						"radarly",
+						"talkwalker"
+					],
 					"skills": []
 				}
 			]
@@ -245,6 +288,10 @@
 					"days_min": 1,
 					"days_max": 1.5,
 					"owner": "Analyst",
+					"tool_ids": [
+						"radarly",
+						"talkwalker"
+					],
 					"skills": []
 				}
 			]
@@ -266,6 +313,9 @@
 					"days_min": 3.5,
 					"days_max": 4,
 					"owner": "Analyst",
+					"tool_ids": [
+						"powerpoint"
+					],
 					"skills": []
 				}
 			]

@@ -27,6 +27,7 @@
 					"days_min": 0.1,
 					"days_max": 0.1,
 					"owner": "Team lead",
+					"tool_ids": [],
 					"skills": []
 				},
 				{
@@ -38,6 +39,9 @@
 					"days_min": 0.05,
 					"days_max": 0.05,
 					"owner": "Team lead",
+					"tool_ids": [
+						"google_drive"
+					],
 					"skills": []
 				},
 				{
@@ -49,6 +53,9 @@
 					"days_min": 0.05,
 					"days_max": 0.05,
 					"owner": "Team lead",
+					"tool_ids": [
+						"float"
+					],
 					"skills": []
 				},
 				{
@@ -60,6 +67,9 @@
 					"days_min": 0.1,
 					"days_max": 0.1,
 					"owner": "Team lead",
+					"tool_ids": [
+						"google_drive"
+					],
 					"skills": [
 						"building-radarly-queries",
 						"building-corpus-facets"
@@ -84,6 +94,7 @@
 					"days_min": 0.5,
 					"days_max": 0.5,
 					"owner": "Analyst",
+					"tool_ids": [],
 					"skills": []
 				},
 				{
@@ -95,6 +106,9 @@
 					"days_min": 0.05,
 					"days_max": 0.05,
 					"owner": "Analyst",
+					"tool_ids": [
+						"corpus_manager"
+					],
 					"skills": []
 				},
 				{
@@ -106,6 +120,9 @@
 					"days_min": 0.1,
 					"days_max": 0.1,
 					"owner": "Analyst",
+					"tool_ids": [
+						"live_fix"
+					],
 					"skills": []
 				},
 				{
@@ -117,6 +134,7 @@
 					"days_min": 0.05,
 					"days_max": 0.05,
 					"owner": "Team lead",
+					"tool_ids": [],
 					"skills": []
 				}
 			]
@@ -138,6 +156,9 @@
 					"days_min": 0.15,
 					"days_max": 0.15,
 					"owner": "Analyst",
+					"tool_ids": [
+						"radarly"
+					],
 					"skills": [
 						"building-radarly-queries"
 					]
@@ -151,6 +172,9 @@
 					"days_min": 0.1,
 					"days_max": 0.1,
 					"owner": "Analyst",
+					"tool_ids": [
+						"radarly"
+					],
 					"skills": [
 						"cleaning-social-volume"
 					]
@@ -164,6 +188,7 @@
 					"days_min": 0.05,
 					"days_max": 0.05,
 					"owner": "Analyst",
+					"tool_ids": [],
 					"skills": []
 				}
 			]
@@ -185,6 +210,9 @@
 					"days_min": 0.05,
 					"days_max": 0.05,
 					"owner": "Analyst",
+					"tool_ids": [
+						"radarly"
+					],
 					"skills": []
 				},
 				{
@@ -196,6 +224,11 @@
 					"days_min": 0.05,
 					"days_max": 0.05,
 					"owner": "Analyst",
+					"tool_ids": [
+						"radarly",
+						"meltwater",
+						"synthesio"
+					],
 					"skills": []
 				},
 				{
@@ -207,6 +240,9 @@
 					"days_min": 0.15,
 					"days_max": 0.15,
 					"owner": "Analyst",
+					"tool_ids": [
+						"trajaan"
+					],
 					"skills": []
 				},
 				{
@@ -218,6 +254,10 @@
 					"days_min": 0.1,
 					"days_max": 0.1,
 					"owner": "Analyst",
+					"tool_ids": [
+						"corpus_manager",
+						"live_fix"
+					],
 					"skills": [
 						"building-corpus-facets"
 					]
@@ -231,6 +271,9 @@
 					"days_min": 0.1,
 					"days_max": 0.1,
 					"owner": "Analyst",
+					"tool_ids": [
+						"radarly"
+					],
 					"skills": []
 				}
 			]
@@ -252,6 +295,9 @@
 					"days_min": 0.1,
 					"days_max": 0.1,
 					"owner": "Analyst",
+					"tool_ids": [
+						"ssstik"
+					],
 					"skills": []
 				}
 			]
@@ -273,6 +319,9 @@
 					"days_min": 0.2,
 					"days_max": 0.2,
 					"owner": "Analyst",
+					"tool_ids": [
+						"radarly"
+					],
 					"skills": []
 				},
 				{
@@ -284,6 +333,9 @@
 					"days_min": 0.1,
 					"days_max": 0.1,
 					"owner": "Analyst",
+					"tool_ids": [
+						"radarly"
+					],
 					"skills": []
 				},
 				{
@@ -295,6 +347,9 @@
 					"days_min": 0.1,
 					"days_max": 0.1,
 					"owner": "Analyst",
+					"tool_ids": [
+						"radarly"
+					],
 					"skills": []
 				},
 				{
@@ -306,6 +361,9 @@
 					"days_min": 0.1,
 					"days_max": 0.1,
 					"owner": "Analyst",
+					"tool_ids": [
+						"radarly"
+					],
 					"skills": []
 				}
 			]
@@ -327,6 +385,10 @@
 					"days_min": 0.1,
 					"days_max": 0.1,
 					"owner": "Analyst",
+					"tool_ids": [
+						"radarly",
+						"corpus_manager"
+					],
 					"skills": []
 				},
 				{
@@ -338,6 +400,10 @@
 					"days_min": 0.1,
 					"days_max": 0.1,
 					"owner": "Analyst",
+					"tool_ids": [
+						"radarly",
+						"wordart"
+					],
 					"skills": []
 				}
 			]
@@ -359,6 +425,7 @@
 					"days_min": 0.15,
 					"days_max": 0.15,
 					"owner": "Analyst",
+					"tool_ids": [],
 					"skills": []
 				},
 				{
@@ -370,6 +437,7 @@
 					"days_min": 0.15,
 					"days_max": 0.15,
 					"owner": "Analyst",
+					"tool_ids": [],
 					"skills": []
 				},
 				{
@@ -381,6 +449,9 @@
 					"days_min": 0.05,
 					"days_max": 0.05,
 					"owner": "Analyst",
+					"tool_ids": [
+						"ssstik"
+					],
 					"skills": []
 				}
 			]
@@ -402,6 +473,10 @@
 					"days_min": 0.4,
 					"days_max": 0.4,
 					"owner": "Analyst",
+					"tool_ids": [
+						"corpus_manager",
+						"live_fix"
+					],
 					"skills": []
 				},
 				{
@@ -413,6 +488,9 @@
 					"days_min": 0.4,
 					"days_max": 0.4,
 					"owner": "Analyst",
+					"tool_ids": [
+						"corpus_manager"
+					],
 					"skills": []
 				},
 				{
@@ -424,6 +502,9 @@
 					"days_min": 0.2,
 					"days_max": 0.2,
 					"owner": "Analyst",
+					"tool_ids": [
+						"corpus_manager"
+					],
 					"skills": []
 				}
 			]
@@ -445,6 +526,9 @@
 					"days_min": 0.3,
 					"days_max": 0.3,
 					"owner": "Analyst",
+					"tool_ids": [
+						"trajaan"
+					],
 					"skills": []
 				}
 			]
@@ -466,6 +550,7 @@
 					"days_min": 0.5,
 					"days_max": 0.5,
 					"owner": "Analyst",
+					"tool_ids": [],
 					"skills": []
 				},
 				{
@@ -477,6 +562,7 @@
 					"days_min": 0.3,
 					"days_max": 0.3,
 					"owner": "Analyst",
+					"tool_ids": [],
 					"skills": []
 				}
 			]
@@ -498,6 +584,7 @@
 					"days_min": 0.1,
 					"days_max": 0.1,
 					"owner": "Analyst",
+					"tool_ids": [],
 					"skills": []
 				},
 				{
@@ -509,6 +596,7 @@
 					"days_min": 0.2,
 					"days_max": 0.2,
 					"owner": "Reviewer",
+					"tool_ids": [],
 					"skills": []
 				},
 				{
@@ -520,6 +608,7 @@
 					"days_min": 0.05,
 					"days_max": 0.05,
 					"owner": "Analyst",
+					"tool_ids": [],
 					"skills": []
 				},
 				{
@@ -531,6 +620,7 @@
 					"days_min": 0.2,
 					"days_max": 0.2,
 					"owner": "Analyst",
+					"tool_ids": [],
 					"skills": []
 				}
 			]
@@ -552,6 +642,7 @@
 					"days_min": 0.1,
 					"days_max": 0.1,
 					"owner": "Analyst",
+					"tool_ids": [],
 					"skills": []
 				},
 				{
@@ -563,6 +654,7 @@
 					"days_min": 0.1,
 					"days_max": 0.1,
 					"owner": "Team lead",
+					"tool_ids": [],
 					"skills": []
 				}
 			]

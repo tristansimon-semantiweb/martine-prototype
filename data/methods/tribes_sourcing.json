@@ -24,6 +24,7 @@
 					"how": "Get the brief from the project lead and check it against the standard scope\nHold a kick-off call with the project lead: scope, deliverable due date.",
 					"watch_out": "",
 					"tools": "",
+					"tool_ids": [],
 					"check": "",
 					"output": "Validated scope and due date",
 					"time": null,
@@ -38,6 +39,7 @@
 					"how": "Is it a tribe project for devotees only (core fans and lovers) or devotees and prospects (values / territory based)?\nHow many countries? Do we need separate tribe ID cards per country (we usually don't, but worth asking)?\nIs the tribe sourcing for women only, men only, or both? If both, is the territory sent by the brand genderless?\nDo we need to use the client's template (e.g. the client)?\nDo we have the brand / product values, or do we need to ask the client for them?",
 					"watch_out": "If the territory is not genderless, challenge the client on process and cost: one corpus for men and one for women costs more than one corpus for both.\nWe always need to receive either an oral brief or a document with the brand values.",
 					"tools": "",
+					"tool_ids": [],
 					"check": "",
 					"output": "Answers to the key questions",
 					"time": null,
@@ -52,6 +54,7 @@
 					"how": "Is it a \"standard\" / \"light\" tribes sourcing (e.g. the client) or a more extensive one (e.g. a group with several brands)?\nDid we already do a tribe sourcing for this category (makeup, fragrance men, fragrance women, etc.)?\nDid we already do one for this client, brand, product, a competitor, or this country?\nIf yes, source it internally to identify what can be reused: corpus, facets, queries, tribe ID cards.",
 					"watch_out": "",
 					"tools": "",
+					"tool_ids": [],
 					"check": "",
 					"output": "List of reusable assets",
 					"time": null,
@@ -66,6 +69,9 @@
 					"how": "Check your staffing on Float.\nValidate it with the project lead.",
 					"watch_out": "",
 					"tools": "Float",
+					"tool_ids": [
+						"float"
+					],
 					"check": "",
 					"output": "Staffing validated",
 					"time": null,
@@ -80,6 +86,9 @@
 					"how": "Confirm you have the template and the Excel working file.",
 					"watch_out": "",
 					"tools": "Excel",
+					"tool_ids": [
+						"excel"
+					],
 					"check": "",
 					"output": "Template and Excel file at hand",
 					"time": null,
@@ -104,6 +113,9 @@
 					"how": "Go to the brand website and social media accounts.\nAsk ChatGPT for the latest brand news (buzz, bestsellers, pop-up stores).",
 					"watch_out": "",
 					"tools": "ChatGPT",
+					"tool_ids": [
+						"chatgpt"
+					],
 					"check": "",
 					"output": "",
 					"time": null,
@@ -118,6 +130,9 @@
 					"how": "Read tribes studies we already delivered (see Slack channel communities-project).",
 					"watch_out": "",
 					"tools": "Slack",
+					"tool_ids": [
+						"slack"
+					],
 					"check": "",
 					"output": "",
 					"time": null,
@@ -142,6 +157,7 @@
 					"how": "Build the query from the brand territory: its values, its name, its products.\nDevotees only (core fans and lovers), no values: a very simple query on the brand and its products.; Example :; [client query example removed]\nDevotees and prospects (values / territory based): add a territory of values to the brand query.; Example (excerpt):; [client query example removed]",
 					"watch_out": "The query is very broad, so it will bring uninteresting verbatims. Do not spend too much time cleaning it: the study is more quali than quanti.",
 					"tools": "",
+					"tool_ids": [],
 					"check": "",
 					"output": "Validated query",
 					"time": null,
@@ -156,6 +172,9 @@
 					"how": "Run an extraction query directly in the Corpus Manager.; Example:; (year:(\"2026\" OR \"2024\" OR \"2025\")) AND ((country:(\"USA\")) AND (marque_label_all:(\"[brand]\")))",
 					"watch_out": "",
 					"tools": "Corpus Manager",
+					"tool_ids": [
+						"corpus_manager"
+					],
 					"check": "",
 					"output": "Ratings & reviews extraction",
 					"time": null,
@@ -169,7 +188,12 @@
 					"what": "Collect TikTok content + Collect the comments of the most commented TikTok videos with Export Comments.",
 					"how": "Either via Meltwater.\nOr via our internal tool, using identified hashtags (brand hashtags, community hashtags and its values).; - For the manual crawl :\nCheck that the \"Sorter For TikTok & Instagram\" extension is installed on your computer.\nOn TikTok, search the brand / its products > Videos tab > sort by comments, descending > scroll down 10 times to refresh the data.\nIn your working sheet, list the 50 most commented videos: one column for the link, one for the number of comments.\nIn Export Comments, paste the video links and launch the export.",
 					"watch_out": "",
-					"tools": "Meltwater, Export Comments, Sorter",
+					"tools": "Meltwater, Sorter, Export Comments",
+					"tool_ids": [
+						"meltwater",
+						"sorter",
+						"export_comments"
+					],
 					"check": "",
 					"output": "TikTok crawl output",
 					"time": null,
@@ -184,6 +208,10 @@
 					"how": "Depending on access: via our internal tool, Radarly or Meltwater.",
 					"watch_out": "",
 					"tools": "Radarly, Meltwater",
+					"tool_ids": [
+						"radarly",
+						"meltwater"
+					],
 					"check": "",
 					"output": "Reddit crawl output",
 					"time": null,
@@ -198,6 +226,10 @@
 					"how": "Via Radarly or Meltwater.",
 					"watch_out": "",
 					"tools": "Radarly, Meltwater",
+					"tool_ids": [
+						"radarly",
+						"meltwater"
+					],
 					"check": "",
 					"output": "Instagram and Pinterest crawl output",
 					"time": null,
@@ -212,6 +244,10 @@
 					"how": "Via Export Comments: crawl around 50 TikTok posts with more than 100 comments.\nVia Radarly: run an author query to crawl the brand's posts (e.g. @[brand]).",
 					"watch_out": "",
 					"tools": "Radarly, Export Comments",
+					"tool_ids": [
+						"radarly",
+						"export_comments"
+					],
 					"check": "",
 					"output": "Brand posts and comments crawl output",
 					"time": null,
@@ -226,6 +262,9 @@
 					"how": "List the muses:\nSpot them directly in the data.\nDraw on your own knowledge of the community.\nBrowse TikTok or Instagram, searching for the community's values in the search bar.\nCrawl their posts via Radarly with the query \"author:\".",
 					"watch_out": "",
 					"tools": "Radarly",
+					"tool_ids": [
+						"radarly"
+					],
 					"check": "",
 					"output": "Muse list and crawl output",
 					"time": null,
@@ -240,6 +279,9 @@
 					"how": "If a native speaker is available: they translate and check the data (slang, irony, cultural references).\nOtherwise: translate via the Files tool (see Corpus Manager methodology), then have a native speaker check the verbatims selected for the deck.",
 					"watch_out": "Keep the original verbatim next to its translation, and label translations clearly in the deck.",
 					"tools": "Corpus Manager",
+					"tool_ids": [
+						"corpus_manager"
+					],
 					"check": "",
 					"output": "Translated data",
 					"time": null,
@@ -254,6 +296,9 @@
 					"how": "Fill in the shared Excel file step by step.",
 					"watch_out": "",
 					"tools": "Excel",
+					"tool_ids": [
+						"excel"
+					],
 					"check": "",
 					"output": "Shared Excel file up to date",
 					"time": null,
@@ -268,6 +313,9 @@
 					"how": "Load the data in the Corpus Manager (see Corpus Manager methodology).",
 					"watch_out": "",
 					"tools": "Corpus Manager",
+					"tool_ids": [
+						"corpus_manager"
+					],
 					"check": "",
 					"output": "Corpus loaded",
 					"time": null,
@@ -292,6 +340,9 @@
 					"how": "Ask Claude whether celebrities, restaurant names or brands come up repeatedly.\nTake 2 hours to read the data and set aside relevant verbatims.",
 					"watch_out": "Hashtags are key in this type of study: communities are often explicitly named through them.",
 					"tools": "Claude",
+					"tool_ids": [
+						"claude"
+					],
 					"check": "",
 					"output": "First verbatim selection",
 					"time": null,
@@ -306,6 +357,7 @@
 					"how": "Run frequencies per platform and per year.",
 					"watch_out": "",
 					"tools": "",
+					"tool_ids": [],
 					"check": "",
 					"output": "Frequency files",
 					"time": null,
@@ -320,6 +372,7 @@
 					"how": "Read the bio and content of the 25 profiles commenting the most on the brand",
 					"watch_out": "",
 					"tools": "",
+					"tool_ids": [],
 					"check": "",
 					"output": "",
 					"time": null,
@@ -334,6 +387,9 @@
 					"how": "In HypeAuditor, generate the audience analysis of the brand accounts (beauty, fashion, all).; 6",
 					"watch_out": "extract pdf report of the audiences for the brand account on Instagram and Tik Tok to get some ideas of top interests of the audience + demographics + key contributors / influencers about the brand.",
 					"tools": "HypeAuditor",
+					"tool_ids": [
+						"hypeauditor"
+					],
 					"check": "",
 					"output": "Audience analysis",
 					"time": null,
@@ -358,6 +414,7 @@
 					"how": "Identify them with the frequencies and desk research, then confirm them in the corpus.\nUse the search bar: is there enough volume to support the idea?\nTo quantify: queries.",
 					"watch_out": "",
 					"tools": "",
+					"tool_ids": [],
 					"check": "",
 					"output": "Incarnation and centers of interest slides",
 					"time": null,
@@ -372,6 +429,7 @@
 					"how": "Define it with the project lead.",
 					"watch_out": "",
 					"tools": "",
+					"tool_ids": [],
 					"check": "",
 					"output": "Big idea",
 					"time": null,
@@ -386,6 +444,9 @@
 					"how": "Brainstorm with the project lead.\nAsk ChatGPT for naming ideas.\nLook at the Pinterest trend report of the current year: often very inspiring in terms of insights.\nIf planned upstream, send the communities to the client for validation (check with the project lead).",
 					"watch_out": "",
 					"tools": "ChatGPT",
+					"tool_ids": [
+						"chatgpt"
+					],
 					"check": "",
 					"output": "Tribe list and names",
 					"time": null,
@@ -400,6 +461,7 @@
 					"how": "Run frequencies per community, previously quantified with semantic queries.\nWho are they, centers of interest.\nKey temples.\nPillars: qualitative, perception of the community and of the brand.",
 					"watch_out": "Tip: identify a content creator who embodies the community and browse their profile to see what they do, where they go, etc.",
 					"tools": "",
+					"tool_ids": [],
 					"check": "",
 					"output": "One ID card per community",
 					"time": null,
@@ -414,6 +476,11 @@
 					"how": "Take visuals on Pinterest (more qualitative).\nAdd an influencer example who embodies the community: find them through your own knowledge, ChatGPT, HypeAuditor or Traackr.",
 					"watch_out": "Choose visuals that are not blurry: it is the first thing a client sees.",
 					"tools": "HypeAuditor, Traackr, ChatGPT",
+					"tool_ids": [
+						"hypeauditor",
+						"traackr",
+						"chatgpt"
+					],
 					"check": "",
 					"output": "One moodboard per community",
 					"time": null,
@@ -428,6 +495,9 @@
 					"how": "Ask Claude to do it.",
 					"watch_out": "",
 					"tools": "Claude",
+					"tool_ids": [
+						"claude"
+					],
 					"check": "",
 					"output": "Pillars synthesis slide",
 					"time": null,
@@ -442,6 +512,7 @@
 					"how": "Brainstorm with the project lead.",
 					"watch_out": "",
 					"tools": "",
+					"tool_ids": [],
 					"check": "",
 					"output": "Guidelines slide",
 					"time": null,
@@ -456,6 +527,7 @@
 					"how": "",
 					"watch_out": "",
 					"tools": "",
+					"tool_ids": [],
 					"check": "",
 					"output": "",
 					"time": null,
@@ -480,6 +552,7 @@
 					"how": "No duplicate verbatims.\nBase 100 adds up to 100.\nSame font everywhere.\nTitle = insight.\nNo comments or notes left at the bottom of the slides.\nGood quality photos.",
 					"watch_out": "",
 					"tools": "",
+					"tool_ids": [],
 					"check": "",
 					"output": "QA-checked deck",
 					"time": null,
@@ -504,6 +577,7 @@
 					"how": "Plan at least 2 to 3 review calls per week with the project team.",
 					"watch_out": "",
 					"tools": "",
+					"tool_ids": [],
 					"check": "",
 					"output": "",
 					"time": null,
@@ -528,6 +602,7 @@
 					"how": "Confirm with the project lead whether you should attend.\nMake sure you have the invitation.",
 					"watch_out": "",
 					"tools": "",
+					"tool_ids": [],
 					"check": "",
 					"output": "",
 					"time": null,
@@ -542,6 +617,7 @@
 					"how": "After the restitution, ask the project lead for written feedback (plus a quick coffee or call if needed).",
 					"watch_out": "",
 					"tools": "",
+					"tool_ids": [],
 					"check": "",
 					"output": "",
 					"time": null,

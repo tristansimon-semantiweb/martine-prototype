@@ -27,6 +27,10 @@
 					"days_min": null,
 					"days_max": null,
 					"owner": "Project Lead / Analyst",
+					"tool_ids": [
+						"gemini",
+						"granola"
+					],
 					"skills": []
 				},
 				{
@@ -38,6 +42,7 @@
 					"days_min": null,
 					"days_max": null,
 					"owner": "Project Lead",
+					"tool_ids": [],
 					"skills": []
 				}
 			]
@@ -59,6 +64,7 @@
 					"days_min": 1,
 					"days_max": 3,
 					"owner": "Analyst",
+					"tool_ids": [],
 					"skills": []
 				}
 			]
@@ -80,6 +86,7 @@
 					"days_min": 2,
 					"days_max": 4,
 					"owner": "Analyst",
+					"tool_ids": [],
 					"skills": []
 				}
 			]
@@ -101,6 +108,7 @@
 					"days_min": null,
 					"days_max": null,
 					"owner": "Analyst",
+					"tool_ids": [],
 					"skills": []
 				},
 				{
@@ -112,6 +120,7 @@
 					"days_min": null,
 					"days_max": null,
 					"owner": "Analyst",
+					"tool_ids": [],
 					"skills": []
 				}
 			]
@@ -133,6 +142,9 @@
 					"days_min": 2,
 					"days_max": 4,
 					"owner": "Analyst",
+					"tool_ids": [
+						"claude"
+					],
 					"skills": []
 				},
 				{
@@ -144,6 +156,7 @@
 					"days_min": 1,
 					"days_max": 2,
 					"owner": "Analyst",
+					"tool_ids": [],
 					"skills": []
 				}
 			]
@@ -165,6 +178,7 @@
 					"days_min": 1,
 					"days_max": 2,
 					"owner": "Analyst",
+					"tool_ids": [],
 					"skills": []
 				},
 				{
@@ -176,6 +190,9 @@
 					"days_min": 1,
 					"days_max": 3,
 					"owner": "Analyst",
+					"tool_ids": [
+						"claude_docs"
+					],
 					"skills": []
 				},
 				{
@@ -187,6 +204,7 @@
 					"days_min": null,
 					"days_max": null,
 					"owner": "Project Lead / Analyst",
+					"tool_ids": [],
 					"skills": []
 				},
 				{
@@ -198,6 +216,7 @@
 					"days_min": null,
 					"days_max": null,
 					"owner": "Project Lead / Analyst",
+					"tool_ids": [],
 					"skills": []
 				}
 			]
@@ -219,6 +238,7 @@
 					"days_min": null,
 					"days_max": null,
 					"owner": "Analyst",
+					"tool_ids": [],
 					"skills": []
 				},
 				{
@@ -230,6 +250,9 @@
 					"days_min": null,
 					"days_max": null,
 					"owner": "Analyst",
+					"tool_ids": [
+						"claude"
+					],
 					"skills": []
 				},
 				{
@@ -241,6 +264,7 @@
 					"days_min": null,
 					"days_max": null,
 					"owner": "Analyst",
+					"tool_ids": [],
 					"skills": []
 				},
 				{
@@ -252,6 +276,9 @@
 					"days_min": null,
 					"days_max": null,
 					"owner": "Analyst",
+					"tool_ids": [
+						"claude_docs"
+					],
 					"skills": []
 				}
 			]
@@ -273,6 +300,9 @@
 					"days_min": null,
 					"days_max": null,
 					"owner": "Analyst",
+					"tool_ids": [
+						"spate"
+					],
 					"skills": []
 				}
 			]
@@ -294,6 +324,9 @@
 					"days_min": null,
 					"days_max": null,
 					"owner": "Analyst",
+					"tool_ids": [
+						"claude"
+					],
 					"skills": []
 				},
 				{
@@ -305,6 +338,9 @@
 					"days_min": 3,
 					"days_max": 6,
 					"owner": "",
+					"tool_ids": [
+						"claude"
+					],
 					"skills": []
 				}
 			]
@@ -326,6 +362,7 @@
 					"days_min": null,
 					"days_max": null,
 					"owner": "Project Lead / Analyst",
+					"tool_ids": [],
 					"skills": []
 				}
 			]
@@ -347,6 +384,9 @@
 					"days_min": null,
 					"days_max": null,
 					"owner": "Analyst",
+					"tool_ids": [
+						"powerpoint"
+					],
 					"skills": []
 				},
 				{
@@ -358,6 +398,9 @@
 					"days_min": 2,
 					"days_max": 4,
 					"owner": "Analyst",
+					"tool_ids": [
+						"powerpoint"
+					],
 					"skills": []
 				},
 				{
@@ -369,6 +412,9 @@
 					"days_min": 1,
 					"days_max": 3,
 					"owner": "Analyst",
+					"tool_ids": [
+						"powerpoint"
+					],
 					"skills": []
 				}
 			]
@@ -390,6 +436,9 @@
 					"days_min": null,
 					"days_max": null,
 					"owner": "Project Lead / Analyst",
+					"tool_ids": [
+						"powerpoint"
+					],
 					"skills": []
 				},
 				{
@@ -401,6 +450,9 @@
 					"days_min": 0.5,
 					"days_max": 2,
 					"owner": "Analyst",
+					"tool_ids": [
+						"powerpoint"
+					],
 					"skills": []
 				},
 				{
@@ -412,6 +464,9 @@
 					"days_min": null,
 					"days_max": null,
 					"owner": "Project Lead / Analyst",
+					"tool_ids": [
+						"powerpoint"
+					],
 					"skills": []
 				}
 			]

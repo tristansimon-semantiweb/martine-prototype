@@ -1,7 +1,10 @@
 "use client";
 
 import { Sheet } from "@/shared/components/ui/Sheet";
-import { catalog, methodFile } from "@/shared/lib/data";
+import Link from "next/link";
+import { X } from "lucide-react";
+import { methodFile } from "@/shared/lib/data";
+import { otherToolItems, toolById } from "@/shared/lib/tools";
 import { dayRange } from "@/shared/lib/format";
 import type { MethodFormat, MethodTask } from "@/shared/lib/types";
 
@@ -42,25 +45,44 @@ export function PhaseSheet({
 	);
 }
 
-// The Tools column of the method file mixes apps, documents and skills
-// ("Talkwalker, Queries tab, building-talkwalker-queries skill"). Skills show
-// on their own (Open in Claude); the rest are chips.
-export function toolChips(task: MethodTask): { label: string; kind: "tool" | "document" | "other" }[] {
-	return task.tools
-		.split(/,\s*/)
-		.map((t) => t.trim())
-		.filter((t) => t && !/\bskills?\b/i.test(t) && !task.skills.includes(t))
-		.map((label) => {
-			const lower = label.toLowerCase();
-			if (catalog.tools.some((x) => x.label.toLowerCase() === lower)) return { label, kind: "tool" as const };
-			if (catalog.documents.some((d) => d.toLowerCase().startsWith(lower))) return { label, kind: "document" as const };
-			return { label, kind: "other" as const };
-		});
-}
-
-export function Chip({ children, title }: { children: React.ReactNode; title?: string }) {
+// A task's tools: the repository tools it is linked to (links to their page,
+// removable by the method owner), then what else the Tools column names
+// (documents, sources) as plain text.
+export function ToolList({
+	task,
+	onUnlink,
+	newIds = [],
+	children,
+}: {
+	task: MethodTask;
+	onUnlink?: (toolId: string) => void;
+	newIds?: string[];
+	children?: React.ReactNode;
+}) {
+	const others = otherToolItems(task);
 	return (
-		<span title={title} className="rounded-[var(--radius-xl)] border border-[var(--color-border-hover)] px-2.5 py-0.5 text-[13px]">
+		<span className="flex flex-wrap items-center gap-1.5">
+			{task.tool_ids.map((id) => {
+				const t = toolById(id);
+				return (
+					<span key={id} className="inline-flex items-center rounded-[var(--radius-xl)] border border-[var(--color-border-hover)] text-[13px]">
+						<Link href={`/tools/${id}`} title={t?.kind} className="px-2.5 py-0.5 text-[var(--color-ink)] no-underline hover:text-[var(--color-accent)]">
+							{t?.label ?? id}
+							{newIds.includes(id) && <span className="text-[var(--color-ink-muted)]"> (new)</span>}
+						</Link>
+						{onUnlink && (
+							<button onClick={() => onUnlink(id)} aria-label={`Unlink ${t?.label ?? id}`} className="-ml-1 px-1.5 text-[var(--color-ink-muted)] hover:text-[var(--color-negative)]">
+								<X size={12} aria-hidden />
+							</button>
+						)}
+					</span>
+				);
+			})}
+			{others.map((o) => (
+				<span key={o} title="Named in the method file, not a tool of the repository" className="px-1 text-[13px] text-[var(--color-ink-secondary)]">
+					{o}
+				</span>
+			))}
 			{children}
 		</span>
 	);

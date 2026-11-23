@@ -46,7 +46,7 @@ export function CatalogDrawer({
 	taskKey: string | null;
 	onClose: () => void;
 }) {
-	const { drafts, addSkillToTask, editMethodTask } = useMartine();
+	const { drafts, addSkillToTask, editMethodTask, linkTool } = useMartine();
 	const toast = useToast();
 	const [tab, setTab] = useState<Tab>("Skills");
 	const [query, setQuery] = useState("");
@@ -186,7 +186,33 @@ export function CatalogDrawer({
 				)}
 				{tab === "Tools" && (
 					<ul className="m-0 list-none p-0">
-						{catalog.tools.filter((t) => matches(t.label)).map((t) => simpleRow(t.label, t.claude_connector ? "Claude can read it" : "No Claude connector"))}
+						{catalog.tools
+							.filter((t) => matches(`${t.label} ${t.kind}`))
+							.map((t) => {
+								const linked = task?.tool_ids.includes(t.id);
+								return (
+									<li key={t.id} className="flex flex-wrap items-center gap-2 border-b border-[var(--color-border)] py-3 last:border-b-0">
+										<span className="flex-1 font-semibold">{t.label}</span>
+										<span className="text-sm text-[var(--color-ink-muted)]">
+											{t.kind}
+											{t.claude_connector ? ", Claude can read it" : ""}
+										</span>
+										{linked ? (
+											<span className="text-sm text-[var(--color-ink-muted)]">on this task</span>
+										) : (
+											<button
+												onClick={() => {
+													linkTool(methodId, m?.version ?? null, taskKey!, t.id);
+													toast(`${t.label} linked to the task`);
+												}}
+												className="rounded-[var(--radius)] bg-[var(--color-accent)] px-3 py-1 text-sm font-semibold text-white"
+											>
+												Link
+											</button>
+										)}
+									</li>
+								);
+							})}
 					</ul>
 				)}
 				{tab === "Documents" && <ul className="m-0 list-none p-0">{catalog.documents.filter(matches).map((d) => simpleRow(d, "lives in Files"))}</ul>}

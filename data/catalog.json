@@ -1,21 +1,302 @@
 {
-  "_meta": {"note": "The Semantiweb catalog: one entry per skill, tool, document template and guide. Skill statuses are illustrative until the owners validate them."},
+  "_meta": {
+    "note": "The Semantiweb catalog: one entry per skill, tool, document template and guide. Skill statuses are illustrative until the owners validate them. Tools: the applications people work in, the tool repository; 'aliases' are patterns that find a tool in the method files' text; claude_connector null means not checked yet."
+  },
   "skills": [
-    {"id": "building-talkwalker-queries", "label": "Talkwalker queries", "does": "Writes Talkwalker queries with synonyms per language and checks the syntax limits.", "needs": "The study brief and sub-trends", "produces": "One query per market", "connectors": [], "owner": null, "status": "validated"},
-    {"id": "building-radarly-queries", "label": "Radarly queries", "does": "Same job as above, for Radarly.", "needs": "The study brief", "produces": "One query per market", "connectors": [], "owner": null, "status": "validated"},
-    {"id": "cleaning-social-volume", "label": "Noise cleaning", "does": "Measures the share of noise by cause and suggests exclusions.", "needs": "An export of posts with URL and text, up to 2,000 posts", "produces": "Exclusions and an Excel summary", "connectors": [], "owner": null, "status": "validated"},
-    {"id": "building-corpus-facets", "label": "Corpus facets", "does": "Builds facets from the facet library.", "needs": "The study scope", "produces": "Facet queries", "connectors": [], "owner": null, "status": "validated"},
-    {"id": "voc-reception-analysis", "label": "Reception analysis", "does": "Sentiment, themes and weak signals in a corpus.", "needs": "A corpus export", "produces": "An analysis note", "connectors": [], "owner": null, "status": "experimental"},
-    {"id": "social-listening-project", "label": "Social listening project", "does": "Old end-to-end guide, replaced by the methods in Martine.", "status": "deprecated"}
+    {
+      "id": "building-talkwalker-queries",
+      "label": "Talkwalker queries",
+      "does": "Writes Talkwalker queries with synonyms per language and checks the syntax limits.",
+      "needs": "The study brief and sub-trends",
+      "produces": "One query per market",
+      "connectors": [],
+      "owner": null,
+      "status": "validated"
+    },
+    {
+      "id": "building-radarly-queries",
+      "label": "Radarly queries",
+      "does": "Same job as above, for Radarly.",
+      "needs": "The study brief",
+      "produces": "One query per market",
+      "connectors": [],
+      "owner": null,
+      "status": "validated"
+    },
+    {
+      "id": "cleaning-social-volume",
+      "label": "Noise cleaning",
+      "does": "Measures the share of noise by cause and suggests exclusions.",
+      "needs": "An export of posts with URL and text, up to 2,000 posts",
+      "produces": "Exclusions and an Excel summary",
+      "connectors": [],
+      "owner": null,
+      "status": "validated"
+    },
+    {
+      "id": "building-corpus-facets",
+      "label": "Corpus facets",
+      "does": "Builds facets from the facet library.",
+      "needs": "The study scope",
+      "produces": "Facet queries",
+      "connectors": [],
+      "owner": null,
+      "status": "validated"
+    },
+    {
+      "id": "voc-reception-analysis",
+      "label": "Reception analysis",
+      "does": "Sentiment, themes and weak signals in a corpus.",
+      "needs": "A corpus export",
+      "produces": "An analysis note",
+      "connectors": [],
+      "owner": null,
+      "status": "experimental"
+    },
+    {
+      "id": "social-listening-project",
+      "label": "Social listening project",
+      "does": "Old end-to-end guide, replaced by the methods in Martine.",
+      "status": "deprecated"
+    }
   ],
   "tools": [
-    {"id": "talkwalker", "label": "Talkwalker", "claude_connector": false},
-    {"id": "spate", "label": "Spate", "claude_connector": false},
-    {"id": "trajaan", "label": "Trajaan", "claude_connector": false},
-    {"id": "data_platform", "label": "Data platform", "claude_connector": true},
-    {"id": "google_drive", "label": "Google Drive", "claude_connector": true},
-    {"id": "slack", "label": "Slack", "claude_connector": true}
+    {
+      "id": "radarly",
+      "label": "Radarly",
+      "kind": "Social listening",
+      "claude_connector": null
+    },
+    {
+      "id": "talkwalker",
+      "label": "Talkwalker",
+      "kind": "Social listening",
+      "claude_connector": false
+    },
+    {
+      "id": "meltwater",
+      "label": "Meltwater",
+      "kind": "Social listening",
+      "claude_connector": null
+    },
+    {
+      "id": "sprinklr",
+      "label": "Sprinklr",
+      "kind": "Social listening",
+      "claude_connector": null
+    },
+    {
+      "id": "synthesio",
+      "label": "Synthesio",
+      "kind": "Social listening",
+      "claude_connector": null
+    },
+    {
+      "id": "visibrain",
+      "label": "Visibrain",
+      "kind": "Social listening",
+      "claude_connector": null
+    },
+    {
+      "id": "spate",
+      "label": "Spate",
+      "kind": "Search & trends",
+      "claude_connector": false
+    },
+    {
+      "id": "trajaan",
+      "label": "Trajaan",
+      "kind": "Search & trends",
+      "claude_connector": false
+    },
+    {
+      "id": "google_trends",
+      "label": "Google Trends",
+      "kind": "Search & trends",
+      "claude_connector": null
+    },
+    {
+      "id": "google_search",
+      "label": "Google Search",
+      "kind": "Search & trends",
+      "claude_connector": null,
+      "aliases": [
+        "\\bGoogle\\b(?! (?:Drive|Slides|Sheets|News|Trends|Docs))"
+      ]
+    },
+    {
+      "id": "google_news",
+      "label": "Google News",
+      "kind": "Search & trends",
+      "claude_connector": null
+    },
+    {
+      "id": "hypeauditor",
+      "label": "HypeAuditor",
+      "kind": "Influencer data",
+      "claude_connector": null
+    },
+    {
+      "id": "traackr",
+      "label": "Traackr",
+      "kind": "Influencer data",
+      "claude_connector": null
+    },
+    {
+      "id": "data_platform",
+      "label": "Data platform",
+      "kind": "Semantiweb",
+      "claude_connector": true
+    },
+    {
+      "id": "corpus_manager",
+      "label": "Corpus Manager",
+      "kind": "Semantiweb",
+      "claude_connector": null
+    },
+    {
+      "id": "live_fix",
+      "label": "Live Fix",
+      "kind": "Semantiweb",
+      "claude_connector": null
+    },
+    {
+      "id": "sorter",
+      "label": "Sorter",
+      "kind": "Semantiweb",
+      "claude_connector": null
+    },
+    {
+      "id": "export_comments",
+      "label": "Export Comments",
+      "kind": "Collection",
+      "claude_connector": null
+    },
+    {
+      "id": "ssstik",
+      "label": "ssstik",
+      "kind": "Collection",
+      "claude_connector": null
+    },
+    {
+      "id": "claude",
+      "label": "Claude",
+      "kind": "AI assistant",
+      "claude_connector": null,
+      "aliases": [
+        "\\bClaude\\b(?! (?:Design|Docs))"
+      ]
+    },
+    {
+      "id": "claude_design",
+      "label": "Claude Design",
+      "kind": "AI assistant",
+      "claude_connector": null
+    },
+    {
+      "id": "claude_docs",
+      "label": "Claude Docs",
+      "kind": "AI assistant",
+      "claude_connector": null
+    },
+    {
+      "id": "chatgpt",
+      "label": "ChatGPT",
+      "kind": "AI assistant",
+      "claude_connector": null
+    },
+    {
+      "id": "gemini",
+      "label": "Gemini",
+      "kind": "AI assistant",
+      "claude_connector": null
+    },
+    {
+      "id": "perplexity",
+      "label": "Perplexity",
+      "kind": "AI assistant",
+      "claude_connector": null
+    },
+    {
+      "id": "slack",
+      "label": "Slack",
+      "kind": "Collaboration",
+      "claude_connector": true
+    },
+    {
+      "id": "teams",
+      "label": "Teams",
+      "kind": "Collaboration",
+      "claude_connector": null
+    },
+    {
+      "id": "google_drive",
+      "label": "Google Drive",
+      "kind": "Collaboration",
+      "claude_connector": true,
+      "aliases": [
+        "\\b(?:Google )?Drive\\b"
+      ]
+    },
+    {
+      "id": "notion",
+      "label": "Notion",
+      "kind": "Collaboration",
+      "claude_connector": null
+    },
+    {
+      "id": "float",
+      "label": "Float",
+      "kind": "Collaboration",
+      "claude_connector": null
+    },
+    {
+      "id": "granola",
+      "label": "Granola",
+      "kind": "Collaboration",
+      "claude_connector": null
+    },
+    {
+      "id": "excel",
+      "label": "Excel",
+      "kind": "Office",
+      "claude_connector": null
+    },
+    {
+      "id": "powerpoint",
+      "label": "PowerPoint",
+      "kind": "Office",
+      "claude_connector": null
+    },
+    {
+      "id": "google_slides",
+      "label": "Google Slides",
+      "kind": "Office",
+      "claude_connector": null
+    },
+    {
+      "id": "canva",
+      "label": "Canva",
+      "kind": "Office",
+      "claude_connector": null
+    },
+    {
+      "id": "wordart",
+      "label": "WordArt",
+      "kind": "Office",
+      "claude_connector": null
+    }
   ],
-  "documents": ["Queries tab template", "Metrics tab template", "TikTok sample sheet", "Codebook", "Deck template"],
-  "guides": ["How to create the perfect query", "Noise cleaning by market", "Talkwalker queries skill guide"]
+  "documents": [
+    "Queries tab template",
+    "Metrics tab template",
+    "TikTok sample sheet",
+    "Codebook",
+    "Deck template"
+  ],
+  "guides": [
+    "How to create the perfect query",
+    "Noise cleaning by market",
+    "Talkwalker queries skill guide"
+  ]
 }

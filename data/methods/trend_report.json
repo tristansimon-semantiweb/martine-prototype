@@ -27,6 +27,7 @@
 					"days_min": 0.25,
 					"days_max": 0.5,
 					"owner": "Project lead",
+					"tool_ids": [],
 					"skills": []
 				},
 				{
@@ -38,6 +39,10 @@
 					"days_min": 0.25,
 					"days_max": 0.5,
 					"owner": "Project lead",
+					"tool_ids": [
+						"slack",
+						"float"
+					],
 					"skills": []
 				},
 				{
@@ -49,6 +54,9 @@
 					"days_min": 0.1,
 					"days_max": 0.25,
 					"owner": "Analyst",
+					"tool_ids": [
+						"google_drive"
+					],
 					"skills": []
 				},
 				{
@@ -60,6 +68,7 @@
 					"days_min": 0.25,
 					"days_max": 0.5,
 					"owner": "Analyst",
+					"tool_ids": [],
 					"skills": []
 				}
 			]
@@ -81,6 +90,12 @@
 					"days_min": 0.5,
 					"days_max": 1,
 					"owner": "Analyst",
+					"tool_ids": [
+						"google_search",
+						"claude",
+						"chatgpt",
+						"gemini"
+					],
 					"skills": []
 				},
 				{
@@ -92,6 +107,12 @@
 					"days_min": 0.25,
 					"days_max": 0.5,
 					"owner": "Analyst",
+					"tool_ids": [
+						"spate",
+						"trajaan",
+						"google_search",
+						"excel"
+					],
 					"skills": []
 				},
 				{
@@ -103,6 +124,9 @@
 					"days_min": 0.5,
 					"days_max": 1,
 					"owner": "Analyst + Project lead",
+					"tool_ids": [
+						"spate"
+					],
 					"skills": []
 				}
 			]
@@ -124,6 +148,9 @@
 					"days_min": 0.5,
 					"days_max": 1,
 					"owner": "Analyst",
+					"tool_ids": [
+						"talkwalker"
+					],
 					"skills": []
 				},
 				{
@@ -135,6 +162,9 @@
 					"days_min": 1,
 					"days_max": 2,
 					"owner": "Analyst",
+					"tool_ids": [
+						"talkwalker"
+					],
 					"skills": [
 						"building-talkwalker-queries"
 					]
@@ -148,6 +178,9 @@
 					"days_min": 0.5,
 					"days_max": 1,
 					"owner": "Analyst",
+					"tool_ids": [
+						"talkwalker"
+					],
 					"skills": [
 						"cleaning-social-volume"
 					]
@@ -171,6 +204,9 @@
 					"days_min": 0.5,
 					"days_max": 1,
 					"owner": "Analyst",
+					"tool_ids": [
+						"spate"
+					],
 					"skills": [
 						"building-talkwalker-queries"
 					]
@@ -184,6 +220,7 @@
 					"days_min": 0.25,
 					"days_max": 0.5,
 					"owner": "Project lead (Analyst support)",
+					"tool_ids": [],
 					"skills": []
 				},
 				{
@@ -195,6 +232,7 @@
 					"days_min": 0.5,
 					"days_max": 1,
 					"owner": "Analyst",
+					"tool_ids": [],
 					"skills": [
 						"building-talkwalker-queries"
 					]
@@ -208,6 +246,9 @@
 					"days_min": 0.5,
 					"days_max": 1,
 					"owner": "Analyst",
+					"tool_ids": [
+						"talkwalker"
+					],
 					"skills": [
 						"cleaning-social-volume"
 					]
@@ -221,6 +262,9 @@
 					"days_min": 0.25,
 					"days_max": 0.5,
 					"owner": "Analyst",
+					"tool_ids": [
+						"talkwalker"
+					],
 					"skills": []
 				},
 				{
@@ -232,6 +276,9 @@
 					"days_min": 0.25,
 					"days_max": 0.5,
 					"owner": "Analyst",
+					"tool_ids": [
+						"talkwalker"
+					],
 					"skills": []
 				}
 			]
@@ -253,6 +300,10 @@
 					"days_min": 1.5,
 					"days_max": 2,
 					"owner": "Analyst",
+					"tool_ids": [
+						"talkwalker",
+						"visibrain"
+					],
 					"skills": []
 				},
 				{
@@ -264,6 +315,9 @@
 					"days_min": 0.5,
 					"days_max": 1,
 					"owner": "Analyst",
+					"tool_ids": [
+						"excel"
+					],
 					"skills": []
 				},
 				{
@@ -275,6 +329,7 @@
 					"days_min": 0.25,
 					"days_max": 0.5,
 					"owner": "Analyst + Project lead",
+					"tool_ids": [],
 					"skills": []
 				}
 			]
@@ -296,6 +351,7 @@
 					"days_min": 1.5,
 					"days_max": 3,
 					"owner": "Interns (Analyst oversight)",
+					"tool_ids": [],
 					"skills": []
 				},
 				{
@@ -307,6 +363,7 @@
 					"days_min": 1,
 					"days_max": 2,
 					"owner": "Interns / Analyst",
+					"tool_ids": [],
 					"skills": []
 				},
 				{
@@ -318,6 +375,9 @@
 					"days_min": 1,
 					"days_max": 3,
 					"owner": "Interns",
+					"tool_ids": [
+						"talkwalker"
+					],
 					"skills": []
 				}
 			]
@@ -339,6 +399,10 @@
 					"days_min": 1,
 					"days_max": 2,
 					"owner": "Analyst",
+					"tool_ids": [
+						"google_search",
+						"claude"
+					],
 					"skills": []
 				},
 				{
@@ -350,6 +414,7 @@
 					"days_min": 0.5,
 					"days_max": 1,
 					"owner": "Analyst + Project lead",
+					"tool_ids": [],
 					"skills": []
 				},
 				{
@@ -361,6 +426,9 @@
 					"days_min": 1,
 					"days_max": 1.5,
 					"owner": "Analyst",
+					"tool_ids": [
+						"talkwalker"
+					],
 					"skills": []
 				},
 				{
@@ -372,6 +440,7 @@
 					"days_min": 0.5,
 					"days_max": 1,
 					"owner": "Analyst (an analyst)",
+					"tool_ids": [],
 					"skills": []
 				},
 				{
@@ -383,6 +452,9 @@
 					"days_min": 0.5,
 					"days_max": 1,
 					"owner": "Analyst",
+					"tool_ids": [
+						"google_search"
+					],
 					"skills": []
 				},
 				{
@@ -394,6 +466,7 @@
 					"days_min": 0.25,
 					"days_max": 0.25,
 					"owner": "Project lead",
+					"tool_ids": [],
 					"skills": []
 				}
 			]
@@ -415,6 +488,7 @@
 					"days_min": 0.25,
 					"days_max": 0.5,
 					"owner": "Project lead (Analyst support)",
+					"tool_ids": [],
 					"skills": []
 				}
 			]
@@ -436,6 +510,7 @@
 					"days_min": 0.5,
 					"days_max": 1,
 					"owner": "Analyst",
+					"tool_ids": [],
 					"skills": []
 				},
 				{
@@ -447,6 +522,9 @@
 					"days_min": 1,
 					"days_max": 1.5,
 					"owner": "Analyst",
+					"tool_ids": [
+						"spate"
+					],
 					"skills": []
 				},
 				{
@@ -458,6 +536,7 @@
 					"days_min": 3,
 					"days_max": 6,
 					"owner": "Analyst",
+					"tool_ids": [],
 					"skills": []
 				},
 				{
@@ -469,6 +548,7 @@
 					"days_min": 1,
 					"days_max": 1.5,
 					"owner": "Analyst + Project lead",
+					"tool_ids": [],
 					"skills": []
 				},
 				{
@@ -480,6 +560,7 @@
 					"days_min": 0.5,
 					"days_max": 1,
 					"owner": "Analyst",
+					"tool_ids": [],
 					"skills": []
 				}
 			]
@@ -501,6 +582,7 @@
 					"days_min": 0.25,
 					"days_max": 0.5,
 					"owner": "Analyst",
+					"tool_ids": [],
 					"skills": []
 				},
 				{
@@ -512,6 +594,7 @@
 					"days_min": 0.25,
 					"days_max": 0.5,
 					"owner": "Project lead + Analyst",
+					"tool_ids": [],
 					"skills": []
 				}
 			]
@@ -533,6 +616,7 @@
 					"days_min": 0.25,
 					"days_max": 0.5,
 					"owner": "Project lead + Analyst",
+					"tool_ids": [],
 					"skills": []
 				},
 				{
@@ -544,6 +628,7 @@
 					"days_min": 0.5,
 					"days_max": 1.5,
 					"owner": "Analyst",
+					"tool_ids": [],
 					"skills": []
 				},
 				{
@@ -555,6 +640,11 @@
 					"days_min": 0.25,
 					"days_max": 0.5,
 					"owner": "Analyst",
+					"tool_ids": [
+						"talkwalker",
+						"trajaan",
+						"google_drive"
+					],
 					"skills": []
 				}
 			]

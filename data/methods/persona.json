@@ -24,6 +24,7 @@
 					"how": "Decide the persona level: BRAND personas (people engaging with a brand, segmented on their relationship to it) or CATEGORY personas (people expressing a need in a category, segmented on need / pain point and expertise).\nList the scope: markets, languages, period, platforms, expected deliverable (overview slide + 1 deep dive per persona, or one comparison table), expert / HCP profile in scope or not.\nCheck if Semantiweb already worked for THIS client on the same scope (category audit, tribes sourcing): reuse its desk research and queries as a starting point.",
 					"watch_out": "If the brief describes groups sharing a culture, rituals or a cause, the client may want tribes / communities, not personas: clarify before going further.\nIf the client expects exact age, income or household data, say early that social data gives inferred generations and lifestyle signals only.",
 					"tools": "",
+					"tool_ids": [],
 					"check": "",
 					"output": "Validated business question, persona level, scope",
 					"time": null,
@@ -37,7 +38,12 @@
 					"what": "Align the team on objective, scope, timeline and roles.",
 					"how": "Internal brief (Google Doc in the Project Drive): objective, persona level, markets, platforms, period, KPIs to observe (step 2.1), timeline, who does what.\nDecision log (sheet in the Project Drive): one line per scope decision with date and who decided (e.g. \"resellers excluded\", \"HCP profile shown separately\", \"CN period extended to 24 months\").\nAllocate time in Float and plan client touchpoints.",
 					"watch_out": "Log every scope call: it is what you will rely on when the client questions a choice.",
-					"tools": "Google Drive, Float",
+					"tools": "Google Search, Google Drive, Float",
+					"tool_ids": [
+						"google_search",
+						"google_drive",
+						"float"
+					],
 					"check": "",
 					"output": "Internal brief + decision log shared with the team",
 					"time": null,
@@ -62,6 +68,7 @@
 					"how": "Desk research: brand or category news, key launches, drops, collabs, events, controversies over the period; how consumers talk about it on each platform (scroll Instagram, TikTok, RED, Reddit with the main hashtags).\nMarket specifics: which platforms matter per market (e.g. CN: RED, Douyin, Weibo), local vocabulary and slang, generational codes.\nHypothesis session with the project lead: list possible personas, each with (1) why they engage, (2) the signals that would reveal them: keywords, hashtags, expressions, content formats (OOTD, haul, review, GRWM), brands they co-cite.\nTurn the signals into a keyword list per language: it feeds the main query (1.2) and later the persona queries (2.4).\nDone when: hypothesis list with signals is validated by the project lead.",
 					"watch_out": "Hypotheses are a starting point: expect some to disappear, merge or appear during reading.\nHave local keywords checked by a native speaker.",
 					"tools": "",
+					"tool_ids": [],
 					"check": "",
 					"output": "Hypothesis list with signals + keyword list per language",
 					"time": null,
@@ -76,6 +83,9 @@
 					"how": "Build the Boolean query in Radarly from the keyword list: brand or category terms and variants, products, key hashtags, local language terms.\nSources: platforms where consumers talk about themselves (Instagram, TikTok, RED, Douyin, Weibo, Reddit, blogs & forums, YouTube, Pinterest, X, Facebook, depending on markets).\nAdd exclusions so the corpus stays consumer: brand-owned accounts, official retailers, resellers, media and press, giveaways and contests, bots, fan accounts reposting campaign content.\nCheck quality on the RANDOM display of posts (not top posts): read posts, spot noise, add exclusions, repeat.\nUse the Radarly query skill to reuse validated patterns.\nDone when: random reading shows mostly relevant consumer posts and the project lead validates the query.",
 					"watch_out": "Spike from a news or celebrity event: exclude or cap the period and log it in the decision log.\nRadarly character / term limits: split into several queries.",
 					"tools": "Radarly",
+					"tool_ids": [
+						"radarly"
+					],
 					"check": "",
 					"output": "Validated Radarly query and project",
 					"time": null,
@@ -92,6 +102,10 @@
 					"how": "Select the brand and consumer hashtags in scope from the desk research.\nSend the crawl request as early as possible: crawls can take up to a full day to come back.\nSave the crawl output in the Project Drive.\nDone when: crawl output is received and readable.",
 					"watch_out": "Send the crawl request on day 1 of desk research so it does not block analysis.",
 					"tools": "Radarly, Google Drive",
+					"tool_ids": [
+						"radarly",
+						"google_drive"
+					],
 					"check": "",
 					"output": "TikTok crawl output in Project Drive",
 					"time": null,
@@ -106,6 +120,9 @@
 					"how": "In Radarly, check volumes per market, platform and month.\nRead posts on the random display to depollute; add exclusions to the query if needed.\nNote volumes per market: they explain later why a market is more or less represented.\nDone when: the project lead validates volumes and depollution.",
 					"watch_out": "If a market is mostly media or resellers after cleaning, decide with the project lead whether it is reported as directional only.",
 					"tools": "Radarly",
+					"tool_ids": [
+						"radarly"
+					],
 					"check": "",
 					"output": "Clean corpus, volumes noted",
 					"time": null,
@@ -130,6 +147,9 @@
 					"how": "Core KPIs: motivation / relationship to the brand or category, generation, gender (only when explicit), platforms, centers of interest, behaviors (purchase habits, content formats), brands co-cited.\nOptional KPIs depending on the brief: when (timing, occasions), for whom (self / gift), top hashtags, top trends, pain points, solutions used, expertise level, values & expectations, market-specific behaviors.\nCreate a working sheet in the Project Drive: one tab per persona hypothesis, one line per KPI, plus a \"verbatims\" zone (text + link + market).",
 					"watch_out": "Pick only the KPIs the client will use: they become the blocks of the deep-dive slide.",
 					"tools": "Google Drive",
+					"tool_ids": [
+						"google_drive"
+					],
 					"check": "",
 					"output": "KPI list + working sheet",
 					"time": null,
@@ -144,6 +164,9 @@
 					"how": "In the Radarly project, look at facets per market and platform: top words, hashtags, co-cited brands, sources, top authors, clusters.\nFor each hypothesis, note in the working sheet the facet signals that support it (e.g. \"#ootd + several luxury houses co-cited\", \"drop names peaking on release dates\").\nNote strong signals that match no hypothesis: they may reveal a missing persona.\nDone when: each hypothesis has supporting signals (or none), and unexpected signals are listed.",
 					"watch_out": "A hypothesis with no signal in the facets is not dead yet: check it in reading (some behaviors are visual and do not show in words).",
 					"tools": "Radarly",
+					"tool_ids": [
+						"radarly"
+					],
 					"check": "",
 					"output": "Signals per hypothesis in the working sheet",
 					"time": null,
@@ -158,6 +181,7 @@
 					"how": "For each hypothesis, filter the corpus on its signals (keywords, hashtags) and read posts on the random display, plus the TikTok crawl output.\nFor representative posts, open the author profile: bio, recent posts, other brands worn or cited, lifestyle, age cues (stated age, school / work, life stage). This is how generation is assessed.\nFill the working sheet as you read: motivation, behaviors, interests, platforms, generation cues, verbatim candidates (exact text + link + market).\nMerge two hypotheses when you cannot tell their authors apart by WHY they engage; split one when it groups authors with different motivations; add a persona when unexpected signals hold.\nKeep reading until new posts and profiles stop adding new information. There is no fixed number of posts.\nReview the persona list with the project lead.\nDone when: the project lead validates the final list, each persona with a one-sentence definition (\"She / he engages with [brand] because...\").",
 					"watch_out": "Do not label a persona from a few very visible creators: check that everyday consumers show the same profile.\nDo not infer generation from a photo alone.",
 					"tools": "",
+					"tool_ids": [],
 					"check": "",
 					"output": "Validated persona list, working sheet filled per persona",
 					"time": null,
@@ -172,6 +196,7 @@
 					"how": "Build one query per persona on top of the main query, using the signals confirmed in 2.2 and 2.3 (keywords, hashtags, expressions).\nCheck each persona query on the random display: are the posts really from this persona?\nCalculate the share: volume of each persona query / sum of all persona query volumes, so that shares add up to 100. Do it per market if market splits are shown.\nAdjust the shares based on the qualitative reading when a query clearly over- or under-captures a persona (e.g. visual behaviors that words do not catch, overlap between two persona queries). Write each adjustment and its reason in the decision log.\nRound to whole numbers; totals must equal 100.\nDone when: shares are validated by the project lead and adjustments are logged.",
 					"watch_out": "Shares are a split of persona conversations, not of consumers: write the base in the slide footnote.",
 					"tools": "",
+					"tool_ids": [],
 					"check": "",
 					"output": "Sizing table + adjustments logged",
 					"time": null,
@@ -186,6 +211,7 @@
 					"how": "Name (2 to 3 words, consumer-native) + tagline (one line on the core behavior).\n\"In a nutshell\": a short first-person line summarizing the mindset, written by Semantiweb.\nDescription of 60 to 90 words: how she / he engages with the brand or category, what drives it, how it shows (concrete products, drops, rituals), what role the brand / category plays for them.\n3 to 5 centers of interest (topics they care about) and 3 to 5 behavioral insights (what they do).\n2 to 3 verbatims picked from the working sheet, kept exactly as posted, with translation if needed.\nOptional KPIs agreed in 2.1.\nDone when: every attribute can be traced back to posts or profiles read.",
 					"watch_out": "If a description could apply to another brand, it is too generic: add the specific behaviors and references you saw.",
 					"tools": "",
+					"tool_ids": [],
 					"check": "",
 					"output": "One profile per persona",
 					"time": null,
@@ -200,6 +226,7 @@
 					"how": "One visual per persona showing its behavior and style, consistent style across personas.\nUse licensed images, client assets, or AI-generated images if the client allows it.",
 					"watch_out": "Visual consistancy",
 					"tools": "",
+					"tool_ids": [],
 					"check": "",
 					"output": "Visuals with origin noted",
 					"time": null,
@@ -224,6 +251,7 @@
 					"how": "Typical structure: methodology & scope, persona overview slide, one deep dive per persona (or one comparison table for category personas), implications for the client, limitations.\nWrite the headline of each slide first, as an insight (what it means for the client), then validate the flow with the project lead.",
 					"watch_out": "Building slides before the storyline is locked usually means rework.",
 					"tools": "",
+					"tool_ids": [],
 					"check": "",
 					"output": "Validated storyline and headlines",
 					"time": null,
@@ -238,6 +266,7 @@
 					"how": "Overview slide: all personas with name, visual, share (%), generation; optional grouping into macro-families; base footnote.\nDeep dive per persona: name + tagline, in a nutshell, share (%), generation, platforms, description (4 to 6 key phrases in bold), centers of interest (icons), behavioral insights, verbatims (original + translation), source line \"Source: Sample of posts [markets], [period], [platforms]\". Same blocks for every persona.\nOne comparison table can replace deep dives (rows such as age, expertise level, top pain points, solutions used, values & expectations, interests / lifestyle).",
 					"watch_out": "Check brand, product and collab names against official sources.",
 					"tools": "",
+					"tool_ids": [],
 					"check": "",
 					"output": "Draft deck",
 					"time": null,
@@ -252,6 +281,9 @@
 					"how": "Methodology: markets, period, platforms, tools used (Radarly, TikTok crawls), how personas were identified (hypotheses, facets, reading, author profiles), how shares were calculated (one query per persona, base 100, qualitative adjustment).\nLimitations where they apply: social data over-represents vocal and visual users; generations are inferred from profiles; partial coverage of some platforms or markets.",
 					"watch_out": "Keep it short: the client should understand what a % means in one read.",
 					"tools": "Radarly",
+					"tool_ids": [
+						"radarly"
+					],
 					"check": "",
 					"output": "Methodology & limitations slide",
 					"time": null,
@@ -276,6 +308,7 @@
 					"how": "Shares add up to 100 and match the sizing table.\nEach verbatim matches the original post (wording, persona, market); translations re-read by a native speaker.\nSpelling, brand names, consistent persona names across slides.\nRemove annotations, placeholders, internal notes; do not share queries.\nFinal review with the project lead.",
 					"watch_out": "After any last-minute merge or renaming, recheck the shares.",
 					"tools": "",
+					"tool_ids": [],
 					"check": "",
 					"output": "QA-checked deck",
 					"time": null,
@@ -290,6 +323,7 @@
 					"how": "Present the persona list and shares to the client if timing allows.\nApply feedback and update the decision log.",
 					"watch_out": "See barriers table for frequent client requests.",
 					"tools": "",
+					"tool_ids": [],
 					"check": "",
 					"output": "Client-aligned deck",
 					"time": null,
@@ -314,6 +348,9 @@
 					"how": "Assign speakers per persona; prepare one extra real example per persona.\nAction feedback and send the final version within the week.\nArchive the working sheet, persona queries, sizing table and decision log in the Project Drive for the next wave.",
 					"watch_out": "For recurring clients, keep persona definitions stable between waves so they can be compared.",
 					"tools": "Google Drive",
+					"tool_ids": [
+						"google_drive"
+					],
 					"check": "",
 					"output": "Final deck, archived files",
 					"time": null,

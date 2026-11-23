@@ -16,6 +16,7 @@ const NAV = [
 	{ href: "/", label: "My studies", match: (p: string) => p === "/" },
 	{ href: "/studies", label: "All studies", match: (p: string) => p === "/studies" },
 	{ href: "/study-types", label: "Study types", match: (p: string) => p.startsWith("/study-types") },
+	{ href: "/tools", label: "Tools", match: (p: string) => p.startsWith("/tools") },
 	{ href: "/oversight", label: "Oversight", match: (p: string) => p.startsWith("/oversight") },
 ];
 

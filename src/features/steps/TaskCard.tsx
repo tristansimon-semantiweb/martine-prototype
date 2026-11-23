@@ -7,7 +7,7 @@ import { useToast } from "@/shared/components/ui/Toast";
 import { methodEntry } from "@/shared/lib/data";
 import type { PhaseView, TaskView } from "@/shared/lib/studyModel";
 import type { Study } from "@/shared/lib/types";
-import { Chip, TaskFields, formatOf, taskMeta, taskRows, toolChips } from "@/features/phase/PhaseParts";
+import { TaskFields, ToolList, formatOf, taskMeta, taskRows } from "@/features/phase/PhaseParts";
 import { SkillBlock } from "./SkillBlock";
 
 // The days spent on a done task: filled with the planned minimum, editable.
@@ -59,23 +59,15 @@ export function TaskCard({ study, phase, view, highlight }: { study: Study; phas
 		);
 	}
 
-	const chips = toolChips(task);
 	const format = formatOf(study.method.id);
+	const hasTools = task.tool_ids.length > 0 || task.skills.length > 0 || Boolean(task.tools);
 	const tools = (
 		<div className="flex flex-col gap-2.5">
-			{chips.length > 0 && (
-				<span className="flex flex-wrap gap-1.5">
-					{chips.map((c) => (
-						<Chip key={c.label} title={c.kind === "document" ? "A document of the method: it lives in Files" : undefined}>
-							{c.label}
-						</Chip>
-					))}
-				</span>
-			)}
+			<ToolList task={task} />
 			{task.skills.map((s) => (
 				<SkillBlock key={s} study={study} phase={phase} taskKey={key} skillId={s} />
 			))}
-			{chips.length === 0 && task.skills.length === 0 && <span className="text-[var(--color-ink-muted)]">None named</span>}
+			{!hasTools && <span className="text-[var(--color-ink-muted)]">None named</span>}
 		</div>
 	);
 
@@ -94,7 +86,7 @@ export function TaskCard({ study, phase, view, highlight }: { study: Study; phas
 			<TaskFields
 				rows={[
 					...taskRows(task, format, {
-						...(format === "tasks" || task.tools || task.skills.length ? { tools } : {}),
+						...(format === "tasks" || hasTools ? { tools } : {}),
 					}),
 					{
 						label: "Method",

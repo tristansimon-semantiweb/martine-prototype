@@ -24,6 +24,7 @@
 					"how": "Get the brief from the project lead and check it against the standard scope (Scope & Context tab).\nHold a kick-off call with the project lead: scope, deliverable due date.",
 					"watch_out": "",
 					"tools": "",
+					"tool_ids": [],
 					"check": "",
 					"output": "Validated scope and due date",
 					"time": null,
@@ -38,6 +39,9 @@
 					"how": "Check your staffing on Float.\nValidate it with the project lead.",
 					"watch_out": "",
 					"tools": "Float",
+					"tool_ids": [
+						"float"
+					],
 					"check": "",
 					"output": "Staffing validated",
 					"time": null,
@@ -52,6 +56,9 @@
 					"how": "Confirm you have the template and the Excel working file.",
 					"watch_out": "",
 					"tools": "Excel",
+					"tool_ids": [
+						"excel"
+					],
 					"check": "",
 					"output": "Template and Excel file at hand",
 					"time": null,
@@ -76,6 +83,9 @@
 					"how": "Go to the brand website, social media accounts and read articles for brands' news.\nAsk ChatGPT for the latest brand news (buzz, bestsellers, pop-up stores).",
 					"watch_out": "",
 					"tools": "ChatGPT",
+					"tool_ids": [
+						"chatgpt"
+					],
 					"check": "",
 					"output": "Brand knowledge",
 					"time": null,
@@ -100,6 +110,7 @@
 					"how": "Build the query from the community's values and hashtags.",
 					"watch_out": "To validate with your project lead",
 					"tools": "",
+					"tool_ids": [],
 					"check": "",
 					"output": "Validated query",
 					"time": null,
@@ -114,6 +125,9 @@
 					"how": "Either via Meltwater.\nOr via our internal tool, using identified hashtags (brand hashtags, community hashtags and its values).",
 					"watch_out": "",
 					"tools": "Meltwater",
+					"tool_ids": [
+						"meltwater"
+					],
 					"check": "",
 					"output": "TikTok crawl output",
 					"time": null,
@@ -128,6 +142,9 @@
 					"how": "Crawl via Radarly through the query",
 					"watch_out": "",
 					"tools": "Radarly",
+					"tool_ids": [
+						"radarly"
+					],
 					"check": "",
 					"output": "Instagram, Reddit and Pinterest crawl output",
 					"time": null,
@@ -142,6 +159,9 @@
 					"how": "List the muses :\nSpot them directly in the data.\nDraw on your own knowledge of the community.\nBrowse TikTok or Instagram, searching for the community’s values in the search bar.\nCrawl their posts via Radarly with the query \"author:\".",
 					"watch_out": "",
 					"tools": "Radarly",
+					"tool_ids": [
+						"radarly"
+					],
 					"check": "",
 					"output": "Muse list and crawl output",
 					"time": null,
@@ -156,6 +176,9 @@
 					"how": "Fill in the shared Excel file step by step.",
 					"watch_out": "",
 					"tools": "Excel",
+					"tool_ids": [
+						"excel"
+					],
 					"check": "",
 					"output": "Shared Excel file up to date",
 					"time": null,
@@ -170,6 +193,9 @@
 					"how": "Load the data in the Corpus Manager (see Corpus Manager methodology).",
 					"watch_out": "",
 					"tools": "Corpus Manager",
+					"tool_ids": [
+						"corpus_manager"
+					],
 					"check": "",
 					"output": "Corpus loaded",
 					"time": null,
@@ -194,6 +220,10 @@
 					"how": "Ask Claude or Gemini whether celebrities, restaurant names or brands come up repeatedly.\nTake 2 hours to read the data and set aside relevant verbatims.",
 					"watch_out": "Check names surfaced by Claude in the verbatims before using them.",
 					"tools": "Claude, Gemini",
+					"tool_ids": [
+						"claude",
+						"gemini"
+					],
 					"check": "",
 					"output": "First verbatim selection",
 					"time": null,
@@ -208,6 +238,9 @@
 					"how": "In HypeAuditor, generate the audience analysis of the brand accounts (beauty, fashion, all).",
 					"watch_out": "",
 					"tools": "HypeAuditor",
+					"tool_ids": [
+						"hypeauditor"
+					],
 					"check": "",
 					"output": "Audience analysis",
 					"time": null,
@@ -232,6 +265,11 @@
 					"how": "To find influencers, several methods:\nAsk ChatGPT directly.\nUse HypeAuditor lookalikes or direclty on lookalikes suggestion on Instagram & TikTok.\nLast resort: Traackr, using its AI tool directly.",
 					"watch_out": "",
 					"tools": "HypeAuditor, Traackr, ChatGPT",
+					"tool_ids": [
+						"hypeauditor",
+						"traackr",
+						"chatgpt"
+					],
 					"check": "",
 					"output": "Manifesto slides (5 to 7)",
 					"time": null,
@@ -246,6 +284,9 @@
 					"how": "Via Meltwater or the ICC.",
 					"watch_out": "",
 					"tools": "Meltwater",
+					"tool_ids": [
+						"meltwater"
+					],
 					"check": "",
 					"output": "Top platforms slide",
 					"time": null,
@@ -260,6 +301,10 @@
 					"how": "Analyst's perception, confirmed via ChatGPT or Claude. Run a sample of data or frequencies through Claude",
 					"watch_out": "Ground the tone of voice in exact verbatims, not in ChatGPT's description.",
 					"tools": "Claude, ChatGPT",
+					"tool_ids": [
+						"claude",
+						"chatgpt"
+					],
 					"check": "",
 					"output": "Tone of voice slide",
 					"time": null,
@@ -274,6 +319,9 @@
 					"how": "To find the topics: look at the frequencies, send them to Claude to have a first rough ideas of first topics.\nTo quantify the topics: look at the facets, recreate queries if needed, based on how consumers talk (check verbatims + frequencies)",
 					"watch_out": "",
 					"tools": "Claude",
+					"tool_ids": [
+						"claude"
+					],
 					"check": "",
 					"output": "Top topics and deep dive slides",
 					"time": null,
@@ -288,6 +336,7 @@
 					"how": "Propose ideas to your project lead. Get inspiration from what other brands do and work well, what drives engagement and positivity",
 					"watch_out": "",
 					"tools": "",
+					"tool_ids": [],
 					"check": "",
 					"output": "Activation recommendations slides",
 					"time": null,
@@ -312,6 +361,7 @@
 					"how": "No duplicate verbatims.\nBase 100 adds up to 100.\nSame font everywhere.\nTitle = insight.\nNo comments or notes left at the bottom of the slides.\nGood quality photos.",
 					"watch_out": "",
 					"tools": "",
+					"tool_ids": [],
 					"check": "",
 					"output": "QA-checked deck",
 					"time": null,
@@ -336,6 +386,7 @@
 					"how": "Plan at least 2 to 3 review calls per week with the project team.",
 					"watch_out": "",
 					"tools": "",
+					"tool_ids": [],
 					"check": "",
 					"output": "Feedback integrated",
 					"time": null,
@@ -360,6 +411,7 @@
 					"how": "Confirm with the project lead whether you should attend.\nMake sure you have the invitation.",
 					"watch_out": "",
 					"tools": "",
+					"tool_ids": [],
 					"check": "",
 					"output": "Restitution ready",
 					"time": null,
@@ -374,6 +426,7 @@
 					"how": "After the restitution, ask the project lead for written feedback (plus a quick coffee or call if needed).",
 					"watch_out": "",
 					"tools": "",
+					"tool_ids": [],
 					"check": "",
 					"output": "Written feedback",
 					"time": null,

@@ -20,6 +20,7 @@ export interface MethodTask {
 	days_max: number | null;
 	owner: string;
 	skills: string[];
+	tool_ids: string[]; // tools of the repository this task uses
 	what?: string; // steps format
 	watch_out?: string; // steps format, one point per line
 	time?: string | null; // steps format, as written ("2 to 4 days", "Ongoing")
@@ -98,10 +99,14 @@ export interface CatalogSkill {
 	status: SkillStatus;
 }
 
+// A tool: an application people work in. The catalog's tools are the tool
+// repository; method tasks link to them (MethodTask.tool_ids).
 export interface CatalogTool {
 	id: string;
 	label: string;
-	claude_connector: boolean;
+	kind: string; // "Social listening", "AI assistant"…
+	claude_connector: boolean | null; // null: not checked yet
+	aliases?: string[]; // patterns that find the tool in the method files' text
 }
 
 export interface Catalog {

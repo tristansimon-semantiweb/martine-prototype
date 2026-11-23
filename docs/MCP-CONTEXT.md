@@ -25,6 +25,7 @@ Vocabulaire de l'interface : un **study type** (Trend report, Brand audit…) es
 | Décision | dans l'étude | `TR-2611-01`, décision du 2 décembre | date, texte, source |
 | Fichier | dans l'étude | Queries tab, FR, UK, JP | phase, type, provenance (client, personne, Claude vérifié ou à vérifier) |
 | Skill | id du catalogue | `building-talkwalker-queries` | ce qu'il fait, ce dont il a besoin, ce qu'il produit, statut |
+| Outil | id du référentiel d'outils | `radarly` | nom, catégorie, connecteur Claude ou non, étapes des study types qui l'utilisent |
 | Données de l'étude | étude sur la data platform | `TR-2611-01` | lues par le connecteur data platform, pas par Martine |
 
 Le code d'étude se lit : préfixe de la méthode (`TR` trend report, `BA` brand audit), année et mois de création, numéro d'ordre.

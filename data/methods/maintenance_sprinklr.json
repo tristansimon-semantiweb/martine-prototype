@@ -27,6 +27,9 @@
 					"days_min": 0.01,
 					"days_max": 0.01,
 					"owner": "Analyst",
+					"tool_ids": [
+						"sprinklr"
+					],
 					"skills": []
 				}
 			]
@@ -48,6 +51,9 @@
 					"days_min": 0.02,
 					"days_max": 0.02,
 					"owner": "Analyst",
+					"tool_ids": [
+						"sprinklr"
+					],
 					"skills": []
 				}
 			]
@@ -69,6 +75,9 @@
 					"days_min": 0.06,
 					"days_max": 0.07,
 					"owner": "Analyst",
+					"tool_ids": [
+						"sprinklr"
+					],
 					"skills": []
 				},
 				{
@@ -80,6 +89,10 @@
 					"days_min": 0.06,
 					"days_max": 0.07,
 					"owner": "Analyst",
+					"tool_ids": [
+						"chatgpt",
+						"gemini"
+					],
 					"skills": []
 				}
 			]
@@ -101,6 +114,9 @@
 					"days_min": 0.04,
 					"days_max": 0.04,
 					"owner": "Analyst",
+					"tool_ids": [
+						"sprinklr"
+					],
 					"skills": []
 				},
 				{
@@ -112,6 +128,9 @@
 					"days_min": 0.07,
 					"days_max": 0.07,
 					"owner": "Analyst",
+					"tool_ids": [
+						"sprinklr"
+					],
 					"skills": []
 				},
 				{
@@ -123,6 +142,9 @@
 					"days_min": 0.01,
 					"days_max": 0.01,
 					"owner": "Analyst",
+					"tool_ids": [
+						"sprinklr"
+					],
 					"skills": []
 				}
 			]
@@ -144,6 +166,9 @@
 					"days_min": 0.06,
 					"days_max": 0.09,
 					"owner": "Analyst",
+					"tool_ids": [
+						"sprinklr"
+					],
 					"skills": []
 				}
 			]
@@ -165,6 +190,9 @@
 					"days_min": 0.04,
 					"days_max": 0.04,
 					"owner": "Analyst",
+					"tool_ids": [
+						"sprinklr"
+					],
 					"skills": []
 				},
 				{
@@ -176,6 +204,9 @@
 					"days_min": 0.05,
 					"days_max": 0.06,
 					"owner": "Analyst",
+					"tool_ids": [
+						"sprinklr"
+					],
 					"skills": []
 				},
 				{
@@ -187,6 +218,7 @@
 					"days_min": 0.02,
 					"days_max": 0.02,
 					"owner": "Analyst",
+					"tool_ids": [],
 					"skills": []
 				}
 			]
