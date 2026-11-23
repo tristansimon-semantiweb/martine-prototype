@@ -10,7 +10,7 @@ import type { BriefReading, MethodSuggestion, MethodTask, RoleId, Study, StudySt
 export interface MethodDraft {
 	version: string; // the draft's version, e.g. "1.3"
 	saved: boolean;
-	edits: Record<string, Partial<Pick<MethodTask, "how" | "check" | "output">>>; // key: task key
+	edits: Record<string, Partial<Pick<MethodTask, "how" | "check" | "output" | "tools">>>; // key: task key
 	addedSkills: Record<string, string[]>; // key: task key
 	addedTasks: { id: string; phase: string; task: string; by: string }[];
 	addedPhases: { id: string; name: string; by: string }[];

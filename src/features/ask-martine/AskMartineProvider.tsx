@@ -45,26 +45,30 @@ function useAskMartineState() {
 	const [threads, setThreads] = useState<Record<string, Turn[]>>({});
 
 	const turns = threads[key] ?? [];
+	// The full page passes its scope explicitly (/ask?study=…); the drawer uses
+	// the study in view.
+	const turnsFor = useCallback((study: string | null) => threads[study ?? "all"] ?? [], [threads]);
 
 	const ask = useCallback(
-		(question: string) => {
+		(question: string, study: string | null = scope) => {
 			const q = question.trim();
 			if (!q) return;
+			const k = study ?? "all";
 			const id = crypto.randomUUID();
-			setThreads((t) => ({ ...t, [key]: [...(t[key] ?? []), { id, question: q, script: null, thinking: true }] }));
+			setThreads((t) => ({ ...t, [k]: [...(t[k] ?? []), { id, question: q, script: null, thinking: true }] }));
 			// A short pause so the answer doesn't flash in (as in R&R).
 			window.setTimeout(() => {
-				const script = matchScript(q, scope);
+				const script = matchScript(q, study);
 				setThreads((t) => ({
 					...t,
-					[key]: (t[key] ?? []).map((x) => (x.id === id ? { ...x, script, thinking: false } : x)),
+					[k]: (t[k] ?? []).map((x) => (x.id === id ? { ...x, script, thinking: false } : x)),
 				}));
 			}, 550);
 		},
-		[key, scope],
+		[scope],
 	);
 
-	const newConversation = useCallback(() => setThreads((t) => ({ ...t, [key]: [] })), [key]);
+	const newConversation = useCallback((study: string | null = scope) => setThreads((t) => ({ ...t, [study ?? "all"]: [] })), [scope]);
 	const openChat = useCallback(() => setOpen(true), []);
 	const closeChat = useCallback(() => setOpen(false), []);
 
@@ -80,7 +84,7 @@ function useAskMartineState() {
 		return () => window.removeEventListener("keydown", onKey);
 	}, []);
 
-	return { open, openChat, closeChat, scope, turns, ask, newConversation };
+	return { open, openChat, closeChat, scope, turns, turnsFor, ask, newConversation };
 }
 
 type Value = ReturnType<typeof useAskMartineState>;

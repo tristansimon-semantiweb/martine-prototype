@@ -1,3 +1,5 @@
 @import "tailwindcss";
 @import "../styles/tokens.css";
-@import "../styles/base.css";
+/* In the base layer so Tailwind utilities on an element win over the
+   element defaults (h1 to h4 sizes and fonts). */
+@import "../styles/base.css" layer(base);

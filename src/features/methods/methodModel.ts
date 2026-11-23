@@ -1,0 +1,105 @@
+// A method as its owner edits it: the published method file with the draft
+// (edits, added skills, tasks and phases) laid over it. Studies never read
+// this: they keep the published version they started on.
+import { methodFile, phaseDays, phaseId, taskKey } from "@/shared/lib/data";
+import type { MethodDraft } from "@/shared/hooks/useMartine";
+import type { MethodSuggestion, MethodTask } from "@/shared/lib/types";
+
+export interface MethodTaskView {
+	key: string;
+	task: MethodTask; // with the draft's edits applied
+	original?: MethodTask; // as published (absent for a task added in the draft)
+	addedSkills: string[];
+	edited: boolean;
+	isNew: boolean;
+}
+
+export interface MethodPhaseView {
+	id: string;
+	label: string;
+	name: string;
+	optional: boolean;
+	tasks: MethodTaskView[];
+	days: { min: number; max: number };
+	skillCount: number;
+	suggestions: MethodSuggestion[]; // pending
+	isNew: boolean;
+}
+
+const blankTask = (task: string): MethodTask => ({
+	task,
+	how: "",
+	tools: "",
+	check: "",
+	output: "",
+	days_min: 0,
+	days_max: 0,
+	owner: "Analyst",
+	skills: [],
+});
+
+export function methodPhases(methodId: string, draft: MethodDraft | undefined, suggestions: MethodSuggestion[]): MethodPhaseView[] {
+	const file = methodFile(methodId);
+	if (!file) return [];
+	const pending = suggestions.filter((s) => s.method === methodId && s.status === "pending");
+
+	const build = (id: string, label: string, name: string, optional: boolean, base: MethodTask[], isNew: boolean): MethodPhaseView => {
+		const fromFile = base.map((t, i) => {
+			const key = taskKey(id, i);
+			const edits = draft?.edits[key];
+			const added = draft?.addedSkills[key] ?? [];
+			return {
+				key,
+				task: { ...t, ...edits, skills: [...t.skills, ...added] },
+				original: t,
+				addedSkills: added,
+				edited: Boolean(edits && Object.keys(edits).length),
+				isNew: false,
+			};
+		});
+		const fromDraft = (draft?.addedTasks ?? [])
+			.filter((t) => t.phase === id)
+			.map((t, i) => {
+				const key = taskKey(id, base.length + i);
+				const added = draft?.addedSkills[key] ?? [];
+				return {
+					key,
+					task: { ...blankTask(t.task), ...draft?.edits[key], skills: added },
+					addedSkills: added,
+					edited: false,
+					isNew: true,
+				};
+			});
+		const tasks = [...fromFile, ...fromDraft];
+		const days = tasks.reduce((a, t) => ({ min: a.min + t.task.days_min, max: a.max + t.task.days_max }), { min: 0, max: 0 });
+		return {
+			id,
+			label,
+			name,
+			optional,
+			tasks,
+			days,
+			skillCount: new Set(tasks.flatMap((t) => t.task.skills)).size,
+			suggestions: pending.filter((s) => s.phase === id),
+			isNew,
+		};
+	};
+
+	const phases = file.phases.map((p) => build(phaseId(p), `${p.phase}. ${p.name}`, p.name, p.optional, p.tasks, false));
+	const numbered = file.phases.filter((p) => !p.optional).length;
+	const added = (draft?.addedPhases ?? []).map((p, i) => build(p.id, `${numbered + i}. ${p.name}`, p.name, false, [], true));
+	return [...phases, ...added];
+}
+
+// Planned days of the method: the phases every study runs (optional ones aside).
+export function methodDays(methodId: string): { min: number; max: number } | null {
+	const file = methodFile(methodId);
+	if (!file) return null;
+	return file.phases.filter((p) => !p.optional).reduce(
+		(a, p) => {
+			const d = phaseDays(p);
+			return { min: a.min + d.min, max: a.max + d.max };
+		},
+		{ min: 0, max: 0 },
+	);
+}

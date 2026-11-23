@@ -48,7 +48,7 @@ export function ChatDrawer() {
 					</div>
 					<div className="flex items-center gap-1">
 						<button
-							onClick={newConversation}
+							onClick={() => newConversation()}
 							className="flex h-8 w-8 items-center justify-center rounded-[var(--radius-sm)] text-[var(--color-ink-muted)] hover:bg-[var(--color-hover)] hover:text-[var(--color-ink)]"
 							aria-label="New conversation"
 							title="New conversation"
@@ -78,7 +78,7 @@ export function ChatDrawer() {
 
 				<div className="flex-1 overflow-y-auto px-4 py-4">
 					{turns.length === 0 ? (
-						<EmptyState study={scope} suggestions={suggestionsFor(scope)} onPick={ask} />
+						<EmptyState study={scope} suggestions={suggestionsFor(scope)} onPick={(q) => ask(q)} />
 					) : (
 						<div className="flex flex-col gap-5">
 							{turns.map((t) => (
@@ -102,7 +102,7 @@ export function ChatDrawer() {
 				</div>
 
 				<div className="border-t border-[var(--color-border)] px-3 py-3">
-					<ChatInput study={scope} onSend={ask} />
+					<ChatInput study={scope} onSend={(q) => ask(q)} />
 				</div>
 			</aside>
 		</Portal>

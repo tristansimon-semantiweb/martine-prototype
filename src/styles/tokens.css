@@ -80,19 +80,6 @@
 	--color-app-pulse: #c4593a;
 	--color-app-trends: #2d6a4f;
 
-	/* ── Martine: study families (sidebar dots, family pills) ── */
-	--color-family-trends: #2d6a4f;
-	--color-family-trends-bg: #e3efe8;
-	--color-family-monitoring: #3d6b9b;
-	--color-family-monitoring-bg: #e6eef6;
-	--color-family-sml: #8b5a7a;
-	--color-family-sml-bg: #efe7ee;
-
-	/* ── Martine: attention (points to clarify, notes, consultant additions) ── */
-	--color-attention: #6b4e17;
-	--color-attention-bg: #f6eedd;
-	--color-attention-soft: #fbf6ec;
-
 	/* ── Font families ── */
 	--font-heading: 'Newsreader', Georgia, serif;
 	--font-body: 'Source Sans 3', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
@@ -189,4 +176,23 @@
 	--color-accent-glow: color-mix(in srgb, var(--color-accent) 20%, transparent);
 	--color-accent-warm-dim: color-mix(in srgb, var(--color-accent-warm) 12%, transparent);
 	--color-accent-warm-glow: color-mix(in srgb, var(--color-accent-warm) 20%, transparent);
+}
+
+/* ── Martine tokens ──
+   Declared on :root rather than in @theme: Tailwind v4 only emits a theme
+   variable when a utility uses it, and these are also read from inline styles
+   (family dots and pills). */
+:root {
+	/* ── Martine: study families (sidebar dots, family pills) ── */
+	--color-family-trends: #2d6a4f;
+	--color-family-trends-bg: #e3efe8;
+	--color-family-monitoring: #3d6b9b;
+	--color-family-monitoring-bg: #e6eef6;
+	--color-family-sml: #8b5a7a;
+	--color-family-sml-bg: #efe7ee;
+
+	/* ── Martine: attention (points to clarify, notes, consultant additions) ── */
+	--color-attention: #6b4e17;
+	--color-attention-bg: #f6eedd;
+	--color-attention-soft: #fbf6ec;
 }
