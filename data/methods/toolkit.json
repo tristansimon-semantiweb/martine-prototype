@@ -1,0 +1,615 @@
+{
+	"_meta": {
+		"id": "toolkit",
+		"name": "Toolkit",
+		"family": "SML",
+		"format": "steps",
+		"owner": null,
+		"version": "1.0",
+		"source": "SML method file",
+		"planned": "9 (6 étapes chiffrées)"
+	},
+	"phases": [
+		{
+			"phase": "0",
+			"name": "Kick-off",
+			"optional": false,
+			"time": "1 day",
+			"days_min": 1,
+			"days_max": 1,
+			"tasks": [
+				{
+					"task": "Get the brief and align with the project lead",
+					"what": "Understand the scope and the deliverable due date.",
+					"how": "Get the brief from the project lead and check it against the standard scope (Scope & Context tab).\nHold a kick-off call with the project lead: scope, deliverable due date.",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "Validated scope and due date",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst + project lead",
+					"skills": []
+				},
+				{
+					"task": "Check your staffing",
+					"what": "Make sure your time on the project is planned.",
+					"how": "Check your staffing on Float.\nValidate it with the project lead.",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "Staffing validated",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Check your working files",
+					"what": "Make sure you have everything to start.",
+					"how": "Confirm you have the template and the Excel working file.",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "Template and Excel file at hand",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "1",
+			"name": "Brand understanding",
+			"optional": false,
+			"time": "1 day",
+			"days_min": 1,
+			"days_max": 1,
+			"tasks": [
+				{
+					"task": "Brand immersion",
+					"what": "Immerse yourself in the brand.",
+					"how": "Go to the brand website, social media accounts and read articles for brands' news.\nAsk ChatGPT for the latest brand news (buzz, bestsellers, pop-up stores).",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "Brand knowledge",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "2",
+			"name": "Data crawl",
+			"optional": false,
+			"time": "3 days",
+			"days_min": 3,
+			"days_max": 3,
+			"tasks": [
+				{
+					"task": "Build the query",
+					"what": "A very quali study, but it needs a solid data base.",
+					"how": "Build the query from the community's values and hashtags.",
+					"watch_out": "To validate with your project lead",
+					"tools": "",
+					"check": "",
+					"output": "Validated query",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst + project lead",
+					"skills": []
+				},
+				{
+					"task": "Crawl TikTok",
+					"what": "Collect TikTok content on the community.",
+					"how": "Either via Meltwater.\nOr via our internal tool, using identified hashtags (brand hashtags, community hashtags and its values).",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "TikTok crawl output",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Crawl Instagram, Reddit and Pinterest",
+					"what": "Collect content from the other platforms.",
+					"how": "Crawl via Radarly through the query",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "Instagram, Reddit and Pinterest crawl output",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Identify and crawl muses",
+					"what": "Identify the actors, celebrities or influencers who best embody the community.",
+					"how": "List the muses :\nSpot them directly in the data.\nDraw on your own knowledge of the community.\nBrowse TikTok or Instagram, searching for the community’s values in the search bar.\nCrawl their posts via Radarly with the query \"author:\".",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "Muse list and crawl output",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Log every crawl",
+					"what": "Your project lead sees what has been launched and where it stands.",
+					"how": "Fill in the shared Excel file step by step.",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "Shared Excel file up to date",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Load the data",
+					"what": "Make the data ready for analysis.",
+					"how": "Load the data in the Corpus Manager (see Corpus Manager methodology).",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "Corpus loaded",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "3",
+			"name": "Data reading",
+			"optional": false,
+			"time": "2 days",
+			"days_min": 2,
+			"days_max": 2,
+			"tasks": [
+				{
+					"task": "Read the data",
+					"what": "Get a first understanding of the corpus and start collecting material.",
+					"how": "Ask Claude or Gemini whether celebrities, restaurant names or brands come up repeatedly.\nTake 2 hours to read the data and set aside relevant verbatims.",
+					"watch_out": "Check names surfaced by Claude in the verbatims before using them.",
+					"tools": "",
+					"check": "",
+					"output": "First verbatim selection",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Analyze the audience",
+					"what": "Indicate the audience's socio-demographic profile and centers of interest.",
+					"how": "In HypeAuditor, generate the audience analysis of the brand accounts (beauty, fashion, all).",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "Audience analysis",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "4",
+			"name": "Slide production",
+			"optional": false,
+			"time": "2 weeks",
+			"days_min": 10,
+			"days_max": 10,
+			"tasks": [
+				{
+					"task": "2. WHO ARE THEY?",
+					"what": "5 to 7 slide manifesto: who they are, their relationship to fashion or beauty, who they follow.",
+					"how": "To find influencers, several methods:\nAsk ChatGPT directly.\nUse HypeAuditor lookalikes or direclty on lookalikes suggestion on Instagram & TikTok.\nLast resort: Traackr, using its AI tool directly.",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "Manifesto slides (5 to 7)",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "3. WHERE DO THEY TALK?",
+					"what": "Top platforms.",
+					"how": "Via Meltwater or the ICC.",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "Top platforms slide",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "4. HOW DO THEY TALK?",
+					"what": "Tone of voice.",
+					"how": "Analyst's perception, confirmed via ChatGPT or Claude. Run a sample of data or frequencies through Claude",
+					"watch_out": "Ground the tone of voice in exact verbatims, not in ChatGPT's description.",
+					"tools": "",
+					"check": "",
+					"output": "Tone of voice slide",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "5. WHAT DO THEY TALK ABOUT?",
+					"what": "Top topics (what they talk about most) and deep dive of the topics.",
+					"how": "To find the topics: look at the frequencies, send them to Claude to have a first rough ideas of first topics.\nTo quantify the topics: look at the facets, recreate queries if needed, based on how consumers talk (check verbatims + frequencies)",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "Top topics and deep dive slides",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "7. ACTIVATION RECOMMENDATIONS",
+					"what": "Activation ideas for the client.",
+					"how": "Propose ideas to your project lead. Get inspiration from what other brands do and work well, what drives engagement and positivity",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "Activation recommendations slides",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst + project lead",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "5",
+			"name": "Sanity check",
+			"optional": false,
+			"time": "1 day",
+			"days_min": 1,
+			"days_max": 1,
+			"tasks": [
+				{
+					"task": "Check the deck before sending to the project lead",
+					"what": "The deck is clean and client-ready.",
+					"how": "No duplicate verbatims.\nBase 100 adds up to 100.\nSame font everywhere.\nTitle = insight.\nNo comments or notes left at the bottom of the slides.\nGood quality photos.",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "QA-checked deck",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "6",
+			"name": "Review",
+			"optional": false,
+			"time": "1 day",
+			"days_min": 1,
+			"days_max": 1,
+			"tasks": [
+				{
+					"task": "Review with the project team",
+					"what": "Keep the project team aligned throughout the toolkit.",
+					"how": "Plan at least 2 to 3 review calls per week with the project team.",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "Feedback integrated",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst + project team",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "7",
+			"name": "Delivery",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Prepare the restitution",
+					"what": "Anticipate the restitution.",
+					"how": "Confirm with the project lead whether you should attend.\nMake sure you have the invitation.",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "Restitution ready",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst + project lead",
+					"skills": []
+				},
+				{
+					"task": "Ask for feedback",
+					"what": "Get feedback on your work.",
+					"how": "After the restitution, ask the project lead for written feedback (plus a quick coffee or call if needed).",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "Written feedback",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		}
+	],
+	"deck": {
+		"title": "Toolkit | Deck Structure",
+		"description": "Standard slide sequence of a toolkit deck (deep dive on one community), with the data each slide needs and when it is included.",
+		"columns": [
+			"Section",
+			"Slide",
+			"Content",
+			"Facets / data needed",
+			"Included when"
+		],
+		"rows": [
+			[
+				"Intro",
+				"Agenda",
+				"Section list.",
+				"-",
+				"Always"
+			],
+			[
+				"P1 Methodology",
+				"Section divider",
+				"Section title.",
+				"-",
+				"Always"
+			],
+			[
+				"P1 Methodology",
+				"Scope of the study",
+				"Country, timeframe, sources (platforms); query extract; conversation volume.",
+				"Community query, corpus volume",
+				"Always"
+			],
+			[
+				"P2 Who are they",
+				"Section divider",
+				"Incarnation, then 'Who are they?'.",
+				"-",
+				"Always"
+			],
+			[
+				"P2 Who are they",
+				"Identity traits (x each trait)",
+				"4 to 7 traits (e.g. identity, references, mindset, social life, rituals, relationship to each category in scope): headline, narrative, 2 to 3 verbatims with platform and market flags, visual.",
+				"Community corpus, reading",
+				"Always (one slide per category in scope)"
+			],
+			[
+				"P2 Who are they",
+				"Values",
+				"Values moodboard with 4 to 5 labelled values and a framing headline; verbatim on the lead value.",
+				"Values facet, reading",
+				"Always"
+			],
+			[
+				"P2 Who are they",
+				"Age split & profession",
+				"Generation split %, most represented professions, also represented.",
+				"Profiles (bio / self-declared data)",
+				"Always"
+			],
+			[
+				"P2 Who are they",
+				"Muses (x each muse)",
+				"Name, archetype tagline, handles with followers and ER per platform, why she embodies the community, verbatim, visuals.",
+				"Influencer data (HypeAuditor), community corpus",
+				"Always (3 to 4 muses)"
+			],
+			[
+				"P3 Where do they talk",
+				"Section divider",
+				"Section title.",
+				"-",
+				"Always"
+			],
+			[
+				"P3 Where do they talk",
+				"Platforms split",
+				"Platform share of conversation (donut), role of the top 2 platforms with 4 to 5 behaviours each, verbatims.",
+				"Platforms facet",
+				"Always"
+			],
+			[
+				"P3 Where do they talk",
+				"Platform deep dive (x each key platform)",
+				"Role headline, top hashtags, post examples with verbatims.",
+				"Platforms facet, hashtags, reading",
+				"Always (top 2 to 3 platforms)"
+			],
+			[
+				"P3 Where do they talk",
+				"Forums & communities",
+				"How the community uses blogs, forums, Reddit; example threads.",
+				"Blogs / forums / Reddit corpus",
+				"If forum signal sufficient"
+			],
+			[
+				"P3 Where do they talk",
+				"Key temples IRL (x each temple family)",
+				"Temple families with visual and named venues per city.",
+				"Community corpus, places / venues",
+				"Always"
+			],
+			[
+				"P4 How do they talk",
+				"Section divider",
+				"Section title.",
+				"-",
+				"Always"
+			],
+			[
+				"P4 How do they talk",
+				"Tone of voice",
+				"Tone headline, narrative, signature expressions and verbatims.",
+				"Community corpus, reading",
+				"Always"
+			],
+			[
+				"P4 How do they talk",
+				"Top expressions",
+				"Top words & hashtags cloud; top emojis by theme.",
+				"Top words, hashtags, emojis",
+				"Always"
+			],
+			[
+				"P5 What do they talk about",
+				"Section divider",
+				"Section title.",
+				"-",
+				"Always"
+			],
+			[
+				"P5 What do they talk about",
+				"Top topics overview",
+				"3 macro topics with share, sub-topics listed under each, visual per topic.",
+				"Topics facet",
+				"Always"
+			],
+			[
+				"P5 What do they talk about",
+				"Topic navigation (repeat before each macro topic)",
+				"Top topics overview with the current macro topic highlighted.",
+				"Topics facet",
+				"Always"
+			],
+			[
+				"P5 What do they talk about",
+				"Sub-topic deep dive (x each sub-topic)",
+				"Headline, narrative, verbatims, visuals; per sub-topic as relevant: muses or celebrity looks decoded, top brands, formats, notes or claims.",
+				"Topics facet, top brands, reading",
+				"Always"
+			],
+			[
+				"P5 What do they talk about",
+				"Category split + claims to leverage",
+				"Share of community conversation on the client category; split by sub-category; reading per sub-category; claims to leverage.",
+				"Category facet, claims / benefits",
+				"If client category in scope"
+			],
+			[
+				"P5 What do they talk about",
+				"Category deep dives (x each sub-category)",
+				"Top brands, formats, top notes / ingredients, top products mentioned, verbatims.",
+				"Category facet, top brands, products",
+				"If client category in scope"
+			],
+			[
+				"P6 Activation",
+				"Section divider",
+				"Section title.",
+				"-",
+				"Always"
+			],
+			[
+				"P6 Activation",
+				"Activation recommendations",
+				"Activation ideas for creative / comms teams, each with rationale and reference example.",
+				"Whole deck",
+				"Always (validated by project lead)"
+			],
+			[
+				"Appendix",
+				"Community overview divider",
+				"Section title.",
+				"-",
+				"If tribes study precedes"
+			],
+			[
+				"Appendix",
+				"Community ID card (from tribes study)",
+				"Tribes ID card: share per market, affinity, platforms, generation, values, who are they, centers of interest, top brands, key temples, influencer.",
+				"Tribes study ID card",
+				"If tribes study precedes"
+			],
+			[
+				"Appendix",
+				"KOL example (from tribes study)",
+				"Handle, followers, ER, description, verbatims, feed visuals.",
+				"Tribes study, influencer data",
+				"If tribes study precedes"
+			],
+			[
+				"Closing",
+				"Team / thank you",
+				"Project team and contacts.",
+				"-",
+				"Always"
+			]
+		]
+	},
+	"glossary": [
+		{
+			"term": "Tribe",
+			"definition": "A consumer community identified in a tribes study, gathered by shared values, codes and interests. After the tribes study, the client selects 1 or 2 tribes to deep dive in a toolkit."
+		},
+		{
+			"term": "Muse",
+			"definition": "An actor, celebrity or influencer who best embodies the community. Muses' posts are crawled via Radarly with the query \"author:\"."
+		},
+		{
+			"term": "Archetype",
+			"definition": "An even more qualitative study, built around an ideal rather than necessarily a community with shared values. When it comes to Archetype studies, the question for brand is not so much “Who should buy this fragrance?”, but “Who does this fragrance represent?” Our role is to identify the different types of people who naturally embody that territory in today’s culture."
+		},
+		{
+			"term": "Toolkit",
+			"definition": "After a tribes study, a deep dive that gives the client more material on who that community is."
+		}
+	]
+}

@@ -1,0 +1,737 @@
+{
+	"_meta": {
+		"id": "tribes_sourcing",
+		"name": "Tribes sourcing",
+		"family": "SML",
+		"format": "steps",
+		"owner": null,
+		"version": "1.0",
+		"source": "SML method file",
+		"planned": "9 (6 étapes chiffrées)"
+	},
+	"phases": [
+		{
+			"phase": "0",
+			"name": "Kick-off",
+			"optional": false,
+			"time": "1 day",
+			"days_min": 1,
+			"days_max": 1,
+			"tasks": [
+				{
+					"task": "Get the brief and align with the project lead",
+					"what": "Understand the scope and the deliverable due date.",
+					"how": "Get the brief from the project lead and check it against the standard scope\nHold a kick-off call with the project lead: scope, deliverable due date.",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "Validated scope and due date",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst + project lead",
+					"skills": []
+				},
+				{
+					"task": "Clarify the key questions with the client",
+					"what": "Make sure the scope is clear before building anything. If not sure on any point, to be confirmed by the client.",
+					"how": "Is it a tribe project for devotees only (core fans and lovers) or devotees and prospects (values / territory based)?\nHow many countries? Do we need separate tribe ID cards per country (we usually don't, but worth asking)?\nIs the tribe sourcing for women only, men only, or both? If both, is the territory sent by the brand genderless?\nDo we need to use the client's template (e.g. the client)?\nDo we have the brand / product values, or do we need to ask the client for them?",
+					"watch_out": "If the territory is not genderless, challenge the client on process and cost: one corpus for men and one for women costs more than one corpus for both.\nWe always need to receive either an oral brief or a document with the brand values.",
+					"tools": "",
+					"check": "",
+					"output": "Answers to the key questions",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst + project lead",
+					"skills": []
+				},
+				{
+					"task": "Check what can be reused internally",
+					"what": "Reuse what Semantiweb already did on the same category, client, brand or market.",
+					"how": "Is it a \"standard\" / \"light\" tribes sourcing (e.g. the client) or a more extensive one (e.g. a group with several brands)?\nDid we already do a tribe sourcing for this category (makeup, fragrance men, fragrance women, etc.)?\nDid we already do one for this client, brand, product, a competitor, or this country?\nIf yes, source it internally to identify what can be reused: corpus, facets, queries, tribe ID cards.",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "List of reusable assets",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst + project lead",
+					"skills": []
+				},
+				{
+					"task": "Check your staffing",
+					"what": "Make sure your time on the project is planned.",
+					"how": "Check your staffing on Float.\nValidate it with the project lead.",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "Staffing validated",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst + project lead",
+					"skills": []
+				},
+				{
+					"task": "Check your working files",
+					"what": "Make sure you have everything to start.",
+					"how": "Confirm you have the template and the Excel working file.",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "Template and Excel file at hand",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "1",
+			"name": "Brand understanding",
+			"optional": false,
+			"time": "1 day",
+			"days_min": 1,
+			"days_max": 1,
+			"tasks": [
+				{
+					"task": "Brand immersion",
+					"what": "Immerse yourself in the brand.",
+					"how": "Go to the brand website and social media accounts.\nAsk ChatGPT for the latest brand news (buzz, bestsellers, pop-up stores).",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Read past tribes studies",
+					"what": "Understand how a tribes study works and how the storytelling is adapted to each brand.",
+					"how": "Read tribes studies we already delivered (see Slack channel communities-project).",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "2",
+			"name": "Data crawl",
+			"optional": false,
+			"time": "3 days",
+			"days_min": 3,
+			"days_max": 3,
+			"tasks": [
+				{
+					"task": "Build the query",
+					"what": "Capture conversations around the brand territory. The query depends on the project type (see key question 0.2: devotees only, or devotees and prospects).",
+					"how": "Build the query from the brand territory: its values, its name, its products.\nDevotees only (core fans and lovers), no values: a very simple query on the brand and its products.; Example :; [client query example removed]\nDevotees and prospects (values / territory based): add a territory of values to the brand query.; Example (excerpt):; [client query example removed]",
+					"watch_out": "The query is very broad, so it will bring uninteresting verbatims. Do not spend too much time cleaning it: the study is more quali than quanti.",
+					"tools": "",
+					"check": "",
+					"output": "Validated query",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Extract ratings & reviews",
+					"what": "Collect ratings & reviews from our internal database.",
+					"how": "Run an extraction query directly in the Corpus Manager.; Example:; (year:(\"2026\" OR \"2024\" OR \"2025\")) AND ((country:(\"USA\")) AND (marque_label_all:(\"[brand]\")))",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "Ratings & reviews extraction",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Crawl TikTok",
+					"what": "Collect TikTok content + Collect the comments of the most commented TikTok videos with Export Comments.",
+					"how": "Either via Meltwater.\nOr via our internal tool, using identified hashtags (brand hashtags, community hashtags and its values).; - For the manual crawl :\nCheck that the \"Sorter For TikTok & Instagram\" extension is installed on your computer.\nOn TikTok, search the brand / its products > Videos tab > sort by comments, descending > scroll down 10 times to refresh the data.\nIn your working sheet, list the 50 most commented videos: one column for the link, one for the number of comments.\nIn Export Comments, paste the video links and launch the export.",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "TikTok crawl output",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Crawl Reddit",
+					"what": "Collect Reddit content: very important for this type of study.",
+					"how": "Depending on access: via our internal tool, Radarly or Meltwater.",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "Reddit crawl output",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Crawl Instagram and Pinterest",
+					"what": "Collect Instagram and Pinterest content.",
+					"how": "Via Radarly or Meltwater.",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "Instagram and Pinterest crawl output",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Crawl the brand's posts",
+					"what": "Collect the brand's own posts and the comments they generate.",
+					"how": "Via Export Comments: crawl around 50 TikTok posts with more than 100 comments.\nVia Radarly: run an author query to crawl the brand's posts (e.g. @[brand]).",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "Brand posts and comments crawl output",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Identify and crawl muses",
+					"what": "Identify the actors, celebrities or influencers who best embody the community.",
+					"how": "List the muses:\nSpot them directly in the data.\nDraw on your own knowledge of the community.\nBrowse TikTok or Instagram, searching for the community's values in the search bar.\nCrawl their posts via Radarly with the query \"author:\".",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "Muse list and crawl output",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Translate the data",
+					"what": "Make non-English data readable and reliable for analysis.",
+					"how": "If a native speaker is available: they translate and check the data (slang, irony, cultural references).\nOtherwise: translate via the Files tool (see Corpus Manager methodology), then have a native speaker check the verbatims selected for the deck.",
+					"watch_out": "Keep the original verbatim next to its translation, and label translations clearly in the deck.",
+					"tools": "",
+					"check": "",
+					"output": "Translated data",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Log every crawl",
+					"what": "Your project lead sees what has been launched and where it stands.",
+					"how": "Fill in the shared Excel file step by step.",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "Shared Excel file up to date",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Load the data",
+					"what": "Make the data ready for analysis.",
+					"how": "Load the data in the Corpus Manager (see Corpus Manager methodology).",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "Corpus loaded",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "3",
+			"name": "Data reading",
+			"optional": false,
+			"time": "2 days",
+			"days_min": 2,
+			"days_max": 2,
+			"tasks": [
+				{
+					"task": "Read the data",
+					"what": "Get a first understanding of the corpus and start collecting material.",
+					"how": "Ask Claude whether celebrities, restaurant names or brands come up repeatedly.\nTake 2 hours to read the data and set aside relevant verbatims.",
+					"watch_out": "Hashtags are key in this type of study: communities are often explicitly named through them.",
+					"tools": "",
+					"check": "",
+					"output": "First verbatim selection",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Run frequencies",
+					"what": "Get first leads on the communities.",
+					"how": "Run frequencies per platform and per year.",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "Frequency files",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Read top commenter profiles on Instagram",
+					"what": "Understand who the core fans and lovers are behind the brand’s comments.",
+					"how": "Read the bio and content of the 25 profiles commenting the most on the brand",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "",
+					"skills": []
+				},
+				{
+					"task": "Analyze the audience",
+					"what": "Indicate the audience's socio-demographic profile and centers of interest.",
+					"how": "In HypeAuditor, generate the audience analysis of the brand accounts (beauty, fashion, all).; 6",
+					"watch_out": "extract pdf report of the audiences for the brand account on Instagram and Tik Tok to get some ideas of top interests of the audience + demographics + key contributors / influencers about the brand.",
+					"tools": "",
+					"check": "",
+					"output": "Audience analysis",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "4",
+			"name": "Slide production",
+			"optional": false,
+			"time": "2 weeks",
+			"days_min": 10,
+			"days_max": 10,
+			"tasks": [
+				{
+					"task": "Incarnation and centers of interest",
+					"what": "Show the macro trends shaping the brand universe and the centers of interest communities gather around (e.g. \"Macro trends shaping the [brand] universe\", \"Communities come together around centers of interest\").",
+					"how": "Identify them with the frequencies and desk research, then confirm them in the corpus.\nUse the search bar: is there enough volume to support the idea?\nTo quantify: queries.",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "Incarnation and centers of interest slides",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Find the big idea",
+					"what": "Find the common thread of these communities.",
+					"how": "Define it with the project lead.",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "Big idea",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst + project lead",
+					"skills": []
+				},
+				{
+					"task": "Identify the tribes",
+					"what": "Define and name the tribes.",
+					"how": "Brainstorm with the project lead.\nAsk ChatGPT for naming ideas.\nLook at the Pinterest trend report of the current year: often very inspiring in terms of insights.\nIf planned upstream, send the communities to the client for validation (check with the project lead).",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "Tribe list and names",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst + project lead",
+					"skills": []
+				},
+				{
+					"task": "Community ID cards",
+					"what": "One ID card per community.",
+					"how": "Run frequencies per community, previously quantified with semantic queries.\nWho are they, centers of interest.\nKey temples.\nPillars: qualitative, perception of the community and of the brand.",
+					"watch_out": "Tip: identify a content creator who embodies the community and browse their profile to see what they do, where they go, etc.",
+					"tools": "",
+					"check": "",
+					"output": "One ID card per community",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Moodboard",
+					"what": "Illustrate each community.",
+					"how": "Take visuals on Pinterest (more qualitative).\nAdd an influencer example who embodies the community: find them through your own knowledge, ChatGPT, HypeAuditor or Traackr.",
+					"watch_out": "Choose visuals that are not blurry: it is the first thing a client sees.",
+					"tools": "",
+					"check": "",
+					"output": "One moodboard per community",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Synthesis of the pillars",
+					"what": "Summarize the pillars across communities.",
+					"how": "Ask Claude to do it.",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "Pillars synthesis slide",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Community choice guidelines",
+					"what": "Help the client choose which communities to activate.",
+					"how": "Brainstorm with the project lead.",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "Guidelines slide",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst + project lead",
+					"skills": []
+				},
+				{
+					"task": "End slide",
+					"what": "don't forget the ending slide with your name + project lead",
+					"how": "",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "5",
+			"name": "Sanity check",
+			"optional": false,
+			"time": "1 day",
+			"days_min": 1,
+			"days_max": 1,
+			"tasks": [
+				{
+					"task": "Check the deck before sending",
+					"what": "The deck is clean and client-ready.",
+					"how": "No duplicate verbatims.\nBase 100 adds up to 100.\nSame font everywhere.\nTitle = insight.\nNo comments or notes left at the bottom of the slides.\nGood quality photos.",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "QA-checked deck",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "6",
+			"name": "Review",
+			"optional": false,
+			"time": "1 day",
+			"days_min": 1,
+			"days_max": 1,
+			"tasks": [
+				{
+					"task": "Review with the project team",
+					"what": "Keep the project team aligned throughout the study.",
+					"how": "Plan at least 2 to 3 review calls per week with the project team.",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst + project lead",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "7",
+			"name": "Delivery",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Prepare the restitution",
+					"what": "Anticipate the restitution.",
+					"how": "Confirm with the project lead whether you should attend.\nMake sure you have the invitation.",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst + project lead",
+					"skills": []
+				},
+				{
+					"task": "Ask for feedback",
+					"what": "Get feedback on your work.",
+					"how": "After the restitution, ask the project lead for written feedback (plus a quick coffee or call if needed).",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst + project lead",
+					"skills": []
+				}
+			]
+		}
+	],
+	"deck": {
+		"title": "Tribes Study | Deck Structure",
+		"description": "Standard slide sequence of a tribes (community) study deck, with the data each slide needs and when it is included.",
+		"columns": [
+			"Section",
+			"Slide",
+			"Content",
+			"Facets / data needed",
+			"Included when"
+		],
+		"rows": [
+			[
+				"Intro",
+				"Title + agenda",
+				"Brand, market, date; agenda with section numbers.",
+				"-",
+				"Always"
+			],
+			[
+				"P1 Methodology",
+				"Section divider",
+				"Section title and visual.",
+				"-",
+				"Always"
+			],
+			[
+				"P1 Methodology",
+				"Our methodology",
+				"3 steps: data sourcing and extraction (platforms), structuration via LLM/NLP, quanti + quali analysis.",
+				"-",
+				"Always"
+			],
+			[
+				"P1 Methodology",
+				"How we extract community conversation",
+				"Query extract, conversation volume per market, owned accounts follower analysis; number of communities mapped.",
+				"Brand query, corpus volume, follower data (HypeAuditor)",
+				"Always (follower analysis if owned accounts in scope)"
+			],
+			[
+				"P1 Methodology",
+				"Community types",
+				"Core fans vs lovers definition, each with a one-line consumer stance.",
+				"Brand corpus, usage / loyalty signals",
+				"Always"
+			],
+			[
+				"P2 Incarnation",
+				"Section divider",
+				"Section title and visual.",
+				"-",
+				"Always"
+			],
+			[
+				"P2 Incarnation",
+				"Community type portraits (x each type)",
+				"Headline; 4 to 5 bullets on relationship to the brand; takeaway; 2 to 3 verbatims; visuals.",
+				"Brand corpus, reading",
+				"Always"
+			],
+			[
+				"P2 Incarnation",
+				"Community ecosystem",
+				"Pyramid: core fans (advocacy) vs lovers (conversion), definition and opportunity per level.",
+				"Community mapping",
+				"Always"
+			],
+			[
+				"P2 Incarnation",
+				"Macro trends: aspirations overview",
+				"3 aspirations on the brand territory, one visual each.",
+				"Territories / motivations facet",
+				"Always"
+			],
+			[
+				"P2 Incarnation",
+				"Aspiration deep dive (x each aspiration)",
+				"Trend description, why the brand, 1 verbatim, moodboard.",
+				"Territories / motivations facet, reading",
+				"Always"
+			],
+			[
+				"P2 Incarnation",
+				"Centers of interest beyond category",
+				"5 to 6 interests ranked with % and top sub-themes, visual each.",
+				"Interests facet, follower interests",
+				"Always"
+			],
+			[
+				"P2 Incarnation",
+				"Synthesis statement",
+				"One overarching consumer shift the brand world resonates with, 3 supporting points.",
+				"Whole section",
+				"Always"
+			],
+			[
+				"P2 Incarnation",
+				"Community volume & evolution",
+				"All communities with share, evolution arrow, visual; 4 to 5 reading bullets on the ecosystem.",
+				"Community facets / queries",
+				"Always"
+			],
+			[
+				"P2 Incarnation",
+				"Hypothetical tribes vs real communities",
+				"AI-generated or brief tribes vs sourced communities; mapping of echoes.",
+				"Upstream hypotheses, community mapping",
+				"If hypothesis tribes generated upstream"
+			],
+			[
+				"P2 Incarnation",
+				"Communities by type",
+				"Pyramid with share of fans vs lovers and community count; communities placed by type with share.",
+				"Community facets",
+				"Always"
+			],
+			[
+				"P3 ID cards",
+				"Section divider",
+				"Section title and visual.",
+				"-",
+				"Always"
+			],
+			[
+				"P3 ID cards",
+				"Community type divider (x each type)",
+				"Type name, visual.",
+				"-",
+				"Always"
+			],
+			[
+				"P3 ID cards",
+				"ID card (x each community)",
+				"Type tag, share + evolution, tagline; brand pillars score; socio-demo (generation slider, male audience); top words & hashtags; who are they; 4 centers of interest; key temples incl. platform split base 100; echo of hypothesis tribe.",
+				"Community facets, profiles, top words, platforms",
+				"Always (hypothesis echo if tribes generated upstream)"
+			],
+			[
+				"P3 ID cards",
+				"Moodboard (x each community)",
+				"Visuals + 2 verbatims with hashtags.",
+				"Community corpus, reading",
+				"Always"
+			],
+			[
+				"P3 ID cards",
+				"Muse / influencer example (x each community)",
+				"Handle, followers, ER, portrait, 2 post verbatims, feed visuals.",
+				"Influencer data (HypeAuditor), community corpus",
+				"Always"
+			],
+			[
+				"P4 Community choice",
+				"Pillars synthesis divider",
+				"Section title and visual.",
+				"-",
+				"Always"
+			],
+			[
+				"P4 Community choice",
+				"Communities overview",
+				"All communities with share, evolution and brand pillar scores side by side.",
+				"ID cards",
+				"Always"
+			],
+			[
+				"P4 Community choice",
+				"Recommendation beyond core fans",
+				"Communities split ownable (dominant & growing) vs tactical (niche & rising), ranked, one rationale each.",
+				"Community mapping, pillar scores",
+				"Always (validated by project lead)"
+			],
+			[
+				"Closing",
+				"Team / thank you",
+				"Project team and contacts.",
+				"-",
+				"Always"
+			]
+		]
+	}
+}

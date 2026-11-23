@@ -10,7 +10,7 @@ import type { BriefReading, MethodSuggestion, MethodTask, RoleId, Study, StudySt
 export interface MethodDraft {
 	version: string; // the draft's version, e.g. "1.3"
 	saved: boolean;
-	edits: Record<string, Partial<Pick<MethodTask, "how" | "check" | "output" | "tools">>>; // key: task key
+	edits: Record<string, Partial<Pick<MethodTask, "how" | "check" | "output" | "tools" | "what" | "watch_out">>>; // key: task key
 	addedSkills: Record<string, string[]>; // key: task key
 	addedTasks: { id: string; phase: string; task: string; by: string }[];
 	addedPhases: { id: string; name: string; by: string }[];
@@ -23,7 +23,9 @@ interface MartineData {
 	drafts: Record<string, MethodDraft>; // key: method id
 }
 
-const KEY = "martine_v1";
+// Bumped when the seed data changes shape (v2: the methods import), so a
+// browser that kept an older demo starts again from the new seed.
+const KEY = "martine_v2";
 
 const ROLE_PERSON: Record<RoleId, string> = { analyst: "marie", consultant: "claire", method_owner: "bamby" };
 

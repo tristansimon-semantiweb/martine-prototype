@@ -1,6 +1,6 @@
 // What a study looks like once its method and its local state are put
 // together: phases with their tasks, the current phase, days used.
-import { methodFile, phaseDays, phaseId, studyPhases, taskKey } from "./data";
+import { methodFile, phaseDays, phaseId, studyPhases, sumDays, taskKey, type DayRange } from "./data";
 import type { AddedTask, MethodTask, Study, TaskState } from "./types";
 
 export interface TaskView {
@@ -17,7 +17,7 @@ export interface PhaseView {
 	name: string;
 	tasks: TaskView[];
 	added: AddedTask[];
-	days: { min: number; max: number };
+	days: DayRange; // null: not costed in the method file
 	doneCount: number;
 	total: number;
 	status: PhaseStatus;
@@ -32,7 +32,7 @@ export function hasMethodFile(study: Study): boolean {
 export function phaseViews(study: Study): PhaseView[] {
 	const st = study.state;
 	const awaiting = st.awaitingApproval ?? [];
-	const base = studyPhases(study.method.id).map((p) => {
+	const base = studyPhases(study.method.id, study.phases).map((p) => {
 		const id = phaseId(p);
 		const tasks = p.tasks.map((task, i) => {
 			const key = taskKey(id, i);
@@ -45,7 +45,7 @@ export function phaseViews(study: Study): PhaseView[] {
 		label: `${base.length + i}. ${s.name}`,
 		name: s.name,
 		tasks: [] as TaskView[],
-		days: { min: 0, max: 0 },
+		days: null as DayRange,
 		addedBy: s.by,
 	}));
 
@@ -74,11 +74,9 @@ export function daysActual(study: Study): number {
 	return tasks + study.state.addedTasks.reduce((n, t) => n + (t.done ? (t.days ?? 0) : 0), 0);
 }
 
-export function daysPlanned(study: Study): { min: number; max: number } | null {
+export function daysPlanned(study: Study): DayRange {
 	if (study.snapshot) return { min: study.snapshot.daysPlanned, max: study.snapshot.daysPlanned };
-	const views = phaseViews(study);
-	if (!views.length) return null;
-	return views.reduce((acc, p) => ({ min: acc.min + p.days.min, max: acc.max + p.days.max }), { min: 0, max: 0 });
+	return sumDays(phaseViews(study).map((p) => p.days));
 }
 
 // Share of the study's phases that are done (0 to 1).

@@ -1,12 +1,12 @@
 // Typed access to the raw JSON in /data. Nothing here persists: what changes
 // while the prototype runs lives in the local store (useMartine).
-import methodTrendReport from "../../../data/methodo-trend-report.json";
 import methodsIndexRaw from "../../../data/methods-index.json";
 import catalogRaw from "../../../data/catalog.json";
 import briefsRaw from "../../../data/briefs-exemples.json";
 import studiesRaw from "../../../data/studies.json";
 import readingsRaw from "../../../data/brief-readings.json";
 import askScriptsRaw from "../../../data/ask-martine-scripts.json";
+import { METHOD_FILES } from "./methodFiles.generated";
 import type {
 	AskScript,
 	BriefReading,
@@ -27,12 +27,6 @@ export const seedSuggestions = studiesRaw.methodSuggestions as MethodSuggestion[
 export const briefs = briefsRaw as unknown as Record<string, string>;
 export const briefReadings = readingsRaw.readings as Record<string, BriefReading>;
 export const askScripts = askScriptsRaw.scripts as AskScript[];
-
-// Only the trend report method file is provided; the others are listed in the
-// index with their counts but have no phases in the prototype.
-const METHOD_FILES: Record<string, MethodFile> = {
-	trend_report: methodTrendReport as MethodFile,
-};
 
 export function methodEntry(id: string): MethodIndexEntry | undefined {
 	return methodsIndex.find((m) => m.id === id);
@@ -62,15 +56,25 @@ export function taskKey(phaseIdValue: string, index: number): string {
 	return `${phaseIdValue}.${index + 1}`;
 }
 
-export function phaseDays(p: MethodPhase): { min: number; max: number } {
-	return p.tasks.reduce(
-		(acc, t) => ({ min: acc.min + t.days_min, max: acc.max + t.days_max }),
-		{ min: 0, max: 0 },
-	);
+export type DayRange = { min: number; max: number } | null;
+
+// A phase's planned days: the phase's own time when the method file gives one
+// (steps format), else the sum of its tasks' figures. Null when nothing is
+// costed: shown as "not costed", never as zero.
+export function phaseDays(p: MethodPhase): DayRange {
+	if (p.days_min != null) return { min: p.days_min, max: p.days_max ?? p.days_min };
+	return sumDays(p.tasks.map((t) => (t.days_min == null ? null : { min: t.days_min, max: t.days_max ?? t.days_min })));
 }
 
-// The phases a study runs: the optional ones (2 bis) only when the study opts in,
-// which no demo study does.
-export function studyPhases(methodId: string): MethodPhase[] {
-	return methodFile(methodId)?.phases.filter((p) => !p.optional) ?? [];
+export function sumDays(ranges: DayRange[]): DayRange {
+	const known = ranges.filter((r): r is NonNullable<DayRange> => r != null);
+	if (!known.length) return null;
+	return known.reduce((a, r) => ({ min: a.min + r.min, max: a.max + r.max }), { min: 0, max: 0 });
+}
+
+// The phases a study runs: the ones it lists, else every phase but the
+// optional ones (2 bis), which no demo study opts into.
+export function studyPhases(methodId: string, only?: string[]): MethodPhase[] {
+	const phases = methodFile(methodId)?.phases ?? [];
+	return only ? phases.filter((p) => only.includes(phaseId(p))) : phases.filter((p) => !p.optional);
 }

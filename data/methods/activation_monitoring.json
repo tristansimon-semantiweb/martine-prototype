@@ -1,0 +1,274 @@
+{
+	"_meta": {
+		"id": "activation_monitoring",
+		"name": "Activation monitoring",
+		"family": "Monitoring",
+		"format": "tasks",
+		"owner": null,
+		"version": "1.0",
+		"source": "M&T method file",
+		"planned": "12.1 à 15.4"
+	},
+	"phases": [
+		{
+			"phase": "0",
+			"name": "Kick-off & setup",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Brief, scope and period",
+					"how": "Read the brief and fill the START HERE tab once: subject (brand, product or topic), markets, languages, period N and N-1 (exact start and end dates), client questions, client deadline and internal deadlines (end of production, peer review, feedback day). Log every scope decision (what is in, what is out) in the scope log.",
+					"tools": "Brief, START HERE tab",
+					"check": "Period dates, markets and deadlines are written once in START HERE and reused everywhere else.",
+					"output": "Completed START HERE + scope log",
+					"days_min": 0.1,
+					"days_max": 0.1,
+					"owner": "Team lead",
+					"skills": []
+				},
+				{
+					"task": "Project folder and files",
+					"how": "Create the project folder on the Drive with the agreed naming convention. Copy the latest master versions of the production file (this file) and of the deck template. Never start from a previous client's digest.",
+					"tools": "Google Drive, master templates",
+					"check": "Files come from the current master versions and follow the naming convention.",
+					"output": "Project folder with production file and deck",
+					"days_min": 0.05,
+					"days_max": 0.1,
+					"owner": "Team lead",
+					"skills": []
+				},
+				{
+					"task": "Planning",
+					"how": "Allocate analyst and reviewer time in Float. Book the peer review slot and the feedback day in calendars before production starts.",
+					"tools": "Float, calendar",
+					"check": "Review slot booked before production starts.",
+					"output": "Staffing plan",
+					"days_min": 0.05,
+					"days_max": 0.1,
+					"owner": "Team lead",
+					"skills": []
+				},
+				{
+					"task": "Reuse check",
+					"how": "Look for a previous edition on the same brand or category: Radarly query, R&R facets, product mapping, topic keyword sets, launch calendar, brand assets. Reuse what is still valid and list what must be updated. Reuse across clients only with explicit internal approval.",
+					"tools": "Drive, queries library, building-radarly-queries and building-corpus-facets skills",
+					"check": "Reused assets listed with their date; outdated elements flagged.",
+					"output": "Reuse list",
+					"days_min": 0.1,
+					"days_max": 0.1,
+					"owner": "Team lead",
+					"skills": [
+						"building-radarly-queries",
+						"building-corpus-facets"
+					]
+				},
+				{
+					"task": "Get access to the Talkwalker topics (US, EU5)",
+					"how": "Ask Team Lead where the client and competitor topics are on Talkwalker (US, EU5) and get a walkthrough of how to extract the figures.",
+					"tools": "Talkwalker; an analyst (topic owner)",
+					"check": "Topics located and a test extraction done.",
+					"output": "Talkwalker topic access confirmed",
+					"days_min": 0.05,
+					"days_max": 0.1,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Get access to the Radarly topics (CN)",
+					"how": "Ask Team Leadwhere the topics are on Radarly (CN) and get a walkthrough of how to extract the figures.",
+					"tools": "Radarly; the topic owner",
+					"check": "Topics located and a test extraction done.",
+					"output": "Radarly topic access confirmed",
+					"days_min": 0.05,
+					"days_max": 0.1,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "1",
+			"name": "Owned post inventory",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "List owned posts (Instagram, TikTok)",
+					"how": "Go to the official the client Instagram and TikTok pages and list every brand post published over the period (April, May, June 2026).",
+					"tools": "Instagram, TikTok",
+					"check": "Every post of the period listed with date, link and engagement.",
+					"output": "Owned post base, US / Europe",
+					"days_min": 0.5,
+					"days_max": 0.8,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "List owned posts (Douyin, RED)",
+					"how": "Go to the official the client Douyin and RED pages and list every brand post published over the period (April, May, June 2026).",
+					"tools": "Douyin, RED",
+					"check": "Every post of the period listed with date, link and engagement.",
+					"output": "Owned post base, China",
+					"days_min": 0.5,
+					"days_max": 0.8,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "2",
+			"name": "Quantitative analysis",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Extract Talkwalker figures (US, EU5)",
+					"how": "On Talkwalker, extract Q2 2026 vs Q2 2025 figures for the client and its competitors ([brand], [brand], [brand], [brand], the client Paris (LDB)): volumes, earned vs owned, sentiment vs the previous period, and earned vs owned sentiment for the current period.",
+					"tools": "Talkwalker. Settings: period Q2 2026; 8 platforms (Instagram, TikTok, Facebook, Reddit, Blogs, Forums, YouTube, X); US + EU5 (FR, UK, SP, DE, IT); exclude Fashion; Consumer Voice (earned)",
+					"check": "Same period and filters for every brand; Q2 2025 pulled with identical settings.",
+					"output": "Quantitative data, US / EU5",
+					"days_min": 1,
+					"days_max": 1.2,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Extract Radarly figures (CN)",
+					"how": "Do the same on Radarly for China: volumes, earned vs owned, sentiment, earned vs owned sentiment.",
+					"tools": "Radarly",
+					"check": "Same period and filters as the US / EU5 extraction.",
+					"output": "Quantitative data, CN",
+					"days_min": 1,
+					"days_max": 1.2,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Build the quantitative slides",
+					"how": "Build 1 slide per geographic zone on 3 indicators (awareness, proximity, desirability) for the client and its competitors.",
+					"tools": "Excel, deck",
+					"check": "Figures in the slides match the data file.",
+					"output": "Part I: 5 quantitative slides",
+					"days_min": 2,
+					"days_max": 2,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "3",
+			"name": "Qualitative analysis: top posts",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Identify the top owned posts",
+					"how": "On Talkwalker and Radarly, identify the top performing owned posts per platform, by highest engagement (see the per-platform tabs).",
+					"tools": "Talkwalker, Radarly",
+					"check": "Top 3 per platform (Instagram, TikTok) for US-Europe and China, ranked by engagement.",
+					"output": "Part II: 2 owned slides",
+					"days_min": 0.5,
+					"days_max": 0.8,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Identify the top influencer posts",
+					"how": "Identify the top influencer posts per platform and per market (US, CN, FR, SP, UK), by highest engagement (see the per-platform tabs). Apply the voice classification rules (see Notes).",
+					"tools": "Talkwalker, Radarly",
+					"check": "Top 3 per platform and market; every post classified with the voice rules.",
+					"output": "Part II: 5 influencer slides",
+					"days_min": 0.5,
+					"days_max": 0.8,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Identify the top consumer posts",
+					"how": "Identify the top consumer posts per platform and per market (US, CN, FR, SP, UK), by highest engagement (see the per-platform tabs). Apply the voice classification rules (see Notes).",
+					"tools": "Talkwalker, Radarly",
+					"check": "Top 3 per platform and market; every post classified with the voice rules.",
+					"output": "Part II: 5 consumer slides",
+					"days_min": 0.7,
+					"days_max": 0.9,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "4",
+			"name": "Qualitative analysis: least performing posts",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Identify the least performing owned posts",
+					"how": "Identify the least performing owned posts per platform: US / Europe, then China. Owned only (see the per-platform tabs).",
+					"tools": "Talkwalker, Radarly",
+					"check": "Owned posts only; ranking based on the full owned post base.",
+					"output": "Part III: 2 slides",
+					"days_min": 0.5,
+					"days_max": 0.8,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "5",
+			"name": "Brand desirability pillars",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Update the desirability pillars",
+					"how": "Check the categorisation of all top performing posts and look across the drivers at what changed, what is new and where the client performed best (aspirational, efficacy, emotional or trends). Update the slide and the examples with Q2 data.",
+					"tools": "Talkwalker, Radarly",
+					"check": "Every top post categorised; changes vs Q1 backed by examples.",
+					"output": "Part IV: brand desirability pillars",
+					"days_min": 1,
+					"days_max": 1.5,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "6",
+			"name": "Finalisation",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Update the deck",
+					"how": "Update the Q1 deck with the Q2 2026 figures and slides, keeping the same structure. Reference: Q1 deck on the Drive (link in Notes).",
+					"tools": "PowerPoint",
+					"check": "Every figure traces to the data file; no Q1 figure left.",
+					"output": "Final Q2 deck (19 slides)",
+					"days_min": 3.5,
+					"days_max": 4,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		}
+	]
+}

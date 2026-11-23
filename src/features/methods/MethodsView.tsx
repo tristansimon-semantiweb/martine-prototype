@@ -114,7 +114,7 @@ export function MethodsView() {
 													{draft?.saved && <span className="text-sm text-[var(--color-ink-muted)]">draft v{draft.version}</span>}
 												</span>
 											) : (
-												<span className="text-[var(--color-ink-muted)]">To import</span>
+												<span className="text-[var(--color-ink-muted)]">To document</span>
 											)}
 										</td>
 									</tr>

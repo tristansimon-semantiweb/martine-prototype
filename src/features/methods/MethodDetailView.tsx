@@ -6,8 +6,8 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { TopBand } from "@/shared/components/layout/TopBand";
 import { useToast } from "@/shared/components/ui/Toast";
 import { useMartine } from "@/shared/hooks/useMartine";
-import { methodEntry, personById } from "@/shared/lib/data";
-import { dayRange, plural } from "@/shared/lib/format";
+import { methodEntry, methodFile, personById } from "@/shared/lib/data";
+import { costed, plannedLabel, plural } from "@/shared/lib/format";
 import { cn } from "@/shared/lib/cn";
 import { methodDays, methodPhases } from "./methodModel";
 import { MethodPhaseDrawer } from "./MethodPhaseDrawer";
@@ -41,7 +41,8 @@ export function MethodDetailView({ id }: { id: string }) {
 	const phases = methodPhases(id, draft, suggestions);
 	const pending = suggestions.filter((s) => s.method === id && s.status === "pending");
 	const usedBy = studies.filter((s) => s.method.id === id && s.status !== "delivered").length;
-	const planned = methodDays(id);
+	const planned = plannedLabel(m.planned) ?? costed(methodDays(id)).replace(/ d$/, " days");
+	const file = methodFile(id);
 	const isOwner = role === "method_owner";
 	const openId = params.get("phase");
 	const addKey = params.get("add");
@@ -76,9 +77,9 @@ export function MethodDetailView({ id }: { id: string }) {
 				<dl className="m-0 grid grid-cols-2 gap-3.5 sm:grid-cols-4">
 					{[
 						["Owner", m.owner ?? "To name"],
-						["Version", m.version ? `${m.version}, published${draft?.saved ? `; draft ${draft.version} saved` : ""}` : "To import"],
+						["Version", m.version ? `${m.version}, published${draft?.saved ? `; draft ${draft.version} saved` : ""}` : "To document"],
 						["Used by", plural(usedBy, "study", "studies")],
-						["Planned", planned ? dayRange(planned.min, planned.max).replace(" d", " days") : "[from the method file]"],
+						["Planned", m.version ? planned : "[not documented]"],
 					].map(([k, v]) => (
 						<div key={k} className="rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-surface)] px-4 py-3">
 							<dt className="text-[13px] text-[var(--color-ink-muted)]">{k}</dt>
@@ -89,7 +90,7 @@ export function MethodDetailView({ id }: { id: string }) {
 
 				{!m.version && (
 					<p className="m-0 rounded-[var(--radius-lg)] border border-dashed border-[var(--color-border-active)] bg-[var(--color-surface)] px-6 py-6 text-[var(--color-ink-secondary)]">
-						This method’s file is not imported yet. Its phases and tasks show here once it is.
+						This method’s tab is empty in the method file. Its phases and tasks show here once it is written.
 					</p>
 				)}
 
@@ -128,7 +129,7 @@ export function MethodDetailView({ id }: { id: string }) {
 										</span>
 									)}
 									<span className="w-16 text-sm">{plural(p.tasks.length, "task")}</span>
-									<span className="w-28 text-sm">{dayRange(p.days.min, p.days.max)}</span>
+									<span className={cn("w-28 text-sm", !p.days && "text-[var(--color-ink-muted)]")}>{costed(p.days)}</span>
 									<span className={cn("w-16 text-sm", p.skillCount === 0 && "text-[var(--color-ink-muted)]")}>
 										{p.skillCount === 0 ? "no skill" : plural(p.skillCount, "skill")}
 									</span>
@@ -162,6 +163,70 @@ export function MethodDetailView({ id }: { id: string }) {
 									</button>
 								</form>
 							))}
+					</section>
+				)}
+
+				{file?.deck && file.deck.rows.length > 0 && (
+					<section aria-labelledby="deck" className="flex flex-col gap-2">
+						<div>
+							<h2 id="deck" className="m-0 font-[family-name:var(--font-body)] text-lg font-semibold">
+								Deck structure
+							</h2>
+							{file.deck.description && <p className="m-0 text-sm text-[var(--color-ink-muted)]">{file.deck.description}</p>}
+						</div>
+						<div className="overflow-x-auto rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-surface)]">
+							<table className="w-full min-w-[640px] border-collapse text-sm">
+								<thead>
+									<tr className="border-b border-[var(--color-border)] text-left text-[13px] text-[var(--color-ink-muted)]">
+										{file.deck.columns.map((c) => (
+											<th key={c} className="px-3 py-2.5 font-semibold first:pl-5">
+												{c}
+											</th>
+										))}
+									</tr>
+								</thead>
+								<tbody>
+									{file.deck.rows.map((r, i) => (
+										<tr key={i} className="border-b border-[var(--color-border)] align-top last:border-b-0">
+											{r.map((c, j) => (
+												<td key={j} className={cn("px-3 py-2.5 first:pl-5", j < 2 && "font-semibold", c === "-" && "text-[var(--color-ink-muted)]")}>
+													{c}
+												</td>
+											))}
+										</tr>
+									))}
+								</tbody>
+							</table>
+						</div>
+					</section>
+				)}
+
+				{file?.glossary && (
+					<section aria-labelledby="terms" className="flex flex-col gap-2">
+						<h2 id="terms" className="m-0 font-[family-name:var(--font-body)] text-lg font-semibold">
+							Terms
+						</h2>
+						<dl className="m-0 grid grid-cols-[120px_minmax(0,1fr)] gap-x-3.5 gap-y-2 rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-surface)] px-5 py-4 text-[15px]">
+							{file.glossary.map((g) => (
+								<div key={g.term} className="contents">
+									<dt className="font-semibold">{g.term}</dt>
+									<dd className="m-0 text-[var(--color-ink-secondary)]">{g.definition}</dd>
+								</div>
+							))}
+						</dl>
+					</section>
+				)}
+
+				{file?.notes && (
+					<section aria-labelledby="notes" className="flex flex-col gap-2">
+						<h2 id="notes" className="m-0 font-[family-name:var(--font-body)] text-lg font-semibold">
+							Notes from the method file
+						</h2>
+						<ul className="m-0 flex flex-col gap-1.5 rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-surface)] px-5 py-4 pl-9 text-[15px] text-[var(--color-ink-secondary)]">
+							{file.notes.map((n, i) => (
+								<li key={i}>{n}</li>
+							))}
+						</ul>
 					</section>
 				)}
 			</div>

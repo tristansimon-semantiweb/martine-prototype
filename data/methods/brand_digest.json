@@ -1,0 +1,574 @@
+{
+	"_meta": {
+		"id": "brand_digest",
+		"name": "Brand digest",
+		"family": "SML",
+		"format": "tasks",
+		"owner": null,
+		"version": "1.0",
+		"source": "M&T method file",
+		"planned": "5.75"
+	},
+	"phases": [
+		{
+			"phase": "0",
+			"name": "Kick-off & setup",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Brief, scope and period",
+					"how": "Read the brief and fill the START HERE tab once: subject (brand, product or topic), markets, languages, period N and N-1 (exact start and end dates), client questions, client deadline and internal deadlines (end of production, peer review, feedback day). Log every scope decision (what is in, what is out) in the scope log.",
+					"tools": "Brief, START HERE tab",
+					"check": "Period dates, markets and deadlines are written once in START HERE and reused everywhere else.",
+					"output": "Completed START HERE + scope log",
+					"days_min": 0.1,
+					"days_max": 0.1,
+					"owner": "Team lead",
+					"skills": []
+				},
+				{
+					"task": "Project folder and files",
+					"how": "Create the project folder on the Drive with the agreed naming convention. Copy the latest master versions of the production file (this file) and of the deck template. Never start from a previous client's digest.",
+					"tools": "Google Drive, master templates",
+					"check": "Files come from the current master versions and follow the naming convention.",
+					"output": "Project folder with production file and deck",
+					"days_min": 0.05,
+					"days_max": 0.05,
+					"owner": "Team lead",
+					"skills": []
+				},
+				{
+					"task": "Planning",
+					"how": "Allocate analyst and reviewer time in Float. Book the peer review slot and the feedback day in calendars before production starts.",
+					"tools": "Float, calendar",
+					"check": "Review slot booked before production starts.",
+					"output": "Staffing plan",
+					"days_min": 0.05,
+					"days_max": 0.05,
+					"owner": "Team lead",
+					"skills": []
+				},
+				{
+					"task": "Reuse check",
+					"how": "Look for a previous edition on the same brand or category: Radarly query, R&R facets, product mapping, topic keyword sets, launch calendar, brand assets. Reuse what is still valid and list what must be updated. Reuse across clients only with explicit internal approval.",
+					"tools": "Drive, queries library, building-radarly-queries and building-corpus-facets skills",
+					"check": "Reused assets listed with their date; outdated elements flagged.",
+					"output": "Reuse list",
+					"days_min": 0.1,
+					"days_max": 0.1,
+					"owner": "Team lead",
+					"skills": [
+						"building-radarly-queries",
+						"building-corpus-facets"
+					]
+				}
+			]
+		},
+		{
+			"phase": "1",
+			"name": "Desk research",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Brand / product / topic check",
+					"how": "Review the official website, Instagram and TikTok accounts and recent press. Note the brand story, ambassadors, launches, campaigns and events of the period. Log each one with its date and link in the launch calendar (used in the 'Monthly evolution & peaks' step to explain monthly peaks). Save the top links. Start writing the story: what type of content you see and what the brand pushes.",
+					"tools": "Website, Instagram, TikTok, press",
+					"check": "Launch and campaign dates of the period are noted with sources.",
+					"output": "Context notes, launch calendar, top links",
+					"days_min": 0.5,
+					"days_max": 0.5,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Product list & mapping",
+					"how": "List official products from the website (name, line, variants, launch date) and map each to its names in the corpus. Flag products absent from the corpus. New launches absent from the reviews corpus must be reported to the lead: they bias the reviews results.",
+					"tools": "Website, Corpus Manager",
+					"check": "Every official product is mapped or flagged as absent.",
+					"output": "Product mapping",
+					"days_min": 0.05,
+					"days_max": 0.05,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Volume pre-check",
+					"how": "Check volumes of the brand and of each candidate competitor per market in Live Fix to confirm feasibility. Flag low bases to the lead before the competitor set is frozen.",
+					"tools": "Live Fix",
+					"check": "Volumes large enough per market and competitor; low bases flagged to the lead.",
+					"output": "Feasibility note",
+					"days_min": 0.1,
+					"days_max": 0.1,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Validate the competitor set",
+					"how": "Agree the final competitor set with the lead (and with the client if the brief requires it) based on the pre-check. Write it in START HERE.",
+					"tools": "START HERE, feasibility note",
+					"check": "Competitor set frozen before the query and R&R extraction.",
+					"output": "Validated competitor set",
+					"days_min": 0.05,
+					"days_max": 0.05,
+					"owner": "Team lead",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "2",
+			"name": "Query",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Build the social listening query",
+					"how": "Start from the library query if one exists (see the Reuse check step). Include brand + product names (from the product mapping) + brand-specific hashtags, in the languages of the markets. Exclude out-of-scope universes (e.g. fashion when the scope is beauty).",
+					"tools": "Radarly, queries library, building-radarly-queries skill",
+					"check": "Boolean syntax: uppercase AND / OR / NOT, closed quotes and parentheses.",
+					"output": "Draft query",
+					"days_min": 0.15,
+					"days_max": 0.15,
+					"owner": "Analyst",
+					"skills": [
+						"building-radarly-queries"
+					]
+				},
+				{
+					"task": "Test and clean the query",
+					"how": "Read a random sample of posts spread across platforms and markets in Radarly before launching the query. Identify noise vectors (homonyms, out-of-scope universes, giveaways, resellers), add exclusions, iterate until precision is acceptable. Get the lead's validation.",
+					"tools": "Radarly, cleaning-social-volume skill",
+					"check": "Precision checked on a sample; noise vectors and exclusions documented.",
+					"output": "Clean, validated query",
+					"days_min": 0.1,
+					"days_max": 0.1,
+					"owner": "Analyst",
+					"skills": [
+						"cleaning-social-volume"
+					]
+				},
+				{
+					"task": "Archive the validated query",
+					"how": "Save the validated query in the queries library with its metadata: brand, client, markets, languages, date, precision estimate, exclusions and the reason for each. Queries are internal IP: never share them with the client.",
+					"tools": "Queries library",
+					"check": "Library entry dated and linked to the project.",
+					"output": "Library entry",
+					"days_min": 0.05,
+					"days_max": 0.05,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "3",
+			"name": "Data collection",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Launch social listening",
+					"how": "Create the Radarly project: markets, languages, platforms (Instagram, TikTok, X, Reddit, Blogs, Forums, YouTube), 24 months covering N and N-1.",
+					"tools": "Radarly",
+					"check": "Same settings for N and N-1. X is named X (not Twitter).",
+					"output": "Radarly project live",
+					"days_min": 0.05,
+					"days_max": 0.05,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "YouTube volumes",
+					"how": "If Radarly returns only one month of YouTube, take YouTube from Synthesio / Meltwater, or extrapolate the available month(s) to 12 months. Write the method in the Notes column of tab 5-A.",
+					"tools": "Synthesio, Meltwater, Radarly",
+					"check": "Method written in the Notes column of tab 5-A.",
+					"output": "YouTube N and N-1",
+					"days_min": 0.05,
+					"days_max": 0.05,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Set up the search project",
+					"how": "Create a Trajaan project per market with the keyword set: brand + category, product names, variants (e.g. '[brand] edp', '[product] by [brand]'), local-language forms.",
+					"tools": "Trajaan",
+					"check": "Same keyword set for every market (translated where needed).",
+					"output": "Trajaan project",
+					"days_min": 0.15,
+					"days_max": 0.15,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Extract Ratings & Reviews",
+					"how": "Use the latest Semantiweb Ratings & Reviews Deduplicate corpus. Apply the Solr period filters from START HERE to brand, competitors and category, using the facet library. Request the category benchmark (attributes + average rating, all markets in scope) from its owner on day 1.",
+					"tools": "Corpus Manager / Live Fix, building-corpus-facets skill",
+					"check": "Identical filters for brand, competitors and category.",
+					"output": "R&R raw figures",
+					"days_min": 0.1,
+					"days_max": 0.1,
+					"owner": "Analyst",
+					"skills": [
+						"building-corpus-facets"
+					]
+				},
+				{
+					"task": "Export Radarly KPIs",
+					"how": "Export the standard Radarly views for N and N-1: volume by platform, sentiment by platform, monthly volume, volume by market (incl. undetermined), top words, emojis, associated brands. Save the raw exports in the project folder.",
+					"tools": "Radarly",
+					"check": "Same date range and filters on every export; files named by view and period.",
+					"output": "Raw KPI exports",
+					"days_min": 0.1,
+					"days_max": 0.1,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "4",
+			"name": "Deck shell",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Update the deck shell",
+					"how": "Change colours to the brand DNA, logos (latest versions from the websites: client + Semantiweb + brand, right universe), header, visuals (HQ, not distorted), dates, footnotes and flags. Keep the 'Social insight snack' band and scope box in black.",
+					"tools": "Deck, flaticon, ssstik, fastdl",
+					"check": "Checklist tab 9, 'General' and 'Page 1' sections.",
+					"output": "Deck shell updated",
+					"days_min": 0.1,
+					"days_max": 0.1,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "5",
+			"name": "SL quantitative",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Volumes by platform",
+					"how": "Enter N and N-1 volumes per platform with source and method. Add the TikTok estimate manually and document its logic. Report Reddit (US) and Blogs & Forums (other markets) as one merged line.",
+					"tools": "Radarly KPI exports + estimates",
+					"check": "All platforms sum to 100%. Every estimate or extrapolation has a note. Trend column reviewed.",
+					"output": "Volumes, weights, evolution",
+					"days_min": 0.2,
+					"days_max": 0.2,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Sentiment",
+					"how": "Enter positive / neutral / negative counts per platform. For TikTok, use the coded TikTok sample and label it Estimated.",
+					"tools": "Radarly KPI exports, manual coding",
+					"check": "Sentiment base coverage vs volume base checked (line under the table).",
+					"output": "Sentiment split",
+					"days_min": 0.1,
+					"days_max": 0.1,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Monthly evolution & peaks",
+					"how": "Enter monthly volumes (Radarly month by month + brand reviews month by month). Explain every flagged peak with its driver (launch, campaign, ambassador, event, viral video) and a supporting link from the launch calendar (Brand / product / topic check).",
+					"tools": "Radarly KPI exports, launch calendar",
+					"check": "Months in English. No peak left unexplained.",
+					"output": "Monthly curve + peak drivers",
+					"days_min": 0.1,
+					"days_max": 0.1,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Markets ranking",
+					"how": "Enter identified volumes per market and the undetermined volume. Rank markets for the deck flags (ranking only, no % or volumes on the deck).",
+					"tools": "Radarly KPI exports",
+					"check": "Share of undetermined country reported.",
+					"output": "Market ranking",
+					"days_min": 0.1,
+					"days_max": 0.1,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "6",
+			"name": "SL qualitative",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Top topics",
+					"how": "Read the corpus and define 5 specific topics (insight-led names, not generic labels). Quantify each topic with a Boolean keyword set (the full Solr query is generated). Select exact verbatims that illustrate each topic.",
+					"tools": "Radarly, Corpus Manager, facet library",
+					"check": "Topic overlaps noted. Verbatims copied exactly, with link.",
+					"output": "Top topics with volumes and verbatims",
+					"days_min": 0.1,
+					"days_max": 0.1,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Brands, emojis, words",
+					"how": "List top associated brands and explain each association. List top emojis and what they illustrate. Select max 15 words for the wordcloud (remove the subject's name).",
+					"tools": "Radarly KPI exports, WordArt",
+					"check": "Wordcloud saved in the shared WordArt account, Playfair Display font, brand colours.",
+					"output": "Associated brands, emojis, wordcloud",
+					"days_min": 0.1,
+					"days_max": 0.1,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "7",
+			"name": "TikTok",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Build the sample",
+					"how": "Search TikTok with brand + category, product names and format keywords (review, layering, unboxing, mini, dupe, launch) per market. Log every search. Keep 25 to 30 videos published in period N, prioritising views and relevance.",
+					"tools": "TikTok",
+					"check": "Every retained video is in period N. No duplicates (auto check). Each search is logged.",
+					"output": "Search log + sample",
+					"days_min": 0.15,
+					"days_max": 0.15,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Code the sample",
+					"how": "Fill every column: creator, organic / sponsored, format, product, theme, factual description, exact caption, raw performance numbers.",
+					"tools": "TikTok",
+					"check": "Numbers entered as raw values (15100000, not '15.1M').",
+					"output": "Coded sample + auto summary",
+					"days_min": 0.15,
+					"days_max": 0.15,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "TikTok synthesis",
+					"how": "Top hashtags (number of posts, no sponsored hashtags), trending products (cross-check retailer best sellers), associated brands (different from the global ones), main TikTok topics with insight titles, strengths & opportunities. Download GIFs.",
+					"tools": "TikTok, retailer sites, ssstik, ezgif",
+					"check": "Strengths & opportunities differ from global key learnings. Link applied to the full text under each video.",
+					"output": "TikTok page content",
+					"days_min": 0.05,
+					"days_max": 0.05,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "8",
+			"name": "Reviews",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Volumes, ratings, indicators",
+					"how": "Enter review volumes N and N-1 and average ratings for category, subject and competitors. Run the standard facets (sampled, recommendation, repurchase, brand love).",
+					"tools": "Corpus Manager / Live Fix, facet library",
+					"check": "Ratings stored as numbers (4.64), not dates.",
+					"output": "Benchmark table + indicators",
+					"days_min": 0.4,
+					"days_max": 0.4,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Attributes vs category",
+					"how": "Use the standard attribute set of the category. Enter category and brand counts. Rank by brand, show category below as the benchmark.",
+					"tools": "Corpus Manager, facet library",
+					"check": "Ranking follows the brand, not the category.",
+					"output": "Attribute benchmark",
+					"days_min": 0.4,
+					"days_max": 0.4,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Products & verbatims",
+					"how": "Fill the most reviewed products and select exact verbatims per key attribute.",
+					"tools": "Corpus Manager",
+					"check": "Product names match the official mapping.",
+					"output": "Most reviewed products, verbatims",
+					"days_min": 0.2,
+					"days_max": 0.2,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "9",
+			"name": "Search",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Analyse search",
+					"how": "Read growth, market split and peaks. Compare search peaks with social peaks.",
+					"tools": "Trajaan",
+					"check": "Period labels correct on both tables.",
+					"output": "Search insights",
+					"days_min": 0.3,
+					"days_max": 0.3,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "10",
+			"name": "Synthesis",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Key learnings",
+					"how": "Write the 4 key learnings of page 2 (brand perception; volumes, platforms, seasonality, sentiment; top topics; TikTok focus). Answer the brief questions in one line each.",
+					"tools": "Tabs 5 to 8, brief",
+					"check": "Each KL is backed by a figure or a verbatim. KL differ from TikTok strengths & opportunities.",
+					"output": "Key learnings",
+					"days_min": 0.5,
+					"days_max": 0.5,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Complete the deck",
+					"how": "Transfer figures, verbatims, visuals and footnotes. If an AI assistant was used to rephrase text, reread and tone it down, and tell the reviewer which parts are AI-assisted.",
+					"tools": "Deck",
+					"check": "Figures in the deck match this file.",
+					"output": "Full draft deck",
+					"days_min": 0.3,
+					"days_max": 0.3,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "11",
+			"name": "QA & delivery",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Self-QA",
+					"how": "Go through tab 9 and set every line to OK or N/A.",
+					"tools": "Tab 9",
+					"check": "No 'To fix' left.",
+					"output": "Checklist completed",
+					"days_min": 0.1,
+					"days_max": 0.1,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Peer review",
+					"how": "Send deck + this file to the reviewer on the internal deadline.",
+					"tools": "Deck, this file",
+					"check": "Reviewer comments logged.",
+					"output": "Reviewed deck",
+					"days_min": 0.2,
+					"days_max": 0.2,
+					"owner": "Reviewer",
+					"skills": []
+				},
+				{
+					"task": "Pre-send clean-up",
+					"how": "Remove comments, placeholders, internal shorthand and working notes from the deck. Do not send queries or the production file to the client (queries are internal IP).",
+					"tools": "Deck",
+					"check": "No internal notes, no query, no content from another client in the deck.",
+					"output": "Clean deck",
+					"days_min": 0.05,
+					"days_max": 0.05,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Feedback & delivery",
+					"how": "Integrate comments on the feedback day, run a last check of dates, logos and footnotes, deliver by the client deadline.",
+					"tools": "Deck",
+					"check": "Final version named and saved; sources and period in footnotes.",
+					"output": "Delivered deck",
+					"days_min": 0.2,
+					"days_max": 0.2,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "F",
+			"name": "Follow-up",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Update the data library",
+					"how": "After delivery, update the library: brand profile and launch calendar, product referential, validated query, topic keyword sets, facets, new noise vectors, brand assets. Keep client material within that client's access rights.",
+					"tools": "Data library",
+					"check": "Every reusable asset of the digest is saved and dated.",
+					"output": "Updated library",
+					"days_min": 0.1,
+					"days_max": 0.1,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Client feedback & retro",
+					"how": "Action client feedback. Log pain points met and the time actually spent per step to refine these timings.",
+					"tools": "This file",
+					"check": "Retro notes saved; actual timings logged.",
+					"output": "Retro notes",
+					"days_min": 0.1,
+					"days_max": 0.1,
+					"owner": "Team lead",
+					"skills": []
+				}
+			]
+		}
+	],
+	"notes": [
+		"Of which production (phases 1 to 10) 4.7 4.7"
+	]
+}

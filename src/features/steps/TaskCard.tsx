@@ -5,10 +5,9 @@ import { cn } from "@/shared/lib/cn";
 import { useMartine } from "@/shared/hooks/useMartine";
 import { useToast } from "@/shared/components/ui/Toast";
 import { methodEntry } from "@/shared/lib/data";
-import { dayRange } from "@/shared/lib/format";
 import type { PhaseView, TaskView } from "@/shared/lib/studyModel";
 import type { Study } from "@/shared/lib/types";
-import { Chip, TaskFields, ownerLabel, toolChips } from "@/features/phase/PhaseParts";
+import { Chip, TaskFields, formatOf, taskMeta, taskRows, toolChips } from "@/features/phase/PhaseParts";
 import { SkillBlock } from "./SkillBlock";
 
 // The days spent on a done task: filled with the planned minimum, editable.
@@ -44,7 +43,7 @@ export function TaskCard({ study, phase, view, highlight }: { study: Study; phas
 		<input
 			type="checkbox"
 			checked={state.done}
-			onChange={(e) => setTaskDone(study.id, key, e.target.checked, task.days_min)}
+			onChange={(e) => setTaskDone(study.id, key, e.target.checked, task.days_min ?? 0)}
 			aria-label={state.done ? `${task.task}: done` : `${task.task}: mark as done once its check passes`}
 			className="h-5 w-5 shrink-0 accent-[var(--color-accent)]"
 		/>
@@ -55,12 +54,30 @@ export function TaskCard({ study, phase, view, highlight }: { study: Study; phas
 			<article className="flex items-center gap-3 rounded-[14px] border border-[var(--color-border)] px-4 py-3.5 text-[var(--color-ink-muted)]">
 				{checkbox}
 				<span className="flex-1 line-through">{task.task}</span>
-				<DaysInput value={state.days ?? task.days_min} onChange={(v) => setTaskDays(study.id, key, v)} label={`Days spent on ${task.task}`} />
+				<DaysInput value={state.days ?? task.days_min ?? 0} onChange={(v) => setTaskDays(study.id, key, v)} label={`Days spent on ${task.task}`} />
 			</article>
 		);
 	}
 
 	const chips = toolChips(task);
+	const format = formatOf(study.method.id);
+	const tools = (
+		<div className="flex flex-col gap-2.5">
+			{chips.length > 0 && (
+				<span className="flex flex-wrap gap-1.5">
+					{chips.map((c) => (
+						<Chip key={c.label} title={c.kind === "document" ? "A document of the method: it lives in Files" : undefined}>
+							{c.label}
+						</Chip>
+					))}
+				</span>
+			)}
+			{task.skills.map((s) => (
+				<SkillBlock key={s} study={study} phase={phase} taskKey={key} skillId={s} />
+			))}
+			{chips.length === 0 && task.skills.length === 0 && <span className="text-[var(--color-ink-muted)]">None named</span>}
+		</div>
+	);
 
 	return (
 		<article
@@ -72,35 +89,13 @@ export function TaskCard({ study, phase, view, highlight }: { study: Study; phas
 			<div className="flex items-center gap-3">
 				{checkbox}
 				<h3 className="m-0 flex-1 font-[family-name:var(--font-body)] text-lg font-semibold">{task.task}</h3>
-				<span className="text-[13px] text-[var(--color-ink-muted)]">
-					{dayRange(task.days_min, task.days_max)}, {ownerLabel(task.owner)}
-				</span>
+				<span className="text-[13px] text-[var(--color-ink-muted)]">{taskMeta(task)}</span>
 			</div>
 			<TaskFields
 				rows={[
-					{ label: "How to do it", value: task.how },
-					{
-						label: "Tools",
-						value: (
-							<div className="flex flex-col gap-2.5">
-								{chips.length > 0 && (
-									<span className="flex flex-wrap gap-1.5">
-										{chips.map((c) => (
-											<Chip key={c.label} title={c.kind === "document" ? "A document of the method: it lives in Files" : undefined}>
-												{c.label}
-											</Chip>
-										))}
-									</span>
-								)}
-								{task.skills.map((s) => (
-									<SkillBlock key={s} study={study} phase={phase} taskKey={key} skillId={s} />
-								))}
-								{chips.length === 0 && task.skills.length === 0 && <span className="text-[var(--color-ink-muted)]">None named</span>}
-							</div>
-						),
-					},
-					{ label: "Check before moving on", value: task.check },
-					{ label: "Output", value: task.output },
+					...taskRows(task, format, {
+						...(format === "tasks" || task.skills.length ? { tools } : {}),
+					}),
 					{
 						label: "Method",
 						value: suggesting ? (

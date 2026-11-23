@@ -1,0 +1,426 @@
+{
+	"_meta": {
+		"id": "local_makeup_trends",
+		"name": "Local make-up trends",
+		"family": "Trends",
+		"format": "tasks",
+		"owner": null,
+		"version": "1.0",
+		"source": "M&T method file",
+		"planned": "14.5 à 37"
+	},
+	"phases": [
+		{
+			"phase": "0",
+			"name": "Kickoff & scoping",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Client kickoff",
+					"how": "Attend the kickoff, Note milestones and imporatnt dates",
+					"tools": "Gemini and Granola notes",
+					"check": "Scope, platforms, slide range and every milestone date agreed with the client.",
+					"output": "Scope summary + milestone calendar",
+					"days_min": null,
+					"days_max": null,
+					"owner": "Project Lead / Analyst",
+					"skills": []
+				},
+				{
+					"task": "SOW and scope check",
+					"how": "Read the SOW draft against the kickoff notes and write down open questions for the client.",
+					"tools": "SOW draft (PDF), kickoff notes",
+					"check": "Every deliverable and date in the SOW matches what was said at kickoff.",
+					"output": "List of open questions",
+					"days_min": null,
+					"days_max": null,
+					"owner": "Project Lead",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "1",
+			"name": "Desk research",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Desk research on landscape",
+					"how": "Scan local media, press, TikTok, Instagram and Pinterest. Collect organic examples",
+					"tools": "Press and local media, manual TikTok and Instagram search, Pinterest",
+					"check": "Each signal has a source link; single-market and single-source signals are flagged.",
+					"output": "Desk research notes + first examples",
+					"days_min": 1,
+					"days_max": 3,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "2",
+			"name": "Initial influencer & brand list",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Build the first list",
+					"how": "List of creators on Instagram and TikTok plus brands list Record handle, platform, bucket and why they are on the list.",
+					"tools": "Manual search, desk research notes",
+					"check": "Every creator is LA based or has a clear LA link; brands sit in the same file.",
+					"output": "Draft creator and brand list",
+					"days_min": 2,
+					"days_max": 4,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "3",
+			"name": "Client validation of the list",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Send the list and collect validation",
+					"how": "Send the list to Client to validates",
+					"tools": "Email, the list file",
+					"check": "Written validation or edits received from the client.",
+					"output": "Validated creator and brand list",
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Apply client edits",
+					"how": "Add, remove or reorder rows based on the client feedback; note what changed and why.",
+					"tools": "The list file",
+					"check": "Every client edit is reflected and logged.",
+					"output": "Final list",
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "4",
+			"name": "Initial sample build",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Build Initial Sample",
+					"how": "From the validated list, pick the TikToks and Instagram posts that show the formats, gestures and expressions worth reading. Gather the URLs, can expand beyond validated list as needed. Give Claude the URL list; it returns the filled sheet: creator, handle, platform, date, views, likes, followers, caption, hashtags, full transcript and a one line description of what happens.",
+					"tools": "Manual TikTok and Instagram review / Claude, (scraper or data pull and transcript)",
+					"check": "Videos come from the validated creators and the selection logic is written down.",
+					"output": "URL list (core sample, 50-100 videos)",
+					"days_min": 2,
+					"days_max": 4,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Code the sample",
+					"how": "Tag each video with the themes, formats, gestures and looks you decide on. Verbatims stay exactly as spoken.",
+					"tools": "The sample sheet",
+					"check": "Each video has the codes; no verbatim is paraphrased.",
+					"output": "Coded sample",
+					"days_min": 1,
+					"days_max": 2,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "5",
+			"name": "Storyline",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Read the sample and spot the patterns",
+					"how": "Read across the videos and the initial brand and trend signals: what keeps coming back in formats, gestures, expressions and language.",
+					"tools": "Coded sample, desk research notes",
+					"check": "Each pattern is backed by several videos and creators, not one viral post.",
+					"output": "Pattern notes",
+					"days_min": 1,
+					"days_max": 2,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Draft the storyline document",
+					"how": "Write the storyline in Claude Docs. Writing rules: American English, every verbatim attributed to its creator, counts from VIEWS, no dashes.",
+					"tools": "Claude Docs, the sample sheet",
+					"check": "Numbers in the doc match the sample sheet; every verbatim is attributed.",
+					"output": "Storyline document (working draft)",
+					"days_min": 1,
+					"days_max": 3,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Internal reviews",
+					"how": "Review the storyline with team. Write down feedback and decide what to change.",
+					"tools": "Call notes",
+					"check": "Every comment has a decision.",
+					"output": "Feedback log",
+					"days_min": null,
+					"days_max": null,
+					"owner": "Project Lead / Analyst",
+					"skills": []
+				},
+				{
+					"task": "Client Validatiin reviews",
+					"how": "share Storyline with the client to review",
+					"tools": "Storyline",
+					"check": "",
+					"output": "",
+					"days_min": null,
+					"days_max": null,
+					"owner": "Project Lead / Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "6",
+			"name": "Sample expansion & gap filling",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Find the holes",
+					"how": "Map where the evidence is thin or missing: personas with few videos, topics with little support, white space the storyline needs filled.",
+					"tools": "Coded sample, storyline",
+					"check": "Each gap is written down with the reason it matters.",
+					"output": "Gap list",
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Targeted pulls",
+					"how": "Run the extra searches (for example [event] and [artist], LA nightlife) and send the new URLs. Keep targeted pulls out of core counts.",
+					"tools": "Manual search, Claude",
+					"check": "Search terms and dates written down; pulled videos tagged as targeted.",
+					"output": "New URL batches",
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Outside check",
+					"how": "Check Pinterest and spate for hashtag and keywords signals",
+					"tools": "Pinterest,SPATE",
+					"check": "Screenshots dated; result mapped to the storyline.",
+					"output": "Outside check table",
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Update the storyline",
+					"how": "Rework the storyline with the expanded sample and keep a log of what changed.",
+					"tools": "Claude Docs",
+					"check": "Every change is in the log; counts match the new sample.",
+					"output": "Storyline final for deck design",
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "7",
+			"name": "Supporting assets",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Hashtags and word clouds",
+					"how": "List the hashtags used in the sample per persona and look, and propose extra hashtags from the creators' own words.",
+					"tools": "The sample sheet, Spate",
+					"check": "Proposed hashtags are marked as proposed; volumes checked in Spate before use.",
+					"output": "Hashtag and word cloud document",
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "8",
+			"name": "Deck build",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Outline the deck",
+					"how": "Turn the storyline into a slide outline. and build claude prompt. collect Reference decks 5claude design system) the client Biannual Fragrance, Bold Beauty. Fonts: Bebas Neue and DM Sans.",
+					"tools": "Claude, storyline",
+					"check": "Outline covers every section of the storyline and stays within 45 slides.",
+					"output": "Deck outline",
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Build the deck",
+					"how": "Work on the deck inside claude design artifacts for templae, styling, slide layout ect",
+					"tools": "Claude",
+					"check": "",
+					"output": "Deck First Draft",
+					"days_min": 3,
+					"days_max": 6,
+					"owner": "",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "9",
+			"name": "Client review & final",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "First look with the client",
+					"how": "Send the work in progress deck to Client and collect her feedback.",
+					"tools": "Email, deck preview",
+					"check": "Feedback received in writing.",
+					"output": "Client feedback",
+					"days_min": null,
+					"days_max": null,
+					"owner": "Project Lead / Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "8",
+			"name": "Deck build",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Move the deck into PowerPoint",
+					"how": "Take the draft out of Claude and rebuild it in PowerPoint as the working file.",
+					"tools": "PowerPoint",
+					"check": "Every slide from the outline exists in the file.",
+					"output": "PowerPoint working file",
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Slide design and layout",
+					"how": "Edit and improve every slide, add imagery, link out; brands, Pinterest and Spate references, example TikToks with views, color.",
+					"tools": "PowerPoint",
+					"check": "Every slide reads on its own and follows the ID card template.",
+					"output": "Designed slides",
+					"days_min": 2,
+					"days_max": 4,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Copy pass, detail by detail",
+					"how": "Read every slide line by line: wording, tone, verbatims exactly as spoken and attributed, American English, gender-neutral language, no dashes, the client brands in bold.",
+					"tools": "PowerPoint",
+					"check": "No unattributed verbatim; no paraphrased quote.",
+					"output": "Final copy",
+					"days_min": 1,
+					"days_max": 3,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "9",
+			"name": "Client review & final",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Send Full deck to Client",
+					"how": "Send full finalized presentation to client to reveiw and provide feedback",
+					"tools": "PowerPoint",
+					"check": "Check in with project lead prior to to get sign off",
+					"output": "",
+					"days_min": null,
+					"days_max": null,
+					"owner": "Project Lead / Analyst",
+					"skills": []
+				},
+				{
+					"task": "Implement the feedback",
+					"how": "Apply the agreed changes: persona distinctions, axis naming, #blonzer in place of #bronzerblush (check examples first), gender-neutral language.",
+					"tools": "PowerPoint, the sample sheet",
+					"check": "Each agreed change is visible in the deck; [brand] confirms.",
+					"output": "Final deck",
+					"days_min": 0.5,
+					"days_max": 2,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Final delivery and presentation",
+					"how": "Deliver the final version (Nov 3) and present to the wider the client team (Nov 5).",
+					"tools": "PowerPoint",
+					"check": "Final file sent; presentation delivered.",
+					"output": "Final deck + presentation",
+					"days_min": null,
+					"days_max": null,
+					"owner": "Project Lead / Analyst",
+					"skills": []
+				}
+			]
+		}
+	],
+	"notes": [
+		"WHERE CLAUDE FITS (task count) Tasks",
+		"Automatable 1",
+		"Assisted 15",
+		"Human analysis 8"
+	]
+}

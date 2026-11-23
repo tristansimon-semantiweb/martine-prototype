@@ -5,42 +5,66 @@
 export type Family = "Trends" | "Monitoring" | "SML";
 export type RoleId = "analyst" | "consultant" | "method_owner";
 
-// ── Method (from the method file) ──
+// ── Method (from the method files, imported by scripts/import-methods.mjs) ──
+// Two formats: "tasks" (M&T file: task, how, tools, check, output, days, owner)
+// and "steps" (SML file: step, what, how, watch out, owner, time, deliverable).
+export type MethodFormat = "tasks" | "steps";
+
 export interface MethodTask {
 	task: string;
-	how: string;
+	how: string; // steps format: one point per line
 	tools: string;
 	check: string;
 	output: string;
-	days_min: number;
-	days_max: number;
+	days_min: number | null; // null when the method file gives no figure
+	days_max: number | null;
 	owner: string;
 	skills: string[];
+	what?: string; // steps format
+	watch_out?: string; // steps format, one point per line
+	time?: string | null; // steps format, as written ("2 to 4 days", "Ongoing")
 }
 
 export interface MethodPhase {
-	phase: string; // "0", "2", "2 bis"
+	phase: string; // "0", "2", "2 bis", "F"
 	name: string;
 	optional: boolean;
 	tasks: MethodTask[];
+	// Steps format: the phase's time, as written and as figures.
+	time?: string | null;
+	days_min?: number | null;
+	days_max?: number | null;
 }
 
 export interface MethodFile {
-	_meta: { type: string; version: string; owner: string; source: string; columns: string };
+	_meta: {
+		id: string;
+		name: string;
+		family: Family;
+		format: MethodFormat;
+		owner: string | null;
+		version: string;
+		source: string;
+		planned: string | null; // as the method file's summary states it
+	};
 	phases: MethodPhase[];
+	deck?: { title: string; description: string; columns: string[]; rows: string[][] };
+	glossary?: { term: string; definition: string }[];
+	notes?: string[];
 }
 
 export interface MethodIndexEntry {
 	id: string;
 	name: string;
 	family: Family;
+	format: MethodFormat | null;
 	owner: string | null;
 	version: string | null;
-	status: "published" | "to_import";
+	status: "published" | "to_document";
 	phases?: number;
 	tasks?: number;
 	skills?: number;
-	file?: string;
+	planned?: string | null;
 }
 
 export interface MethodSuggestion {
@@ -151,6 +175,9 @@ export interface Study {
 	// For studies whose method file is not imported in the prototype.
 	snapshot?: { phaseLabel: string; progress: number; daysPlanned: number; daysActual: number };
 	milestones: string[];
+	// The method phases this study runs, when it runs only some of them (a
+	// method file can hold several report cycles). Absent: all but the optional ones.
+	phases?: string[];
 	team: { person: string; role: RoleId; steps?: number }[];
 	toClarify: { id: string; label: string; open: boolean; decision?: string }[];
 	decisions: { id: string; date: string; text: string }[];

@@ -1,0 +1,184 @@
+{
+	"_meta": {
+		"id": "recurring_report_b",
+		"name": "Recurring report B",
+		"family": "Monitoring",
+		"format": "tasks",
+		"owner": null,
+		"version": "1.0",
+		"source": "M&T method file",
+		"planned": "9.5 à 14"
+	},
+	"phases": [
+		{
+			"phase": "0",
+			"name": "Maintenance & topic detection",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Maintain the platform and categorise mentions",
+					"how": "Keep the platform up to date and categorise mentions (about 20K to 30K mentions per month).",
+					"tools": "Talkwalker",
+					"check": "Every mention of the month categorised; automated tags spot-checked.",
+					"output": "Categorised mentions",
+					"days_min": 0.5,
+					"days_max": 1,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Identify key topics",
+					"how": "Identify the key subjects of the month (sector and the client).",
+					"tools": "Talkwalker",
+					"check": "Topics cover both the sector and the client.",
+					"output": "Key topics of the month",
+					"days_min": 0.5,
+					"days_max": 1,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "1",
+			"name": "Report production",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Quantitative section",
+					"how": "Complete the quantitative data in the PowerPoint.",
+					"tools": "Talkwalker",
+					"check": "Figures match the Talkwalker exports.",
+					"output": "Quantitative slides",
+					"days_min": 0.5,
+					"days_max": 1,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Qualitative section",
+					"how": "Analyse the key subjects for the sector and the client.",
+					"tools": "Talkwalker",
+					"check": "Each key subject backed by examples.",
+					"output": "Qualitative slides",
+					"days_min": 1.5,
+					"days_max": 2,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "2",
+			"name": "Delivery",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Send to the client",
+					"how": "Send the report to the client by email.",
+					"tools": "Email",
+					"check": "Final version sent.",
+					"output": "Report delivered",
+					"days_min": 0,
+					"days_max": 0,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "3",
+			"name": "Topic detection & categorisation check",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Detect the top topics",
+					"how": "Detect the top topics from the monthly reports, then send them to the client for approval.",
+					"tools": "Talkwalker, monthly reports",
+					"check": "Client approval received before production.",
+					"output": "Approved quarterly topics",
+					"days_min": 0.25,
+					"days_max": 0.5,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Re-check the categorisation",
+					"how": "Categorisation is done every month; correct any tagging errors found.",
+					"tools": "Talkwalker",
+					"check": "No tagging error left on the quarter.",
+					"output": "Corrected categorisation",
+					"days_min": 0.25,
+					"days_max": 0.5,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "4",
+			"name": "Report production",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Quantitative section",
+					"how": "Complete the quantitative data in the PowerPoint.",
+					"tools": "Talkwalker, monthly reports",
+					"check": "Figures match Talkwalker and the monthly reports.",
+					"output": "Quantitative slides",
+					"days_min": 1,
+					"days_max": 2,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Qualitative section",
+					"how": "Analyse the key subjects for the sector and the client.",
+					"tools": "Talkwalker",
+					"check": "Each key subject backed by examples.",
+					"output": "Qualitative slides",
+					"days_min": 5,
+					"days_max": 6,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "5",
+			"name": "Delivery",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Send to the client",
+					"how": "Send the report to the client by email.",
+					"tools": "Email",
+					"check": "Final version sent.",
+					"output": "Report delivered",
+					"days_min": 0,
+					"days_max": 0,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		}
+	]
+}

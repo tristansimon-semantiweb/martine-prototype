@@ -1,0 +1,973 @@
+{
+	"_meta": {
+		"id": "brand_audit",
+		"name": "Brand audit",
+		"family": "SML",
+		"format": "steps",
+		"owner": null,
+		"version": "1.0",
+		"source": "SML method file",
+		"planned": "14.76 à 18.76 (8 étapes chiffrées)"
+	},
+	"phases": [
+		{
+			"phase": "0",
+			"name": "Kick-off",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Get the brief and align with the project lead",
+					"what": "Understand the client's expectations, scope and timeline.",
+					"how": "Get the brief from the project lead and check it against the standard scope (Scope & Context tab).\nHold a kick-off call with the project lead: scope, competitive set, markets, platforms, deliverable due date.",
+					"watch_out": "Check whether Semantiweb ran this audit last year: it changes how every evolution is reported (see best practice).",
+					"tools": "",
+					"check": "",
+					"output": "Validated scope and timeline",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst + project lead",
+					"skills": []
+				},
+				{
+					"task": "Check your staffing",
+					"what": "Make sure your time on the project is planned.",
+					"how": "Check your staffing on Float.\nValidate it with the project lead.",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "Staffing validated on Float",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "1",
+			"name": "Immersion into the brand",
+			"optional": false,
+			"time": "3 hours",
+			"days_min": 0.375,
+			"days_max": 0.375,
+			"tasks": [
+				{
+					"task": "Map the brand ecosystem",
+					"what": "Get an accurate understanding of the brand ecosystem.",
+					"how": "Go to the brand website and identify the brand's official social media accounts.\nSave the links in a dedicated section of your working sheet.",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "Brand accounts listed in the working sheet",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Understand fashion vs beauty sales dynamics",
+					"what": "Identify the key sales dynamics between fashion and beauty.",
+					"how": "Read articles and the annual report on the brand's fashion and beauty performance.\nUnderstand the business dynamics: is it growing, where from, due to what?\nSave the links in a dedicated section of your working sheet.",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "Sources and key dynamics in the working sheet",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Build the activation calendar (L24M)",
+					"what": "Get an accurate view of the brand's activations over the last 24 months in each market in scope: key fashion launches (fashion weeks, key events), beauty launches (fragrance, makeup, skincare) and their campaigns.",
+					"how": "Look at the brand's Instagram and TikTok accounts and at Google News.\nDouble-check with Claude for anything you may have missed.\nList activations by type in your working sheet: date, type of event, link.",
+					"watch_out": "Claude is a cross-check, not a source: keep a link for every activation.",
+					"tools": "",
+					"check": "",
+					"output": "Activation calendar in the working sheet",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Check existing competitor audits",
+					"what": "Check whether your competitive set was already covered by a recent audit, to reuse its volumes and adjust them at the margin.",
+					"how": "Ask your project lead and the analyst channels for the key decks, stating the competitive scope you are looking for.\nLog the volumes and evolutions in your working sheet.",
+					"watch_out": "Note the period each audit covers: a large time gap means re-running the competitor query (see 3.2).",
+					"tools": "",
+					"check": "",
+					"output": "Competitor volumes and evolutions in the working sheet",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "2",
+			"name": "Launch crawls",
+			"optional": false,
+			"time": "3 hours",
+			"days_min": 0.375,
+			"days_max": 0.375,
+			"tasks": [
+				{
+					"task": "Launch TikTok hashtag crawls",
+					"what": "Crawl TikTok data (brand + competitors) with the Semantiweb crawlers.",
+					"how": "Identify 30 to 50 key brand and consumer hashtags (e.g. [brand hashtag], [brand hashtag], [brand hashtag]).\nCorpus Manager ([internal link] > Sources / crawls > TikTok crawler ([internal link] > NEW PROJECT: one project for the brand, one for the competitors.\nCheck that the request appears in Slack #notif-corpus-manager-crawls and follow its progress.",
+					"watch_out": "If the crawl is not finished after 2 working days, contact the Tech team on Slack.",
+					"tools": "",
+					"check": "",
+					"output": "2 TikTok crawl projects (brand, competitors)",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Launch Reddit crawls",
+					"what": "Crawl Reddit data (brand + competitors) with the Semantiweb crawlers.",
+					"how": "Select the subreddits linked to the brand and its products, and to the competitors and their products.\nCorpus Manager > Sources / crawls > Reddit crawler ([internal link] > NEW PROJECT: one project for the brand, one for the competitors.\nCheck that the request appears in Slack #notif-corpus-manager-crawls and follow its progress.",
+					"watch_out": "If the crawl is not finished after 2 working days, contact the Tech team on Slack.",
+					"tools": "",
+					"check": "",
+					"output": "2 Reddit crawl projects (brand, competitors)",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Export TikTok comments",
+					"what": "Collect the comments of the most commented TikTok videos with Export Comments.",
+					"how": "Check that the \"Sorter For TikTok & Instagram\" extension is installed on your computer.\nOn TikTok, search the brand / its products > Videos tab > sort by comments, descending > scroll down 10 times to refresh the data.\nIn your working sheet, list the 50 most commented videos: one column for the link, one for the number of comments.\nIn Export Comments, paste the video links and launch the export.",
+					"watch_out": "If the crawl is not finished after 2 working days, contact the Tech team on Slack.",
+					"tools": "",
+					"check": "",
+					"output": "List of 50 videos + comment export",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Collect e-commerce reviews (if R&R in scope)",
+					"what": "Collect e-commerce reviews for the ratings & reviews analysis.",
+					"how": "List all key products of the brand and its competitors.\nCheck that they are in the Semantiweb reviews database: ICC > R&R - Semantiweb reviews Live Deduplicate.\nIf not, email the R&R crawl owner the products to crawl and the e-retailer scope (e.g. Sephora, as stated in the brief).",
+					"watch_out": "If you are unsure about the e-retailer scope, validate it with the project lead. If the crawl is not finished after 2 working days, contact the Tech team on Slack.",
+					"tools": "",
+					"check": "",
+					"output": "Products available in the reviews database",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "3",
+			"name": "Query & volume",
+			"optional": false,
+			"time": "1 day",
+			"days_min": 1,
+			"days_max": 1,
+			"tasks": [
+				{
+					"task": "Build the brand query",
+					"what": "Build the extraction query in Radarly or Meltwater.",
+					"how": "List the brand name and its variants, associated products, key events, celebrities and ambassadors, key hashtags (branded and organic).\nIn Radarly > New query, build it with the Claude skill \"building radarly queries\".\nReference: the [brand] example query",
+					"watch_out": "[client query example removed]",
+					"tools": "",
+					"check": "",
+					"output": "Brand query in Radarly / Meltwater",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Retrieve or adjust competitor volumes",
+					"what": "Get the volumes of the brands in the competitive set.",
+					"how": "Use the previous audits found in 1.4 and log volumes and evolutions in the working sheet.\nIf the time gap with that audit is significant, reuse the competitor query and create it in Radarly or Meltwater.\nAdjust at the margin with the Radarly trend (Instagram only) over the months not covered.",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "Competitor volumes in the working sheet",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Cross-check volumes in Talkwalker and Meltwater",
+					"what": "In parallel, check volume, evolution and platform split in Talkwalker and Meltwater. These tools do not crawl, so volumes are available quickly.",
+					"how": "Talkwalker > Topic Analytics > select the brand > filters: Consumer voice + country + 2Y data > log volume and evolution by platform in the working sheet.\nMeltwater: ask the Meltwater account owner on Slack for access > log volume and evolution by platform, especially TikTok.",
+					"watch_out": "In Talkwalker, check that no other brands are pre-selected; deselect them if they are.",
+					"tools": "",
+					"check": "",
+					"output": "Talkwalker and Meltwater volumes by platform",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Supplement TikTok volume (if needed)",
+					"what": "If TikTok needs more volume than Meltwater gives, log the Spate and Visibrain volumes.",
+					"how": "Spate: Trends and/or Brands sections > enter branded hashtags (e.g. #[brand]: number of posts) > log the volumes in the working sheet.\nVisibrain: get your own access and follow the Visibrain guide to build a query.",
+					"watch_out": "Ask your project lead for the Spate access. Never copy logins into shared documents.",
+					"tools": "",
+					"check": "",
+					"output": "Spate / Visibrain volumes in the working sheet",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Recommend the final volume",
+					"what": "Send the project lead a recommendation for the final volume.",
+					"how": "One recommendation per platform: Instagram normally from Radarly or Meltwater, Reddit from Radarly or Meltwater, TikTok from Meltwater.\nFact-check the evolutions with Talkwalker.",
+					"watch_out": "A large volume gap between tools can signal a query issue: are we missing a viral topic?",
+					"tools": "",
+					"check": "",
+					"output": "Final volume validated by the project lead",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst + project lead",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "4",
+			"name": "Corpus construction",
+			"optional": false,
+			"time": "2 days",
+			"days_min": 2,
+			"days_max": 2,
+			"tasks": [
+				{
+					"task": "Build the brand corpus",
+					"what": "Build the brand corpus in Corpus Manager.",
+					"how": "Once the project lead has validated the query, run the Radarly / Meltwater extracts and load them into Corpus Manager.\nLoad the Meltwater TikTok extracts.\nLoad the TikTok hashtag crawls, Reddit crawls and Export Comments data.\nRequest or run the deduplication.\nReuse the standard facets and adapt them to the brand (rename products, campaigns, events; work with Claude). Ask for the [brand] or [brand] corpus facets in Slack #analysts.",
+					"watch_out": "If ratings & reviews are in scope, build a separate reviews corpus (different facets and displays).",
+					"tools": "",
+					"check": "",
+					"output": "Deduplicated brand corpus with adapted facets",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Build the competitor corpus",
+					"what": "Build the competitor corpus in Corpus Manager.",
+					"how": "Follow exactly the same steps as for the brand corpus (4.1).",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "Deduplicated competitor corpus",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Run frequencies",
+					"what": "As soon as the corpus is ready, run frequencies at country level for megabrand, fashion and beauty, on L12M and P12M.",
+					"how": "In your corpus, select the facets (country, timeline, fashion, etc.).\nRun the frequencies in \"Lexical & Hashtags\".",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "Frequency exports L12M and P12M",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "5",
+			"name": "Quantitative slides",
+			"optional": false,
+			"time": "4 days",
+			"days_min": 4,
+			"days_max": 4,
+			"tasks": [
+				{
+					"task": "Build the trend slide",
+					"what": "Show the brand's key moments in beauty and fashion over the period.",
+					"how": "Explain each conversation peak.\nIdentify every peak and illustrate it with a visual (viral posts).",
+					"watch_out": "Rule: if Semantiweb ran this audit last year, report evolutions against last year's audit, not against the current corpus.",
+					"tools": "",
+					"check": "",
+					"output": "Trend slide",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Build the volume slides",
+					"what": "Complete the conversation volume slides (megabrand, fashion, beauty).",
+					"how": "Give volumes and evolution.\nExplain the dynamics: where it comes from, why, which platform.",
+					"watch_out": "Rule: if Semantiweb ran this audit last year, report evolutions against last year's audit, not against the current corpus.",
+					"tools": "",
+					"check": "",
+					"output": "Volume slides",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Add the competitive set",
+					"what": "Add the competitive set (5 competitors max) to the volume slides.",
+					"how": "Reuse the data from the working sheet.\nExplain the dynamics: where it comes from, why, which platform.",
+					"watch_out": "Rule: if Semantiweb ran this audit last year, report evolutions against last year's audit, not against the current corpus.",
+					"tools": "",
+					"check": "",
+					"output": "Competitive volume slides",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Identify associated brands",
+					"what": "Identify the top brands consumers associate with the audited brand (megabrand, fashion, beauty).",
+					"how": "From the corpus, pull the top frequencies on L24M and L12M.\nIdentify the top brands and those rising fastest.",
+					"watch_out": "Rule: if Semantiweb ran this audit last year, report evolutions against last year's audit, not against the current corpus.",
+					"tools": "",
+					"check": "",
+					"output": "Brand association slide",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Build the sentiment slides",
+					"what": "Show consumer sentiment and what drives it.",
+					"how": "Give the share of negative, neutral and positive sentiment.\nAdd the consolidated sentiment benchmark for each competitor.\nIdentify the drivers of positive and negative sentiment with visuals and top words (pull frequencies and read the verbatims).",
+					"watch_out": "Rule: if Semantiweb ran this audit last year, report evolutions against last year's audit, not against the current corpus.",
+					"tools": "",
+					"check": "",
+					"output": "Sentiment slides",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "6",
+			"name": "Brand perception",
+			"optional": false,
+			"time": "4 days",
+			"days_min": 4,
+			"days_max": 4,
+			"tasks": [
+				{
+					"task": "Analyze brand equity",
+					"what": "Build the brand equity analysis (image and uniqueness).",
+					"how": "a/ Corpus frequencies (megabrand, beauty, fashion): pull frequencies on L24M and on L12M vs P12M (L12M over-index) to identify top words and top rising words.; b/ TikTok desk research (megabrand, beauty, fashion): mainly edit posts (aesthetics, fanbase). Identify key visuals and recurring keywords in comments. Collect about 30 key verbatims (usually fan comments).; c/ Values in the corpus (megabrand, beauty, fashion): look at the L12M vs P12M evolution of key values and log them in the working sheet. Which values matter most in brand equity? Which grow fastest? Where do fashion and beauty connect or disconnect (perceptions, aesthetics, brand universes)?",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "Image perception inputs in the working sheet",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Validate with the project lead",
+					"what": "Validate the image perception before building slides.",
+					"how": "Send your image perception recommendation to the project lead.\nSchedule a session to present your inputs.",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "Validated image perception",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst + project lead",
+					"skills": []
+				},
+				{
+					"task": "Build the brand perception slides",
+					"what": "Build brand equity perception slides",
+					"how": "Word clouds on https://wordart.com/ with the Playfair Display font, following the megabrand / fashion / beauty colour code.\nMoodboards to illustrate the equity.\nFashion and beauty focus (word clouds).",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "Brand perception slides",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Define uniqueness (if needed)",
+					"what": "Define the brand's uniqueness (USP) vs its competitors.",
+					"how": "First ask whether the competitors were covered in a previous audit, and reuse that work as is (visuals and consumer semantic analysis).",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "Uniqueness slide",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "7",
+			"name": "Top topics",
+			"optional": false,
+			"time": "2 to 4 days",
+			"days_min": 2,
+			"days_max": 4,
+			"tasks": [
+				{
+					"task": "Identify the top topics",
+					"what": "Which topics are evolving? Are there new top topics?",
+					"how": "Use the corpus facets and read the verbatims.\nCompare with last year's brand audit.",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "Top topics slides",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Fashion: deep dive on emblematic features",
+					"what": "Which emblematic features are evolving? Are there new ones? What drives them (show, ambassadors, celebrity posts, TikTok trend)?",
+					"how": "Use the corpus facets and desk research.\nCompare with last year's brand audit.",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "Emblematic features slides",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Fashion: deep dive on the creative director",
+					"what": "What does the conversation around the creative director add to brand equity?",
+					"how": "Conversation volume and evolution.\nSentiment.\nVisual moodboard.\nWord cloud of top words and rising words.",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "Creative director slides",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Beauty: focus on latest launches",
+					"what": "(1) How does the product perform? (2) What does the launch add to brand equity?",
+					"how": "Ratings & reviews with a category benchmark: number of reviews, average rating, sampling rate, key attributes.\nSocial listening: volume, evolution, top words.",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "Launch focus slides",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "8",
+			"name": "Consumer profile",
+			"optional": false,
+			"time": "1 to 3 days",
+			"days_min": 1,
+			"days_max": 3,
+			"tasks": [
+				{
+					"task": "Analyze the audience",
+					"what": "Indicate the audience's socio-demographic profile and centers of interest.",
+					"how": "In HypeAuditor, generate the audience analysis of the brand accounts (beauty, fashion, all).",
+					"watch_out": "Rule: if Semantiweb ran this audit last year, report evolutions against last year's audit, not against the current corpus.",
+					"tools": "",
+					"check": "",
+					"output": "Audience slides",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Build consumer tribe ID cards (if requested)",
+					"what": "Profile specific communities when the client wants a deep dive.",
+					"how": "Build the tribes qualitatively: moodboard, top words, top products / brands associated, key usages and behaviors, key mindset, age and gender index.",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "Tribe ID cards",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "9",
+			"name": "Review",
+			"optional": false,
+			"time": "Ongoing",
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Review with the project team",
+					"what": "Keep the project team aligned throughout the audit.",
+					"how": "Plan at least 2 to 3 review calls per week with the project team.",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "Review calls in the calendar",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "10",
+			"name": "Delivery",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Prepare the restitution",
+					"what": "Anticipate the restitution.",
+					"how": "Confirm with the project lead whether you should attend.\nMake sure you have the invitation.",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "Attendance confirmed",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Ask for feedback",
+					"what": "Get feedback on your work.",
+					"how": "After the restitution, ask the project lead for written feedback (plus a quick coffee or call if needed).",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "Written feedback",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		}
+	],
+	"deck": {
+		"title": "Brand Audit | Deck Structure",
+		"description": "Standard slide sequence of a brand audit deck, with the data each slide needs and when it is included.",
+		"columns": [
+			"Section",
+			"Slide",
+			"Content",
+			"Facets / data needed",
+			"Included when"
+		],
+		"rows": [
+			[
+				"Intro",
+				"Scope of work",
+				"Megabrand perimeter (brand + sub-brands / franchises), period (L12M vs L12M-1), competitors, countries.",
+				"Study brief",
+				"Always"
+			],
+			[
+				"Intro",
+				"Table of contents",
+				"Section list with one visual per section.",
+				"-",
+				"Always"
+			],
+			[
+				"Synthesis",
+				"Global key learnings",
+				"Numbered learnings across sections: headline + evidence.",
+				"Whole deck",
+				"Always"
+			],
+			[
+				"Synthesis",
+				"Country key learnings (x each market)",
+				"Same format as global key learnings, market-specific findings only.",
+				"Whole deck, country split",
+				"If multi-market"
+			],
+			[
+				"P1 Digital footprint",
+				"Section divider",
+				"Section title and subtitle.",
+				"-",
+				"Always"
+			],
+			[
+				"P1 Digital footprint",
+				"Megabrand volume by country",
+				"Volume of conversations L12M-1 vs L12M per market, evolution %, brand vs competitors.",
+				"Brand corpus, competitor corpora",
+				"Always"
+			],
+			[
+				"P1 Digital footprint",
+				"Category split within megabrand",
+				"Beauty vs Fashion (or other categories) share of megabrand conversation per market, with evolution.",
+				"Brand corpus, category facet",
+				"If megabrand covers several categories"
+			],
+			[
+				"P1 Digital footprint",
+				"Share of voice vs competitors (megabrand, then x each category)",
+				"SoV per market with evolution; brand gap vs competitors, zoom on lagging sub-category.",
+				"Brand + competitor corpora, category facet",
+				"Always (per category if megabrand)"
+			],
+			[
+				"P1 Digital footprint",
+				"Top brands associated (megabrand, then x each category)",
+				"% of brand posts mentioning another brand per market; top 10 with evolution vs PP; new entries / no longer in top 10.",
+				"Brand corpus, top brands",
+				"Always"
+			],
+			[
+				"P1 Digital footprint",
+				"Zoom on an association shift",
+				"Role of brand vs associated brand group (e.g. luxury vs indie) in routines; hashtags, top words, verbatims.",
+				"Top brands, top words, reading",
+				"If notable shift in associations"
+			],
+			[
+				"P1 Digital footprint",
+				"Competitor association mirrors (x each competitor, megabrand + category)",
+				"Top 10 brands associated with each competitor per market; brand rank in competitor's set.",
+				"Competitor corpora, top brands",
+				"If competitors in scope"
+			],
+			[
+				"P2 Brand USP",
+				"Section divider",
+				"Section title and subtitle.",
+				"-",
+				"Always"
+			],
+			[
+				"P2 Brand USP",
+				"USP summary + what's new",
+				"USP statement; contribution of each category to the USP; what changed vs last audit.",
+				"Whole section, previous audit",
+				"Always (what's new if previous audit exists)"
+			],
+			[
+				"P2 Brand USP",
+				"Megabrand perception vs competitors (x each market)",
+				"'Brand is X' headline per brand, 3 attributes each, visual, top words, verbatim.",
+				"Attributes / perception facets, top words",
+				"Always"
+			],
+			[
+				"P2 Brand USP",
+				"Specific vs shared codes (megabrand)",
+				"Words specific to each brand, shared words across brands, one verbatim per brand.",
+				"Top words / semantics",
+				"Always"
+			],
+			[
+				"P2 Brand USP",
+				"Category perception vs competitors (x each category x each market)",
+				"Same as megabrand perception at category level (beauty, makeup, fragrance, skincare, fashion); hero products cited.",
+				"Category facet, attributes, products",
+				"Per category in scope"
+			],
+			[
+				"P2 Brand USP",
+				"Specific vs shared codes (x each category)",
+				"Same as megabrand codes slide at category level.",
+				"Category facet, top words",
+				"Per category in scope"
+			],
+			[
+				"P2 Brand USP",
+				"Cultural territories",
+				"Share of territories base 100 per brand with country split and evolution; shared territories.",
+				"Territories facet",
+				"Always"
+			],
+			[
+				"P2 Brand USP",
+				"Territory deep dives",
+				"Top territories split by category; emotional needs per market; local readings (e.g. territory expressed by product).",
+				"Territories facet, products, reading",
+				"If overindexing territory or if requested"
+			],
+			[
+				"P3 Brand activations",
+				"Section divider",
+				"Section title and subtitle.",
+				"-",
+				"Always"
+			],
+			[
+				"P3 Brand activations",
+				"Key moments: activation types ranked",
+				"Activation types ranked (new products, gifting, pop-ups / IRL, sales) per brand per market, %, verbatim per type.",
+				"Activations facet",
+				"Always"
+			],
+			[
+				"P3 Brand activations",
+				"Activation calendar (x each market)",
+				"Mentions over the year, peaks annotated (seasonal occasions, local festivals, events), brand vs competitors.",
+				"Brand corpus timeline, events",
+				"Always"
+			],
+			[
+				"P3 Brand activations",
+				"Muses / ambassadors (x each market cluster)",
+				"Muse cards with share and evolution; perception words, overindexing words vs previous audit.",
+				"Celebrity / muse facet, top words",
+				"If muses in scope"
+			],
+			[
+				"P3 Brand activations",
+				"CSR conversation",
+				"Share of volume, angle per market, verbatims. Flag low signal.",
+				"CSR facet",
+				"If signal sufficient"
+			],
+			[
+				"P3 Brand activations",
+				"IRL activations: winning areas",
+				"Top 3 success drivers with examples, visuals, verbatims.",
+				"Event / pop-up corpus, reading",
+				"If requested"
+			],
+			[
+				"P3 Brand activations",
+				"IRL activations: gaps & opportunities",
+				"Top 3 friction points turning engagement into frustration.",
+				"Event / pop-up corpus, reading",
+				"If requested"
+			],
+			[
+				"P3 Brand activations",
+				"Activation strategy per brand",
+				"Strategy summary per brand; top mentions within pop-up conversations.",
+				"Event / pop-up corpus, top words",
+				"If requested"
+			],
+			[
+				"P3 Brand activations",
+				"Best practice benchmark",
+				"Brand vs competitors on activation criteria per market; what consumers expect now.",
+				"Event / pop-up corpus",
+				"If requested"
+			],
+			[
+				"P4 Consumer profiles",
+				"Section divider",
+				"Section title and subtitle.",
+				"-",
+				"Always"
+			],
+			[
+				"P4 Consumer profiles",
+				"Personas (x each category / franchise)",
+				"4 personas per slide: name, visual, brand affinity, growth flag, driver, 'they love'.",
+				"Persona facets, profiles",
+				"Always (per category / franchise in scope)"
+			],
+			[
+				"P5 Brand topics",
+				"Section divider",
+				"Section title and subtitle.",
+				"-",
+				"Always"
+			],
+			[
+				"P5 Brand topics",
+				"Megabrand top topics",
+				"Topics ranked by volume per category, evolution L12M, all markets combined.",
+				"Topics facet",
+				"Always"
+			],
+			[
+				"P5 Brand topics",
+				"Top topics by market",
+				"Same per market, with market-specific readings.",
+				"Topics facet, country split",
+				"If multi-market"
+			],
+			[
+				"P6 Category audits",
+				"Section divider",
+				"Section title and subtitle.",
+				"-",
+				"Always"
+			],
+			[
+				"P6 Category audits",
+				"Category split + most mentioned products",
+				"Category split of beauty conversation per market (base 100); top 3 to 4 products per category with evolution.",
+				"Category facet, products",
+				"Always"
+			],
+			[
+				"P6 Category audits",
+				"Category intro (x each category)",
+				"Desirability formula of the category in one statement + supporting paragraph.",
+				"Category facet, reading",
+				"Always"
+			],
+			[
+				"P6 Category audits",
+				"Desirability drivers (x each category)",
+				"Top 4 drivers ranked, market flags, visual and verbatim per driver.",
+				"Drivers facet, reviews",
+				"Always"
+			],
+			[
+				"P6 Category audits",
+				"Product desirability vs edge (x each category)",
+				"Products by family: rating, review volume, edge %; highest desirability and edge drivers flagged.",
+				"Reviews corpus, edge facet",
+				"If R&R in scope"
+			],
+			[
+				"P6 Category audits",
+				"Trend focus",
+				"Emerging look or usage: hashtags, visuals, verbatims.",
+				"Topics facet, reading",
+				"If emerging trend"
+			],
+			[
+				"P6 Category audits",
+				"Launch performance",
+				"Hero vs new launches: evolution, claims, positioning shift.",
+				"Products, brand corpus",
+				"If recent launches"
+			],
+			[
+				"P6 Category audits",
+				"Equity evolution",
+				"Historic equity vs emerging expression; updated desirability formula; verbatims.",
+				"Top words, previous audit",
+				"Always"
+			],
+			[
+				"P6 Category audits",
+				"Category-level reuse of P1 / P2 / P4 slides",
+				"Associations, codes, perception per market, personas filtered on the category.",
+				"Same as source slides",
+				"If category zoom requested"
+			],
+			[
+				"P6 Category audits",
+				"Franchise zoom (x each franchise)",
+				"Awareness and review volume, perception, most reviewed products, SoV vs competitor lines, associations, codes, usage behaviours, personas.",
+				"Reviews corpus, franchise corpus, top brands, persona facets",
+				"If franchise in scope"
+			],
+			[
+				"P6 Category audits",
+				"Single-market category zoom",
+				"Consumer mindset, drivers and topics ranked vs competitors, hero product perception, range expansion, associated brands, local nicknames.",
+				"Category corpus (one market), reviews, top brands",
+				"If category relevant in one market only"
+			],
+			[
+				"P7 Cross-category opportunities",
+				"Audience synergies",
+				"Audience overlap between categories / franchises (consumer POV, not co-mention only); contribution of each category to the megabrand.",
+				"Persona facets, audience overlap",
+				"If requested"
+			],
+			[
+				"P8 Food for thought",
+				"Food for thought",
+				"3 to 5 recommendations.",
+				"Key learnings",
+				"Always (validated by project lead)"
+			],
+			[
+				"Closing",
+				"Team / thank you",
+				"Project team and contacts.",
+				"-",
+				"Always"
+			],
+			[
+				"Note: derived from the [brand] Beauty Brand Audit 2026 deck. 'Included when' conditions are inferred and to be validated by the project lead. P7 is a placeholder in the source deck (no slide built yet)."
+			]
+		]
+	}
+}

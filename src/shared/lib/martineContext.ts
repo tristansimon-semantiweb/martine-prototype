@@ -46,7 +46,11 @@ export function whatClaudeReads(s: Study, phase: PhaseView, key: string): Contex
 		{ label: "The brief", detail: "the client brief, and the decisions taken since", ref: `${s.id}/brief` },
 		{ label: "The method", detail: `${methodLabel(s)}, phase ${phase.id}`, ref: refs.method(s) },
 	];
-	if (task) items.push({ label: "This task and its check", detail: task.task.check, ref: refs.task(s, key) });
+	if (task) {
+		// Steps-format methods have no check column: their points of attention play that part.
+		const check = task.task.check || task.task.watch_out?.replace(/\n/g, " ") || task.task.what || "";
+		items.push({ label: task.task.check ? "This task and its check" : "This step and its points of attention", detail: check, ref: refs.task(s, key) });
+	}
 	if (note) items.push({ label: `${personById(note.by)?.name ?? "Consultant"}’s note`, detail: note.text });
 	items.push({ label: "The study’s data", detail: "through the data platform connector", ref: `data-platform:${s.id}` });
 	return items;

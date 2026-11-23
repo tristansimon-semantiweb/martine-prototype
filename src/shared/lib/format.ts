@@ -9,6 +9,22 @@ export function dayRange(min: number, max: number): string {
 	return min === max ? `${days(min)} d` : `${days(min)} to ${days(max)} d`;
 }
 
+// A planned range that may be missing from the method file.
+export function costed(d: { min: number; max: number } | null, unit = "d"): string {
+	if (!d) return "not costed";
+	return dayRange(d.min, d.max).replace(/ d$/, unit === "d" ? " d" : ` ${unit}`);
+}
+
+// The planned days as the method file's summary states them, in English:
+// "14.76 à 18.76 (8 étapes chiffrées)" → "14.76 to 18.76 days (8 phases costed)".
+export function plannedLabel(s: string | null | undefined): string | null {
+	if (!s) return null;
+	if (/non chiffr/.test(s)) return "not costed";
+	const m = s.match(/^([\d.]+)(?: à ([\d.]+))?(?: \((\d+) étapes chiffrées\))?/);
+	if (!m) return s;
+	return `${m[2] ? `${m[1]} to ${m[2]}` : m[1]} days${m[3] ? ` (${m[3]} phases costed)` : ""}`;
+}
+
 export function dueDate(iso: string): string {
 	return new Date(`${iso}T12:00:00`).toLocaleDateString("en-US", { month: "long", day: "numeric" });
 }

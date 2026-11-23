@@ -1,0 +1,400 @@
+{
+	"_meta": {
+		"id": "maintenance_luxury",
+		"name": "Platform maintenance, luxury brands",
+		"family": "Monitoring",
+		"format": "tasks",
+		"owner": null,
+		"version": "1.0",
+		"source": "M&T method file",
+		"planned": "2.72 à 3.52"
+	},
+	"phases": [
+		{
+			"phase": "0",
+			"name": "Brand selection",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Select this week's brands",
+					"how": "Frequency: Weekly (Mon).; In Talkwalker, rank brands by SOV growth over the last 30 days, from highest to lowest. Keep the top 8 to 10 brands (ideally 10).",
+					"tools": "Talkwalker Analytics",
+					"check": "8 to 10 brands listed, ordered by growth.",
+					"output": "Brand list of the week",
+					"days_min": 0.02,
+					"days_max": 0.03,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "1",
+			"name": "Noise check",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Review top engagement posts manually",
+					"how": "Frequency: Weekly.; Click the brand, set the 30-day window, sort by top engagement and read 100 to 200 posts manually. Note each irrelevant post and why it was collected.",
+					"tools": "Talkwalker Analytics",
+					"check": "100 to 200 posts read; noise noted with cause and link.",
+					"output": "Noise notes (top engagement)",
+					"days_min": 0.1,
+					"days_max": 0.12,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Review random posts manually",
+					"how": "Frequency: Weekly.; Sort results by random and read 100 to 200 posts manually. Note noise and its cause.",
+					"tools": "Talkwalker Analytics",
+					"check": "100 to 200 posts read; noise noted with cause and link.",
+					"output": "Noise notes (random)",
+					"days_min": 0.08,
+					"days_max": 0.1,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Export a random sample",
+					"how": "Frequency: Weekly.; On the brand: Widget action menu > Export all results > CSV > Random sample > choose the number of results (thousands) > Select a custom export format: Simplified export > Export all results. CSV is lighter and easier to analyse with AI.",
+					"tools": "Talkwalker Analytics",
+					"check": "CSV downloaded with the right period and sample size.",
+					"output": "CSV sample",
+					"days_min": 0.02,
+					"days_max": 0.02,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "AI noise detection",
+					"how": "Frequency: Weekly.; Upload the CSV to the AI assistant with a prompt asking it to detect noise unrelated to the brand, giving the brand's query keywords as context. Ask for noise grouped by cause, with examples and proposed exclusion terms.",
+					"tools": "AI assistant, CSV export, brand query",
+					"check": "Each noise group validated against real posts.",
+					"output": "Noise groups + draft exclusion terms",
+					"days_min": 0.06,
+					"days_max": 0.08,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Delete clearly irrelevant posts",
+					"how": "Frequency: Weekly.; When a post has no link at all with the brand, it can be deleted from the results in Talkwalker. Only delete posts that are unambiguously off-topic; otherwise use an exclusion.",
+					"tools": "Talkwalker Analytics",
+					"check": "Every deleted post double-checked as fully unrelated to the brand.",
+					"output": "Cleaner results",
+					"days_min": 0.01,
+					"days_max": 0.02,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "2",
+			"name": "Sentiment correction",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Correct sentiment",
+					"how": "Frequency: Weekly.; On the 100 to 200 posts reviewed, check that sentiment matches the post (positive, negative, neutral) and correct it directly in Talkwalker. Priority: top engagement posts, so what the client sees and the dashboard are right.",
+					"tools": "Talkwalker Analytics",
+					"check": "Top engagement posts carry the right sentiment.",
+					"output": "Corrected sentiment in TW",
+					"days_min": 0.05,
+					"days_max": 0.06,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "3",
+			"name": "Custom filters",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Consumer voice filter",
+					"how": "Frequency: Weekly.; Open the Consumer voice filter and check for noise. Note irrelevant posts and terms.",
+					"tools": "Talkwalker Analytics",
+					"check": "Noise noted with cause.",
+					"output": "Noise notes per filter",
+					"days_min": 0.03,
+					"days_max": 0.04,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Beauty & product segment filters",
+					"how": "Frequency: Weekly.; Select categories together or at random (skincare, makeup, fragrance; face, eyes, lips, body) and check matched posts. Note what is relevant and what is noise.",
+					"tools": "Talkwalker Analytics",
+					"check": "Each segment checked at least on a sample.",
+					"output": "Noise notes per segment",
+					"days_min": 0.04,
+					"days_max": 0.05,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Luxury drivers filters (weekly check)",
+					"how": "Frequency: Weekly.; Check the Luxury drivers filters for noise: Social & environmental engagement, Health & well-being benefits, Global product excellence, Uniqueness & style, Strong emotion, Experience & co-creation.",
+					"tools": "Talkwalker Analytics",
+					"check": "Each driver checked on a sample.",
+					"output": "Noise notes per driver",
+					"days_min": 0.03,
+					"days_max": 0.04,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "4",
+			"name": "Query update",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Apply exclusions & fix the brand query",
+					"how": "Frequency: Weekly.; Combine the noise terms from phases 1 and 3 into NOT exclusions, test them following Phase 8 (query writing rules), then update the brand query / filters.",
+					"tools": "Talkwalker Settings, query library",
+					"check": "Exclusion tested in preview; no visible loss of relevant posts.",
+					"output": "Updated query / filter",
+					"days_min": 0.04,
+					"days_max": 0.05,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "5",
+			"name": "Logging",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Fill the weekly log",
+					"how": "Frequency: Weekly.; For each brand, fill the weekly cleaning sheet: status, issue found, action taken, link examples.",
+					"tools": "the client Luxe - Maintenance Weekly (TW)",
+					"check": "One block per brand, all four checks filled.",
+					"output": "Weekly log",
+					"days_min": 0.01,
+					"days_max": 0.01,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "6",
+			"name": "Wildcard optimisation",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Rank queries by number of wildcards",
+					"how": "Frequency: On client request.; List brands and custom filters by number of wildcards (*) and start with the heaviest ones.",
+					"tools": "Talkwalker Settings, wildcard tracker",
+					"check": "Every brand / filter has a wildcard count and a status (Checked / To be checked).",
+					"output": "Prioritised wildcard list",
+					"days_min": 0.1,
+					"days_max": 0.15,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Find and replace wildcards",
+					"how": "Frequency: On client request.; In each query, use Ctrl+F / Cmd+F to find every *. For each one, decide which explicit words it should cover (e.g. gift* > gift OR gifts OR gifting OR gifted) and rewrite. See sheet 'Wildcard examples'. Goal: a lighter topic so the analytics dashboard is not too heavy.",
+					"tools": "Talkwalker Settings, query library",
+					"check": "Each replacement covers the forms consumers actually use; no new noise.",
+					"output": "Rewritten query",
+					"days_min": 0.6,
+					"days_max": 0.7,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Check volume before / after",
+					"how": "Frequency: On client request.; Record mentions before and after the rewrite (count, difference, % change) and compare the topic volume on the same period.",
+					"tools": "Talkwalker Analytics, wildcard tracker",
+					"check": "Volume stable or explained (e.g. Skincare 31.7K > 31.4K).",
+					"output": "Tracker updated, status Checked",
+					"days_min": 0.3,
+					"days_max": 0.4,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "7",
+			"name": "Luxury drivers sanity check",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Qualitative review per brand",
+					"how": "Frequency: When needed.; Click each brand, set a period of 3 months or 1 year. Manually check 100 to 150 posts in top engagement and 100 to 150 in random, per luxury driver.",
+					"tools": "Talkwalker Analytics",
+					"check": "Each driver reviewed on both views.",
+					"output": "Relevance notes per brand x driver",
+					"days_min": 0.6,
+					"days_max": 0.7,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "AI review of an export",
+					"how": "Frequency: When needed.; Export about 1,000 posts (CSV) and run an AI classification of relevant / not relevant per driver; check the output post by post.",
+					"tools": "AI assistant, CSV export",
+					"check": "AI classification spot-checked.",
+					"output": "Relevance estimate per driver + fixes to propose",
+					"days_min": 0.4,
+					"days_max": 0.5,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "8",
+			"name": "Query writing rules",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Test in preview before saving",
+					"how": "Frequency: Each query change.; Copy the query, open a new topic and click Preview query (max 1 month). Check the volume, then the 25 posts shown, in top engagement and in random.",
+					"tools": "Talkwalker (new topic, Preview query)",
+					"check": "Volume plausible; the 25 posts look relevant in both views.",
+					"output": "Tested query",
+					"days_min": 0.05,
+					"days_max": 0.1,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Write exclusions below the main query",
+					"how": "Frequency: Each query change.; Write the noise exclusions in the exclusion block below the main query. Before saving, check that no exclusion term can also appear in relevant brand posts.",
+					"tools": "Talkwalker Settings",
+					"check": "No exclusion likely to remove relevant volume.",
+					"output": "Clean exclusion block",
+					"days_min": 0.05,
+					"days_max": 0.1,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "9",
+			"name": "Franchise tagging",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Add a new franchise from the client request",
+					"how": "Frequency: Per client request.; Start from the client's request for a new franchise (e.g. [brand] [franchise]) and add it to the franchise list to be tagged.",
+					"tools": "Client request",
+					"check": "Franchise name and brand confirmed with the client request.",
+					"output": "New franchise to tag",
+					"days_min": 0.01,
+					"days_max": 0.01,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Create the franchise tag",
+					"how": "Frequency: Per franchise request.; Create a dedicated tag for the franchise.",
+					"tools": "Talkwalker",
+					"check": "Tag name follows the existing naming convention.",
+					"output": "Franchise tag",
+					"days_min": 0.01,
+					"days_max": 0.02,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Create the automatic rule",
+					"how": "Frequency: Per franchise request.; In Settings, create a rule that applies the tag to future mentions, and apply it to past data. Scope the rule to the right topics only, never to all topics.",
+					"tools": "Talkwalker Settings",
+					"check": "Rule scoped to the right topics; tag visible on past data once processed.",
+					"output": "Active rule",
+					"days_min": 0.03,
+					"days_max": 0.06,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Add the franchise to the filter",
+					"how": "Frequency: Per franchise request.; Write the query for the specific franchise. Be careful if the franchise name is too generic.",
+					"tools": "Talkwalker Settings",
+					"check": "Query tested with Preview query or quick search.",
+					"output": "Updated filter",
+					"days_min": 0.01,
+					"days_max": 0.02,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Modify an existing rule",
+					"how": "Frequency: When needed.; Open the rule in Settings, correct the query or filter, then re-apply the rule to past data so the correction covers the history. Avoid running many corrections at the same time.",
+					"tools": "Talkwalker Settings",
+					"check": "Rule re-applied to past data after the change.",
+					"output": "Corrected rule",
+					"days_min": 0.03,
+					"days_max": 0.06,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Manual tagging (urgent requests)",
+					"how": "Frequency: Urgent only.; When the client needs data immediately, tag the existing results manually instead of waiting for the rule.",
+					"tools": "Talkwalker Analytics",
+					"check": "Existing results tagged; rule still created for future mentions.",
+					"output": "Tagged results",
+					"days_min": 0.03,
+					"days_max": 0.06,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Check dashboard integration",
+					"how": "Frequency: Per franchise request.; Check the new franchise appears in the campaign tracking dashboard. For fragrance categories, integration is automatic once the brand is filled in.",
+					"tools": "Talkwalker Dashboards",
+					"check": "Franchise visible and comparable with other franchises.",
+					"output": "Franchise in campaign tracking",
+					"days_min": 0.01,
+					"days_max": 0.02,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		}
+	]
+}

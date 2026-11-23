@@ -5,8 +5,8 @@ import { Plus } from "lucide-react";
 import { useMartine } from "@/shared/hooks/useMartine";
 import { useToast } from "@/shared/components/ui/Toast";
 import { methodEntry, personById, skillById } from "@/shared/lib/data";
-import { dayRange } from "@/shared/lib/format";
-import { Chip, PhaseSheet, TaskFields, ownerLabel, toolChips } from "@/features/phase/PhaseParts";
+import { costed } from "@/shared/lib/format";
+import { Chip, PhaseSheet, TaskFields, formatOf, taskMeta, taskRows, toolChips } from "@/features/phase/PhaseParts";
 import type { MethodPhaseView, MethodTaskView } from "./methodModel";
 
 // The study's phase drawer in edit mode, for the method owner: accept or
@@ -33,7 +33,7 @@ export function MethodPhaseDrawer({
 		<PhaseSheet
 			open={Boolean(phase)}
 			onClose={onClose}
-			kicker={phase ? `Phase ${phase.id} of the method, planned ${dayRange(phase.days.min, phase.days.max).replace(" d", " days")}` : ""}
+			kicker={phase ? `Phase ${phase.id} of the method, ${phase.days ? `planned ${costed(phase.days).replace(/ d$/, " days")}` : "not costed in the method file"}` : ""}
 			title={phase?.name ?? ""}
 			footer={
 				isOwner ? (
@@ -137,28 +137,66 @@ function Body({ methodId, phase, isOwner, onAdd }: { methodId: string; phase: Me
 	);
 }
 
-type Field = "how" | "check" | "output";
+type Field = "how" | "check" | "output" | "what" | "watch_out";
+const FIELDS: Record<"tasks" | "steps", { key: Field; label: string }[]> = {
+	tasks: [
+		{ key: "how", label: "How to do it" },
+		{ key: "check", label: "Check before moving on" },
+		{ key: "output", label: "Output" },
+	],
+	steps: [
+		{ key: "what", label: "What" },
+		{ key: "how", label: "How" },
+		{ key: "watch_out", label: "Watch out" },
+		{ key: "output", label: "Deliverable" },
+	],
+};
 
 function EditableTask({ methodId, index, view, isOwner, onAdd }: { methodId: string; index: number; view: MethodTaskView; isOwner: boolean; onAdd: () => void }) {
 	const { editMethodTask } = useMartine();
 	const m = methodEntry(methodId);
+	const format = formatOf(methodId);
+	const fields = FIELDS[format];
 	const [editing, setEditing] = useState(false);
-	const [values, setValues] = useState<Record<Field, string>>({ how: view.task.how, check: view.task.check, output: view.task.output });
+	const current = () => Object.fromEntries(fields.map((f) => [f.key, view.task[f.key] ?? ""])) as Partial<Record<Field, string>>;
+	const [values, setValues] = useState(current);
 	const { task } = view;
 	const chips = toolChips(task);
 
-	const field = (f: Field, label: string) =>
-		editing ? (
-			<textarea
-				value={values[f]}
-				onChange={(e) => setValues((v) => ({ ...v, [f]: e.target.value }))}
-				rows={f === "how" ? 3 : 2}
-				aria-label={label}
-				className="rr-input resize-y"
-			/>
-		) : (
-			task[f] || <span className="text-[var(--color-ink-muted)]">[to write]</span>
-		);
+	const editor = (f: { key: Field; label: string }) => (
+		<textarea
+			value={values[f.key] ?? ""}
+			onChange={(e) => setValues((v) => ({ ...v, [f.key]: e.target.value }))}
+			rows={f.key === "how" ? 4 : 2}
+			aria-label={f.label}
+			className="rr-input resize-y"
+		/>
+	);
+	const tools = (
+		<span className="flex flex-wrap items-center gap-1.5">
+		{chips.map((c) => (
+			<Chip key={c.label}>{c.label}</Chip>
+		))}
+		{task.skills.map((s) => (
+			<span
+				key={s}
+				className="rounded-[var(--radius-xl)] bg-[var(--color-accent-dim)] px-2.5 py-0.5 text-[13px] font-semibold text-[var(--color-accent)]"
+			>
+				Skill: {skillById(s)?.label ?? s}
+				{view.addedSkills.includes(s) && <span className="font-normal"> (new)</span>}
+			</span>
+		))}
+		{isOwner && (
+			<button
+				onClick={onAdd}
+				className="inline-flex items-center gap-0.5 rounded-[var(--radius-xl)] border border-dashed border-[var(--color-border-active)] px-2.5 py-0.5 text-[13px] font-semibold"
+			>
+				<Plus size={12} aria-hidden /> Add
+			</button>
+		)}
+		{!isOwner && chips.length === 0 && task.skills.length === 0 && <span className="text-[var(--color-ink-muted)]">None named</span>}
+		</span>
+	);
 
 	return (
 		<article className="flex flex-col gap-3.5 rounded-[14px] border border-[var(--color-border)] p-[18px]">
@@ -168,10 +206,7 @@ function EditableTask({ methodId, index, view, isOwner, onAdd }: { methodId: str
 					{view.isNew && <span className="ml-2 text-[13px] font-normal text-[var(--color-attention)]">new in draft</span>}
 					{view.edited && <span className="ml-2 text-[13px] font-normal text-[var(--color-attention)]">edited in draft</span>}
 				</h3>
-				<span className="text-[13px] text-[var(--color-ink-muted)]">
-					{task.days_max ? `${dayRange(task.days_min, task.days_max)}, ` : ""}
-					{ownerLabel(task.owner)}
-				</span>
+				<span className="text-[13px] text-[var(--color-ink-muted)]">{taskMeta(task)}</span>
 				{isOwner &&
 					(editing ? (
 						<button
@@ -186,7 +221,7 @@ function EditableTask({ methodId, index, view, isOwner, onAdd }: { methodId: str
 					) : (
 						<button
 							onClick={() => {
-								setValues({ how: task.how, check: task.check, output: task.output });
+								setValues(current());
 								setEditing(true);
 							}}
 							className="rounded-[var(--radius)] border border-[var(--color-border-hover)] px-3 py-1.5 text-sm hover:bg-[var(--color-hover)]"
@@ -195,41 +230,7 @@ function EditableTask({ methodId, index, view, isOwner, onAdd }: { methodId: str
 						</button>
 					))}
 			</div>
-			<TaskFields
-				rows={[
-					{ label: "How to do it", value: field("how", "How to do it") },
-					{
-						label: "Tools and skills",
-						value: (
-							<span className="flex flex-wrap items-center gap-1.5">
-								{chips.map((c) => (
-									<Chip key={c.label}>{c.label}</Chip>
-								))}
-								{task.skills.map((s) => (
-									<span
-										key={s}
-										className="rounded-[var(--radius-xl)] bg-[var(--color-accent-dim)] px-2.5 py-0.5 text-[13px] font-semibold text-[var(--color-accent)]"
-									>
-										Skill: {skillById(s)?.label ?? s}
-										{view.addedSkills.includes(s) && <span className="font-normal"> (new)</span>}
-									</span>
-								))}
-								{isOwner && (
-									<button
-										onClick={onAdd}
-										className="inline-flex items-center gap-0.5 rounded-[var(--radius-xl)] border border-dashed border-[var(--color-border-active)] px-2.5 py-0.5 text-[13px] font-semibold"
-									>
-										<Plus size={12} aria-hidden /> Add
-									</button>
-								)}
-								{!isOwner && chips.length === 0 && task.skills.length === 0 && <span className="text-[var(--color-ink-muted)]">None named</span>}
-							</span>
-						),
-					},
-					{ label: "Check before moving on", value: field("check", "Check before moving on") },
-					{ label: "Output", value: field("output", "Output") },
-				]}
-			/>
+			<TaskFields rows={taskRows(task, format, { tools, ...(editing ? Object.fromEntries(fields.map((f) => [f.key, editor(f)])) : {}) })} />
 		</article>
 	);
 }

@@ -1,0 +1,583 @@
+{
+	"_meta": {
+		"id": "archetype",
+		"name": "Archetype",
+		"family": "SML",
+		"format": "steps",
+		"owner": null,
+		"version": "1.0",
+		"source": "SML method file",
+		"planned": "18.5 (7 étapes chiffrées)"
+	},
+	"phases": [
+		{
+			"phase": "0",
+			"name": "Kick-off",
+			"optional": false,
+			"time": "1 day",
+			"days_min": 1,
+			"days_max": 1,
+			"tasks": [
+				{
+					"task": "Get the brief",
+					"what": "Understand the territory the brand wants to embody and how the archetypes will be used.",
+					"how": "Clarify the question: \"Who does this product / brand represent?\", not \"Who should buy it?\".\nAsk which uses are expected (ambassadors, creative direction, campaign narrative, partnerships).\nConfirm the number of archetypes expected and the markets.",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "Brief notes",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Project lead + analyst",
+					"skills": []
+				},
+				{
+					"task": "Get the brand values validated",
+					"what": "The query is built only on brand values previously validated by the client.",
+					"how": "Get the list of brand values from the client or the project lead.",
+					"watch_out": "Values that are too generic (e.g. \"confidence\", \"freedom\") pull in noise. Ask for the client's own wording and examples.",
+					"tools": "",
+					"check": "",
+					"output": "Validated values list",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Project lead",
+					"skills": []
+				},
+				{
+					"task": "Check what can be reused internally",
+					"what": "Reuse what Semantiweb already did on the same category, client, brand or market.",
+					"how": "If yes, source it internally to identify what can be reused: corpus, facets, queries, ID cards.",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "List of reusable assets",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Check your staffing",
+					"what": "Make sure your time on the project is planned.",
+					"how": "Check your staffing on Float.\nValidate it with the project lead.",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Check your working files",
+					"what": "Make sure you have everything to start.",
+					"how": "Confirm you have the template and the Excel working file.",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "1",
+			"name": "Brand understanding",
+			"optional": false,
+			"time": "0.5 day",
+			"days_min": 0.5,
+			"days_max": 0.5,
+			"tasks": [
+				{
+					"task": "Brand immersion",
+					"what": "Immerse yourself in the brand.",
+					"how": "Go to the brand website and social media accounts.\nAsk ChatGPT for the latest brand news (buzz, bestsellers, pop-up stores).",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Read past studies",
+					"what": "Understand how a tribes study works and how the storytelling is adapted to each brand.",
+					"how": "Read studies we already delivered (see Slack channel communities-project).",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "2",
+			"name": "Data crawl",
+			"optional": false,
+			"time": "2 days",
+			"days_min": 2,
+			"days_max": 2,
+			"tasks": [
+				{
+					"task": "Build the query",
+					"what": "The query is only on brand values previously validated by the client.",
+					"how": "Translate each validated value into keywords, hashtags and expressions.\nOne sub-query per value, so volumes can be read per value.",
+					"watch_out": "The corpus reflects the values you put in: keep a share of open reading to avoid only confirming the expected archetypes.",
+					"tools": "",
+					"check": "",
+					"output": "Query in working file",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Crawl TikTok",
+					"what": "Collect TikTok content + collect the comments of the most commented TikTok videos with Export Comments.",
+					"how": "Either via Meltwater.\nOr via our internal tool, using identified hashtags (brand hashtags, community hashtags and its values).; For the manual crawl:\nCheck that the \"Sorter For TikTok & Instagram\" extension is installed on your computer.\nOn TikTok, search the brand / its products > Videos tab > sort by comments, descending > scroll down 10 times to refresh the data.\nIn your working sheet, list the 50 most commented videos: one column for the link, one for the number of comments.\nIn Export Comments, paste the video links and launch the export.",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "TikTok exports",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Crawl Reddit",
+					"what": "Collect Reddit content: very important for this type of study.",
+					"how": "Depending on access: via our internal tool, Radarly or Meltwater.",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "Reddit export",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Crawl Instagram and Pinterest",
+					"what": "Collect Instagram and Pinterest content.",
+					"how": "Via Radarly or Meltwater.",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "IG / Pinterest exports",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Identify and crawl muses",
+					"what": "Identify the actors, celebrities or influencers who best embody the community.",
+					"how": "List the muses:\nSpot them directly in the data.\nDraw on your own knowledge of the community.\nBrowse TikTok or Instagram, searching for the community's values in the search bar.\nCrawl their posts via Radarly with the query \"author:\".",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "Muse list + crawl",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Translate the data",
+					"what": "Make non-English data readable and reliable for analysis.",
+					"how": "If a native speaker is available: they translate and check the data (slang, irony, cultural references).\nOtherwise: translate via the Files tool (see Corpus Manager methodology), then have a native speaker check the verbatims selected for the deck.",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Log every crawl",
+					"what": "Your project lead sees what has been launched and where it stands.",
+					"how": "Fill in the shared Excel file step by step.",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "Crawl log",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Load the data",
+					"what": "Make the data ready for analysis.",
+					"how": "Load the data in the Corpus Manager (see Corpus Manager methodology).",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "Corpus loaded",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "3",
+			"name": "Data reading",
+			"optional": false,
+			"time": "4 days",
+			"days_min": 4,
+			"days_max": 4,
+			"tasks": [
+				{
+					"task": "Read the data",
+					"what": "Get a first understanding of the corpus and start collecting material.",
+					"how": "Ask Claude whether celebrities, restaurant names or brands come up repeatedly.\nAsk Claude for the top celebrities of the corpus, giving it a sample of your data.\nTake 2 hours to read the data and set aside relevant verbatims.",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "Verbatim selection",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Run frequencies",
+					"what": "Get first leads on the archetypes.",
+					"how": "Run frequencies per platform and per year.",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "Frequency tables",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Analyze the audience",
+					"what": "Indicate the audience's socio-demographic profile and centers of interest.",
+					"how": "In HypeAuditor, generate the audience analysis of the brand accounts (beauty, fashion, all).\nExtract the PDF report of the audiences for the brand account on Instagram and TikTok to get ideas of top interests of the audience, demographics and key contributors / influencers about the brand.",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "HypeAuditor reports",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Build the archetypes",
+					"what": "Group recurring figures, values and codes into distinct archetypes.",
+					"how": "Cluster the values, muses and centers of interest that co-occur.\nFor each archetype: one ideal, its muses, its codes, its territories.\nCheck each archetype is supported by verbatims and not only by muses.",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "Archetype list",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst + project lead",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "4",
+			"name": "Slide production",
+			"optional": false,
+			"time": "9 days",
+			"days_min": 9,
+			"days_max": 9,
+			"tasks": [
+				{
+					"task": "Incarnation of common interests",
+					"what": "Show the shared interests and aspirations that run across the territory.",
+					"how": "See DECK STRUCTURE sheet.",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "Slides",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "The archetypes",
+					"what": "Present the archetypes and how they embody the territory.",
+					"how": "See DECK STRUCTURE sheet.",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "Slides",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "ID cards",
+					"what": "One ID card per archetype.",
+					"how": "See DECK STRUCTURE sheet.",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "Slides",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "5",
+			"name": "Sanity check",
+			"optional": false,
+			"time": "1 day",
+			"days_min": 1,
+			"days_max": 1,
+			"tasks": [
+				{
+					"task": "Check the deck before sending",
+					"what": "The deck is clean and client-ready.",
+					"how": "No duplicate verbatims.\nBase 100 adds up to 100.\nSame font everywhere.\nTitle = insight.\nNo comments or notes left at the bottom of the slides.\nGood quality photos.",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "6",
+			"name": "Review",
+			"optional": false,
+			"time": "1 day",
+			"days_min": 1,
+			"days_max": 1,
+			"tasks": [
+				{
+					"task": "Review with the project team",
+					"what": "Keep the project team aligned throughout the study.",
+					"how": "Plan at least 2 to 3 review calls per week with the project team.",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst + project lead",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "7",
+			"name": "Delivery",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Prepare the restitution",
+					"what": "Anticipate the restitution.",
+					"how": "Confirm with the project lead whether you should attend.\nMake sure you have the invitation.",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Ask for feedback",
+					"what": "Get feedback on your work.",
+					"how": "After the restitution, ask the project lead for written feedback (plus a quick coffee or call if needed).",
+					"watch_out": "",
+					"tools": "",
+					"check": "",
+					"output": "",
+					"time": null,
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		}
+	],
+	"deck": {
+		"title": "Archetype Study | Deck Structure",
+		"description": "Standard slide sequence of an archetype study deck, with the data each slide needs and when it is included.",
+		"columns": [
+			"Section",
+			"Slide",
+			"Content",
+			"Facets / data needed",
+			"Included when"
+		],
+		"rows": [
+			[
+				"Intro",
+				"Title + agenda",
+				"Brand, territory, markets, date; agenda.",
+				"-",
+				"Always"
+			],
+			[
+				"P1 Methodology",
+				"Scope & sourcing",
+				"Validated brand values the query is built on; query extract; sources and platforms; volume; muse crawl; audience analysis.",
+				"Values query, corpus volume, muse crawl, HypeAuditor",
+				"Always"
+			],
+			[
+				"P2 Incarnation of common interests",
+				"Section divider",
+				"Section title and visual.",
+				"-",
+				"Always"
+			],
+			[
+				"P2 Incarnation of common interests",
+				"Aspirations overview",
+				"3 to 4 shared aspirations on the territory, one visual each.",
+				"Values / motivations facet",
+				"Always"
+			],
+			[
+				"P2 Incarnation of common interests",
+				"Aspiration deep dive (x each)",
+				"Description, why the brand, verbatim, moodboard.",
+				"Values facet, reading, desk research",
+				"Always"
+			],
+			[
+				"P2 Incarnation of common interests",
+				"Centers of interest",
+				"Shared interests ranked with % and sub-themes.",
+				"Interests facet, HypeAuditor interests",
+				"Always"
+			],
+			[
+				"P2 Incarnation of common interests",
+				"Top muses of the territory",
+				"Most cited figures across the corpus, with share.",
+				"Celebrity / muse facet",
+				"Always"
+			],
+			[
+				"P3 The archetypes",
+				"Section divider",
+				"Section title and visual.",
+				"-",
+				"Always"
+			],
+			[
+				"P3 The archetypes",
+				"Archetypes overview",
+				"All archetypes with name, tagline, visual, share and lead muse.",
+				"Archetype facets",
+				"Always"
+			],
+			[
+				"P3 The archetypes",
+				"Archetypes map",
+				"Archetypes positioned on 2 axes drawn from the territory, overlaps flagged.",
+				"Archetype facets, values",
+				"If requested"
+			],
+			[
+				"P4 ID cards",
+				"ID card (x each archetype)",
+				"Name, tagline, share; the ideal they embody; values; codes (style, beauty, fragrance); centers of interest; key temples; top words.",
+				"Archetype facets, top words, places",
+				"Always"
+			],
+			[
+				"P4 ID cards",
+				"Moodboard (x each archetype)",
+				"Visuals + 2 verbatims.",
+				"Archetype corpus, reading",
+				"Always"
+			],
+			[
+				"P4 ID cards",
+				"Muses (x each archetype)",
+				"2 to 3 muses: handle, followers, ER, why they embody it, post verbatim.",
+				"Muse crawl, HypeAuditor",
+				"Always"
+			],
+			[
+				"P5 Strategic uses",
+				"Archetypes x brand uses",
+				"Per archetype: ambassador and creator leads, creative codes, campaign narrative, partnership ideas.",
+				"Whole deck, HypeAuditor (places, brands)",
+				"Always (validated by project lead)"
+			],
+			[
+				"Synthesis",
+				"Key learnings",
+				"Numbered learnings: headline + evidence.",
+				"Whole deck",
+				"Always"
+			],
+			[
+				"Closing",
+				"Team / thank you",
+				"Project team and contacts.",
+				"-",
+				"Always"
+			]
+		]
+	}
+}

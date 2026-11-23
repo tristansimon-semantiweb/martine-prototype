@@ -1,0 +1,269 @@
+{
+	"_meta": {
+		"id": "recurring_report_a",
+		"name": "Recurring report A",
+		"family": "Monitoring",
+		"format": "tasks",
+		"owner": null,
+		"version": "1.0",
+		"source": "M&T method file",
+		"planned": "19.3 à 24.35"
+	},
+	"phases": [
+		{
+			"phase": "0",
+			"name": "Topic detection & monitoring",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Detect the top topics",
+					"how": "Identify the most discussed topics of the month, update the topic tracking files and send them to the client for approval.",
+					"tools": "Radarly",
+					"check": "Topic tracking files updated; client approval received.",
+					"output": "Approved list of monthly topics",
+					"days_min": 0.1,
+					"days_max": 0.25,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Monitor executive accounts",
+					"how": "Check the executives' LinkedIn accounts manually to track the number of posts and engagement over the month.",
+					"tools": "LinkedIn (manual check)",
+					"check": "Every executive account covered for the full month.",
+					"output": "Executive posts and engagement figures",
+					"days_min": 0.1,
+					"days_max": 0.25,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "1",
+			"name": "Report production",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Quantitative section",
+					"how": "Complete the quantitative data in the PowerPoint.",
+					"tools": "Radarly, press files provided by the client",
+					"check": "Figures match the Radarly exports and source files.",
+					"output": "Quantitative slides",
+					"days_min": 0.5,
+					"days_max": 0.5,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Qualitative section",
+					"how": "Write the monthly summary, the two key focuses of the month, the executive accounts overview and the EA data summary.",
+					"tools": "Radarly, press files provided by the client",
+					"check": "Every section filled; each statement backed by a source.",
+					"output": "Qualitative slides",
+					"days_min": 1,
+					"days_max": 1.5,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "2",
+			"name": "Delivery",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Send to the client",
+					"how": "Send the report to the client via Teams.",
+					"tools": "Teams",
+					"check": "Final version shared.",
+					"output": "Report delivered",
+					"days_min": 0,
+					"days_max": 0.1,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "3",
+			"name": "Set-up & topic detection",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Update the author list",
+					"how": "Add the authors to follow in Radarly, from the list provided by the client.",
+					"tools": "Radarly",
+					"check": "Every author on the client list is followed in Radarly.",
+					"output": "Updated author list",
+					"days_min": 0.1,
+					"days_max": 0.25,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Identify key topics",
+					"how": "Identify key subjects related to sport and the environment, plus brand actions (best practices).",
+					"tools": "Radarly, manual search",
+					"check": "Topics cover both sport / environment subjects and brand best practices.",
+					"output": "Key topics and best practices",
+					"days_min": 1,
+					"days_max": 2,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "4",
+			"name": "Report production",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Quantitative section",
+					"how": "Complete the quantitative data in the PowerPoint.",
+					"tools": "Radarly",
+					"check": "Figures match the Radarly exports and source files.",
+					"output": "Quantitative slides",
+					"days_min": 2,
+					"days_max": 3,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Qualitative section",
+					"how": "Analyse the key subjects, best practices and the client actions, and write recommendations.",
+					"tools": "Radarly",
+					"check": "Each key subject backed by examples; recommendations tied to the analysis.",
+					"output": "Qualitative slides and recommendations",
+					"days_min": 4,
+					"days_max": 4,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "5",
+			"name": "Delivery",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Send to the client",
+					"how": "Send the report to the client via Teams + oral presentation",
+					"tools": "Teams",
+					"check": "Final version shared.",
+					"output": "Report delivered",
+					"days_min": 0.25,
+					"days_max": 0.25,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "6",
+			"name": "Topic detection",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Identify key topics for the client",
+					"how": "Identify key topics for the client across several themes, manually and through Radarly, drawing in particular on the key topics highlighted in the monthly reports.",
+					"tools": "Radarly",
+					"check": "Topics cross-checked with the monthly reports.",
+					"output": "Key topics for the client",
+					"days_min": 1,
+					"days_max": 1,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Identify key topics (committed companies)",
+					"how": "Identify key subjects related to committed companies, plus brand actions (best practices).",
+					"tools": "Radarly, manual search",
+					"check": "Topics cover both committed-company subjects and brand best practices.",
+					"output": "Key topics and best practices",
+					"days_min": 2,
+					"days_max": 3,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "7",
+			"name": "Report production",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Quantitative section",
+					"how": "Complete the quantitative data in the PowerPoint.",
+					"tools": "Radarly",
+					"check": "Figures match the Radarly exports and source files.",
+					"output": "Quantitative slides",
+					"days_min": 3,
+					"days_max": 3,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Qualitative section",
+					"how": "Analyse the key subjects, best practices and the client actions, and write recommendations.",
+					"tools": "Radarly",
+					"check": "Each key subject backed by examples; recommendations tied to the analysis.",
+					"output": "Qualitative slides and recommendations",
+					"days_min": 4,
+					"days_max": 5,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "8",
+			"name": "Delivery",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Send to the client",
+					"how": "Send the report to the client via Teams + oral presentation",
+					"tools": "Teams",
+					"check": "Final version shared.",
+					"output": "Report delivered",
+					"days_min": 0.25,
+					"days_max": 0.25,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		}
+	]
+}

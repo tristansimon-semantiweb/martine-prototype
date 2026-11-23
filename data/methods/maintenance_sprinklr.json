@@ -1,0 +1,195 @@
+{
+	"_meta": {
+		"id": "maintenance_sprinklr",
+		"name": "Platform maintenance, Sprinklr",
+		"family": "Monitoring",
+		"format": "tasks",
+		"owner": null,
+		"version": "1.0",
+		"source": "M&T method file",
+		"planned": "0.44 à 0.5"
+	},
+	"phases": [
+		{
+			"phase": "0",
+			"name": "Setup",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Open the reporting and set the week",
+					"how": "Frequency: Weekly (Mon).; In Sprinklr, go to Social Listening > Reporting > All Topics. Set the date range to the previous week, Monday to Sunday (the work is done on Monday).",
+					"tools": "Sprinklr",
+					"check": "Date range = previous Monday to Sunday.",
+					"output": "Dashboard on the right week",
+					"days_min": 0.01,
+					"days_max": 0.01,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "1",
+			"name": "Brand selection",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Rank brands by mention evolution",
+					"how": "Frequency: Weekly.; Open Brand Mention Ranking and sort mention evolution descending. Check the top 10 manually: keep brands with both high evolution and high mentions (e.g. above 500). A big brand below 500 can still be worth checking.",
+					"tools": "Sprinklr, Brand Mention Ranking",
+					"check": "About 10 brands kept, with growth and volume coherent.",
+					"output": "Brand shortlist",
+					"days_min": 0.02,
+					"days_max": 0.02,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "2",
+			"name": "Desk research",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Review the conversation of each brand",
+					"how": "Frequency: Weekly.; Click the brand, open Show Conversation Stream and scroll quickly to see what drives the conversation (campaign, launch, ambassador...). Then open Smart Insights and look at the hashtags section.",
+					"tools": "Sprinklr (Conversation Stream, Smart Insights)",
+					"check": "Driver of the spike identified for each brand; key hashtags noted exactly as written.",
+					"output": "Notes per brand: driver + hashtags",
+					"days_min": 0.06,
+					"days_max": 0.07,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Find this week's product launches/new collaboration/new brand ambassador/new collection",
+					"how": "Frequency: Weekly.; Search LinkedIn for product launches of that week only (not the previous month, already covered). Prioritise fragrance, makeup and skincare; haircare is low priority.",
+					"tools": "LinkedIn, Instagram, AI assistants (e.g. ChatGPT, Gemini)",
+					"check": "Each launch dated in the week; not already added in a previous report.",
+					"output": "List of launches to add",
+					"days_min": 0.06,
+					"days_max": 0.07,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "3",
+			"name": "Keyword update",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Check the existing keyword list",
+					"how": "Frequency: Weekly.; In Sprinklr, open the Keyword List and search the brand. Find the right list for the launch (e.g. Product List - Skincare, Makeup, Fragrance, Body Mist, Specific Topic List). Check whether the product or hashtag is already there.",
+					"tools": "Sprinklr, Keyword List",
+					"check": "Right list identified; no duplicate.",
+					"output": "Target list per keyword",
+					"days_min": 0.04,
+					"days_max": 0.04,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Write and add the keywords",
+					"how": "Frequency: Weekly.; Add the missing keywords. Specific product name: write it as is. Generic name: put the brand in front, written the same way as in the existing list (e.g. [brand] vs [competitor brand]). Copy hashtags exactly as in Smart Insights. Create a new list if the category does not exist yet. See sheet 'Keyword writing rules'.",
+					"tools": "Sprinklr, Keyword List",
+					"check": "Names match the list conventions; generic terms carry the brand; no duplicate.",
+					"output": "Keywords added in Sprinklr",
+					"days_min": 0.07,
+					"days_max": 0.07,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Update exclusion lists (when needed)",
+					"how": "Frequency: When needed.; Add low-relevance terms to Exclusion List - Resale & Discounts (Part 1 or 2: fakes, resale, affiliates, promos) and automated or bot messages to Exclusion - Bots.",
+					"tools": "Sprinklr, Keyword List",
+					"check": "Only clearly irrelevant content excluded.",
+					"output": "Updated exclusion lists",
+					"days_min": 0.01,
+					"days_max": 0.01,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "4",
+			"name": "Profile lists",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Tag profiles in the Global Profile Lists",
+					"how": "Frequency: Weekly.; Go through the profile pages (pages 1 to 15; pages 8 to 10 often hold more untagged accounts). Tag each relevant account in the right list: Beauty Group Content Owned, Brand Content (Owned), Press/Magazine/News Social Channels, Retailers Social Channels, Resellers/Affiliates/Deals, Exclusion List - Bots. If an account is already tagged, update it anyway (click Yes). For accounts with few followers, check the account is genuine.",
+					"tools": "Sprinklr, Global Profile Lists",
+					"check": "Each tagged profile fits its list; low-follower accounts verified.",
+					"output": "Enriched profile lists",
+					"days_min": 0.06,
+					"days_max": 0.09,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "5",
+			"name": "Reporting",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Export weekly growth and volume",
+					"how": "Frequency: Weekly.; Download the Brand Mention Ranking export for the week and match growth % and volume to each brand.",
+					"tools": "Sprinklr export",
+					"check": "Volume is the weekly figure; growth matches the export.",
+					"output": "Growth and volume per brand",
+					"days_min": 0.04,
+					"days_max": 0.04,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Fill the weekly cleaning report",
+					"how": "Frequency: Weekly.; In the client Sprinklr Weekly document, fill one row per brand: date, brand, category ([client] / Competitors), growth %, volume, key findings (what the launch or campaign is), recommendation, keyword placement, keywords to add. Sort from highest to lowest growth.",
+					"tools": "the client Sprinklr Weekly report",
+					"check": "All columns filled; rows sorted by growth descending.",
+					"output": "Weekly report",
+					"days_min": 0.05,
+					"days_max": 0.06,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Final proofread",
+					"how": "Frequency: Weekly.; Check the whole report once more for errors in product names, brand names and grammar.",
+					"tools": "Weekly report",
+					"check": "No spelling error in brand or product names.",
+					"output": "Final report",
+					"days_min": 0.02,
+					"days_max": 0.02,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		}
+	]
+}

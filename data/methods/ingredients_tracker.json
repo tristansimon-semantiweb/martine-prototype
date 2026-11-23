@@ -1,0 +1,376 @@
+{
+	"_meta": {
+		"id": "ingredients_tracker",
+		"name": "Ingredients tracker",
+		"family": "Trends",
+		"format": "tasks",
+		"owner": null,
+		"version": "1.0",
+		"source": "M&T method file",
+		"planned": "14.1 à 33.5"
+	},
+	"phases": [
+		{
+			"phase": "0",
+			"name": "Onboarding & last-wave review",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Brief & scope definition",
+					"how": "Write the scope, deliverable length and content and deadline in one place.",
+					"tools": "Client call notes, kick-off agenda doc",
+					"check": "Scope, audience, deliverable length and deadline are written in one place.",
+					"output": "Clear scope and deliverable",
+					"days_min": 0.25,
+					"days_max": 1,
+					"owner": "Project lead & lead analyst",
+					"skills": []
+				},
+				{
+					"task": "Review the previous wave",
+					"how": "Read the last deck, the methodology, review ingredient measurement sheet and the earlier framework (lifecycle, volume, average engagement, decision).",
+					"tools": "Last wave deck, methodology change document, ingredient measurement sheet, Claude",
+					"check": "The analyst can explain every column and threshold of the old tracker in their own words.",
+					"output": "Short list of what to keep, change and drop",
+					"days_min": 0.5,
+					"days_max": 2,
+					"owner": "Analysts",
+					"skills": []
+				},
+				{
+					"task": "Team set-up & planning",
+					"how": "Agree roles and milestones. Set milestones and timelines",
+					"tools": "Float, team calls",
+					"check": "Roles, reviewers and milestones are written down and shared.",
+					"output": "Staffing plan and milestones",
+					"days_min": 0.25,
+					"days_max": 0.5,
+					"owner": "Project lead & lead analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "1",
+			"name": "Desk research",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Desk research",
+					"how": "Collect what is happening in the world, beyond oral care. Search Google and read relevant articles, then scan TikTok and Reddit for conversations, formats and ingredients. Look for wellness and beauty trends crossing into oral care (skinification, oral-gut link, GLP-1, longevity). Log each signal with its source link.; Check what is moving at global level and in adjacent categories (skincare, supplements, beauty) that could reach toothpaste. Compare with the existing list of about 400 ingredients and note what to add or test.",
+					"tools": "Google, press articles, TikTok (manual search), Reddit",
+					"check": "Each signal has a source link, and single-market signals are flagged as such.",
+					"output": "Desk research notes",
+					"days_min": 1,
+					"days_max": 2,
+					"owner": "Analyst (an analyst)",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "2",
+			"name": "Measurements & sample",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Prepare Radarly tags and queries",
+					"how": "Facets were already built in the client Radarly workspace (426 ingredients, 7 languages). Check that every ingredient on the list has a query, and add the missing ones (agave, amino acids, cranberry) before exporting.",
+					"tools": "Radarly",
+					"check": "Every ingredient on the list has a working tagged query.",
+					"output": "Complete tagged workspace",
+					"days_min": 0.25,
+					"days_max": 1,
+					"owner": "Analysts",
+					"skills": []
+				},
+				{
+					"task": "Export tagged measurements from Radarly",
+					"how": "Export volume and engagement for three periods, with the tags included in the export. Because everything was already tagged, no query-by-query manual measurement is needed. Read the handover document from an analyst and an analyst to check the queries that are not working and the ingredients need manual extraction.",
+					"tools": "Radarly exports",
+					"check": "Row counts match between volume and engagement files, and a few totals are spot-checked in Radarly.",
+					"output": "Six raw export files",
+					"days_min": 0.5,
+					"days_max": 1,
+					"owner": "Analysts",
+					"skills": []
+				},
+				{
+					"task": "Pull the search signal from Trajaan",
+					"how": "Export the US keyword table (Location = United States, English and Spanish keywords), month by month. Apply the noise rules: other languages, medical terms and off-topic keywords out, brand-led keywords flagged. Count identical variant series once. Load September when Google releases it.",
+					"tools": "Trajaan",
+					"check": "The location is checked (values match a US pull, not a multi-country one) and read-back shows no mismatched keywords.",
+					"output": "Search volume per ingredient and month",
+					"days_min": 0.5,
+					"days_max": 1,
+					"owner": "Analysts",
+					"skills": []
+				},
+				{
+					"task": "Build the ingredient tracker",
+					"how": "Set up the workbook: all tags, a Top ~75 shortlist (breakout, early signs, growing), a top ~20/40 featured ingredients, and an Overview of themes and benefit territories, with formulas for growth and decision.",
+					"tools": "Google Sheets, Claude",
+					"check": "Totals tie back to the exports, there are no formula errors, and every ingredient has a decision.",
+					"output": "Ingredient tracker",
+					"days_min": 1,
+					"days_max": 2,
+					"owner": "Analysts",
+					"skills": []
+				},
+				{
+					"task": "Build the video sample",
+					"how": "Save the URLs of interesting TikTok videos while researching (55 unique videos). Give Claude the list of URLs and the column headers wanted in the measurement file. Claude returns a sheet with URL, creator, followers, views, engagement, transcript, hashtags, brands mentioned and more.",
+					"tools": "TikTok, Claude, COLGATE_SAMPLE_OCT 26",
+					"check": "Spot-check against the live video: handle, numbers and transcript wording. Verbatims are checked against the audio.",
+					"output": "Categorised sample sheet",
+					"days_min": 1,
+					"days_max": 2,
+					"owner": "Intern / Analyst",
+					"skills": []
+				},
+				{
+					"task": "Manual measurements export",
+					"how": "Export volume and engagement for benefits, entry points, and rogue ingredients. And if needed and required by the specific project, also formats and brands.",
+					"tools": "Radarly",
+					"check": "Make sure queries are working and include all the languages needed for the analysis.",
+					"output": "Brand rows in the Overview",
+					"days_min": 1,
+					"days_max": 3,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "3",
+			"name": "Storyline & outline",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Preliminary ingredient list to client",
+					"how": "Share the top ingredients with a recommended deep-dive flag.",
+					"tools": "Email, client-facing Google Sheet",
+					"check": "The client-facing sheet is clean: 75 ingredients, no internal columns.",
+					"output": "Check-in email and shared sheet",
+					"days_min": 0.25,
+					"days_max": 0.5,
+					"owner": "Lead analyst",
+					"skills": []
+				},
+				{
+					"task": "Define the storyline angle",
+					"how": "Decide what story the data tells: benefits-led vs ingredient-led, what changed since previous wave, which benefits and ingredients to dive into and which to watch, and the emerging themes (GLP-1 and dry mouth, oral-gut link, longevity, microplastics).",
+					"tools": "Tracker, call notes, desk research, reference decks + Claude, Word, tracker",
+					"check": "Each chosen benefit has ingredients, a number, a video and a reason, and the story answers 'so what for the client'.",
+					"output": "Storyline decisions",
+					"days_min": 1,
+					"days_max": 2,
+					"owner": "Analysts",
+					"skills": []
+				},
+				{
+					"task": "Benefit selection & ingredient mapping",
+					"how": "Take all 13 benefits through selection. Pick relevant ingredients per benefit with one callout, then add brand and product callouts and formats.",
+					"tools": "Tracker, benefit queries, callouts file",
+					"check": "The selection rule is stated and the counts reconcile with the tracker.",
+					"output": "Benefit and ingredient map",
+					"days_min": 0.5,
+					"days_max": 0.75,
+					"owner": "Analysts",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "4",
+			"name": "Deck build in Claude Design",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Layout and structure",
+					"how": "Work through the layout with Claude Design (lead analyst and second analyst). Try alternatives quickly and re-craft slides as needed. Use reference slides as a starting point.",
+					"tools": "Claude Design, reference decks",
+					"check": "Each slide answers one question and the order follows the outline.",
+					"output": "First full deck draft",
+					"days_min": 1,
+					"days_max": 2,
+					"owner": "Lead analyst + analyst",
+					"skills": []
+				},
+				{
+					"task": "Data visualisation",
+					"how": "Claude Design had all the measurement files, so charts were built directly from them: ranked benefit bars, ingredient tables and the Top 10 refresh. A bubble chart judged misleading was replaced.",
+					"tools": "Claude Design, measurement files",
+					"check": "Every chart number is checked against the tracker, with a footnote where benefits overlap.",
+					"output": "Charts",
+					"days_min": 0.5,
+					"days_max": 0.75,
+					"owner": "Analysts",
+					"skills": []
+				},
+				{
+					"task": "Visual & video sourcing",
+					"how": "Pull videos and stills from the sample for each benefit slide. Claude audits the deck for empty visual slots and builds a gaps list and a shot list.",
+					"tools": "Sample sheet, TikTok, video shot list",
+					"check": "Each still or GIF links to its TikTok, usage rights are checked, US creators are preferred, and UK or #ad items are labelled.",
+					"output": "Visuals in place",
+					"days_min": 0.5,
+					"days_max": 1,
+					"owner": "Analysts",
+					"skills": []
+				},
+				{
+					"task": "Draft copy",
+					"how": "Claude drafts titles, captions and callouts from the tracker and the outline, in house style.",
+					"tools": "Claude Design, outline, tracker",
+					"check": "Numbers match the tracker. No em or en dashes in client copy.",
+					"output": "First-draft copy",
+					"days_min": 1,
+					"days_max": 2,
+					"owner": "Analysts",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "5",
+			"name": "Google Slides finish & QA",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Move to Google Slides",
+					"how": "Take the deck from Claude Design into Google Slides, fix layout drift, and do the final visual run-through with the second analyst.",
+					"tools": "Google Slides",
+					"check": "Images, fonts and links are intact on every slide.",
+					"output": "Deck in Google Slides",
+					"days_min": 0.25,
+					"days_max": 0.5,
+					"owner": "Analysts",
+					"skills": []
+				},
+				{
+					"task": "Copy rewrite",
+					"how": "Go through every line of copy. Rewrite it in the team's voice: short, direct and quant-forward for a US audience. Remove generic AI phrasing and check that verbatims are exact.",
+					"tools": "Google Slides",
+					"check": "No generic phrasing, no dashes, and every verbatim matches the source.",
+					"output": "Final copy",
+					"days_min": 1,
+					"days_max": 3,
+					"owner": "Analysts",
+					"skills": []
+				},
+				{
+					"task": "Data & claims QA",
+					"how": "Check each number against the tracker, replace XX placeholders, verify verbatims against audio, check brand availability (US vs UK), label desk-research items as examples and check house style.",
+					"tools": "Tracker, sample sheet, Google Slides",
+					"check": "Every number traces to its source and no placeholders remain.",
+					"output": "QA-checked deck",
+					"days_min": 0.5,
+					"days_max": 0.75,
+					"owner": "Analysts",
+					"skills": []
+				},
+				{
+					"task": "Internal review",
+					"how": "Bring in the senior reviewer once the deck is about 75 to 80% complete (late review avoids rework). Implement feedback. Distinguish AI-generated, AI-assisted and human-authored content where it matters.",
+					"tools": "Google Slides comments",
+					"check": "Reviewer sign-off.",
+					"output": "Approved draft",
+					"days_min": 0.25,
+					"days_max": 0.5,
+					"owner": "Project Lead + analysts",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "6",
+			"name": "Client sharing & review",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Share the draft with the client",
+					"how": "Send the draft with a short cover note, offer a call, and set a feedback window of about 5 days.",
+					"tools": "Email, Google Slides",
+					"check": "The right link and access are shared, and the feedback date is stated.",
+					"output": "Draft shared with client",
+					"days_min": 0.1,
+					"days_max": 0.25,
+					"owner": "Lead analyst",
+					"skills": []
+				},
+				{
+					"task": "Collect and triage client feedback",
+					"how": "Gather comments and group them by slide and type (wording, data, scope). The 5-day window is waiting time, not effort.",
+					"tools": "Google Slides comments, email",
+					"check": "Every comment has a status: accept, discuss or decline with reason.",
+					"output": "Feedback list",
+					"days_min": 0.25,
+					"days_max": 0.5,
+					"owner": "Analysts",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "7",
+			"name": "Implement feedback & final delivery",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Implement client feedback",
+					"how": "Update slides and, if needed, the tracker. Re-run QC on every number that changed.",
+					"tools": "Google Slides, tracker",
+					"check": "Changed numbers re-checked and the feedback list closed.",
+					"output": "Updated deck",
+					"days_min": 0.5,
+					"days_max": 3,
+					"owner": "Analysts",
+					"skills": []
+				},
+				{
+					"task": "Final delivery & hand-over",
+					"how": "Deliver the final deck by 30 Oct. Save all files in the shared drive, and update the method decisions log and project notes.",
+					"tools": "Google Drive, Claude project",
+					"check": "Final deck delivered, files saved, and the method log up to date.",
+					"output": "Final deck and archive",
+					"days_min": 0.25,
+					"days_max": 0.5,
+					"owner": "Project Lead + lead analyst",
+					"skills": []
+				}
+			]
+		}
+	],
+	"notes": [
+		"Of which storyline and deck production (phases 4 to 6) 6.75 13.75",
+		"WHERE CLAUDE HELPED AND WHERE THE ANALYST OWNED IT Tasks",
+		"Steps that were analyst judgment only 6",
+		"Steps where Claude drafts or computes and the analyst decides 17",
+		"Steps where Claude does the repetitive part and the analyst checks 2"
+	]
+}

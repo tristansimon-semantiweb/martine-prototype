@@ -1,0 +1,405 @@
+{
+	"_meta": {
+		"id": "bb_report",
+		"name": "BB report",
+		"family": "Trends",
+		"format": "tasks",
+		"owner": null,
+		"version": "1.0",
+		"source": "M&T method file",
+		"planned": "4 à 5.5"
+	},
+	"phases": [
+		{
+			"phase": "0",
+			"name": "Kick-off & setup",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Brief & scope definition",
+					"how": "Read the client request and make sure you understand the theme, the markets and beauty categories covered, and the deadline.",
+					"tools": "BB SOW 2026",
+					"check": "Markets, categories, structure and deadline are written in the SOW.",
+					"output": "Clear scope (theme, markets, categories, deadline)",
+					"days_min": 0.1,
+					"days_max": 0.1,
+					"owner": "Analysts",
+					"skills": []
+				},
+				{
+					"task": "Create new folder",
+					"how": "In the BB Global Folder, create a new folder named with the next BB number (previous number + 1) and the delivery month. Copy all subfolders and documents from the previous edition, then rename them with the new topic.; We need to have the folder \"02 - Set Up\" with the 3 documents inside (the Outline & Desk research ; the Measurements sheet; Introduction file) ready to be filled & updated with new content ; as well as the folder \"03 - Analysis\" with the google slide document ready to be filled; and finally the EXTERNAL SHARING folder empty this time. In which we will add a copy of the report and add the video in order to share both document with the client later.",
+					"tools": "BB Global Folder",
+					"check": "The new folder contains: '02 - Set Up' with 3 documents ready to update (Outline & desk research, Measurements sheet, Introduction file); '03 - Analysis' with the Google Slides report ready to fill; 'EXTERNAL SHARING', empty for now (the report copy and the video are added at the end to share with the client).",
+					"output": "Folders & files ready to be updated",
+					"days_min": 0.1,
+					"days_max": 0.1,
+					"owner": "Analysts",
+					"skills": []
+				},
+				{
+					"task": "Onboarding & previous BB reuse check",
+					"how": "Go through the BB folder. Use BB #150 - Aug 26, Bold Beauty & Pop Culture, as the reference for structure, tone and level of detail. Read other report related to the topic if we already did ones.",
+					"tools": "BB #150 (Aug 26, Bold Beauty & Pop Culture)",
+					"check": "Analysts have read at least the last BB edition; reusable studies & insights from other reports.",
+					"output": "Reuse list + inspiration notes",
+					"days_min": 0.1,
+					"days_max": 0.1,
+					"owner": "Analysts",
+					"skills": []
+				},
+				{
+					"task": "Planning",
+					"how": "Allocate analyst time in Float: 1 to 2 days of research (depending on topic difficulty, the analyst's knowledge of the topic and the markets), 5 full days of production including 1 day of video production on Canva, and 1 day to implement feedback.",
+					"tools": "Float",
+					"check": "Time booked in Float before research starts.",
+					"output": "Staffing plan",
+					"days_min": null,
+					"days_max": null,
+					"owner": "Project lead",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "1",
+			"name": "Desk research & outline",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Desk research",
+					"how": "Scan last month's business news and partnerships, plus social signals on the markets and categories covered by the BB. Prioritise interesting, culturally specific signals over volume or virality. Start collecting organic examples: we are not looking for the most viewed content or top influencers, but for organic conversations.",
+					"tools": "Google, press, manual TikTok search, Radarly",
+					"check": "Each signal has a source link.",
+					"output": "Desk research notes, video examples, brand examples",
+					"days_min": 0.5,
+					"days_max": 1,
+					"owner": "Analysts",
+					"skills": []
+				},
+				{
+					"task": "Draft the outline",
+					"how": "In the Outline & desk research file, draft 3 macro shifts, each with 3 sub-shifts. The brand case study slide (2 brand examples illustrating one of the deep dives) can be drafted now, or found later during production while deep diving into the research.",
+					"tools": "Outline & desk research file",
+					"check": "Each sub-shift is backed by sourced signals; single-market signals are flagged as such.",
+					"output": "Draft outline",
+					"days_min": 0.5,
+					"days_max": 1,
+					"owner": "Analysts",
+					"skills": []
+				},
+				{
+					"task": "Internal outline review",
+					"how": "Project lead reviews the outline before it goes to the client.",
+					"tools": "Outline & desk research file",
+					"check": "Outline approved by the project lead.",
+					"output": "Outline ready to send",
+					"days_min": null,
+					"days_max": null,
+					"owner": "Project lead",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "2",
+			"name": "Client outline validation",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Validate outline with client",
+					"how": "Send the outline to the client contacts ([brand] and an analyst). Slide production waits for their validation, but measurements and the update of slides 1, 2 and 3 can start in the meantime.",
+					"tools": "Outline, email",
+					"check": "Email with the report outline sent to the client.",
+					"output": "Validated outline",
+					"days_min": null,
+					"days_max": null,
+					"owner": "Project lead or Analysts",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "3",
+			"name": "Queries & measurement",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Build the queries",
+					"how": "Start the Measurements file. Write one Radarly query per sub-shift and market, with native-language keywords. This can start while waiting for client approval of the outline.",
+					"tools": "Radarly, Measurements file, building-radarly-queries skill",
+					"check": "Boolean syntax valid; native-language terms included for each market in the study.",
+					"output": "Draft queries in the Measurements file",
+					"days_min": 0.4,
+					"days_max": 0.4,
+					"owner": "Analysts",
+					"skills": [
+						"building-radarly-queries"
+					]
+				},
+				{
+					"task": "Test and clean the queries",
+					"how": "Read a random sample of mentions per query and market; add exclusions for noise; repeat until results are relevant.",
+					"tools": "Radarly, cleaning-social-volume skill",
+					"check": "Precision checked on a sample; exclusions noted in the Measurements file if needed.",
+					"output": "Clean, validated queries",
+					"days_min": 0.1,
+					"days_max": 0.1,
+					"owner": "Analysts",
+					"skills": [
+						"cleaning-social-volume"
+					]
+				},
+				{
+					"task": "Measure mentions",
+					"how": "Pull mentions per market (Radarly filters) and per period: last 6 months vs the same 6 months last year. Also collect monthly mentions over the 6 months for the trend curve on slide 4. Fill the Measurements file.",
+					"tools": "Radarly, Measurements file",
+					"check": "Same period and filters for every query; monthly figures collected.",
+					"output": "Measurements file filled",
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analysts",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "4",
+			"name": "Slide production",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Slide 1: Intro",
+					"how": "Update the title, flags, date and visual.",
+					"tools": "Client brief on the topic",
+					"check": "Title, markets and date match the brief.",
+					"output": "Slide 1",
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analysts",
+					"skills": []
+				},
+				{
+					"task": "Slide 2: Methodology",
+					"how": "Update with the tools used for this report, the right time scope, markets and sources.",
+					"tools": "Measurements file, brief",
+					"check": "Tools, period, markets and sources match what was actually used.",
+					"output": "Slide 2",
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analysts",
+					"skills": []
+				},
+				{
+					"task": "Slide 3: Beauty landscape pulse",
+					"how": "Give the client a view of what's moving in luxury and beauty right now, not only in the categories covered by the report. Look at business news, brand activations and new launches that create buzz or that the group should know about.",
+					"tools": "Desk research notes, press, what the team regularly shares in the Trends Slack channel",
+					"check": "5 items, each with the right tag in the corner (BUSINESS, ACTIVATION, LAUNCH, SOCIAL TREND...), a short description, and a link to the source on every image.",
+					"output": "Slide 3",
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analysts",
+					"skills": []
+				},
+				{
+					"task": "Slide 4: Data",
+					"how": "Add the measurement data and the line chart with markets combined. Also use Spate for TikTok views and the associated hashtags. Write the 3 key insights of the report.",
+					"tools": "Measurements file, Spate",
+					"check": "Figures match the Measurements file and Spate; the 3 insights are backed by data.",
+					"output": "Slide 4",
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analysts",
+					"skills": []
+				},
+				{
+					"task": "Slide 5: Key voices",
+					"how": "Select key voices from the videos found throughout the report. Aim for varied profiles: both TikTok and Instagram creators, with different levels of influence (micro to macro).",
+					"tools": "Radarly for Instagram, manual TikTok search",
+					"check": "Profiles and links checked; voices fit the edition theme; overarching formats match the types of video content shown throughout the report, all linked.",
+					"output": "Slide 5",
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analysts",
+					"skills": []
+				},
+				{
+					"task": "Slide 6: Brand popularity index",
+					"how": "Search for the theme of the BB in the Search bar of Spate: e.g. if the topic is about skin scent search for \"skin scent\", select tiktok, and look at \"related brand\". Rank by QoQ.",
+					"tools": "Spate",
+					"check": "Brands kept are the most growing in QoQ yet they need to relevant to the topic and still discussed (no super low signal brands).",
+					"output": "Slide 6",
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analysts",
+					"skills": []
+				},
+				{
+					"task": "Slides 7 to 20: Deep dives",
+					"how": "Build the 3 macro shifts, each with its 3 sub-shifts, plus section and intro slides.; Show 4 products per slide, organically relevant. Try to connect product mentionned with slide 6: the brands coming up organically in conversations should roughly match the top of the ranking. Try to include 1 the client product (only if present in consumer conversations, never forced).; Wordclouds: mostly in English, but depending on each market's share of voice (slide 4), also include native terms with a small italic English translation; keep it clean, not heavy.",
+					"tools": "Outline, Spate, TikTok qualitative search",
+					"check": "Every top-line insight backed by Spate figures, relevant videos and verbatims. 4 products per slide, ideally 1 from the client. All videos linked, with @author mentions.",
+					"output": "Slides 7 to 20",
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analysts",
+					"skills": []
+				},
+				{
+					"task": "Brand case study slide",
+					"how": "Brand case study slide with 2 examples. It can be placed after any deep dive, to show the client brands that are doing well on a specific topic.",
+					"tools": "Desk research notes, Radarly",
+					"check": "Examples sourced and dated.",
+					"output": "Case study slide",
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analysts",
+					"skills": []
+				},
+				{
+					"task": "Video collection",
+					"how": "While working on the report, save in one folder all the videos used on the left part of each deep dive, so the final video can be generated automatically at the end.",
+					"tools": "Deck, video folder",
+					"check": "All deep-dive videos are saved in the folder.",
+					"output": "Video folder",
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analysts",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "5",
+			"name": "Video",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Produce the video",
+					"how": "Produce the video on Canva once the slides are fully done. Insert either consumer verbatims or video descriptions. Insert a music.",
+					"tools": "Canva, final deck (to explore: moving video production to Claude).",
+					"check": "Video matches the final deck.",
+					"output": "Video",
+					"days_min": 0.5,
+					"days_max": 1,
+					"owner": "Analysts (project lead support)",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "6",
+			"name": "Internal QA",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Clean-up",
+					"how": "Remove comments, placeholders, internal shorthand and working notes. No query or Measurements file shared. Sources and period in footnotes.",
+					"tools": "Deck",
+					"check": "No internal notes, no query, no content from another client.",
+					"output": "Clean deck",
+					"days_min": 0.2,
+					"days_max": 0.2,
+					"owner": "Analysts + Project lead",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "7",
+			"name": "External sharing",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "External copy",
+					"how": "In the EXTERNAL SHARING folder, create a copy of the report named [external...] and copy the video.",
+					"tools": "Google Drive",
+					"check": "Only external versions in the external folder; naming convention followed.",
+					"output": "External report + video",
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analysts",
+					"skills": []
+				},
+				{
+					"task": "Introduction file",
+					"how": "Write the Introduction file (in the '02 - Set Up' folder): the text the client includes in its newsletter email with the report and the video. Insert the 3 pictures from the introduction slides of the 3 macro shifts (the 3 images on slide 7).",
+					"tools": "Set Up folder, Introduction file",
+					"check": "Intro matches the 3 macro shifts and the final wording of the deck.",
+					"output": "Introduction file",
+					"days_min": 0.5,
+					"days_max": 0.5,
+					"owner": "Analysts",
+					"skills": []
+				},
+				{
+					"task": "Newsletter banner",
+					"how": "Ask Claude to generate the newsletter email banner (replaces the freelancer). Pull the images from the Introduction file.",
+					"tools": "Introduction file, previous banner",
+					"check": "Banner follows the template, colours and logo; title, pictures, dates and BB number are updated.",
+					"output": "PNG banner, same template as the previous one, updated with the right title, pictures, dates and BB number.",
+					"days_min": null,
+					"days_max": null,
+					"owner": "Analysts",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "8",
+			"name": "Client validation & feedback",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Validate materials with client",
+					"how": "Send the link to the EXTERNAL SHARING folder to the client contacts ([brand] and an analyst). Before sending, check that it contains the report, the video, the Introduction file and the newsletter banner.",
+					"tools": "Email, external folder",
+					"check": "The folder contains the 4 deliverables.",
+					"output": "Client feedback",
+					"days_min": null,
+					"days_max": null,
+					"owner": "Project lead",
+					"skills": []
+				},
+				{
+					"task": "Implement feedback",
+					"how": "Implement client feedback.",
+					"tools": "Deck",
+					"check": "All comments addressed; final versions named and saved.",
+					"output": "Final materials",
+					"days_min": 1,
+					"days_max": 1,
+					"owner": "Analysts",
+					"skills": []
+				}
+			]
+		}
+	]
+}

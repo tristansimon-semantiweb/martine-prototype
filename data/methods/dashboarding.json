@@ -1,0 +1,292 @@
+{
+	"_meta": {
+		"id": "dashboarding",
+		"name": "Dashboarding",
+		"family": "Monitoring",
+		"format": "tasks",
+		"owner": null,
+		"version": "1.0",
+		"source": "M&T method file",
+		"planned": "3.35"
+	},
+	"phases": [
+		{
+			"phase": "0",
+			"name": "Noise check",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Check the mentions quality",
+					"how": "Go to Results and sort the feed by random to read a sample of mentions.",
+					"tools": "Talkwalker Analytics",
+					"check": "Sample read across the full date range.",
+					"output": "Sample of mentions reviewed",
+					"days_min": 0.15,
+					"days_max": 0.15,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Identify irrelevant posts and their cause",
+					"how": "Identify the irrelevant posts in the sample and why they were collected.",
+					"tools": "Talkwalker Analytics",
+					"check": "Each noise group has a cause and example posts.",
+					"output": "Noise log",
+					"days_min": 0.2,
+					"days_max": 0.2,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Check spam in the top authors",
+					"how": "Go to Influencers and sort by number of posts.",
+					"tools": "Talkwalker Analytics",
+					"check": "Top 50 authors reviewed.",
+					"output": "List of suspected spam accounts",
+					"days_min": 0.1,
+					"days_max": 0.1,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Spot accounts publishing too much (spam)",
+					"how": "Open each flagged account and check whether it publishes too much (spam).",
+					"tools": "Talkwalker Analytics",
+					"check": "Each flagged account has a keep / exclude decision with evidence; resellers stay in scope.",
+					"output": "Keep / exclude decision per account",
+					"days_min": 0.15,
+					"days_max": 0.15,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "1",
+			"name": "Exclusion query",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Build an exclusion query",
+					"how": "Build the exclusion from the irrelevant terms identified in phase 0.",
+					"tools": "Talkwalker Analytics",
+					"check": "Syntax valid; within 4,096 characters and 50 operands; terms that can appear in a watch post carry a guard.",
+					"output": "Draft exclusion query",
+					"days_min": 0.3,
+					"days_max": 0.3,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Test the exclusion on the results page",
+					"how": "Apply the exclusion on the Results page and check what it removes.",
+					"tools": "Talkwalker Analytics",
+					"check": "Before / after count on the same period; removed posts reviewed for false exclusions.",
+					"output": "Tested exclusion",
+					"days_min": 0.2,
+					"days_max": 0.2,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Implement the exclusion",
+					"how": "If the query is correct, add it to the exclusion section of the corresponding topic and save it.",
+					"tools": "Talkwalker Settings",
+					"check": "Saved query read back and matches the approved version; change logged.",
+					"output": "Updated topic exclusions",
+					"days_min": 0.05,
+					"days_max": 0.05,
+					"owner": "Team lead / Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "2",
+			"name": "Tagging behaviour check",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Visual check of the volume",
+					"how": "Go to the Results page and select the time period.",
+					"tools": "Talkwalker Analytics",
+					"check": "Explicit calendar dates used, not period presets.",
+					"output": "Weekly volumes per tag, last 3 months",
+					"days_min": 0.05,
+					"days_max": 0.05,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Compare by tags",
+					"how": "Select 'Compare by Tags'.",
+					"tools": "Talkwalker Analytics",
+					"check": "One series recorded per tag.",
+					"output": "Volume table per tag",
+					"days_min": 0.15,
+					"days_max": 0.15,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Spot holes in the data",
+					"how": "Check the evolution of the results to spot holes in the data.",
+					"tools": "Talkwalker Analytics",
+					"check": "Every gap is either explained (e.g. by a logged query change) or listed as unexplained.",
+					"output": "List of unexplained gaps",
+					"days_min": 0.15,
+					"days_max": 0.15,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Correct the tagging rules",
+					"how": "If a lack of volume has been spotted, check that the tagging rule is still active (Talkwalker > Settings > Rules).",
+					"tools": "Talkwalker Settings",
+					"check": "Rule active again; volume back on the next read.",
+					"output": "Corrected tagging rule",
+					"days_min": 0.3,
+					"days_max": 0.3,
+					"owner": "Team lead / Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "3",
+			"name": "Filter check",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Filter precision check",
+					"how": "Each month, read a sample of the posts each custom filter matched and flag filters picking up off-topic posts.",
+					"tools": "Talkwalker Analytics, Talkwalker Settings",
+					"check": "Precision estimated for every filter; drops vs last month flagged.",
+					"output": "Precision estimate per filter + proposed fixes",
+					"days_min": 0.4,
+					"days_max": 0.4,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Filter coverage check",
+					"how": "Each month, look for new consumer vocabulary (new models, slang, hashtags) that the live filters miss.",
+					"tools": "Talkwalker Analytics",
+					"check": "Each proposed addition comes with the posts it would add.",
+					"output": "Proposed filter additions",
+					"days_min": 0.25,
+					"days_max": 0.25,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "4",
+			"name": "Account check",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Verify owned and paid account lists",
+					"how": "Check that the author IDs used for owned voice and brand-account exclusions still point to the right accounts; add new official handles.",
+					"tools": "Talkwalker Analytics, Talkwalker Settings",
+					"check": "Every author ID confirmed; new official handles added.",
+					"output": "Updated owned / paid account lists",
+					"days_min": 0.2,
+					"days_max": 0.2,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "5",
+			"name": "Dashboard check",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Check word clouds and theme widgets",
+					"how": "Open each dashboard widget and look for repeated or meaningless phrases.",
+					"tools": "Talkwalker Dashboards",
+					"check": "No repeated or meaningless phrase left in the widgets.",
+					"output": "Topic exclusions or blocklist entries",
+					"days_min": 0.3,
+					"days_max": 0.3,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "6",
+			"name": "Sentiment correction",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Spot-check sentiment",
+					"how": "Read a random sample per topic and correct mislabelled sentiment.",
+					"tools": "Talkwalker Analytics",
+					"check": "Every disagreement reviewed; mislabelled posts corrected.",
+					"output": "Corrected sentiment",
+					"days_min": 0.25,
+					"days_max": 0.25,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "7",
+			"name": "Change control",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Check the monthly result quota",
+					"how": "After any query broadening, check project usage against the monthly quota.",
+					"tools": "Talkwalker Settings",
+					"check": "Usage below the alert threshold.",
+					"output": "Quota status",
+					"days_min": 0.05,
+					"days_max": 0.05,
+					"owner": "Team lead",
+					"skills": []
+				},
+				{
+					"task": "Log every change",
+					"how": "Record the before / after query, reason, date and rollback for each saved change.",
+					"tools": "Project change log",
+					"check": "Every saved change has a log entry.",
+					"output": "Change log",
+					"days_min": 0.1,
+					"days_max": 0.1,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		}
+	]
+}

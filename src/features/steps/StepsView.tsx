@@ -7,7 +7,7 @@ import { Check } from "lucide-react";
 import { cn } from "@/shared/lib/cn";
 import { useMartine } from "@/shared/hooks/useMartine";
 import { methodEntry } from "@/shared/lib/data";
-import { dayRange, plural } from "@/shared/lib/format";
+import { costed, plural } from "@/shared/lib/format";
 import { hasMethodFile, phaseViews, type PhaseView } from "@/shared/lib/studyModel";
 import { PhaseDrawer } from "./PhaseDrawer";
 
@@ -34,7 +34,7 @@ export function StepsView({ id }: { id: string }) {
 				<div className="rounded-[var(--radius-lg)] border border-dashed border-[var(--color-border-active)] bg-[var(--color-surface)] px-6 py-8 text-[var(--color-ink-secondary)]">
 					<p className="m-0 font-semibold text-[var(--color-ink)]">The {method?.name.toLowerCase() ?? "study"} method is not in Martine yet.</p>
 					<p className="mb-0 mt-1.5 text-[15px]">
-						Its phases and tasks show here once its method file is imported. Only the trend report method is imported in this prototype.{" "}
+						Its tab in the method file is still empty: its phases and tasks show here once it is written.{" "}
 						<Link href="/methods">See the methods</Link>
 					</p>
 				</div>
@@ -136,7 +136,7 @@ function PhaseRow({ phase: p, onOpen }: { phase: PhaseView; onOpen: () => void }
 					Continue
 				</button>
 			) : (
-				<span className={cn("text-sm", p.status === "todo" && "text-[var(--color-ink-muted)]")}>{p.addedBy ? "" : dayRange(p.days.min, p.days.max)}</span>
+				<span className={cn("text-sm", p.status === "todo" && "text-[var(--color-ink-muted)]")}>{p.addedBy ? "" : costed(p.days)}</span>
 			)}
 		</li>
 	);

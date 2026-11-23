@@ -1,0 +1,576 @@
+{
+	"_meta": {
+		"id": "trend_report",
+		"name": "Trend report",
+		"family": "Trends",
+		"format": "tasks",
+		"owner": "Bamby",
+		"version": "1.2",
+		"source": "M&T method file",
+		"planned": "21.35 à 41.5"
+	},
+	"phases": [
+		{
+			"phase": "0",
+			"name": "Kick-off & scoping",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Brief & scope definition",
+					"how": "Read the client brief and the Semantiweb proposal / SOW. Write in one place the topic and its perimeter (e.g. a past study vs a past study), the hypotheses to test (e.g. the client's four shades of satiety), markets and languages, periods, deliverables (deck, exec summary, storyline doc, Talkwalker dashboards) and deadlines.",
+					"tools": "Client brief, proposal / SOW, kick-off call notes, Notes the client Account Review & Mapping",
+					"check": "Perimeter, markets, languages, periods, deliverables and deadline are written down and agreed with the client.",
+					"output": "Clear scope",
+					"days_min": 0.25,
+					"days_max": 0.5,
+					"owner": "Project lead",
+					"skills": []
+				},
+				{
+					"task": "Internal brief, staffing & planning",
+					"how": "Set owners, workstreams and a weekly plan (internal brief). Book time in Float, create the Slack channel, plan cover for holidays and the intern workload for the video sample.",
+					"tools": "Internal brief doc, Float, Slack",
+					"check": "Roles, reviewers, milestones and cover are written down and shared.",
+					"output": "Staffing plan and milestones",
+					"days_min": 0.25,
+					"days_max": 0.5,
+					"owner": "Project lead",
+					"skills": []
+				},
+				{
+					"task": "Folder & workbook set-up",
+					"how": "Create the project folder in the client Drive (01 Set up, 02 Analysis, 03 Excel calculation & query, 04 Presentation) and the extraction workbook with the usual tabs: Brief, Step by Step, Metrics, Queries, Google Trends / Spate.",
+					"tools": "Google Drive (the client folder), previous project workbook (the client a past study, a past study)",
+					"check": "Folder structure and workbook tabs are ready to fill; old content cleared.",
+					"output": "Folders & workbook ready",
+					"days_min": 0.1,
+					"days_max": 0.25,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Past-study reuse check",
+					"how": "Go through previous the client studies (a past study, a past study, a past study, a past study, F&B) and list what can be reused: queries, ingredient lists, archetypes, benchmarks (High a past study), report structure. Use a past study as the method reference without copying it mechanically.",
+					"tools": "ALL FINAL REPORTS folder, previous workbooks and storyline docs",
+					"check": "Reuse list with dates; what is reused and what is rebuilt is stated.",
+					"output": "Reuse list",
+					"days_min": 0.25,
+					"days_max": 0.5,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "1",
+			"name": "Desk research & framework",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "AI & desk scan",
+					"how": "Map the trends inside the topic with ChatGPT / Gemini / Claude, then verify with Google, press, reports and a manual TikTok scan. Look at what is happening across markets and in adjacent categories, and log each signal with its source. Output a desk research doc.",
+					"tools": "Claude / ChatGPT / Gemini, Google, press, TikTok (manual)",
+					"check": "Each signal has a source link; single-market signals are flagged; AI output is checked against real sources.",
+					"output": "Desk research doc",
+					"days_min": 0.5,
+					"days_max": 1,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Search & TikTok keyword scan",
+					"how": "Export Google search and TikTok hashtag volumes and their evolution from Spate per market. Cluster the keywords into drivers, benefits, pain points, ingredients and formats (as done on proteins). Keep the export for the keyword bubble charts.",
+					"tools": "Spate (Google search, TikTok), Trajaan, Excel",
+					"check": "Noise removed (brand-led, medical, off-topic keywords); clusters reconcile with the export totals.",
+					"output": "Keyword clusters per market",
+					"days_min": 0.25,
+					"days_max": 0.5,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Hypothesis framework & territories",
+					"how": "From desk research and Spate, propose the structure of the study: buckets / territories (a past study 4 buckets, a past study 4 buckets plus symptoms), ingredients / benefits / occasions (a past study), or client hypotheses (a past study shades). This drives the query list.",
+					"tools": "Desk research doc, Spate clusters, client brief",
+					"check": "Every territory has a definition and is tied to the brief; overlaps between territories are resolved.",
+					"output": "Framework and list of trends / territories to measure",
+					"days_min": 0.5,
+					"days_max": 1,
+					"owner": "Analyst + Project lead",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "2",
+			"name": "Talkwalker set-up & queries",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Talkwalker topic audit",
+					"how": "Review the existing topic in the client Talkwalker workspace: read verbatims, spot pollution and gaps, prepare translations per market. Changes need client validation before they go live.",
+					"tools": "Talkwalker (the client workspace)",
+					"check": "Pollution sources listed; proposed changes validated by the client.",
+					"output": "Audited base topic",
+					"days_min": 0.5,
+					"days_max": 1,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Build multilingual queries",
+					"how": "One query per trend, driver, ingredient, benefit, occasion or persona to size, in the Queries tab with one column per language (EN, FR, ES, PT, DE, JP, plus ID on F&B). Hashtags as compacted words, NEAR/n for proximity, NOT instead of AND NOT. For noisy topics, use the topic as a filter inside a broader universe (a past study inside F&B).",
+					"tools": "Talkwalker, Queries tab, building-talkwalker-queries skill",
+					"check": "Boolean syntax valid (4096 characters, 50 operands); native-language terms for each market; client keywords kept as given when requested.",
+					"output": "Draft queries in the Queries tab",
+					"days_min": 1,
+					"days_max": 2,
+					"owner": "Analyst",
+					"skills": [
+						"building-talkwalker-queries"
+					]
+				},
+				{
+					"task": "Test and clean the queries",
+					"how": "Read a random sample of mentions per query and market; add exclusions; tighten proximity where needed; repeat until results are relevant. Back up measurements before rewriting queries.",
+					"tools": "Talkwalker, cleaning-social-volume skill",
+					"check": "Precision checked on a sample per market; exclusions noted in the Queries tab.",
+					"output": "Clean, validated queries",
+					"days_min": 0.5,
+					"days_max": 1,
+					"owner": "Analyst",
+					"skills": [
+						"cleaning-social-volume"
+					]
+				}
+			]
+		},
+		{
+			"phase": "2 bis",
+			"name": "New Talkwalker topic (no existing topic)",
+			"optional": true,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Define the topic perimeter & draft the main query",
+					"how": "Use this phase instead of the topic audit when the topic does not exist in the client Talkwalker workspace (e.g. a past study). Write the main query that extracts the full topic conversation, not a filter query. Start from the desk research, the Spate clusters and the client hypotheses (e.g. the client's four shades of satiety). Write what is in and out of scope, list the keywords and draft the main query in English. Exclude adjacent conversations that pollute the topic (e.g. energy, calories, weight loss for satiety). Use client keywords as given when they ask for it.",
+					"tools": "Desk research doc, Spate exports, client brief, Queries tab, building-talkwalker-queries skill",
+					"check": "Perimeter written with in / out examples; EN syntax valid (4096 characters, 50 operands); hashtags as compacted words, NEAR/n, NOT instead of AND NOT.",
+					"output": "EN main query + keyword list + perimeter note",
+					"days_min": 0.5,
+					"days_max": 1,
+					"owner": "Analyst",
+					"skills": [
+						"building-talkwalker-queries"
+					]
+				},
+				{
+					"task": "Validate the main query (if needed, with the client)",
+					"how": "Send the EN keyword list and main query to the client with the perimeter note and a few example mentions of what is caught and what is excluded. Translate only after validation.",
+					"tools": "Email, Queries tab, sample mentions",
+					"check": "Client validation received in writing; requested changes applied to the EN version.",
+					"output": "Client-validated EN main query",
+					"days_min": 0.25,
+					"days_max": 0.5,
+					"owner": "Project lead (Analyst support)",
+					"skills": []
+				},
+				{
+					"task": "Translate into all study languages",
+					"how": "Adapt the validated main query into every language of the study (FR, DE, ES, PT, JP, plus any spotlight market agreed in the SOW). Adapt rather than translate word for word: native expressions, local food terms and hashtags. One column per language in the Queries tab.",
+					"tools": "Queries tab, building-talkwalker-queries skill, native reviewers",
+					"check": "Each language has native terms, not only literal translations; syntax valid in every language.",
+					"output": "Multilingual main query",
+					"days_min": 0.5,
+					"days_max": 1,
+					"owner": "Analyst",
+					"skills": [
+						"building-talkwalker-queries"
+					]
+				},
+				{
+					"task": "Test the main query on the tool",
+					"how": "Create the topic in Talkwalker as a test. Read a random sample of mentions per language and market, note the noise sources and estimate precision. Check that the volume per market is credible and that the data covers both comparison periods.",
+					"tools": "Talkwalker, cleaning-social-volume skill",
+					"check": "Precision checked on a sample per language; noise sources listed; historical coverage confirmed for both periods.",
+					"output": "Test results and noise list",
+					"days_min": 0.5,
+					"days_max": 1,
+					"owner": "Analyst",
+					"skills": [
+						"cleaning-social-volume"
+					]
+				},
+				{
+					"task": "Adjust & re-test",
+					"how": "Add exclusions, tighten proximity, remove ambiguous terms, then re-test until precision is acceptable. Log every change and the reason in the Queries tab. If the scope changes, go back to the client.",
+					"tools": "Talkwalker, Queries tab",
+					"check": "Precision acceptable in every language; change log up to date.",
+					"output": "Final main query",
+					"days_min": 0.25,
+					"days_max": 0.5,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Create the topic in the client workspace",
+					"how": "Create the final topic in the client Talkwalker workspace with the validated main query in every language and the right filters (e.g. Food & Drinks). Document it in the Queries tab and tell the client it is live. From here, measurement and sizing follow the same path as for an existing topic.",
+					"tools": "Talkwalker (the client workspace), Queries tab",
+					"check": "Topic live with the validated version in every language; filters documented.",
+					"output": "Live topic in the client workspace",
+					"days_min": 0.25,
+					"days_max": 0.5,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "3",
+			"name": "Measurement & sizing",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Pull measurements",
+					"how": "For each query and market, pull volume, year-on-year growth (12 vs 12 months, else 6 vs 6), engagement, share of voice, platforms, sentiment, top words and hashtags. Apply the Food & Drinks filter if requested by the client. Check seasonality (24-month curve on a past study). Add Visibrain for TikTok volumes when needed. Fill the Metrics tab.",
+					"tools": "Talkwalker, Visibrain, Metrics tab",
+					"check": "Same period and filters for every query; a few totals spot-checked in the platform.",
+					"output": "Metrics tab filled",
+					"days_min": 1.5,
+					"days_max": 2,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Sizing & classification",
+					"how": "Classify each trend or ingredient by size and momentum (Macro / Emerging / Micro / Nano), benchmark against High a past study, identify the biggest and fastest-growing territories (a past study), or score on volume, momentum, engagement and cultural judgement (F&B).",
+					"tools": "Metrics tab, Excel",
+					"check": "Thresholds stated; small bases marked; labels reviewed by hand for outliers.",
+					"output": "Sized trend list",
+					"days_min": 0.5,
+					"days_max": 1,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Data QA",
+					"how": "Check perimeter, calculations, query consistency, labels and duplicates before analysis. Review with the project lead.",
+					"tools": "Metrics tab, Queries tab",
+					"check": "No formula errors; every figure traces to a query and a period.",
+					"output": "Validated data",
+					"days_min": 0.25,
+					"days_max": 0.5,
+					"owner": "Analyst + Project lead",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "4",
+			"name": "Qualitative corpus",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Build the TikTok video sample",
+					"how": "Collect organic videos from the last 6 to 12 months with diverse creators and formats. Usual quotas: 50 US, 40 EU (10 each FR, UK, DE, ES), 15 BR, 10 JP. Save the URLs in the sample sheet.",
+					"tools": "TikTok (manual search), sample sheet",
+					"check": "Quotas met per market; organic content only; no duplicates.",
+					"output": "Video URL list",
+					"days_min": 1.5,
+					"days_max": 3,
+					"owner": "Interns (Analyst oversight)",
+					"skills": []
+				},
+				{
+					"task": "Code the sample",
+					"how": "Code each video: country, platform, URL, engagement, benefits, main source, ingredients, usage behaviour, occasion, hashtags, English transcript, tone.",
+					"tools": "Sample sheet, codebook",
+					"check": "Spot-check on handles, numbers and transcripts; verbatims checked against audio.",
+					"output": "Coded sample sheet",
+					"days_min": 1,
+					"days_max": 2,
+					"owner": "Interns / Analyst",
+					"skills": []
+				},
+				{
+					"task": "Talkwalker verbatims database",
+					"how": "Export verbatims per territory and market and keep the most representative ones, in original language with translation.",
+					"tools": "Talkwalker exports",
+					"check": "Verbatims are exact, sourced and dated; no rephrasing.",
+					"output": "Verbatim database",
+					"days_min": 1,
+					"days_max": 3,
+					"owner": "Interns",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "5",
+			"name": "Analysis & storyline",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Conversation analysis / working document",
+					"how": "Write the working document: drivers, signals, benefits, concerns, ingredients, sub-themes, formats and occasions, examples, with Talkwalker volumes. On F&B, Claude drafted it from a detailed brief and the Talkwalker CSV exports (no invented numbers, data signal vs interpretation vs implication, a source for every claim).",
+					"tools": "Working doc (Word / Google Doc / HTML), Metrics tab, coded sample, Claude",
+					"check": "Every claim traces to the data; corpus findings and TikTok signals are distinguished; estimates are labelled.",
+					"output": "Working document",
+					"days_min": 1,
+					"days_max": 2,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Trend identification & shortlist",
+					"how": "Build the trend library (e.g. 25 to 30 profiles on F&B) and a shortlist of trends to deep dive (e.g. 2 per benefit platform on a past study). Send the shortlist to the client for validation.",
+					"tools": "Working doc, Metrics tab",
+					"check": "Selection rule stated; each shortlisted trend has a number, a video and a reason.",
+					"output": "Trend shortlist validated by the client",
+					"days_min": 0.5,
+					"days_max": 1,
+					"owner": "Analyst + Project lead",
+					"skills": []
+				},
+				{
+					"task": "Archetypes",
+					"how": "Define persona-led archetypes (identity and lifestyle, not single benefits), mapped on expertise x motivation. Size them with one query per persona where possible.",
+					"tools": "Coded sample, verbatims, Talkwalker",
+					"check": "Each archetype is grounded in the corpus, sized or flagged as qualitative.",
+					"output": "Archetype map and briefs",
+					"days_min": 1,
+					"days_max": 1.5,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Cultural nuances pass",
+					"how": "Review each market (US, EU5, LatAm and BR, JP, and spotlights like GCC) for local terms, formats and rituals that change the reading of a trend.",
+					"tools": "Coded sample, verbatims, desk research",
+					"check": "Each market note is backed by local examples.",
+					"output": "Market nuances notes",
+					"days_min": 0.5,
+					"days_max": 1,
+					"owner": "Analyst (an analyst)",
+					"skills": []
+				},
+				{
+					"task": "Storyline & outline",
+					"how": "Write the storyline doc: scope and methodology, executive summary, landscape, macro shifts, drivers vs benefits, territories, ingredient ID cards or deep dives, formats and occasions, archetypes, emerging signals, the client implications.",
+					"tools": "Storyline doc (Google Doc / HTML / PDF)",
+					"check": "The story answers 'so what for the client'; each section has its data and examples.",
+					"output": "Storyline v1",
+					"days_min": 0.5,
+					"days_max": 1,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Internal storyline review",
+					"how": "Project lead reviews the storyline before the deck is built.",
+					"tools": "Storyline doc",
+					"check": "Storyline approved.",
+					"output": "Approved storyline",
+					"days_min": 0.25,
+					"days_max": 0.25,
+					"owner": "Project lead",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "6",
+			"name": "Client mid-point",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Mid-point with the client",
+					"how": "Share the trend shortlist or storyline with the client (formal mid-point on a past study). Explain scope and method for non-expert readers.",
+					"tools": "Email, storyline doc, call",
+					"check": "Feedback captured and decisions written down.",
+					"output": "Validated direction",
+					"days_min": 0.25,
+					"days_max": 0.5,
+					"owner": "Project lead (Analyst support)",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "7",
+			"name": "Deck production",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Template & slide structure",
+					"how": "Set up the deck in the client template and themes; validate the slide structure with the project lead.",
+					"tools": "the client template & themes folder",
+					"check": "Structure follows the storyline; template validated.",
+					"output": "Deck skeleton",
+					"days_min": 0.5,
+					"days_max": 1,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Landscape & data slides",
+					"how": "Volume, growth, share of voice, platforms, sentiment, top words, keyword bubble charts (Google search and TikTok), recap table with YoY.",
+					"tools": "Metrics tab, Spate exports",
+					"check": "Every figure matches the Metrics tab and Spate.",
+					"output": "Landscape slides",
+					"days_min": 1,
+					"days_max": 1.5,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Deep dives / ingredient ID cards",
+					"how": "Build the deep dives (e.g. 2 slides per ingredient on a past study): metric tiles, consumer voice from intentional consumers, word cloud clusters, top benefits with verbatims, usage and routines, formats. Link every video and verbatim.",
+					"tools": "Working doc, verbatim database, coded sample, Metrics tab",
+					"check": "Every top line is backed by figures, videos and exact verbatims; all links work.",
+					"output": "Deep-dive slides",
+					"days_min": 3,
+					"days_max": 6,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Archetypes, emerging signals & implications",
+					"how": "Build the archetype slides, the emerging signals with a maturity label, the client implications and the executive summary (6 slides on a past study).",
+					"tools": "Storyline doc, archetype briefs",
+					"check": "Implications tied to the client categories; exec summary matches the deck.",
+					"output": "Archetype, implications and exec summary slides",
+					"days_min": 1,
+					"days_max": 1.5,
+					"owner": "Analyst + Project lead",
+					"skills": []
+				},
+				{
+					"task": "Copy rewrite",
+					"how": "Rewrite every line in the team's voice: consumer-centric full sentences, toned down, no colons or dashes, subtitles that explain meaning. Check verbatims are exact.",
+					"tools": "Deck",
+					"check": "No generic AI phrasing; verbatims match their source.",
+					"output": "Final copy",
+					"days_min": 0.5,
+					"days_max": 1,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "8",
+			"name": "Internal QA",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Data & claims QA",
+					"how": "Check each number against the Metrics tab, verbatims against source, labels for estimates, small samples and single-market signals.",
+					"tools": "Deck, Metrics tab, sample sheet",
+					"check": "Every number traces to its source; no placeholders remain.",
+					"output": "QA-checked deck",
+					"days_min": 0.25,
+					"days_max": 0.5,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Internal review & clean-up",
+					"how": "Project lead or senior partner reviews. Remove comments, placeholders, queries and working notes; check nothing from another client.",
+					"tools": "Deck",
+					"check": "Reviewer sign-off; clean deck.",
+					"output": "Approved deck",
+					"days_min": 0.25,
+					"days_max": 0.5,
+					"owner": "Project lead + Analyst",
+					"skills": []
+				}
+			]
+		},
+		{
+			"phase": "9",
+			"name": "Delivery & feedback",
+			"optional": false,
+			"time": null,
+			"days_min": null,
+			"days_max": null,
+			"tasks": [
+				{
+					"task": "Final presentation",
+					"how": "Present to the client (large audience, 30+ invitees on a past study).",
+					"tools": "Deck, call",
+					"check": "Deck shared; questions noted.",
+					"output": "Presentation",
+					"days_min": 0.25,
+					"days_max": 0.5,
+					"owner": "Project lead + Analyst",
+					"skills": []
+				},
+				{
+					"task": "Implement client feedback",
+					"how": "Group comments by slide and type, decide accept / discuss / decline, update slides and data.",
+					"tools": "Deck, Metrics tab, email",
+					"check": "Every comment has a status; changed numbers re-checked.",
+					"output": "Final deck",
+					"days_min": 0.5,
+					"days_max": 1.5,
+					"owner": "Analyst",
+					"skills": []
+				},
+				{
+					"task": "Hand-over & archive",
+					"how": "Leave Talkwalker topics and dashboards (and Trajaan dashboards if in scope) in the client workspace, save the final deck in ALL FINAL REPORTS, update the method notes for the next study.",
+					"tools": "Talkwalker, Trajaan, Google Drive",
+					"check": "Final files saved; topics and dashboards documented.",
+					"output": "Archive and method notes",
+					"days_min": 0.25,
+					"days_max": 0.5,
+					"owner": "Analyst",
+					"skills": []
+				}
+			]
+		}
+	],
+	"notes": [
+		"Of which analysis, storyline and deck production (phases 5 to 8) 11 19",
+		"WHERE CLAUDE HELPS AND WHERE THE ANALYST OWNS IT",
+		"Steps that are analyst judgment only 7",
+		"Steps where Claude drafts or computes and the analyst decides 23",
+		"Steps where Claude does the repetitive part and the analyst checks 3",
+		"LESSONS FOR THE NEXT STUDY FOR THIS CLIENT",
+		"1. Use a past study as the method reference, but rebuild the structure for each topic instead of copying it (ID cards do not fit every study).",
+		"2. Lock queries before measuring: late query rewrites (a past study) force a full rerun of the measurements. Back up data before any change.",
+		"3. Give Claude clean inputs (CSV exports, coded sample, framework) and strict rules (no invented numbers, a source per claim, corpus vs TikTok kept apart), as in the F&B brief.",
+		"4. Plan client education: explain perimeter, entry points and method early, and get the trend shortlist validated before deep dives.",
+		"5. Budget time to rewrite all copy and to check every verbatim against its source before the client sees it."
+	]
+}

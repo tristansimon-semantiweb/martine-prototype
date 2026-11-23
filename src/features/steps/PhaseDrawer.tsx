@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useMartine } from "@/shared/hooks/useMartine";
 import { useToast } from "@/shared/components/ui/Toast";
 import { personById } from "@/shared/lib/data";
-import { dayRange, plural } from "@/shared/lib/format";
+import { costed, plural } from "@/shared/lib/format";
 import type { PhaseView } from "@/shared/lib/studyModel";
 import type { Study } from "@/shared/lib/types";
 import { PhaseSheet, ownerLabel } from "@/features/phase/PhaseParts";
@@ -28,10 +28,10 @@ export function PhaseDrawer({ study, phase, onClose }: { study: Study; phase: Ph
 }
 
 function kicker(p: PhaseView) {
-	const owners = [...new Set(p.tasks.map((t) => ownerLabel(t.task.owner)))];
+	const owners = [...new Set(p.tasks.map((t) => ownerLabel(t.task.owner)).filter(Boolean))];
 	const owner = owners.length === 1 ? `, ${owners[0]}` : "";
 	if (p.addedBy) return `Phase ${p.id}, added for this study by ${personById(p.addedBy)?.name}`;
-	return `Phase ${p.id}, planned ${dayRange(p.days.min, p.days.max).replace(" d", " days")}${owner}`;
+	return p.days ? `Phase ${p.id}, planned ${costed(p.days).replace(/ d$/, " days")}${owner}` : `Phase ${p.id}, not costed in the method file${owner}`;
 }
 
 function consultantOf(study: Study) {
