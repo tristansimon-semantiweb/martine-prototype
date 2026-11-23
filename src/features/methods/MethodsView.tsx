@@ -28,8 +28,8 @@ export function MethodsView() {
 	return (
 		<>
 			<TopBand>
-				<div className="font-[family-name:var(--font-heading)] text-[23px] font-medium">Methods</div>
-				<div className="text-sm text-[var(--color-ink-muted)]">One method per study type; every new study starts from one</div>
+				<div className="font-[family-name:var(--font-heading)] text-[23px] font-medium">Study types</div>
+				<div className="text-sm text-[var(--color-ink-muted)]">Each study type has its method; every new study starts from it</div>
 			</TopBand>
 			<div className="mx-auto flex max-w-[1120px] flex-col gap-4 px-6 py-7">
 				<div className="flex flex-wrap items-center gap-3">
@@ -52,15 +52,15 @@ export function MethodsView() {
 						type="search"
 						value={query}
 						onChange={(e) => setQuery(e.target.value)}
-						aria-label="Search methods"
-						placeholder="Search methods"
+						aria-label="Search study types"
+						placeholder="Search study types"
 						className="rr-input max-w-[260px] flex-1"
 					/>
 					<button
-						onClick={() => toast("A new method starts from its method file: importing is not in the prototype")}
+						onClick={() => toast("A new study type starts from its method file: importing is not in the prototype")}
 						className="ml-auto rounded-[var(--radius)] bg-[var(--color-accent)] px-4 py-2.5 text-sm font-semibold text-white hover:opacity-90"
 					>
-						New method
+						New study type
 					</button>
 				</div>
 
@@ -68,7 +68,7 @@ export function MethodsView() {
 					<table className="w-full min-w-[720px] border-collapse text-[15px]">
 						<thead>
 							<tr className="border-b border-[var(--color-border)] text-left text-[13px] text-[var(--color-ink-muted)]">
-								<th className="px-5 py-3 font-semibold">Method</th>
+								<th className="px-5 py-3 font-semibold">Study type</th>
 								<th className="px-3 py-3 font-semibold">Owner</th>
 								<th className="px-3 py-3 text-right font-semibold">Phases</th>
 								<th className="px-3 py-3 text-right font-semibold">Tasks</th>
@@ -85,7 +85,7 @@ export function MethodsView() {
 									<tr key={m.id} className="border-b border-[var(--color-border)] last:border-b-0 hover:bg-[var(--color-hover)]">
 										<td className="px-5 py-3.5">
 											<div className="flex flex-wrap items-center gap-2">
-												<Link href={`/methods/${m.id}`} className="font-semibold text-[var(--color-ink)] no-underline hover:text-[var(--color-accent)]">
+												<Link href={`/study-types/${m.id}`} className="font-semibold text-[var(--color-ink)] no-underline hover:text-[var(--color-accent)]">
 													{m.name}
 												</Link>
 												<FamilyPill family={m.family} />

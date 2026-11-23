@@ -13,6 +13,8 @@ Il est écrit au niveau produit et ne nomme aucune technologie. Ce qui est propr
 
 ## 2. Les objets connus et leurs identifiants
 
+Vocabulaire de l'interface : un **study type** (Trend report, Brand audit…) est ce qu'on choisit ; sa **méthode** est ce qui est versionné et a un propriétaire (phases, tâches, v1.2, brouillon v1.3). L'interface liste des study types ; l'identifiant reste celui de la méthode et de sa version.
+
 | Objet | Identifiant | Exemple | Ce qu'il contient |
 | --- | --- | --- | --- |
 | Étude | code d'étude | `TR-2611-01` | titre, client, famille, échéance, jours vendus, équipe, méthode et version, points à clarifier, décisions |

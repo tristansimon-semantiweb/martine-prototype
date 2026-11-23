@@ -24,7 +24,7 @@
       "answer": "Partly. The previous wave’s queries cover France and the UK, not Japan. Several were rewritten mid-project, which forced a rerun: the method now says to lock them before measuring.",
       "sources": [
         { "label": "Queries, previous wave", "href": "/studies/{study}/files" },
-        { "label": "Method, phase 2", "href": "/methods/trend_report?phase=2" }
+        { "label": "Method, phase 2", "href": "/study-types/trend_report?phase=2" }
       ]
     },
     {

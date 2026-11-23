@@ -14,7 +14,7 @@ import { FamilyDot } from "@/shared/components/ui/Family";
 // the brief: New study, search, the three sections, then recent studies.
 const NAV = [
 	{ href: "/", label: "My studies", match: (p: string) => p === "/" },
-	{ href: "/methods", label: "Methods", match: (p: string) => p.startsWith("/methods") },
+	{ href: "/study-types", label: "Study types", match: (p: string) => p.startsWith("/study-types") },
 	{ href: "/oversight", label: "Oversight", match: (p: string) => p.startsWith("/oversight") },
 ];
 

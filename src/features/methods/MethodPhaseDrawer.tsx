@@ -36,7 +36,7 @@ export function MethodPhaseDrawer({
 			kicker={phase ? `Phase ${phase.id} of the method, ${phase.days ? `planned ${costed(phase.days).replace(/ d$/, " days")}` : "not costed in the method file"}` : ""}
 			title={phase?.name ?? ""}
 			footer={
-				isOwner ? (
+				!phase ? null : isOwner ? (
 					<div className="flex flex-wrap items-center gap-3">
 						<button
 							onClick={() => {

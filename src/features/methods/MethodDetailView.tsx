@@ -28,10 +28,10 @@ export function MethodDetailView({ id }: { id: string }) {
 		return (
 			<>
 				<TopBand>
-					<div className="font-[family-name:var(--font-heading)] text-[23px] font-medium">Method not found</div>
+					<div className="font-[family-name:var(--font-heading)] text-[23px] font-medium">Study type not found</div>
 				</TopBand>
 				<div className="mx-auto max-w-[820px] px-6 py-10">
-					<Link href="/methods">Back to the methods</Link>
+					<Link href="/study-types">Back to the study types</Link>
 				</div>
 			</>
 		);
@@ -58,13 +58,13 @@ export function MethodDetailView({ id }: { id: string }) {
 		<>
 			<TopBand>
 				<div className="text-sm text-[var(--color-ink-muted)]">
-					<Link href="/methods" className="text-[var(--color-ink-muted)]">
-						Methods
+					<Link href="/study-types" className="text-[var(--color-ink-muted)]">
+						Study types
 					</Link>{" "}
 					/ {m.name}
 				</div>
 				<div className="flex flex-wrap items-baseline gap-x-4">
-					<span className="font-[family-name:var(--font-heading)] text-[23px] font-medium">{m.name} method</span>
+					<span className="font-[family-name:var(--font-heading)] text-[23px] font-medium">{m.name}</span>
 					{m.version && (
 						<button onClick={() => toast("Opens the method file in the real product")} className="text-sm text-[var(--color-accent)]">
 							Open the method sheet
@@ -76,8 +76,8 @@ export function MethodDetailView({ id }: { id: string }) {
 			<div className="mx-auto flex max-w-[820px] flex-col gap-[18px] px-6 py-8">
 				<dl className="m-0 grid grid-cols-2 gap-3.5 sm:grid-cols-4">
 					{[
-						["Owner", m.owner ?? "To name"],
-						["Version", m.version ? `${m.version}, published${draft?.saved ? `; draft ${draft.version} saved` : ""}` : "To document"],
+						["Method owner", m.owner ?? "To name"],
+						["Method version", m.version ? `${m.version}, published${draft?.saved ? `; draft ${draft.version} saved` : ""}` : "To document"],
 						["Used by", plural(usedBy, "study", "studies")],
 						["Planned", m.version ? planned : "[not documented]"],
 					].map(([k, v]) => (
@@ -163,41 +163,6 @@ export function MethodDetailView({ id }: { id: string }) {
 									</button>
 								</form>
 							))}
-					</section>
-				)}
-
-				{file?.deck && file.deck.rows.length > 0 && (
-					<section aria-labelledby="deck" className="flex flex-col gap-2">
-						<div>
-							<h2 id="deck" className="m-0 font-[family-name:var(--font-body)] text-lg font-semibold">
-								Deck structure
-							</h2>
-							{file.deck.description && <p className="m-0 text-sm text-[var(--color-ink-muted)]">{file.deck.description}</p>}
-						</div>
-						<div className="overflow-x-auto rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-surface)]">
-							<table className="w-full min-w-[640px] border-collapse text-sm">
-								<thead>
-									<tr className="border-b border-[var(--color-border)] text-left text-[13px] text-[var(--color-ink-muted)]">
-										{file.deck.columns.map((c) => (
-											<th key={c} className="px-3 py-2.5 font-semibold first:pl-5">
-												{c}
-											</th>
-										))}
-									</tr>
-								</thead>
-								<tbody>
-									{file.deck.rows.map((r, i) => (
-										<tr key={i} className="border-b border-[var(--color-border)] align-top last:border-b-0">
-											{r.map((c, j) => (
-												<td key={j} className={cn("px-3 py-2.5 first:pl-5", j < 2 && "font-semibold", c === "-" && "text-[var(--color-ink-muted)]")}>
-													{c}
-												</td>
-											))}
-										</tr>
-									))}
-								</tbody>
-							</table>
-						</div>
 					</section>
 				)}
 
