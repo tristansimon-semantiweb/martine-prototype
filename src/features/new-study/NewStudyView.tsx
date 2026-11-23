@@ -50,7 +50,7 @@ export function NewStudyView() {
 			<TopBand />
 			<div className="mx-auto flex max-w-[640px] flex-col gap-6 px-6 py-10">
 				<Link href="/" className="text-sm text-[var(--color-ink-muted)]">
-					Back to my studies
+					Back to the studies
 				</Link>
 				<h1 className="m-0 font-[family-name:var(--font-heading)] text-[34px] font-medium">New study</h1>
 

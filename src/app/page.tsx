@@ -1,5 +1,5 @@
-import { MyStudiesView } from "@/features/studies/MyStudiesView";
+import { StudiesView } from "@/features/studies/StudiesView";
 
 export default function Page() {
-	return <MyStudiesView />;
+	return <StudiesView />;
 }

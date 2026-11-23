@@ -24,7 +24,7 @@ export function StudyFrame({ id, children }: { id: string; children: React.React
 					<div className="font-[family-name:var(--font-heading)] text-[23px] font-medium">Study not found</div>
 				</TopBand>
 				<div className="mx-auto max-w-[820px] px-6 py-10 text-[var(--color-ink-secondary)]">
-					No study {id} in this prototype. <Link href="/">Back to my studies</Link>
+					No study {id} in this prototype. <Link href="/">Back to the studies</Link>
 				</div>
 			</>
 		);
@@ -65,7 +65,7 @@ export function StudyFrame({ id, children }: { id: string; children: React.React
 						</Link>
 					) : (
 						<Link href="/" className="text-[var(--color-ink-muted)]">
-							All my studies
+							All studies
 						</Link>
 					)
 				}
