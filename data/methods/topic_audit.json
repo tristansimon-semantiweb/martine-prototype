@@ -294,7 +294,9 @@
 					"days_min": null,
 					"days_max": null,
 					"owner": "Analyst",
-					"skills": []
+					"skills": [
+						"onboarding-files-tools-to-cm"
+					]
 				}
 			]
 		},

@@ -341,7 +341,9 @@
 					"days_min": null,
 					"days_max": null,
 					"owner": "Analyst",
-					"skills": []
+					"skills": [
+						"onboarding-files-tools-to-cm"
+					]
 				},
 				{
 					"task": "Build the competitor corpus",
@@ -358,7 +360,9 @@
 					"days_min": null,
 					"days_max": null,
 					"owner": "Analyst",
-					"skills": []
+					"skills": [
+						"onboarding-files-tools-to-cm"
+					]
 				},
 				{
 					"task": "Run frequencies",

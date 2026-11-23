@@ -434,7 +434,9 @@
 					"days_min": null,
 					"days_max": null,
 					"owner": "Analyst",
-					"skills": []
+					"skills": [
+						"onboarding-files-tools-to-cm"
+					]
 				},
 				{
 					"task": "Build the reviews corpus (if R&R in scope)",

@@ -13,7 +13,7 @@
 			"status": "published",
 			"phases": 8,
 			"tasks": 26,
-			"skills": 0,
+			"skills": 1,
 			"planned": "18.5 (7 étapes chiffrées)"
 		},
 		{
@@ -26,7 +26,7 @@
 			"status": "published",
 			"phases": 11,
 			"tasks": 36,
-			"skills": 1,
+			"skills": 2,
 			"planned": "14.76 à 18.76 (8 étapes chiffrées)"
 		},
 		{
@@ -52,7 +52,7 @@
 			"status": "published",
 			"phases": 13,
 			"tasks": 48,
-			"skills": 2,
+			"skills": 3,
 			"planned": "non chiffré"
 		},
 		{
@@ -78,7 +78,7 @@
 			"status": "published",
 			"phases": 8,
 			"tasks": 21,
-			"skills": 0,
+			"skills": 1,
 			"planned": "9 (6 étapes chiffrées)"
 		},
 		{
@@ -91,7 +91,7 @@
 			"status": "published",
 			"phases": 10,
 			"tasks": 33,
-			"skills": 1,
+			"skills": 2,
 			"planned": "18 à 28 (6 étapes chiffrées)"
 		},
 		{
@@ -104,7 +104,7 @@
 			"status": "published",
 			"phases": 8,
 			"tasks": 33,
-			"skills": 0,
+			"skills": 1,
 			"planned": "9 (6 étapes chiffrées)"
 		},
 		{

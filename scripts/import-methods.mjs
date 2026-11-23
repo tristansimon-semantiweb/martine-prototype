@@ -100,6 +100,19 @@ const TOOL_MATCHERS = catalog.tools.map((t) => ({
 const toolIdsIn = (...texts) => TOOL_MATCHERS.filter((t) => t.res.some((re) => texts.some((x) => re.test(x)))).map((t) => t.id);
 const labelsOf = (ids) => ids.map((id) => TOOL_MATCHERS.find((t) => t.id === id).label).join(", ");
 
+// Skills linked to steps the method files don't name them on: a team
+// decision, kept here so a new export keeps it. A step gets the skill when
+// its name matches (or its text mentions the Files tool).
+const SKILL_RULES = [
+	{
+		skill: "onboarding-files-tools-to-cm",
+		name: /^(Load the data|Build the (brand |competitor |category )?corpus|Translate the data)$/i,
+		text: /\bFiles tools?\b/i,
+	},
+];
+const ruleSkills = (name, ...texts) =>
+	SKILL_RULES.filter((r) => r.name.test(name) || texts.some((t) => r.text.test(t))).map((r) => r.skill);
+
 // Skills named by a description rather than their id.
 const ALIASES = [[/\bradarly query skill\b/i, "building-radarly-queries"]];
 const skillsIn = (...texts) => [
@@ -243,7 +256,7 @@ for (const raw of md) {
 			days_max: max,
 			owner: clean(owner ?? ""),
 			tool_ids: toolIdsIn(tools),
-			skills: (noteUnknown(tools, how), skillsIn(tools, how)),
+			skills: (noteUnknown(tools, how), [...new Set([...skillsIn(tools, how), ...ruleSkills(clean(task), tools, how)])]),
 		});
 	} else {
 		const [step, what, how, watch, owner, time, output] = c;
@@ -272,7 +285,7 @@ for (const raw of md) {
 			days_min: min,
 			days_max: max,
 			owner: clean(owner ?? ""),
-			skills: (noteUnknown(how ?? "", watch ?? ""), skillsIn(how ?? "", watch ?? "")),
+			skills: (noteUnknown(how ?? "", watch ?? ""), [...new Set([...skillsIn(how ?? "", watch ?? ""), ...ruleSkills(clean(step.replace(/^\d+\.\d+\s*/, "")), what ?? "", how ?? "")])]),
 		});
 	}
 }
