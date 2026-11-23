@@ -1,0 +1,311 @@
+/* =============================================================================
+ * Base Styles, Martine (ported from the R&R prototype)
+ * ============================================================================= */
+
+:root {
+	--ls-caps: 0.04em;
+	--overlay-modal: rgba(0, 0, 0, 0.2);
+	--transition: 0.2s var(--ease-smooth);
+	--transition-slow: 0.4s var(--ease-smooth);
+
+	@media (prefers-reduced-motion: reduce) {
+		--transition: 0s;
+		--transition-slow: 0s;
+	}
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	html {
+		scroll-behavior: smooth;
+	}
+}
+
+html {
+	font-size: 16px;
+	scrollbar-width: thin;
+	scrollbar-color: rgba(90, 70, 50, 0.12) transparent;
+}
+
+body {
+	font-family: var(--font-body);
+	font-weight: 420;
+	letter-spacing: normal;
+	background: var(--color-canvas);
+	color: var(--color-ink);
+	line-height: 1.5;
+	-webkit-font-smoothing: antialiased;
+	overflow-x: hidden;
+	overscroll-behavior-y: contain;
+	margin: 0;
+	min-height: 100svh;
+}
+
+h1,
+h2,
+h3,
+h4 {
+	font-family: var(--font-heading);
+	line-height: 1.2;
+}
+
+h1 {
+	font-size: var(--text-xl);
+	font-weight: 700;
+	letter-spacing: -0.02em;
+	line-height: 1.15;
+}
+
+h2 {
+	font-size: var(--text-lg);
+	font-weight: 650;
+	letter-spacing: -0.01em;
+}
+
+h3 {
+	font-size: var(--text-body);
+	font-weight: 600;
+	letter-spacing: -0.005em;
+	color: var(--color-ink);
+}
+
+h4 {
+	font-size: var(--text-body);
+	font-weight: 650;
+	letter-spacing: -0.005em;
+}
+
+code,
+.mono {
+	font-family: var(--font-mono);
+}
+
+.section-label {
+	font-size: var(--text-2xs, 0.75rem);
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+	color: var(--color-ink-muted, #6b7280);
+	line-height: 1;
+}
+
+.section-title {
+	font-family: var(--font-heading, 'Newsreader', Georgia, serif);
+	font-size: var(--text-lg, 1.4rem);
+	font-weight: 650;
+	color: var(--color-ink, #1a1a1a);
+	margin: 0;
+	line-height: 1.25;
+}
+
+.section-subtitle {
+	font-size: 13px;
+	color: var(--color-ink-muted, #5f6672);
+	margin: 4px 0 0;
+}
+
+.badge {
+	display: inline-block;
+	padding: var(--space-2xs) var(--space-base);
+	font-size: var(--text-2xs);
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: var(--ls-caps);
+	border-radius: var(--radius-sm);
+	white-space: nowrap;
+	line-height: 1.6;
+}
+
+.tag {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.3rem;
+	padding: var(--space-2xs) var(--space-base);
+	font-size: var(--text-xs);
+	border-radius: var(--radius-xl);
+	background: var(--color-elevated);
+	color: var(--color-ink-secondary);
+	white-space: nowrap;
+}
+
+.chip {
+	display: inline-flex;
+	align-items: center;
+	padding: 0.1rem 0.45rem;
+	font-size: var(--text-xs);
+	border-radius: var(--radius-xl);
+	border: 1px solid var(--color-border);
+	background: var(--color-surface);
+	color: var(--color-ink-secondary);
+	white-space: nowrap;
+}
+
+:focus-visible {
+	outline: none;
+	box-shadow: var(--shadow-glow);
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[role='button']:focus-visible,
+[role='tab']:focus-visible,
+[tabindex]:focus-visible {
+	outline: none;
+	box-shadow: var(--shadow-glow);
+}
+
+::-webkit-scrollbar {
+	width: 5px;
+	height: 5px;
+}
+::-webkit-scrollbar-track {
+	background: transparent;
+}
+::-webkit-scrollbar-thumb {
+	background: rgba(90, 70, 50, 0.12);
+	border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+	background: rgba(90, 70, 50, 0.2);
+}
+
+mark {
+	background: rgba(184, 134, 45, 0.22);
+	color: inherit;
+	border-radius: 2px;
+	padding: 0 1px;
+}
+
+/* ── Form input ── */
+.rr-input {
+	width: 100%;
+	padding: 0.5rem 0.75rem;
+	font-size: var(--text-sm);
+	color: var(--color-ink);
+	background: var(--color-surface);
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius);
+	transition: border-color var(--transition);
+}
+.rr-input::placeholder {
+	color: var(--color-ink-muted);
+}
+.rr-input:hover {
+	border-color: var(--color-border-hover);
+}
+
+/* ── Frosted glass surface (sidebar, toolbar, FAB, etc.) ── */
+.glass {
+	background: var(--glass-surface);
+	-webkit-backdrop-filter: var(--glass-blur);
+	backdrop-filter: var(--glass-blur);
+}
+.glass-canvas {
+	background: var(--glass-canvas);
+	-webkit-backdrop-filter: var(--glass-blur);
+	backdrop-filter: var(--glass-blur);
+}
+/* Fallback for browsers without backdrop-filter support */
+@supports not (backdrop-filter: blur(1px)) {
+	.glass { background: var(--color-surface); }
+	.glass-canvas { background: var(--color-canvas); }
+}
+
+/* ── Page transition ── */
+@keyframes page-in {
+	from {
+		opacity: 0;
+		transform: translateY(6px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.animate-page-in {
+	animation: page-in 0.22s var(--ease-smooth) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.animate-page-in {
+		animation: none;
+	}
+}
+
+/* ── Gentle in-place fade (e.g. AI summary refining) ── */
+@keyframes fade-in {
+	from { opacity: 0; }
+	to { opacity: 1; }
+}
+.animate-fade-in {
+	animation: fade-in 0.45s var(--ease-smooth) both;
+}
+@media (prefers-reduced-motion: reduce) {
+	.animate-fade-in { animation: none; }
+}
+
+/* ── Modal entrance ── */
+@keyframes overlay-in {
+	from { opacity: 0; }
+	to { opacity: 1; }
+}
+@keyframes modal-in {
+	from { opacity: 0; transform: translateY(10px) scale(0.975); }
+	to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.animate-overlay-in {
+	animation: overlay-in 0.2s var(--ease-smooth) both;
+}
+.animate-modal-in {
+	animation: modal-in 0.3s var(--ease-smooth) both;
+}
+@media (prefers-reduced-motion: reduce) {
+	.animate-overlay-in, .animate-modal-in { animation: none; }
+}
+
+/* ── Home entrance: gentle staggered cascade ── */
+@keyframes rise-in {
+	from {
+		opacity: 0;
+		transform: translateY(14px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.home-reveal > * {
+	animation: rise-in 0.7s var(--ease-smooth) both;
+	will-change: transform, opacity;
+}
+
+/* Ambient breathing glow for the AI bar — signals a live assistant without
+   the sparkle cliché. Soft, slow, and low-contrast so it reads as presence
+   rather than an alert. */
+@keyframes ai-breathe {
+	0%, 100% { box-shadow: 0 8px 30px rgba(0,0,0,0.10), 0 0 0 1px color-mix(in srgb, var(--color-accent) 22%, transparent); }
+	50% { box-shadow: 0 10px 38px color-mix(in srgb, var(--color-accent) 18%, transparent), 0 0 0 1px color-mix(in srgb, var(--color-accent) 42%, transparent); }
+}
+.ai-breathe {
+	animation: ai-breathe 4.5s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+	.ai-breathe { animation: none; }
+}
+.home-reveal > *:nth-child(1) { animation-delay: 0.04s; }
+.home-reveal > *:nth-child(2) { animation-delay: 0.10s; }
+.home-reveal > *:nth-child(3) { animation-delay: 0.16s; }
+.home-reveal > *:nth-child(4) { animation-delay: 0.24s; }
+.home-reveal > *:nth-child(5) { animation-delay: 0.34s; }
+.home-reveal > *:nth-child(6) { animation-delay: 0.46s; }
+.home-reveal > *:nth-child(n + 7) { animation-delay: 0.56s; }
+
+@media (prefers-reduced-motion: reduce) {
+	.home-reveal > * {
+		animation: none;
+	}
+}

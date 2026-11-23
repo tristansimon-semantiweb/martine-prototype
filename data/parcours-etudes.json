@@ -1,0 +1,3513 @@
+{
+  "_meta": {
+    "titre": "Parcours d'étude des analystes",
+    "source": "https://claude.ai/artifact/B45yRfY6TFKRdtySCGDmc5",
+    "version": "19/11/2026",
+    "lecture": "Chaque type d'étude a une frise de phases. Dans chaque phase : n numéro, t titre, d durée, g objectif, s étapes, o outils, k skills Claude disponibles, c skills cités par les analystes, l livrable, v précautions de méthode, p difficultés [sévérité h|m, texte, source, nature M|O|D].",
+    "natures": {
+      "M": "Méthodo",
+      "O": "Outillage",
+      "D": "Donnée"
+    },
+    "familles": {
+      "sml": "SML",
+      "mon": "Monitoring",
+      "tre": "Trends"
+    }
+  },
+  "ordre": [
+    "category",
+    "brand",
+    "topic",
+    "digest",
+    "tribes",
+    "toolkit",
+    "archetype",
+    "persona",
+    "recurring",
+    "maintenance",
+    "trend"
+  ],
+  "familles": {
+    "category": "sml",
+    "brand": "sml",
+    "topic": "sml",
+    "digest": "sml",
+    "tribes": "sml",
+    "toolkit": "sml",
+    "archetype": "sml",
+    "persona": "sml",
+    "recurring": "mon",
+    "maintenance": "mon",
+    "trend": "tre"
+  },
+  "types": {
+    "category": {
+      "label": "Category audit",
+      "team": "sml",
+      "q": "Comment fonctionne cette catégorie et qui la gagne ?",
+      "def": "Étude d'une catégorie entière sur un ou plusieurs marchés : taille, dynamiques, paysage concurrentiel, topics et audiences. Zoom marque, personas avec ID cards, R&R et benchmark en option.",
+      "meta": [
+        [
+          "Marchés",
+          "1 ou plusieurs"
+        ],
+        [
+          "Période",
+          "24 derniers mois, lue 12 derniers mois vs 12 précédents"
+        ],
+        [
+          "Durée",
+          "À compléter"
+        ],
+        [
+          "Rédaction",
+          "Équipe SML, durées à compléter"
+        ]
+      ],
+      "ph": [
+        {
+          "n": "0",
+          "t": "Kick-off",
+          "d": "",
+          "g": "Cadrer le périmètre et trancher en oui / non les 6 modules optionnels avant tout travail.",
+          "s": [
+            "Lire la demande du client et la résumer dans une fiche",
+            "Chercher les études déjà faites sur un sujet proche",
+            "Décider s'il faut une catégorie de comparaison",
+            "Planifier qui travaille sur l'étude et combien de temps",
+            "Ouvrir le fichier de travail et le registre des décisions"
+          ],
+          "o": [
+            "Float",
+            "Slack",
+            "Project Drive"
+          ],
+          "k": [],
+          "l": "Scope validé, modules oui / non, decision log",
+          "v": [
+            "Quand le brief dit « premium » ou « prestige », écrire noir sur blanc quels produits et quelles marques cela couvre. Sinon chacun l'interprète à sa façon et les volumes ne sont pas défendables.",
+            "Ajouter une catégorie de comparaison demande une requête et une vérification de volume en plus : à prévoir dans le planning."
+          ],
+          "p": [
+            [
+              "h",
+              "Études passées retrouvées en demandant sur Slack et aux collègues : pas d’archive commune des decks",
+              "ODP-01, 17, Macrina, Ishaure",
+              "O"
+            ],
+            [
+              "m",
+              "Format et squelette du deck variables selon le project lead et l’historique du client",
+              "Macrina · une seule source",
+              "M"
+            ],
+            [
+              "m",
+              "Pas de rétroplanning formalisé : organisation semaine par semaine",
+              "Ishaure · une seule source",
+              "M"
+            ]
+          ]
+        },
+        {
+          "n": "1",
+          "t": "Compréhension de la catégorie",
+          "d": "",
+          "g": "Savoir exactement ce qui est dans la catégorie et comment le marché fonctionne dans chaque pays.",
+          "s": [
+            "Lister les produits inclus et exclus, par sous-catégorie",
+            "Recherche documentaire par pays (articles, études, sites)",
+            "Lister les marques et les regrouper en 3 ou 4 familles",
+            "Lister les lancements et moments marquants des 24 derniers mois"
+          ],
+          "o": [
+            "Web",
+            "Plateformes sociales",
+            "Claude (recoupement)"
+          ],
+          "l": "Tableau de périmètre, note marché par pays, lexique des clusters",
+          "v": [
+            "Certains mots existent dans plusieurs catégories (« mask », « oil », « serum ») : sans précaution, la requête ramène des publications d'autres univers.",
+            "Chaque marque doit appartenir à un seul groupe de marques, sinon les parts sont comptées deux fois.",
+            "Faire vérifier le vocabulaire local par une personne dont c'est la langue maternelle."
+          ],
+          "p": [
+            [
+              "m",
+              "Recherche documentaire sans méthode commune (site de marque, IA, Reddit, Pinterest Trends)",
+              "Ishaure · une seule source",
+              "M"
+            ]
+          ]
+        },
+        {
+          "n": "2",
+          "t": "Crawls",
+          "d": "jusqu'à 2 j",
+          "g": "Lancer dès le premier jour les collectes longues pour ne pas bloquer la suite.",
+          "s": [
+            "Collecter TikTok à partir de 30 à 50 hashtags",
+            "Collecter les forums Reddit liés au sujet",
+            "Commentaires des 50 vidéos les plus commentées",
+            "Collecter les avis e-commerce si l'étude les inclut"
+          ],
+          "o": [
+            "Crawler TikTok interne",
+            "Crawler Reddit interne",
+            "Export Comments + extension Sorter",
+            "Base R&R ICC",
+            "Mail à Sophie Volmer"
+          ],
+          "l": "Projets de crawl, export commentaires, produits dans la base avis",
+          "v": [
+            "Si une collecte n'est pas terminée au bout de 2 jours ouvrés, prévenir l'équipe technique sur Slack."
+          ],
+          "p": [
+            [
+              "h",
+              "Délai le plus long du projet",
+              "méthodo",
+              "O"
+            ],
+            [
+              "m",
+              "Commentaires TikTok : tri, 10 scrolls, liste recopiée à la main",
+              "méthodo",
+              "O"
+            ],
+            [
+              "m",
+              "Crawler TikTok : 5 vidéos max, sans caption",
+              "Emilie · une seule source",
+              "O"
+            ],
+            [
+              "h",
+              "Crawl Reddit : 2 à 4 j, délai imprévisible qui bloque analyste et coordinateur (50 000 posts = 3 j)",
+              "Emilie, Ishaure",
+              "O"
+            ]
+          ]
+        },
+        {
+          "n": "3",
+          "t": "Query & volume",
+          "d": "",
+          "g": "Capter toute la conversation de la catégorie, et seulement elle, puis faire valider un volume par plateforme.",
+          "s": [
+            "Écrire la requête de la catégorie",
+            "Écrire les requêtes marque, concurrents et comparaison",
+            "Comparer les volumes dans Talkwalker et Meltwater",
+            "Compléter les volumes TikTok avec Spate ou Visibrain",
+            "Vérifier que les volumes sont cohérents avec les études passées",
+            "Proposer le volume final au project lead"
+          ],
+          "o": [
+            "Radarly",
+            "Talkwalker",
+            "Meltwater",
+            "Spate",
+            "Visibrain"
+          ],
+          "c": [
+            "building-radarly-queries"
+          ],
+          "k": [
+            "building-talkwalker-queries",
+            "cleaning-social-volume"
+          ],
+          "l": "Query validée, volume final approuvé par le project lead",
+          "v": [
+            "Radarly limite la longueur des requêtes : au-delà, il faut la découper en plusieurs requêtes qui ne se chevauchent pas.",
+            "Si un pic de volume vient d'un seul événement (actu, célébrité), décider avec le project lead de le garder ou non, et noter la décision.",
+            "Ne pas construire le corpus avant que le volume soit validé : un changement après coup oblige à tout refaire."
+          ],
+          "p": [
+            [
+              "h",
+              "Dépollution par essais-erreurs en lecture aléatoire",
+              "ODP-02, Emilie",
+              "M"
+            ],
+            [
+              "h",
+              "Volumes de 3 à 5 outils recopiés côte à côte, évolutions parfois contradictoires (+36 % contre -3 % sur un même sujet) : temps passé à choisir le chiffre le plus crédible",
+              "ODP-03, Emilie, Macrina",
+              "D"
+            ],
+            [
+              "h",
+              "Volumes Radarly jugés non représentatifs, recalibrés à chaque projet par ratio avec des études comparables, sans référentiel commun",
+              "Ishaure, Macrina",
+              "D"
+            ],
+            [
+              "m",
+              "Requête X simplifiée à maintenir en parallèle (pas de NEAR, limite de caractères)",
+              "Macrina · une seule source",
+              "O"
+            ],
+            [
+              "m",
+              "Filtre d’âge Radarly (sur image) peu fiable quand le client impose une tranche d’âge",
+              "Ishaure · une seule source",
+              "O"
+            ]
+          ]
+        },
+        {
+          "n": "4",
+          "t": "Corpus",
+          "d": "",
+          "g": "Un corpus dédoublonné dont chaque facette sert une slide.",
+          "s": [
+            "Choisir les étiquettes à appliquer (environ 28 standard)",
+            "Exporter les données de Radarly, Meltwater et des collectes",
+            "Supprimer les doublons, traduire si besoin",
+            "Les avis e-commerce vont dans un corpus séparé des publications sociales (étiquettes différentes).",
+            "Vérifier que les étiquettes sont justes",
+            "Compter les mots les plus utilisés sur les deux périodes"
+          ],
+          "o": [
+            "Files tool",
+            "Corpus Manager",
+            "Slack #analysts",
+            "ICC Lexical & Hashtags"
+          ],
+          "c": [
+            "building-corpus-facets"
+          ],
+          "k": [
+            "preparing-files-for-corpus-manager"
+          ],
+          "l": "Corpus propre, facettes validées, exports de fréquences",
+          "v": [
+            "Ne créer que les étiquettes (facettes) dont une slide a besoin : les autres font perdre du temps.",
+            "Un export Radarly est limité à 50 000 publications : au-delà, découper par mois ou par plateforme, puis supprimer les doublons.",
+            "Les mots à plusieurs sens (« dry » pour la peau ou les cheveux, « oil » ingrédient ou produit) créent de fausses étiquettes : les vérifier en premier."
+          ],
+          "p": [
+            [
+              "h",
+              "Facettes demandées sur Slack ou reprises d’anciens projets, pas de bibliothèque à jour",
+              "ODP-16, Pauline, Emilie, Macrina, Yiying, Bamby",
+              "O"
+            ],
+            [
+              "h",
+              "Fréquences syntagmatiques de l’ICC en échec sur plusieurs projets récents",
+              "Macrina, Tiphaine",
+              "O"
+            ],
+            [
+              "m",
+              "Fréquences lancées une par une, longues sur gros volume (astuce non partagée : les lancer le soir)",
+              "ODP-06, Ishaure",
+              "O"
+            ],
+            [
+              "m",
+              "Traductions des avis manquantes (« NC ») y compris sur des données récentes",
+              "Macrina · une seule source",
+              "D"
+            ]
+          ]
+        },
+        {
+          "n": "5",
+          "t": "Market dynamics",
+          "d": "",
+          "g": "Montrer la taille, l'évolution et la structure de la conversation.",
+          "s": [
+            "Volume de conversation, réparti par plateforme et sous-catégorie",
+            "Part de chaque famille de marques",
+            "Sentiment (positif, neutre, négatif) et ses raisons",
+            "Contexte du marché (optionnel)",
+            "Classement des marques",
+            "Mots et hashtags en hausse",
+            "Comparaison avec une autre catégorie"
+          ],
+          "o": [
+            "ICC",
+            "Excel",
+            "WordArt"
+          ],
+          "l": "Slides partie 1",
+          "v": [
+            "Indiquer sur chaque graphique sur quoi porte le total (par exemple « part dans l'ensemble des mentions de marques »).",
+            "Un mot en forte hausse à cause d'une seule publication virale n'est pas une tendance : le signaler comme signal faible."
+          ],
+          "p": [
+            [
+              "h",
+              "Tops et évolutions en points calculés à la main",
+              "ODP-14, How to, Emilie",
+              "O"
+            ],
+            [
+              "m",
+              "Export ICC par clic droit vers Excel, puis copier-coller dans le fichier de travail",
+              "Macrina · une seule source",
+              "O"
+            ],
+            [
+              "m",
+              "Word clouds faits dans WordArt",
+              "ODP-15",
+              "O"
+            ]
+          ]
+        },
+        {
+          "n": "6",
+          "t": "Top topics",
+          "d": "",
+          "g": "Identifier les 6 à 8 sujets dominants et expliquer chacun.",
+          "s": [
+            "Liste des sujets et leur poids",
+            "Analyse détaillée de chaque sujet"
+          ],
+          "o": [
+            "ICC (facettes, concordancier)"
+          ],
+          "l": "Slides partie 2",
+          "v": [
+            "Marquer « LOW SIGNAL » les résultats basés sur peu de publications, au lieu de les supprimer ou de les surinterpréter.",
+            "Ne pas consacrer une analyse détaillée à un sujet trop peu discuté : le rattacher à un autre."
+          ],
+          "p": [
+            [
+              "m",
+              "Clustering limité au top ~200 mots lus à la main",
+              "ODP-07",
+              "O"
+            ]
+          ]
+        },
+        {
+          "n": "7",
+          "t": "Personas",
+          "d": "option ID cards",
+          "g": "Identifier et dimensionner 6 à 8 personas de catégorie.",
+          "s": [
+            "Calculer le poids de chacun (total 100 %)",
+            "Vue d'ensemble",
+            "Planche d'images et fiche portrait par persona"
+          ],
+          "o": [
+            "Méthodo persona",
+            "Facettes du corpus"
+          ],
+          "l": "Slides partie 3",
+          "v": [
+            "« 25 % » veut dire 25 % des conversations, pas 25 % des consommateurs : le préciser au client.",
+            "L'âge et le genre sont déduits des profils, pas mesurés : ne jamais les présenter comme des chiffres d'enquête."
+          ],
+          "p": [
+            [
+              "m",
+              "Moodboard automatique absent de l'ICC, images Radarly non affichées",
+              "Pauline, Emilie, Ishaure",
+              "O"
+            ],
+            [
+              "m",
+              "Pas de détection d’âge ni de genre sur les images",
+              "Emilie, Ishaure",
+              "O"
+            ]
+          ]
+        },
+        {
+          "n": "8",
+          "t": "Brand zoom-in",
+          "d": "option",
+          "g": "Appliquer l'analyse à une marque et la comparer à la catégorie.",
+          "s": [
+            "Volume de la marque comparé à la catégorie",
+            "Sentiment",
+            "Marques associées",
+            "Territoires et valeurs associés à la marque",
+            "Sujets de conversation",
+            "Quels personas de la catégorie parlent de la marque"
+          ],
+          "o": [
+            "Corpus catégorie (facette marque)"
+          ],
+          "l": "Slides partie 4",
+          "v": [
+            "Si la marque a peu de mentions, le dire dans le titre de la slide et éviter les conclusions fortes sur de petites variations."
+          ],
+          "p": []
+        },
+        {
+          "n": "9",
+          "t": "Ratings & reviews",
+          "d": "option",
+          "g": "Comparer les hero products à un concurrent direct sur les avis.",
+          "s": [
+            "Note moyenne, nombre d'avis, taux de recommandation, d'intention de rachat, part de produits offerts",
+            "Avantages et inconvénients"
+          ],
+          "o": [
+            "Corpus avis",
+            "Base R&R ICC"
+          ],
+          "l": "Slides hero products",
+          "v": [
+            "Les avis laissés après un produit offert sont plus positifs : le signaler quand leur part est élevée.",
+            "Les règles de calcul des indicateurs (taux de recommandation, de rachat…) restent à écrire."
+          ],
+          "p": []
+        },
+        {
+          "n": "10",
+          "t": "Synthèse",
+          "d": "",
+          "g": "Donner les enseignements stratégiques et des pistes d'action.",
+          "s": [
+            "Enseignements clés par partie",
+            "3 à 5 pistes d'action pour le client"
+          ],
+          "o": [],
+          "c": [
+            "sl-insight-creation (non installé)"
+          ],
+          "l": "Key learnings, food for thought",
+          "v": [
+            "Un enseignement clé doit relier plusieurs constats ; s'il répète un titre de slide, il n'apporte rien."
+          ],
+          "p": []
+        },
+        {
+          "n": "11",
+          "t": "Revue, QA, livraison",
+          "d": "",
+          "g": "Rester aligné, livrer un deck juste et archiver pour la prochaine vague.",
+          "s": [
+            "2 à 3 points d'équipe par semaine",
+            "Contrôle qualité : totaux, sources, citations exactes, résultats fragiles signalés",
+            "Retirer notes et commentaires internes avant envoi",
+            "Archiver les fichiers, demander un retour"
+          ],
+          "o": [
+            "Project Drive"
+          ],
+          "l": "Deck vérifié, fichiers archivés",
+          "v": [
+            "Après un changement tardif (périmètre, groupes de marques, personas), revérifier toutes les répartitions qui en dépendent."
+          ],
+          "p": []
+        }
+      ]
+    },
+    "brand": {
+      "label": "Brand audit",
+      "team": "sml",
+      "q": "Comment les consommateurs perçoivent-ils la marque ?",
+      "def": "Analyse de l'équité et de la performance de la marque vue par le consommateur, benchmarkée contre des concurrents. Split mode / beauté pour les maisons de luxe.",
+      "meta": [
+        [
+          "Marchés",
+          "Au moins 2, souvent US et Chine"
+        ],
+        [
+          "Période",
+          "24 derniers mois, année sur année"
+        ],
+        [
+          "Fréquence",
+          "Annuelle"
+        ],
+        [
+          "Durée",
+          "15 à 19 j (phases 1 à 8)"
+        ]
+      ],
+      "ph": [
+        {
+          "n": "0",
+          "t": "Kick-off",
+          "d": "",
+          "g": "Comprendre attentes, scope et calendrier.",
+          "s": [
+            "Comprendre la demande avec le project lead",
+            "Vérifier si l'audit a été fait l'an dernier",
+            "Planifier qui travaille sur l'étude et combien de temps"
+          ],
+          "o": [
+            "Float"
+          ],
+          "k": [],
+          "l": "Scope et calendrier validés",
+          "v": [
+            "Si Semantiweb a fait cet audit l'an dernier, toutes les évolutions se calculent par rapport à cet audit, pas par rapport au corpus actuel."
+          ],
+          "p": []
+        },
+        {
+          "n": "1",
+          "t": "Immersion marque",
+          "d": "3 h",
+          "g": "Comprendre l'écosystème et l'actualité de la marque.",
+          "s": [
+            "Lister les comptes officiels de la marque",
+            "Comprendre le poids de la mode et de la beauté dans les ventes",
+            "Calendrier des lancements et événements des 24 derniers mois",
+            "Récupérer les audits déjà faits sur les concurrents"
+          ],
+          "o": [
+            "Web",
+            "Claude (recoupement)"
+          ],
+          "l": "Comptes, calendrier d'activations, volumes concurrents",
+          "v": [
+            "Garder un lien source pour chaque lancement ou événement de la marque ; Claude sert à vérifier, pas de source.",
+            "Si l'audit concurrent date, relancer sa requête plutôt que de reprendre ses chiffres."
+          ],
+          "p": [
+            [
+              "m",
+              "Audits passés retrouvés à la main",
+              "ODP-17",
+              "O"
+            ]
+          ]
+        },
+        {
+          "n": "2",
+          "t": "Crawls",
+          "d": "3 h",
+          "g": "Lancer les collectes marque et concurrents dès le début.",
+          "s": [
+            "Collecter TikTok (marque et concurrents)",
+            "Collecter Reddit (marque et concurrents)",
+            "Commentaires TikTok",
+            "Collecter les avis e-commerce si besoin"
+          ],
+          "o": [
+            "Crawlers TikTok et Reddit internes",
+            "Export Comments + Sorter",
+            "Base R&R ICC"
+          ],
+          "l": "4 projets de crawl, export commentaires",
+          "v": [
+            "Si une collecte n'est pas terminée au bout de 2 jours ouvrés, prévenir l'équipe technique sur Slack."
+          ],
+          "p": [
+            [
+              "h",
+              "Délai des crawls",
+              "méthodo",
+              "O"
+            ],
+            [
+              "h",
+              "Avis chinois : Tmall et JD bloquent les crawls, Sephora Chine n’est plus crawlable, recours à un prestataire externe",
+              "Yiying · une seule source",
+              "D"
+            ],
+            [
+              "m",
+              "Commentaires TikTok collectés à la main",
+              "méthodo",
+              "O"
+            ]
+          ]
+        },
+        {
+          "n": "3",
+          "t": "Query & volume",
+          "d": "1 j",
+          "g": "Obtenir une query marque propre et des volumes validés pour marque et concurrents.",
+          "s": [
+            "Écrire la requête de la marque",
+            "Reprendre ou mettre à jour les volumes des concurrents",
+            "Comparer les volumes dans Talkwalker et Meltwater",
+            "Compléter les volumes TikTok avec Spate ou Visibrain",
+            "Proposer le volume final au project lead"
+          ],
+          "o": [
+            "Radarly",
+            "Meltwater",
+            "Talkwalker",
+            "Spate",
+            "Visibrain"
+          ],
+          "c": [
+            "building-radarly-queries"
+          ],
+          "k": [
+            "building-talkwalker-queries",
+            "cleaning-social-volume"
+          ],
+          "l": "Query et volume final validés",
+          "v": [
+            "Dans Talkwalker, vérifier qu'aucune autre marque n'est déjà sélectionnée, sinon les volumes sont faux.",
+            "Ne jamais copier d'identifiants de connexion dans un document partagé."
+          ],
+          "p": [
+            [
+              "h",
+              "Écart de volume entre outils = problème de query à chercher",
+              "barrière méthodo, ODP-03",
+              "D"
+            ],
+            [
+              "m",
+              "Nom de marque = prénom ou mot courant : bruit",
+              "barrière méthodo",
+              "D"
+            ]
+          ]
+        },
+        {
+          "n": "4",
+          "t": "Corpus",
+          "d": "2 j",
+          "g": "Construire les corpus marque et concurrents avec des facettes adaptées.",
+          "s": [
+            "Constituer le corpus de la marque",
+            "Constituer le corpus des concurrents",
+            "Fréquences méga-marque / mode / beauté, 12 derniers mois et 12 précédents"
+          ],
+          "o": [
+            "Radarly / Meltwater",
+            "Files tool",
+            "Corpus Manager",
+            "Claude (renommage des facettes)",
+            "Slack #analysts"
+          ],
+          "k": [
+            "preparing-files-for-corpus-manager",
+            "building-corpus-facets"
+          ],
+          "l": "Corpus dédoublonnés, fréquences",
+          "v": [
+            "Les avis e-commerce vont dans un corpus séparé des publications sociales (étiquettes différentes).",
+            "Vérifier que produits et campagnes sont rangés du bon côté, mode ou beauté."
+          ],
+          "p": [
+            [
+              "h",
+              "Facettes de référence demandées sur Slack",
+              "ODP-16",
+              "O"
+            ],
+            [
+              "h",
+              "Fréquences en chinois : 100 mots maximum, stop words inadaptés, noms de marque découpés, pas de comparaison de périodes",
+              "Yiying, call fréquences CN",
+              "O"
+            ],
+            [
+              "m",
+              "Bibliothèque de facettes chinoise jamais finalisée, nouvelles facettes non réinjectées",
+              "Yiying · une seule source",
+              "M"
+            ]
+          ]
+        },
+        {
+          "n": "5",
+          "t": "Slides quanti",
+          "d": "4 j",
+          "g": "Montrer moments clés, volumes, set concurrentiel, marques associées et sentiment.",
+          "s": [
+            "Moments clés sur la période",
+            "Volumes",
+            "Comparaison avec 5 concurrents maximum",
+            "Marques associées",
+            "Sentiment"
+          ],
+          "o": [
+            "ICC",
+            "Excel"
+          ],
+          "l": "Slides quanti",
+          "v": [
+            "Si l'audit a été fait l'an dernier, calculer les évolutions par rapport à lui."
+          ],
+          "p": [
+            [
+              "h",
+              "Tops et évolutions faits à la main",
+              "ODP-14",
+              "O"
+            ],
+            [
+              "m",
+              "Excel et PowerPoint non liés : cohérence des chiffres vérifiée à la main",
+              "Yiying · une seule source",
+              "O"
+            ]
+          ]
+        },
+        {
+          "n": "6",
+          "t": "Perception de marque",
+          "d": "4 j",
+          "g": "Analyser l'équité de marque : image et unicité.",
+          "s": [
+            "Analyser l'image de la marque",
+            "Validation par le project lead",
+            "Slides sur la perception de la marque",
+            "Élément distinctif vs concurrents (option)"
+          ],
+          "o": [
+            "Corpus, lecture"
+          ],
+          "l": "Slides perception et unicité",
+          "v": [],
+          "p": []
+        },
+        {
+          "n": "7",
+          "t": "Top topics",
+          "d": "2 à 4 j",
+          "g": "Voir quels sujets évoluent et ce qui les porte.",
+          "s": [
+            "Top topics",
+            "Mode : codes emblématiques",
+            "Mode : directeur créatif",
+            "Beauté : derniers lancements"
+          ],
+          "o": [
+            "ICC"
+          ],
+          "l": "Slides topics",
+          "v": [],
+          "p": []
+        },
+        {
+          "n": "8",
+          "t": "Profil consommateur",
+          "d": "1 à 3 j",
+          "g": "Décrire l'audience : profil socio-démo et centres d'intérêt.",
+          "s": [
+            "Analyse d'audience",
+            "Fiches portraits de communautés (optionnel)"
+          ],
+          "o": [
+            "HypeAuditor"
+          ],
+          "l": "Slides audience",
+          "v": [
+            "Si l'audit a été fait l'an dernier, calculer les évolutions par rapport à lui."
+          ],
+          "p": [
+            [
+              "m",
+              "Rapports HypeAuditor récupérés à la main",
+              "Pauline · autre type",
+              "O"
+            ]
+          ]
+        },
+        {
+          "n": "9",
+          "t": "Revue et livraison",
+          "d": "en continu",
+          "g": "Rester aligné et livrer.",
+          "s": [
+            "Points d'équipe",
+            "Restitution",
+            "Feedback écrit"
+          ],
+          "o": [],
+          "l": "Restitution, feedback",
+          "v": [],
+          "p": []
+        }
+      ]
+    },
+    "topic": {
+      "label": "Topic / innovation",
+      "team": "sml",
+      "q": "Que se passe-t-il autour de ce thème, et qu'en faire ?",
+      "def": "Audit sur une question ou un thème qui n'est ni une marque ni une catégorie complète. Variante innovation : futur d'une catégorie, d'une industrie ou d'un ingrédient, avec drivers d'innovation et recommandations.",
+      "meta": [
+        [
+          "Marchés",
+          "1 à 2, US presque toujours, Corée du Sud en benchmark"
+        ],
+        [
+          "Période",
+          "2 ans, d'une année sur l'autre"
+        ],
+        [
+          "Durée",
+          "4 semaines min., idéalement 5"
+        ],
+        [
+          "Rédaction",
+          "Claude à partir des notes de Tiphaine"
+        ]
+      ],
+      "ph": [
+        {
+          "n": "0",
+          "t": "Kick-off",
+          "d": "",
+          "g": "Comprendre la question du client et pourquoi il la pose.",
+          "s": [
+            "Comprendre la demande et le type d'audit (exploration ou innovation)",
+            "Planifier qui travaille sur l'étude et combien de temps",
+            "Réutiliser ce que Semantiweb sait déjà"
+          ],
+          "o": [
+            "Float",
+            "Slack"
+          ],
+          "k": [],
+          "l": "Scope validé, facettes et insights réutilisables",
+          "v": [
+            "Identifier d'abord s'il s'agit d'une exploration ou d'un audit innovation : cela change les sources à utiliser et le livrable."
+          ],
+          "p": [
+            [
+              "m",
+              "Pas de recherche dans les études et facettes passées",
+              "ODP-01",
+              "O"
+            ]
+          ]
+        },
+        {
+          "n": "1",
+          "t": "Immersion",
+          "d": "",
+          "g": "Avoir une vue du marché et anticiper les réponses.",
+          "s": [
+            "Recherche documentaire",
+            "Hypothèses",
+            "Récupérer la façon dont le client découpe son marché"
+          ],
+          "o": [
+            "Gemini",
+            "Web"
+          ],
+          "l": "Synthèse marché, hypothèses, référentiels",
+          "v": [
+            "Les réponses des IA reflètent ce qui est publié sur le web, pas ce que disent les consommateurs : s'en servir pour orienter la recherche, pas comme résultat."
+          ],
+          "p": []
+        },
+        {
+          "n": "2",
+          "t": "Périmètre & query",
+          "d": "",
+          "g": "Définir ce qui est dans le sujet et le traduire en query propre.",
+          "s": [
+            "Délimiter le thème, validé par le project lead et le client",
+            "Écrire la requête",
+            "Retirer les publications hors sujet",
+            "Faire valider requête et volumes"
+          ],
+          "o": [
+            "Talkwalker",
+            "Meltwater",
+            "Claude",
+            "Radarly",
+            "Spate",
+            "Visibrain"
+          ],
+          "k": [
+            "building-talkwalker-queries",
+            "cleaning-social-volume",
+            "building-radarly-queries"
+          ],
+          "l": "Query et volumes validés",
+          "v": [
+            "Ne pas passer trop de temps à nettoyer : 50 publications hors sujet sur 20 000 ne changent pas les résultats.",
+            "Délimiter un thème est plus difficile qu'une marque ou une catégorie, car il n'y a pas de nom de produit sur lequel s'appuyer."
+          ],
+          "p": [
+            [
+              "h",
+              "Échantillon ~5k exporté de Meltwater, passé à Claude, query corrigée par essais-erreurs",
+              "ODP-02",
+              "M"
+            ],
+            [
+              "m",
+              "Comparaison des outils à la main",
+              "ODP-03",
+              "O"
+            ]
+          ]
+        },
+        {
+          "n": "3",
+          "t": "Extraction & corpus",
+          "d": "",
+          "g": "Collecter par pays et réunir social, avis et recherche dans un corpus.",
+          "s": [
+            "Collecter pays par pays (localisation, langue, exclusions)",
+            "Avis",
+            "Données de recherche (innovation)",
+            "Corpus"
+          ],
+          "o": [
+            "Meltwater",
+            "Crawler Reddit",
+            "Base R&R ICC",
+            "Export Comments",
+            "Gemini",
+            "Trajaan",
+            "Files tool",
+            "Corpus Manager"
+          ],
+          "k": [
+            "preparing-files-for-corpus-manager"
+          ],
+          "l": "Corpus dédoublonné",
+          "v": [
+            "Sur TikTok et Reddit, le pays n'est souvent pas connu : on le déduit de la langue, avec des exclusions (ex. anglais hors Royaume-Uni, Australie, Inde).",
+            "Ici on mélange publications sociales et avis dans un même corpus, alors que les méthodes brand et category audit les séparent : règle à harmoniser."
+          ],
+          "p": [
+            [
+              "m",
+              "Set multi-pays monté à la main",
+              "ODP-11",
+              "O"
+            ],
+            [
+              "m",
+              "Liste de produits pour les avis construite à la main",
+              "ODP-12",
+              "O"
+            ],
+            [
+              "m",
+              "Corpus unique social + avis : filtre par source possible, mais perte du graphique des notes de l’ICC",
+              "Yiying · pratique de Tiphaine",
+              "O"
+            ]
+          ]
+        },
+        {
+          "n": "4",
+          "t": "Structuration 1",
+          "d": "",
+          "g": "Poser les facettes de base et taguer ce que les sources ne taguent pas.",
+          "s": [
+            "Étiquettes de base",
+            "Étiquetage par IA : sentiment, émotion, type d'auteur"
+          ],
+          "o": [
+            "Corpus Manager",
+            "Claude"
+          ],
+          "k": [
+            "building-corpus-facets"
+          ],
+          "l": "Corpus avec facettes de base",
+          "v": [
+            "Contrôler à la main les étiquettes posées par l'IA sur 200 publications avant de s'en servir."
+          ],
+          "p": [
+            [
+              "m",
+              "Émetteur et sentiment non tagués nativement",
+              "ODP-04, 10",
+              "O"
+            ]
+          ]
+        },
+        {
+          "n": "5",
+          "t": "Première analyse",
+          "d": "fin de semaine 1",
+          "g": "Obtenir le vocabulaire, les catégories de sujets et les tops par pays.",
+          "s": [
+            "Fréquences",
+            "Regrouper les mots en grands sujets",
+            "Compléter les étiquettes avec l'IA",
+            "Classements par pays (marques, plateformes…)",
+            "Comment les consommateurs abordent le sujet",
+            "Première lecture sur 4 axes (innovation)"
+          ],
+          "o": [
+            "ICC",
+            "Claude",
+            "WordArt"
+          ],
+          "k": [
+            "voc-reception-analysis"
+          ],
+          "l": "Tops, word clouds, première lecture",
+          "v": [
+            "L'âge et le genre attribués par l'IA sont des estimations : le dire dans la slide de méthode.",
+            "Un lien observé sur un petit groupe peut être un hasard : le marquer « LOW SIGNAL »."
+          ],
+          "p": [
+            [
+              "h",
+              "Fréquences une par une, tops à la main",
+              "ODP-06, 14",
+              "O"
+            ],
+            [
+              "m",
+              "~200 mots max lus pour le clustering",
+              "ODP-07",
+              "O"
+            ],
+            [
+              "m",
+              "Corrélations entre facettes hors de portée humaine",
+              "ODP-09",
+              "O"
+            ]
+          ]
+        },
+        {
+          "n": "6",
+          "t": "Deep dives",
+          "d": "",
+          "g": "Expliquer les sujets principaux ou décider les drivers d'innovation.",
+          "s": [
+            "Principaux sujets, dont 4 analysés en détail",
+            "Choisir les axes d'innovation",
+            "Deuxième série d'étiquettes",
+            "Fiche par axe d'innovation",
+            "Relier les axes aux produits existants et aux idées"
+          ],
+          "o": [
+            "Corpus Manager",
+            "Claude"
+          ],
+          "l": "Deep dives ou drivers + mapping",
+          "v": [
+            "Les recommandations doivent être applicables par le client et cohérentes avec l'image de sa marque."
+          ],
+          "p": [
+            [
+              "m",
+              "Enrichissement des facettes à la main",
+              "ODP-05",
+              "O"
+            ]
+          ]
+        },
+        {
+          "n": "7",
+          "t": "Rapport",
+          "d": "",
+          "g": "Un rapport où chaque slide porte un insight.",
+          "s": [
+            "Fil conducteur du rapport",
+            "Slides",
+            "Contrôles finaux, version courte"
+          ],
+          "o": [
+            "PowerPoint"
+          ],
+          "l": "Rapport final + version light",
+          "v": [
+            "Citer les publications mot pour mot, sans les reformuler."
+          ],
+          "p": []
+        },
+        {
+          "n": "8",
+          "t": "Revue et livraison",
+          "d": "",
+          "g": "Rester aligné et livrer.",
+          "s": [
+            "Revues",
+            "Restitution et feedback"
+          ],
+          "o": [],
+          "l": "Restitution, feedback",
+          "v": [],
+          "p": []
+        }
+      ]
+    },
+    "tribes": {
+      "label": "Tribes sourcing",
+      "team": "sml",
+      "q": "Quelles communautés incarnent naturellement notre territoire ?",
+      "def": "Identifier les communautés (codes, rituels et appartenance partagés) qui incarnent un territoire de marque, clients actuels ou futurs. Outil marketing, pas portrait sociologique.",
+      "meta": [
+        [
+          "Sortie",
+          "Tribus, ID cards, guide de choix"
+        ],
+        [
+          "Durée",
+          "~18 j"
+        ],
+        [
+          "Rédaction",
+          "Cellules proposées par Claude, à valider"
+        ]
+      ],
+      "ph": [
+        {
+          "n": "0",
+          "t": "Kick-off",
+          "d": "",
+          "g": "Clarifier le scope avant de construire quoi que ce soit.",
+          "s": [
+            "Brief",
+            "Questions clés au client : fans seulement ou aussi prospects ? territoire genré ?",
+            "Réutiliser les travaux internes",
+            "Planning et fichiers de travail"
+          ],
+          "o": [
+            "Float"
+          ],
+          "k": [],
+          "l": "Réponses aux questions clés",
+          "v": [
+            "Si le territoire de marque est genré, il faut deux corpus (hommes, femmes) : cela coûte plus cher, à discuter avec le client."
+          ],
+          "p": []
+        },
+        {
+          "n": "1",
+          "t": "Compréhension de la marque",
+          "d": "1 j",
+          "g": "S'immerger dans la marque et dans les études tribes passées.",
+          "s": [
+            "Immersion",
+            "Lecture d'études tribes passées"
+          ],
+          "o": [
+            "ChatGPT"
+          ],
+          "l": "Connaissance de la marque",
+          "v": [],
+          "p": []
+        },
+        {
+          "n": "2",
+          "t": "Collecte",
+          "d": "3 j",
+          "g": "Capter les conversations autour du territoire sur toutes les plateformes utiles.",
+          "s": [
+            "Écrire la requête sur le territoire de marque",
+            "R&R",
+            "TikTok",
+            "Reddit",
+            "Instagram et Pinterest",
+            "Posts de la marque",
+            "Muses",
+            "Traduction",
+            "Tenir le registre des collectes",
+            "Charger les données dans le Corpus Manager"
+          ],
+          "o": [
+            "Radarly (author:)",
+            "Meltwater",
+            "Crawler TikTok",
+            "Export Comments",
+            "Crawler Reddit",
+            "Corpus Manager",
+            "Files tool"
+          ],
+          "k": [
+            "preparing-files-for-corpus-manager"
+          ],
+          "l": "Corpus chargé, log à jour",
+          "v": [
+            "La requête est volontairement large : ne pas trop la nettoyer, l'étude est surtout qualitative."
+          ],
+          "p": [
+            [
+              "h",
+              "6 à 7 outils pour une seule collecte",
+              "méthodo",
+              "O"
+            ],
+            [
+              "m",
+              "Muses repérées à la main",
+              "méthodo",
+              "O"
+            ],
+            [
+              "m",
+              "~50 hashtags TikTok trouvés à la main, IA jugée trop générique",
+              "Pauline · une seule source",
+              "O"
+            ]
+          ]
+        },
+        {
+          "n": "3",
+          "t": "Lecture",
+          "d": "2 j",
+          "g": "Comprendre le corpus et trouver les premières pistes de communautés.",
+          "s": [
+            "Lecture",
+            "Fréquences",
+            "Lire les profils des personnes qui commentent le plus",
+            "Analyse d'audience"
+          ],
+          "o": [
+            "Claude",
+            "ICC",
+            "HypeAuditor"
+          ],
+          "l": "Sélection de verbatims, audience",
+          "v": [
+            "Regarder de près les hashtags : les communautés s'y nomment souvent elles-mêmes."
+          ],
+          "p": [
+            [
+              "m",
+              "Rapports HypeAuditor récupérés à la main",
+              "Pauline · une seule source",
+              "O"
+            ]
+          ]
+        },
+        {
+          "n": "4",
+          "t": "Production des slides",
+          "d": "2 semaines",
+          "g": "Raconter les communautés et aider le client à choisir.",
+          "s": [
+            "Incarnation et centres d'intérêt",
+            "Trouver le fil commun aux communautés",
+            "Tribus",
+            "ID cards",
+            "Moodboards",
+            "Synthèse des grands axes",
+            "Aide au choix des communautés à activer"
+          ],
+          "o": [
+            "ChatGPT",
+            "Pinterest",
+            "HypeAuditor",
+            "Claude",
+            "PowerPoint"
+          ],
+          "l": "Deck tribes",
+          "v": [
+            "Choisir des visuels nets : c'est la première chose que voit le client.",
+            "Présenter la communauté de façon un peu valorisée, à la hauteur de la marque (luxe ou grande consommation), sans lui prêter ce que les données ne montrent pas."
+          ],
+          "p": [
+            [
+              "h",
+              "Mise en forme très chronophage",
+              "Pauline · une seule source",
+              "O"
+            ],
+            [
+              "m",
+              "Moodboard absent de l'ICC",
+              "Pauline, Emilie, Ishaure",
+              "O"
+            ]
+          ]
+        },
+        {
+          "n": "5",
+          "t": "Sanity check, revue, livraison",
+          "d": "2 j",
+          "g": "Livrer un deck propre.",
+          "s": [
+            "Relecture du deck",
+            "Revue d'équipe",
+            "Restitution, feedback"
+          ],
+          "o": [],
+          "l": "Deck vérifié",
+          "v": [],
+          "p": []
+        }
+      ]
+    },
+    "toolkit": {
+      "label": "Toolkit",
+      "team": "sml",
+      "q": "Comment activer la tribu choisie ?",
+      "def": "Suite d'un tribes sourcing : le client choisit 1 ou 2 communautés à approfondir. Où elles vont, ce qu'elles regardent, comment elles s'habillent, qui elles suivent. Fil rouge pour les équipes com, marketing et créa.",
+      "meta": [
+        [
+          "Durée",
+          "~19 j"
+        ],
+        [
+          "Rédaction",
+          "Pauline (assistée par IA)"
+        ]
+      ],
+      "ph": [
+        {
+          "n": "0",
+          "t": "Kick-off",
+          "d": "1 j",
+          "g": "Comprendre le scope et la date de rendu.",
+          "s": [
+            "Brief",
+            "Planifier qui travaille sur l'étude et combien de temps",
+            "Fichiers de travail"
+          ],
+          "o": [
+            "Float"
+          ],
+          "k": [],
+          "l": "Scope validé",
+          "v": [],
+          "p": []
+        },
+        {
+          "n": "1",
+          "t": "Compréhension de la marque",
+          "d": "1 j",
+          "g": "S'immerger dans la marque.",
+          "s": [
+            "Immersion"
+          ],
+          "o": [
+            "ChatGPT"
+          ],
+          "l": "Connaissance de la marque",
+          "v": [],
+          "p": []
+        },
+        {
+          "n": "2",
+          "t": "Collecte",
+          "d": "3 j",
+          "g": "Une base de données solide pour une étude très quali.",
+          "s": [
+            "Écrire la requête à partir des valeurs et hashtags de la communauté",
+            "TikTok",
+            "Instagram, Reddit, Pinterest",
+            "Muses",
+            "Tenir le registre des collectes",
+            "Charger les données dans le Corpus Manager"
+          ],
+          "o": [
+            "Meltwater",
+            "Crawler TikTok",
+            "Radarly (author:)",
+            "Corpus Manager"
+          ],
+          "l": "Corpus chargé",
+          "v": [
+            "Faire valider la requête par le project lead."
+          ],
+          "p": [
+            [
+              "m",
+              "Muses repérées à la main",
+              "méthodo",
+              "O"
+            ]
+          ]
+        },
+        {
+          "n": "3",
+          "t": "Lecture",
+          "d": "2 j",
+          "g": "Comprendre le corpus et l'audience.",
+          "s": [
+            "Lecture",
+            "Analyse d'audience"
+          ],
+          "o": [
+            "Claude",
+            "Gemini",
+            "HypeAuditor"
+          ],
+          "l": "Verbatims, audience",
+          "v": [
+            "Vérifier dans les publications les noms de personnes proposés par Claude avant de les utiliser."
+          ],
+          "p": [
+            [
+              "m",
+              "HypeAuditor à la main",
+              "Pauline · autre type",
+              "O"
+            ]
+          ]
+        },
+        {
+          "n": "4",
+          "t": "Production des slides",
+          "d": "2 semaines",
+          "g": "Donner au client tout ce qu'il faut pour cibler la communauté.",
+          "s": [
+            "Qui sont-ils (5 à 7 slides)",
+            "Où parlent-ils",
+            "Comment parlent-ils",
+            "De quoi parlent-ils",
+            "Recommandations d'activation"
+          ],
+          "o": [
+            "ChatGPT",
+            "HypeAuditor",
+            "ICC",
+            "Meltwater",
+            "Claude"
+          ],
+          "l": "Deck toolkit",
+          "v": [
+            "Décrire la façon de parler de la communauté à partir de vraies citations, pas à partir d'une description générée par ChatGPT."
+          ],
+          "p": [
+            [
+              "h",
+              "Production des slides : 2 semaines",
+              "méthodo",
+              "O"
+            ]
+          ]
+        },
+        {
+          "n": "5",
+          "t": "Sanity check, revue, livraison",
+          "d": "2 j",
+          "g": "Livrer un deck propre.",
+          "s": [
+            "Relecture du deck",
+            "Revue",
+            "Restitution, feedback"
+          ],
+          "o": [],
+          "l": "Deck vérifié",
+          "v": [],
+          "p": []
+        }
+      ]
+    },
+    "archetype": {
+      "label": "Archetype",
+      "team": "sml",
+      "q": "Qui ce parfum représente-t-il ? (plutôt que qui doit l'acheter)",
+      "def": "Étude très qualitative, construite autour d'un idéal plutôt que d'une communauté. Base pour choisir ambassadeurs et créateurs, direction créative, récits de campagne, partenariats.",
+      "meta": [
+        [
+          "Durée",
+          "À compléter"
+        ],
+        [
+          "Rédaction",
+          "Pauline (assistée par IA)"
+        ]
+      ],
+      "ph": [
+        {
+          "n": "0",
+          "t": "Kick-off",
+          "d": "",
+          "g": "Comprendre le territoire à incarner et faire valider les valeurs de marque.",
+          "s": [
+            "Brief",
+            "Valeurs de marque validées par le client",
+            "Réutiliser les travaux internes",
+            "Planifier qui travaille sur l'étude et combien de temps"
+          ],
+          "o": [
+            "Float"
+          ],
+          "k": [],
+          "l": "Liste de valeurs validée",
+          "v": [
+            "Des valeurs trop vagues (« confiance », « liberté ») ramènent trop de publications hors sujet : demander au client ses propres mots et des exemples."
+          ],
+          "p": []
+        },
+        {
+          "n": "1",
+          "t": "Compréhension de la marque",
+          "d": "",
+          "g": "S'immerger dans la marque et les études passées.",
+          "s": [
+            "Immersion",
+            "Études passées"
+          ],
+          "o": [
+            "ChatGPT"
+          ],
+          "l": "",
+          "v": [],
+          "p": []
+        },
+        {
+          "n": "2",
+          "t": "Collecte",
+          "d": "",
+          "g": "Capter les conversations qui portent les valeurs validées.",
+          "s": [
+            "Une requête par valeur, pour lire les volumes valeur par valeur",
+            "TikTok",
+            "Reddit",
+            "Instagram et Pinterest",
+            "Muses",
+            "Traduction",
+            "Registre des collectes, chargement des données"
+          ],
+          "o": [
+            "Radarly",
+            "Meltwater",
+            "Crawler TikTok",
+            "Export Comments",
+            "Files tool",
+            "Corpus Manager"
+          ],
+          "k": [
+            "preparing-files-for-corpus-manager"
+          ],
+          "l": "Corpus chargé",
+          "v": [
+            "Comme la requête part des valeurs choisies, on risque de ne trouver que ce qu'on cherche : garder un temps de lecture libre."
+          ],
+          "p": [
+            [
+              "m",
+              "Plusieurs outils par plateforme selon les accès",
+              "méthodo",
+              "O"
+            ]
+          ]
+        },
+        {
+          "n": "3",
+          "t": "Lecture & archétypes",
+          "d": "",
+          "g": "Regrouper figures, valeurs et codes récurrents en archétypes distincts.",
+          "s": [
+            "Lecture (2 h) + liste des célébrités les plus citées, demandée à Claude sur un échantillon",
+            "Fréquences par plateforme et année",
+            "Analyse d'audience",
+            "Construction des archétypes"
+          ],
+          "o": [
+            "Claude",
+            "ICC",
+            "HypeAuditor"
+          ],
+          "l": "Liste d'archétypes",
+          "v": [
+            "Un archétype n'est pas une liste de célébrités : les muses l'illustrent, elles ne le définissent pas.",
+            "Chaque archétype doit s'appuyer sur des citations de consommateurs."
+          ],
+          "p": [
+            [
+              "m",
+              "Taille d'échantillon pour Claude choisie « au pif » (2 000 à 5 000 lignes)",
+              "Pauline · une seule source",
+              "M"
+            ],
+            [
+              "m",
+              "HypeAuditor : 7 séries de screenshots à la main",
+              "Pauline · une seule source",
+              "O"
+            ]
+          ]
+        },
+        {
+          "n": "4",
+          "t": "Production des slides",
+          "d": "",
+          "g": "Présenter les archétypes et ce qu'ils incarnent.",
+          "s": [
+            "Incarnation des intérêts communs",
+            "Archétypes",
+            "ID cards"
+          ],
+          "o": [
+            "ChatGPT (naming)",
+            "Claude (mise en forme)",
+            "PowerPoint"
+          ],
+          "l": "Deck archétypes",
+          "v": [
+            "Valoriser l'archétype au niveau de la marque, sans lui attribuer des valeurs que les données ne montrent pas."
+          ],
+          "p": [
+            [
+              "h",
+              "Mise en forme très chronophage",
+              "Pauline · une seule source",
+              "O"
+            ]
+          ]
+        },
+        {
+          "n": "5",
+          "t": "Sanity check, revue, livraison",
+          "d": "",
+          "g": "Livrer un deck propre.",
+          "s": [
+            "Relecture : pas de citation en double, totaux justes, titres qui disent l'enseignement",
+            "Revue",
+            "Restitution, feedback"
+          ],
+          "o": [],
+          "l": "Deck vérifié",
+          "v": [],
+          "p": []
+        }
+      ]
+    },
+    "persona": {
+      "label": "Persona",
+      "team": "sml",
+      "q": "Pourquoi chacun s'engage-t-il avec la marque ou la catégorie ?",
+      "def": "Archétype individuel défini par pourquoi il s'engage et comment ça se voit, pas par ce qu'il poste ni par sa démographie. Personas de marque ou de catégorie, en général 5 à 7.",
+      "meta": [
+        [
+          "Durée",
+          "À compléter"
+        ],
+        [
+          "Rédaction",
+          "Équipe"
+        ]
+      ],
+      "ph": [
+        {
+          "n": "0",
+          "t": "Kick-off",
+          "d": "",
+          "g": "Comprendre à quoi serviront les personas, à quel niveau et sur quel scope.",
+          "s": [
+            "Brief client clarifié",
+            "Brief interne et registre des décisions"
+          ],
+          "o": [
+            "Float"
+          ],
+          "k": [],
+          "l": "Question, niveau de persona, scope",
+          "v": [
+            "Si le brief décrit des groupes qui partagent une culture ou des rituels, le client veut peut-être une étude tribus plutôt que des personas : clarifier avant de commencer."
+          ],
+          "p": []
+        },
+        {
+          "n": "1",
+          "t": "Desk research & données",
+          "d": "",
+          "g": "Un corpus consommateur propre, exploitable par marché.",
+          "s": [
+            "Hypothèses de personas",
+            "Query Radarly",
+            "Crawls TikTok dès le premier jour",
+            "Volumes et dépollution validés"
+          ],
+          "o": [
+            "Radarly",
+            "Crawler TikTok"
+          ],
+          "c": [
+            "building-radarly-queries"
+          ],
+          "l": "Query validée, corpus propre",
+          "v": [
+            "Si un pic vient d'une actualité ou d'une célébrité, exclure ou limiter la période, et noter la décision.",
+            "Si, après nettoyage, un marché ne contient presque que des médias ou des revendeurs, le présenter comme indicatif seulement."
+          ],
+          "p": [
+            [
+              "m",
+              "Couverture faible de certains marchés ou plateformes dans Radarly",
+              "barrière méthodo",
+              "D"
+            ]
+          ]
+        },
+        {
+          "n": "2",
+          "t": "Analyse",
+          "d": "",
+          "g": "Confirmer, fusionner ou ajouter des personas, puis les dimensionner.",
+          "s": [
+            "Choisir les indicateurs à décrire pour chaque persona",
+            "Signaux dans Radarly",
+            "Lire les publications et les profils des auteurs",
+            "Calculer le poids de chacun (total 100 %)",
+            "Profils",
+            "Visuels"
+          ],
+          "o": [
+            "Radarly",
+            "Lecture"
+          ],
+          "l": "Liste validée, sizing, profils",
+          "v": [
+            "Ne pas construire un persona à partir de quelques influenceurs très visibles : vérifier que des consommateurs ordinaires ont le même profil.",
+            "Ne pas déduire l'âge à partir d'une seule photo.",
+            "« 25 % » veut dire 25 % des conversations, pas 25 % des consommateurs : le préciser au client."
+          ],
+          "p": [
+            [
+              "m",
+              "Queries de personas qui se chevauchent, comportements visuels ratés par les mots-clés",
+              "barrière méthodo",
+              "M"
+            ]
+          ]
+        },
+        {
+          "n": "3",
+          "t": "Rapport",
+          "d": "",
+          "g": "Rendre chiffres et choix compréhensibles.",
+          "s": [
+            "Fil conducteur du rapport",
+            "Slides",
+            "Méthode et limites"
+          ],
+          "o": [
+            "PowerPoint"
+          ],
+          "l": "Deck",
+          "v": [
+            "Valider le fil conducteur du deck avant de faire les slides, sinon il faut tout refaire."
+          ],
+          "p": []
+        },
+        {
+          "n": "4",
+          "t": "Revue & livraison",
+          "d": "",
+          "g": "Livrer un deck juste et stable dans le temps.",
+          "s": [
+            "Contrôle qualité",
+            "Alignement client",
+            "Livraison, archivage"
+          ],
+          "o": [],
+          "l": "Deck final, archives",
+          "v": [
+            "Si le client veut renommer les personas avec ses mots, ils deviennent moins proches des consommateurs : en discuter et noter la décision.",
+            "Pour un client récurrent, garder les mêmes définitions d'une étude à l'autre afin de pouvoir comparer."
+          ],
+          "p": []
+        }
+      ]
+    },
+    "trend": {
+      "label": "Trend report",
+      "team": "mt",
+      "q": "Quelles tendances émergent sur ce sujet, et qu’en tirer pour le client ?",
+      "def": "Projet M&T ponctuel ou par vague : observatoire de tendances, refresh d’ingrédients, bulletin de tendances à chaque édition, tendances locales. Recherche documentaire, requêtes multilingues dans Talkwalker ou Radarly, mesure, échantillon TikTok codé, storyline, deck. Le travail reste dans les outils de listening, sans Corpus Manager ni ICC.",
+      "meta": [
+        [
+          "Durée",
+          "8 à 11 j par édition de bulletin, 14 à 34 j par vague de refresh, 21 à 42 j par trend report"
+        ],
+        [
+          "Rôles",
+          "Analyste (analyse, storyline, toute affirmation faite au client), project lead (revues, relation client), semantic engineer pour les topics Talkwalker si budgété, stagiaire sur l’échantillon et les verbatims"
+        ],
+        [
+          "Claude",
+          "Brouillons, codage, calculs, deck dans Claude Design ; l’analyste garde le récit"
+        ],
+        [
+          "Source",
+          "Méthodo M&T de Bamby (4 méthodes de projet, lue le 10/11), workflow Haylee, call 15/10, Slack Kayi et Evans, entretien Simon 29/10"
+        ]
+      ],
+      "ph": [
+        {
+          "n": "0",
+          "t": "Kick-off & cadrage",
+          "d": "0,3 à 3,5 j",
+          "g": "Comprendre la demande, reprendre l’étude précédente et staffer avant toute recherche.",
+          "s": [
+            "Lire le brief et l’offre : thème, marchés, catégories, date de rendu",
+            "Relire la vague ou l’édition précédente (deck, règles de calcul, journal des décisions)",
+            "Créer le dossier à partir de la structure du projet précédent",
+            "Vérifier ce qui peut être réutilisé (requêtes, ingrédients, archétypes)",
+            "Noter les exigences IA du client",
+            "Planifier le temps de l’équipe"
+          ],
+          "o": [
+            "Float",
+            "Google Drive",
+            "Notes de kick-off (Granola, Gemini)"
+          ],
+          "k": [],
+          "l": "Périmètre écrit, dossier prêt, staffing",
+          "v": [
+            "Le périmètre s’explique au client, il ne se suppose pas : dire où le sujet commence et où il s’arrête.",
+            "Vérifier avec l’éditeur de l’outil combien d’historique est disponible : si le rapport a besoin du passé sur une nouvelle requête, c’est bloquant."
+          ],
+          "p": [
+            [
+              "h",
+              "Pas d’index des études, requêtes et signaux passés : les analystes fouillent les dossiers et Slack à la main",
+              "méthodo M&T, 2 méthodes",
+              "O"
+            ],
+            [
+              "m",
+              "Brief qui bouge d’une réunion à l’autre (longueur du deck, période décrite de trois façons)",
+              "méthodo M&T · une seule source",
+              "M"
+            ],
+            [
+              "m",
+              "Changement d’équipe en cours de projet : briefs de rattrapage",
+              "méthodo M&T, 2 méthodes",
+              "M"
+            ],
+            [
+              "m",
+              "Structure du projet précédent recopiée à la main",
+              "méthodo M&T · une seule source",
+              "O"
+            ]
+          ]
+        },
+        {
+          "n": "1",
+          "t": "Desk research & hypothèses",
+          "d": "0,5 à 3 j",
+          "g": "Repérer les signaux et poser les territoires à mesurer.",
+          "s": [
+            "Scanner presse, actualité business et réseaux sur les marchés couverts",
+            "Recherche par mots-clés dans Spate (Google, TikTok) et Trajaan",
+            "Poser les hypothèses et les territoires (par exemple 3 grandes tendances, chacune en 3 sous-tendances)",
+            "Regrouper les mots-clés en sujets"
+          ],
+          "o": [
+            "Web, presse",
+            "Claude, ChatGPT, Gemini",
+            "Spate",
+            "Trajaan",
+            "TikTok (recherche manuelle)"
+          ],
+          "l": "Notes de recherche, cadre d’hypothèses ou plan",
+          "v": [
+            "Chaque signal a un lien source.",
+            "Un signal trouvé sur un seul marché est signalé comme tel."
+          ],
+          "p": [
+            [
+              "m",
+              "Étape ouverte, facile à faire déborder ; les scans IA donnent des tendances génériques, parfois sans source",
+              "méthodo M&T, 2 méthodes",
+              "M"
+            ],
+            [
+              "m",
+              "TikTok ne s’exporte pas : scan manuel",
+              "méthodo M&T, 2 méthodes",
+              "D"
+            ],
+            [
+              "m",
+              "Couverture inégale selon les marchés (Japon, Brésil plus minces)",
+              "méthodo M&T · une seule source",
+              "D"
+            ]
+          ]
+        },
+        {
+          "n": "2",
+          "t": "Query & setup",
+          "d": "0,5 à 7 j",
+          "g": "Des requêtes multilingues propres, verrouillées avant de mesurer.",
+          "s": [
+            "Auditer le topic existant dans l’espace Talkwalker du client, ou créer un nouveau topic",
+            "Écrire une requête par sous-tendance et par marché, avec des mots-clés en langue native",
+            "Lire un échantillon aléatoire de mentions, ajouter les exclusions, retester",
+            "Faire relire les langues non maîtrisées par un natif",
+            "Faire valider la requête principale par le client si besoin",
+            "Verrouiller les requêtes avant toute mesure"
+          ],
+          "o": [
+            "Talkwalker",
+            "Radarly",
+            "Trajaan"
+          ],
+          "c": [
+            "building-talkwalker-queries",
+            "building-radarly-queries",
+            "cleaning-social-volume"
+          ],
+          "l": "Requêtes validées et verrouillées",
+          "v": [
+            "Juger la qualité de la requête en lisant des publications tirées au hasard, pas seulement les plus populaires.",
+            "Verrouiller la requête principale avant de mesurer : une réécriture tardive oblige à relancer toutes les mesures."
+          ],
+          "p": [
+            [
+              "h",
+              "« usually the longest part »",
+              "workflow Haylee",
+              "O"
+            ],
+            [
+              "h",
+              "Blocs de mots-clés multilingues écrits à la main ; relecture native dépendante des disponibilités",
+              "méthodo M&T, 3 méthodes",
+              "M"
+            ],
+            [
+              "h",
+              "Requêtes réécrites en cours de projet (proximité resserrée), toutes les mesures relancées",
+              "méthodo M&T · une seule source",
+              "M"
+            ],
+            [
+              "h",
+              "Exports Radarly manuels et plafonnés (découpage par mois)",
+              "call Haylee, Bamby",
+              "O"
+            ],
+            [
+              "m",
+              "Espace Talkwalker du client : chaque changement attend sa validation",
+              "méthodo M&T · une seule source",
+              "M"
+            ],
+            [
+              "m",
+              "API Radarly inaccessible, outil en fin de vie : remplacé par Meltwater (décision confirmée le 04/11)",
+              "Simon",
+              "O"
+            ]
+          ]
+        },
+        {
+          "n": "3",
+          "t": "Mesure & sizing",
+          "d": "0,5 à 7,5 j",
+          "g": "Dimensionner thèmes et tendances, sur la même période et avec les mêmes filtres.",
+          "s": [
+            "Extraire les mentions par requête, marché et période (6 derniers mois contre les 6 mêmes mois un an plus tôt, séries mensuelles)",
+            "Vues TikTok et indice de popularité des marques dans Spate",
+            "Signal de recherche dans Trajaan",
+            "Classer les tendances (sizing)",
+            "Contrôler les données avant l’analyse"
+          ],
+          "o": [
+            "Talkwalker",
+            "Radarly",
+            "Visibrain",
+            "Spate",
+            "Trajaan",
+            "Excel"
+          ],
+          "k": [
+            "voc-reception-analysis"
+          ],
+          "l": "Fichier de mesures",
+          "v": [
+            "Mêmes période et filtres pour toutes les requêtes.",
+            "Une petite base fait paraître un signal faible plus fort qu’il n’est."
+          ],
+          "p": [
+            [
+              "h",
+              "Mesures extraites requête par requête, à la main ; Claude n’accède ni à Talkwalker ni à Radarly",
+              "méthodo M&T, 2 méthodes",
+              "O"
+            ],
+            [
+              "h",
+              "Comparaison de périodes manuelle",
+              "call Haylee, Bamby",
+              "O"
+            ],
+            [
+              "m",
+              "Scoring maintenu dans Excel",
+              "call Haylee · une seule source",
+              "O"
+            ],
+            [
+              "m",
+              "Données de recherche livrées en retard ou incomplètes (export multi-pays à retirer, mots-clés manquants)",
+              "méthodo M&T · une seule source",
+              "D"
+            ],
+            [
+              "m",
+              "TikTok uniquement via Visibrain : recherche par mots-clés, pas d’historique, serveurs instables, pas de transcription",
+              "Simon",
+              "D"
+            ],
+            [
+              "m",
+              "Tonalité, sentiment et sujets délégués à Claude à partir d’exports Talkwalker normés : automatisations personnelles, non partagées avec les juniors",
+              "Simon",
+              "M"
+            ]
+          ]
+        },
+        {
+          "n": "4",
+          "t": "Échantillon & verbatims",
+          "d": "1,5 à 8 j",
+          "g": "Constituer et coder l’échantillon vidéo et la base de verbatims.",
+          "s": [
+            "Fixer les critères de l’échantillon (âge, pays, sujet)",
+            "Constituer l’échantillon TikTok par recherche manuelle",
+            "Transcrire et remplir la fiche échantillon (~18 à 24 informations par vidéo)",
+            "Coder l’échantillon selon la grille",
+            "Exporter les verbatims de Talkwalker"
+          ],
+          "o": [
+            "TikTok",
+            "Claude",
+            "Prestataire en Roumanie",
+            "Whisper",
+            "Excel / Sheets",
+            "Talkwalker"
+          ],
+          "l": "Échantillon codé, base de verbatims",
+          "v": [
+            "Les sous-titres automatiques peuvent être faux : relire les transcriptions, surtout hors anglais."
+          ],
+          "p": [
+            [
+              "h",
+              "Fiches remplies à la main : « normally by hand, so it takes a lot of time! »",
+              "Kayi · Slack 22/10",
+              "O"
+            ],
+            [
+              "h",
+              "Recherche manuelle, sans export ; un marché absent de l’échantillon sur un projet",
+              "méthodo M&T · une seule source",
+              "D"
+            ],
+            [
+              "m",
+              "Transcription externe : 3 j",
+              "workflow Haylee",
+              "O"
+            ],
+            [
+              "m",
+              "Base de verbatims longue à constituer (3 jours de stagiaire sur un projet)",
+              "méthodo M&T · une seule source",
+              "O"
+            ],
+            [
+              "m",
+              "Méthode de transcription passée perdue",
+              "fiche échantillon sept.",
+              "M"
+            ]
+          ]
+        },
+        {
+          "n": "5",
+          "t": "Analyse & storyline",
+          "d": "1 à 7 j",
+          "g": "Tirer les tendances, les archétypes et le fil du rapport.",
+          "s": [
+            "Document d’analyse à partir des mesures et de l’échantillon codé",
+            "Shortlist des tendances",
+            "Archétypes et nuances culturelles par marché",
+            "Storyline et plan",
+            "Revue interne de la storyline"
+          ],
+          "o": [
+            "Claude, Claude Docs",
+            "Word, Google Docs",
+            "Fichier de mesures"
+          ],
+          "l": "Storyline validée en interne",
+          "v": [
+            "Ne construire un archétype que sur preuve, jamais par souci d’exhaustivité.",
+            "Claude reçoit des entrées propres et produit un résultat défini ; il ne décide pas du récit."
+          ],
+          "p": [
+            [
+              "m",
+              "Brouillons IA génériques, à réécrire",
+              "méthodo M&T, 2 méthodes",
+              "O"
+            ],
+            [
+              "m",
+              "Plusieurs versions avant que la structure tienne (de 10 à 25 slides sur un projet)",
+              "méthodo M&T, 2 méthodes",
+              "M"
+            ],
+            [
+              "m",
+              "Les données n’entrent pas toujours dans la structure attendue par le client",
+              "méthodo M&T · une seule source",
+              "M"
+            ]
+          ]
+        },
+        {
+          "n": "6",
+          "t": "Validation client",
+          "d": "délai client",
+          "g": "Faire valider le plan, la liste ou la storyline avant la production.",
+          "s": [
+            "Envoyer le plan, la liste ou la storyline au client",
+            "Point à mi-parcours",
+            "Intégrer ses retours"
+          ],
+          "o": [
+            "Email",
+            "Call"
+          ],
+          "l": "Plan validé",
+          "v": [
+            "La production des deep dives attend la validation ; les slides de mesure peuvent avancer en parallèle."
+          ],
+          "p": [
+            [
+              "h",
+              "Le délai de réponse du client fixe le calendrier",
+              "méthodo M&T, 3 méthodes",
+              "M"
+            ],
+            [
+              "m",
+              "Le client découvre le périmètre et la méthode : temps de pédagogie à prévoir",
+              "méthodo M&T · une seule source",
+              "M"
+            ]
+          ]
+        },
+        {
+          "n": "7",
+          "t": "Production du deck",
+          "d": "4 à 14 j",
+          "g": "Construire le deck, la vidéo et les supports de diffusion.",
+          "s": [
+            "Slides de données à partir du fichier de mesures et de Spate",
+            "Deep dives : visuels, vidéos, verbatims, liens",
+            "Implications pour le client",
+            "Réécrire tout le texte",
+            "Vidéo et bannière de newsletter quand le format le prévoit"
+          ],
+          "o": [
+            "PowerPoint",
+            "Google Slides",
+            "Claude Design",
+            "Spate",
+            "Canva"
+          ],
+          "l": "Deck, vidéo, texte d’introduction",
+          "v": [
+            "Chaque chiffre renvoie au fichier de mesures, chaque verbatim est vérifié à la source."
+          ],
+          "p": [
+            [
+              "h",
+              "Deep dives : l’étape la plus longue (visuels, liens, verbatims), souvent répartie entre plusieurs personnes, d’où des styles qui divergent",
+              "méthodo M&T, 2 méthodes",
+              "M"
+            ],
+            [
+              "h",
+              "Texte rédigé avec Claude à réécrire en entier : l’étape de QA la plus longue sur un projet",
+              "méthodo M&T, 2 méthodes",
+              "O"
+            ],
+            [
+              "m",
+              "Limites d’usage de Claude atteintes en fin de projet (deck, graphiques)",
+              "méthodo M&T, 2 méthodes",
+              "O"
+            ],
+            [
+              "m",
+              "Graphiques refaits à la main dès qu’un chiffre change",
+              "méthodo M&T · une seule source",
+              "O"
+            ],
+            [
+              "m",
+              "Template standard en préparation",
+              "workflow Haylee",
+              "M"
+            ]
+          ]
+        },
+        {
+          "n": "8",
+          "t": "Revue & livraison",
+          "d": "1 à 4 j",
+          "g": "Livrer un rapport propre, puis intégrer les retours.",
+          "s": [
+            "Contrôler les données et les affirmations",
+            "Retirer notes, commentaires internes, requêtes et contenus d’autres projets",
+            "Créer la copie externe selon la convention de nommage",
+            "Présentation, retours du client, version finale",
+            "Archiver"
+          ],
+          "o": [
+            "Google Drive",
+            "Claude (contrôle du deck)"
+          ],
+          "l": "Rapport livré",
+          "v": [
+            "Ne jamais transmettre les requêtes au client : elles sont la propriété intellectuelle de Semantiweb."
+          ],
+          "p": [
+            [
+              "m",
+              "Les retours rouvrent le périmètre ; un changement de slide se répercute sur la vidéo et le texte d’introduction",
+              "méthodo M&T, 3 méthodes",
+              "M"
+            ],
+            [
+              "m",
+              "Revue trop tôt ou trop tard : retravail",
+              "méthodo M&T, 2 méthodes",
+              "M"
+            ]
+          ]
+        }
+      ]
+    },
+    "recurring": {
+      "label": "Rapport récurrent",
+      "team": "mt",
+      "q": "Que s’est-il passé ce mois-ci, ou ce trimestre, sur la marque et ses sujets ?",
+      "def": "Reporting à cadence fixe pour un client (mensuel, trimestriel, semestriel) : détection des sujets, partie quanti, partie quali rédigée, recommandations, sur un deck dont la structure ne change pas d’une édition à l’autre. Peu d’outillage, beaucoup d’écriture.",
+      "meta": [
+        [
+          "Durée",
+          "2 à 5 j par rapport mensuel, 6 à 15 j par rapport trimestriel, 10 à 12 j par rapport semestriel"
+        ],
+        [
+          "Cadence",
+          "Plusieurs rapports pour un même client, à des rythmes différents"
+        ],
+        [
+          "Source",
+          "Méthodo M&T de Bamby (3 méthodes de reporting, lue le 10/11), entretien Simon 29/10"
+        ],
+        [
+          "Limites",
+          "Durées à compléter sur 3 méthodes ; une partie du contenu rédigée pendant l’harmonisation du fichier"
+        ]
+      ],
+      "ph": [
+        {
+          "n": "0",
+          "t": "Kick-off & accès",
+          "d": "0,4 à 0,6 j",
+          "g": "Fixer période et périmètre, ouvrir les accès aux topics.",
+          "s": [
+            "Reprendre le brief, la période (N contre N-1) et les zones",
+            "Obtenir l’accès aux topics Talkwalker et Radarly auprès de leurs responsables",
+            "Copier les fichiers de l’édition précédente"
+          ],
+          "o": [
+            "Talkwalker",
+            "Radarly",
+            "Google Drive",
+            "Float"
+          ],
+          "l": "Accès et dossier prêts",
+          "v": [],
+          "p": []
+        },
+        {
+          "n": "1",
+          "t": "Détection des sujets",
+          "d": "0,2 à 4 j",
+          "g": "Repérer les sujets clés de la période.",
+          "s": [
+            "Détecter les top topics dans l’outil",
+            "Maintenir la plateforme et catégoriser les mentions",
+            "Vérifier à la main les comptes de la marque et de ses dirigeants (LinkedIn) pour les initiatives que l’outil ne capte pas",
+            "Mettre à jour la liste des auteurs suivis"
+          ],
+          "o": [
+            "Radarly",
+            "Talkwalker",
+            "LinkedIn (à la main)"
+          ],
+          "l": "Liste des sujets de la période",
+          "v": [],
+          "p": [
+            [
+              "m",
+              "Comptes de la marque et de ses dirigeants vérifiés à la main : répétitif",
+              "méthodo M&T · une seule source",
+              "O"
+            ],
+            [
+              "m",
+              "Vérifier que toutes les publications et tous les partenariats du client sont bien captés par l’outil",
+              "méthodo M&T · une seule source",
+              "D"
+            ],
+            [
+              "m",
+              "Explorer de gros volumes pour trouver les sujets pertinents",
+              "méthodo M&T · une seule source",
+              "O"
+            ]
+          ]
+        },
+        {
+          "n": "2",
+          "t": "Chiffres & publications",
+          "d": "1 à 6 j",
+          "g": "Rassembler les chiffres et les publications de la période.",
+          "s": [
+            "Lister les publications de la marque (Instagram, TikTok ; Douyin et RED en Chine) avec leurs performances",
+            "Extraire les chiffres par zone, séparément pour l’earned et l’owned",
+            "Taguer les marques suivies"
+          ],
+          "o": [
+            "Talkwalker",
+            "Radarly",
+            "Instagram, TikTok",
+            "Douyin, RED",
+            "Visibrain",
+            "Spate"
+          ],
+          "l": "Fichier de chiffres de la période",
+          "v": [
+            "Vérifier sur Visibrain la répartition earned et owned de TikTok, et calibrer le volume TikTok avec Spate."
+          ],
+          "p": [
+            [
+              "h",
+              "Publications de la marque revues, saisies et classées à la main ; en Chine, Claude et ChatGPT ne récupèrent pas les publications",
+              "méthodo M&T · une seule source",
+              "D"
+            ],
+            [
+              "h",
+              "Extraction longue : filtres à vérifier, extractions séparées pour l’earned et l’owned",
+              "méthodo M&T · une seule source",
+              "O"
+            ],
+            [
+              "h",
+              "Pas de tagging en masse par marque dans Radarly : sur un monitoring d’environ 150 marques, 5 à 6 j d’analystes par trimestre pour la seule récolte, contre moins d’1 j sur Talkwalker. Un tagging historique a bloqué toute la plateforme pendant le test.",
+              "Simon · une seule source",
+              "O"
+            ]
+          ]
+        },
+        {
+          "n": "3",
+          "t": "Partie quanti",
+          "d": "0,5 à 3 j",
+          "g": "Construire les slides de chiffres.",
+          "s": [
+            "Volumes, engagement, tendance et sentiment, N contre N-1",
+            "Comparaison avec les concurrents",
+            "Report des chiffres dans le template"
+          ],
+          "o": [
+            "Talkwalker",
+            "Radarly",
+            "Excel",
+            "PowerPoint"
+          ],
+          "l": "Partie quanti",
+          "v": [],
+          "p": []
+        },
+        {
+          "n": "4",
+          "t": "Partie quali",
+          "d": "1 à 6 j",
+          "g": "Analyser et rédiger : sujets, meilleures et moins bonnes publications, recommandations.",
+          "s": [
+            "Analyser en profondeur les sujets de la période",
+            "Identifier les meilleures publications de la marque, des influenceurs et des consommateurs",
+            "Identifier les publications de la marque les moins performantes",
+            "Mettre à jour les piliers d’image de la marque",
+            "Rédiger les recommandations"
+          ],
+          "o": [
+            "Talkwalker",
+            "Radarly",
+            "Fichiers presse fournis par le client"
+          ],
+          "l": "Partie quali rédigée",
+          "v": [
+            "Classer les voix avec une règle écrite (publication payante ou non, seuil d’abonnés) ; la zone entre 10K et 15K abonnés reste à trancher."
+          ],
+          "p": [
+            [
+              "h",
+              "Exigence de rédaction élevée, avec des recommandations attendues",
+              "méthodo M&T · une seule source",
+              "M"
+            ],
+            [
+              "m",
+              "Analyse exhaustive de sujets parfois complexes",
+              "méthodo M&T · une seule source",
+              "M"
+            ],
+            [
+              "m",
+              "Comptes consommateurs de moins de 10K abonnés difficiles à repérer sur TikTok",
+              "méthodo M&T · une seule source",
+              "D"
+            ]
+          ]
+        },
+        {
+          "n": "5",
+          "t": "Rapport final",
+          "d": "0 à 4 j",
+          "g": "Mettre à jour le deck de l’édition précédente et l’envoyer.",
+          "s": [
+            "Reporter chiffres et publications dans le template",
+            "Relire",
+            "Envoyer au client"
+          ],
+          "o": [
+            "PowerPoint",
+            "Excel",
+            "Teams, email"
+          ],
+          "l": "Rapport envoyé",
+          "v": [],
+          "p": [
+            [
+              "h",
+              "Report manuel d’Excel vers un template dont la structure ne change pas : automatisable",
+              "méthodo M&T · une seule source",
+              "O"
+            ]
+          ]
+        }
+      ]
+    },
+    "maintenance": {
+      "label": "Maintenance de plateforme",
+      "team": "mt",
+      "q": "Les données de l’espace du client sont-elles propres et à jour cette semaine ?",
+      "def": "Entretien récurrent des espaces de listening du client (Talkwalker, Sprinklr) et de ses tableaux de bord : contrôle du bruit, exclusions, règles de tags et filtres, sentiment, nouveaux mots-clés, quotas, journal des modifications. Ce n’est pas une étude : pas de livrable d’analyse, un rapport de nettoyage.",
+      "meta": [
+        [
+          "Cadence",
+          "Chaque lundi pour la semaine écoulée ; certains contrôles mensuels ; tâches ponctuelles à la demande du client"
+        ],
+        [
+          "Durée",
+          "3,5 à 5 h par semaine et par compte ; 3,4 j par cycle de maintenance d’un tableau de bord"
+        ],
+        [
+          "Outils",
+          "Talkwalker ou Sprinklr, dans l’espace du client"
+        ],
+        [
+          "Source",
+          "Méthodo M&T de Bamby (3 méthodes de maintenance, lue le 10/11)"
+        ]
+      ],
+      "ph": [
+        {
+          "n": "0",
+          "t": "Sélection des marques",
+          "d": "~30 min",
+          "g": "Choisir les marques à traiter cette semaine.",
+          "s": [
+            "Classer les marques par évolution des mentions",
+            "Couvrir au moins 10 marques avec un lancement, une campagne, une collaboration ou une activation"
+          ],
+          "o": [
+            "Talkwalker",
+            "Sprinklr"
+          ],
+          "l": "Liste des marques de la semaine",
+          "v": [],
+          "p": []
+        },
+        {
+          "n": "1",
+          "t": "Contrôle du bruit",
+          "d": "2 à 5 h",
+          "g": "Repérer les publications hors sujet et leur cause.",
+          "s": [
+            "Lire les publications à fort engagement et un échantillon aléatoire",
+            "Exporter un échantillon en CSV et le faire analyser par l’IA",
+            "Repérer les auteurs qui publient trop (spam, bots, revendeurs)",
+            "Supprimer les publications clairement hors sujet"
+          ],
+          "o": [
+            "Talkwalker",
+            "Claude, ChatGPT (export CSV)"
+          ],
+          "k": [
+            "cleaning-social-volume"
+          ],
+          "l": "Liste du bruit et de ses causes",
+          "v": [
+            "Une suppression est irréversible.",
+            "Les exclusions proposées par l’IA peuvent être trop larges (« AI », « sale », « music ») : chaque proposition est vérifiée."
+          ],
+          "p": [
+            [
+              "h",
+              "Lecture publication par publication : l’échantillon reste petit, et les comptages varient entre deux lectures de la même période",
+              "méthodo M&T · une seule source",
+              "M"
+            ],
+            [
+              "m",
+              "Talkwalker n’indique pas quel terme de la requête a ramené une publication",
+              "méthodo M&T · une seule source",
+              "O"
+            ],
+            [
+              "m",
+              "Publications coréennes et japonaises souvent polluées (contenu politique)",
+              "méthodo M&T · une seule source",
+              "D"
+            ],
+            [
+              "m",
+              "Comptes homonymes faciles à mal juger",
+              "méthodo M&T · une seule source",
+              "D"
+            ]
+          ]
+        },
+        {
+          "n": "2",
+          "t": "Exclusions & requêtes",
+          "d": "1 h à 1,5 j",
+          "g": "Exclure le bruit sans perdre de publications pertinentes.",
+          "s": [
+            "Écrire l’exclusion sous la requête principale",
+            "Tester en aperçu, puis comparer le volume avant et après sur la même période",
+            "Appliquer, et noter la date du changement",
+            "À la demande : remplacer les jokers (wildcards), requête par requête"
+          ],
+          "o": [
+            "Talkwalker",
+            "Sprinklr",
+            "Bibliothèque de requêtes"
+          ],
+          "k": [
+            "building-talkwalker-queries"
+          ],
+          "l": "Requêtes mises à jour",
+          "v": [
+            "Une exclusion ne doit pas réduire le volume à capter.",
+            "Un changement ne s’applique qu’aux données collectées après la sauvegarde : il crée une marche dans les tableaux de bord."
+          ],
+          "p": [
+            [
+              "h",
+              "Impossible de chiffrer ce qu’une exclusion retire sans comptage avant et après",
+              "méthodo M&T, 2 méthodes",
+              "O"
+            ],
+            [
+              "m",
+              "Les mêmes blocs d’exclusion (marketplace, tarot, adulte, coupons) réécrits pour chaque marque",
+              "méthodo M&T · une seule source",
+              "O"
+            ],
+            [
+              "m",
+              "Jokers remplacés un par un, avec un risque de perte de rappel",
+              "méthodo M&T · une seule source",
+              "O"
+            ],
+            [
+              "m",
+              "Aperçu limité à 25 publications et un mois",
+              "méthodo M&T · une seule source",
+              "O"
+            ]
+          ]
+        },
+        {
+          "n": "3",
+          "t": "Tags, règles & filtres",
+          "d": "1 h à 1,5 j",
+          "g": "Garder des tags et des filtres justes et complets.",
+          "s": [
+            "Vérifier le volume par tag et repérer les trous",
+            "Corriger les règles de tags automatiques",
+            "Contrôler la précision et la couverture des filtres",
+            "Vérifier les listes de comptes owned et paid, taguer les profils",
+            "À la demande : créer une franchise (tag, règle, filtre)"
+          ],
+          "o": [
+            "Talkwalker",
+            "Sprinklr"
+          ],
+          "l": "Tags, règles et filtres à jour",
+          "v": [
+            "Un nom de franchise qui est aussi un mot courant ne suffit pas à construire une règle."
+          ],
+          "p": [
+            [
+              "h",
+              "Les règles peuvent se désactiver ou échouer sans alerte ; la cause est souvent une modification de requête en amont",
+              "méthodo M&T · une seule source",
+              "O"
+            ],
+            [
+              "m",
+              "Le vocabulaire dérive : les filtres perdent du rappel sans que personne ne le voie",
+              "méthodo M&T · une seule source",
+              "D"
+            ],
+            [
+              "m",
+              "Plafond d’environ 500 règles sur la plateforme, dont environ 350 déjà utilisées",
+              "méthodo M&T · une seule source",
+              "O"
+            ],
+            [
+              "m",
+              "Vérifier qu’un profil correspond à sa liste peut prendre près d’une heure",
+              "méthodo M&T · une seule source",
+              "O"
+            ]
+          ]
+        },
+        {
+          "n": "4",
+          "t": "Mots-clés des lancements",
+          "d": "1 à 2 h",
+          "g": "Ajouter les lancements et les activations de la semaine.",
+          "s": [
+            "Repérer les lancements, collaborations et ambassadeurs de la semaine",
+            "Vérifier qu’ils ne sont pas déjà dans la liste",
+            "Écrire les mots-clés (nom de marque accolé à un nom générique, orthographe officielle) et les placer dans la bonne liste"
+          ],
+          "o": [
+            "Sprinklr",
+            "LinkedIn, Instagram",
+            "ChatGPT, Gemini"
+          ],
+          "l": "Listes de mots-clés à jour",
+          "v": [
+            "Ne jamais répéter un mot-clé déjà présent, ni un lancement d’une semaine précédente."
+          ],
+          "p": [
+            [
+              "m",
+              "Repérer les lancements de la semaine sans répéter les précédents : jusqu’à une heure d’allers-retours",
+              "méthodo M&T · une seule source",
+              "O"
+            ],
+            [
+              "m",
+              "Mots-clés ou hashtags génériques signalés par le client comme source de pollution",
+              "méthodo M&T · une seule source",
+              "D"
+            ]
+          ]
+        },
+        {
+          "n": "5",
+          "t": "Sentiment & tableaux de bord",
+          "d": "0,5 à 4 h",
+          "g": "Corriger le sentiment et vérifier les widgets.",
+          "s": [
+            "Contrôler et corriger le sentiment sur un échantillon",
+            "Vérifier les nuages de mots et les widgets de thèmes"
+          ],
+          "o": [
+            "Talkwalker"
+          ],
+          "l": "Sentiment corrigé, tableaux de bord vérifiés",
+          "v": [],
+          "p": [
+            [
+              "m",
+              "Le sentiment automatique lit mal l’argot et l’ironie, et laisse l’essentiel en neutre",
+              "méthodo M&T · une seule source",
+              "D"
+            ],
+            [
+              "m",
+              "Liste de mots bloqués en correspondance exacte, 32 caractères maximum ; nuages calculés sur 5 000 documents",
+              "méthodo M&T · une seule source",
+              "O"
+            ]
+          ]
+        },
+        {
+          "n": "6",
+          "t": "Quota & journal",
+          "d": "15 min à 1 h",
+          "g": "Tracer les changements et éviter les coupures de collecte.",
+          "s": [
+            "Vérifier le quota mensuel de résultats",
+            "Noter chaque changement dans le journal",
+            "Remplir le rapport de nettoyage hebdomadaire (volume et croissance de la semaine), puis relire"
+          ],
+          "o": [
+            "Talkwalker",
+            "Sprinklr",
+            "Journal des modifications",
+            "Rapport hebdomadaire"
+          ],
+          "l": "Journal et rapport de nettoyage",
+          "v": [
+            "Volume et croissance sont ceux de la semaine écoulée : une mauvaise période fausse le rapport."
+          ],
+          "p": [
+            [
+              "h",
+              "Talkwalker ne garde pas d’historique lisible des modifications : le journal est la seule trace pour expliquer une marche dans les chiffres",
+              "méthodo M&T · une seule source",
+              "O"
+            ],
+            [
+              "m",
+              "Dépasser le quota peut arrêter la collecte",
+              "méthodo M&T · une seule source",
+              "O"
+            ],
+            [
+              "m",
+              "Format du journal qui dérive d’un rapport à l’autre ; fautes dans les noms de produits",
+              "méthodo M&T, 2 méthodes",
+              "M"
+            ],
+            [
+              "m",
+              "Crédits Claude hebdomadaires épuisés en 3 jours sur les tâches automatisées",
+              "méthodo M&T · une seule source",
+              "O"
+            ]
+          ]
+        }
+      ]
+    },
+    "digest": {
+      "label": "Brand digest",
+      "team": "mt",
+      "q": "Comment la marque évolue-t-elle sur la période, face à ses concurrents ?",
+      "def": "Rapport récurrent sur une marque, un produit ou un sujet : perception, évolution de la conversation, plateformes, saisonnalité, sentiment, avis, TikTok, recherche. Structure fixe réutilisée d’un client à l’autre, seuls les visuels et les couleurs changent. Contrairement aux autres méthodes M&T, il s’appuie aussi sur le Corpus Manager et l’ICC (avis, facettes). Rangé dans la famille SML comme format court de brand audit ; produit par M&T, récurrent pour certaines marques.",
+      "meta": [
+        [
+          "Fréquence",
+          "~3 par mois pour une analyste"
+        ],
+        [
+          "Durée",
+          "5,75 j pour un digest sur 2 marchés et 4 sources (méthodo M&T), 5 j selon Bamby, 3 j estimés par la direction"
+        ],
+        [
+          "Outils",
+          "jusqu’à 18 selon Bamby"
+        ],
+        [
+          "Nom",
+          "Brand digest, confirmé par la méthodo M&T"
+        ],
+        [
+          "Source",
+          "Méthodo M&T (onglet Brand digests, 32 étapes d’origine, lue le 10/11), entretien Bamby 28/10, playbook Digest v1.0"
+        ],
+        [
+          "Limites",
+          "Pain points et automatisations de la méthodo rédigés par IA, à valider ; durées en estimation ponctuelle"
+        ]
+      ],
+      "ph": [
+        {
+          "n": "0",
+          "t": "Kick-off & brief",
+          "d": "0,3 j",
+          "g": "Fixer périmètre, concurrents, marchés et périodes avant toute extraction.",
+          "s": [
+            "Copier le playbook et remplir le bloc de setup (marchés, concurrents, périodes)",
+            "Remplir le brief du type de digest (marque, produit ou sujet)",
+            "Faire valider le brief par le project lead",
+            "Vérifier ce qui peut être réutilisé (requêtes, facettes)",
+            "Planifier dans Float"
+          ],
+          "o": [
+            "Playbook Digest (Google Sheet)",
+            "Google Drive",
+            "Float"
+          ],
+          "c": [
+            "building-radarly-queries",
+            "building-corpus-facets"
+          ],
+          "k": [],
+          "l": "Brief validé",
+          "v": [
+            "Le playbook impose la validation du brief par le project lead avant toute extraction."
+          ],
+          "p": [
+            [
+              "m",
+              "Requêtes rangées dans le Drive personnel de l’analyste, transmises par copie de fichier",
+              "Bamby · une seule source",
+              "O"
+            ],
+            [
+              "m",
+              "Périmètre (marchés, période, concurrents) ressaisi dans chaque outil, dans le deck et dans les notes de bas de page",
+              "méthodo M&T, rédigé par IA",
+              "O"
+            ]
+          ]
+        },
+        {
+          "n": "1",
+          "t": "Desk research",
+          "d": "0,7 j",
+          "g": "Connaître les lancements de la période et vérifier la faisabilité.",
+          "s": [
+            "Vérifier marque, produits et lancements (site, Instagram, TikTok, presse)",
+            "Lister et cartographier les produits",
+            "Pré-vérifier les volumes par marque et par marché",
+            "Valider le jeu de concurrents"
+          ],
+          "o": [
+            "Web, presse",
+            "Instagram, TikTok",
+            "Corpus Manager"
+          ],
+          "l": "Fiche marque, liste de produits, note de faisabilité",
+          "v": [],
+          "p": [
+            [
+              "m",
+              "Recherche refaite à chaque édition, même pour une marque déjà couverte ; dates de lancement trouvées tard",
+              "méthodo M&T, rédigé par IA",
+              "M"
+            ],
+            [
+              "m",
+              "Pas de base minimale de volume convenue : la faisabilité varie selon l’analyste",
+              "méthodo M&T, rédigé par IA",
+              "M"
+            ]
+          ]
+        },
+        {
+          "n": "2",
+          "t": "Query",
+          "d": "0,3 j",
+          "g": "Une requête propre, archivée pour l’édition suivante.",
+          "s": [
+            "Reprendre la requête de la marque et la mettre à jour",
+            "Tester et nettoyer sur un échantillon",
+            "Archiver la requête validée"
+          ],
+          "o": [
+            "Radarly",
+            "Bibliothèque de requêtes"
+          ],
+          "c": [
+            "building-radarly-queries",
+            "cleaning-social-volume"
+          ],
+          "k": [
+            "building-talkwalker-queries"
+          ],
+          "l": "Requête validée et archivée",
+          "v": [],
+          "p": [
+            [
+              "m",
+              "Requêtes reconstruites même quand une requête proche existe ; mêmes sources de bruit redécouvertes à chaque projet",
+              "méthodo M&T, rédigé par IA",
+              "M"
+            ],
+            [
+              "m",
+              "Requêtes stockées seulement dans les projets Radarly : versions et raisons des exclusions perdues",
+              "méthodo M&T, rédigé par IA",
+              "O"
+            ]
+          ]
+        },
+        {
+          "n": "3",
+          "t": "Collecte",
+          "d": "0,45 j",
+          "g": "Lancer toutes les extractions de la période.",
+          "s": [
+            "Lancer le projet de listening (N et N-1, toutes les plateformes)",
+            "Volumes YouTube",
+            "Projet de recherche dans Trajaan",
+            "Extraire les avis",
+            "Exporter les KPI de Radarly"
+          ],
+          "o": [
+            "Radarly",
+            "Meltwater",
+            "Synthesio",
+            "Trajaan",
+            "Corpus Manager"
+          ],
+          "c": [
+            "building-corpus-facets"
+          ],
+          "l": "Exports et projets prêts",
+          "v": [],
+          "p": [
+            [
+              "h",
+              "KPI exportés tableau par tableau puis recopiés à la main : première source d’écarts entre le deck et le fichier",
+              "méthodo M&T, rédigé par IA",
+              "O"
+            ],
+            [
+              "m",
+              "Trois méthodes possibles pour YouTube : chiffres non comparables d’un digest à l’autre",
+              "méthodo M&T, rédigé par IA",
+              "M"
+            ],
+            [
+              "m",
+              "Export Radarly plafonné, découpage par mois",
+              "Bamby, méthodo SML",
+              "O"
+            ]
+          ]
+        },
+        {
+          "n": "4",
+          "t": "Coquille du deck",
+          "d": "0,1 j",
+          "g": "Préparer le deck avant de le remplir.",
+          "s": [
+            "Logos, couleurs, drapeaux, dates et notes de bas de page"
+          ],
+          "o": [
+            "PowerPoint",
+            "flaticon",
+            "ssstik, fastdl"
+          ],
+          "l": "Deck prêt à remplir",
+          "v": [],
+          "p": [
+            [
+              "m",
+              "Tâche répétitive : logos recherchés à chaque fois, éléments modifiés un par un",
+              "méthodo M&T, rédigé par IA",
+              "O"
+            ]
+          ]
+        },
+        {
+          "n": "5",
+          "t": "Volumes & sentiment",
+          "d": "0,5 j",
+          "g": "Obtenir volumes et sentiment par plateforme, cohérents avec le total de la marque.",
+          "s": [
+            "Volumes et sentiment par plateforme (Instagram, Reddit, X, YouTube)",
+            "YouTube : extrapoler l’historique manquant à partir des mois disponibles",
+            "Recalculer le sentiment sur le volume réel quand positif, neutre et négatif ne font pas le total",
+            "Appliquer un même coefficient à toutes les évolutions pour garder les dynamiques relatives (pratique de Bamby, à valider)",
+            "Évolution mensuelle, pics et classement des marchés"
+          ],
+          "o": [
+            "Radarly",
+            "Meltwater (TikTok, YouTube)",
+            "Excel"
+          ],
+          "l": "Onglet volumes et sentiment",
+          "v": [
+            "Si les évolutions par plateforme ou par catégorie ne retombent pas sur le total de la marque, chercher l’erreur avant de publier.",
+            "Quand un chiffre n’est pas fiable, montrer une tendance (flèche) plutôt qu’une valeur, et l’expliquer au client."
+          ],
+          "p": [
+            [
+              "h",
+              "Évolutions peu fiables : historique manquant, définition du « post » variable selon les plateformes",
+              "Bamby · une seule source",
+              "D"
+            ],
+            [
+              "m",
+              "Sentiment Radarly incohérent avec le volume total",
+              "Bamby · une seule source",
+              "D"
+            ],
+            [
+              "m",
+              "Pics repérés à l’œil ; volume TikTok estimé (couverture Radarly partielle)",
+              "méthodo M&T, rédigé par IA",
+              "D"
+            ]
+          ]
+        },
+        {
+          "n": "6",
+          "t": "Sujets & mots",
+          "d": "0,2 j",
+          "g": "Faire ressortir les sujets et le vocabulaire de la période.",
+          "s": [
+            "Top sujets",
+            "Marques, emojis et mots associés",
+            "Nuage de mots"
+          ],
+          "o": [
+            "Radarly",
+            "Corpus Manager",
+            "Bibliothèque de facettes",
+            "WordArt"
+          ],
+          "l": "Slides sujets et mots",
+          "v": [],
+          "p": [
+            [
+              "h",
+              "Étape la plus lourde en lecture ; jeux de mots-clés des sujets refaits à chaque digest",
+              "méthodo M&T, rédigé par IA",
+              "M"
+            ],
+            [
+              "m",
+              "Nuage de mots construit à la main",
+              "méthodo M&T, rédigé par IA",
+              "O"
+            ]
+          ]
+        },
+        {
+          "n": "7",
+          "t": "Échantillon TikTok",
+          "d": "0,35 j",
+          "g": "Estimer volume et répartition par pays sur TikTok, absent de Radarly.",
+          "s": [
+            "Générer dans Trajaan les hashtags associés aux mots-clés",
+            "Additionner les vues des hashtags (monde, sans limite de période)",
+            "Classer et coder un échantillon de publications par pays et par année",
+            "Extrapoler la répartition par pays et le volume annuel, puis diviser par 12"
+          ],
+          "o": [
+            "Trajaan",
+            "TikTok",
+            "Excel",
+            "ssstik, ezgif"
+          ],
+          "l": "Onglet TikTok",
+          "v": [
+            "Les résultats de recherche TikTok sont personnalisés et non reproductibles (playbook).",
+            "Taille d’échantillon : 25 à 30 vidéos dans le playbook, environ 40 publications selon Bamby. À harmoniser."
+          ],
+          "p": [
+            [
+              "h",
+              "Processus entièrement manuel, extrapolé à partir d’un petit échantillon",
+              "Bamby · une seule source",
+              "O"
+            ],
+            [
+              "m",
+              "Légendes et performances saisies à la main (erreurs de format comme « 15.1M »)",
+              "méthodo M&T, rédigé par IA",
+              "O"
+            ]
+          ]
+        },
+        {
+          "n": "8",
+          "t": "Ratings & reviews",
+          "d": "1 j",
+          "g": "Lire les avis sur les produits de la marque.",
+          "s": [
+            "Partir du dernier corpus d’avis dédoublonné",
+            "Sentiment calculé à partir des notes (étoiles)",
+            "Attributs de la marque face à la catégorie",
+            "Meilleurs et pires produits, verbatims par attribut"
+          ],
+          "o": [
+            "Corpus Manager",
+            "ICC (graphique des notes)",
+            "Bibliothèque de facettes"
+          ],
+          "l": "Onglets avis",
+          "v": [],
+          "p": [
+            [
+              "m",
+              "Facettes relancées entité par entité ; notes transformées en dates au collage dans Excel",
+              "méthodo M&T, rédigé par IA",
+              "O"
+            ]
+          ]
+        },
+        {
+          "n": "9",
+          "t": "Recherche Google",
+          "d": "0,3 j",
+          "g": "Mesurer l’intérêt de recherche par marché.",
+          "s": [
+            "Volumes de recherche mensuels par marché, N contre N-1",
+            "Même jeu de mots-clés pour chaque marché, traduit si besoin",
+            "Top mots et hashtags associés"
+          ],
+          "o": [
+            "Trajaan"
+          ],
+          "l": "Onglet recherche",
+          "v": [],
+          "p": [
+            [
+              "m",
+              "Données recopiées à la main, libellés de période souvent faux, pics social et recherche comparés à l’œil",
+              "méthodo M&T, rédigé par IA",
+              "O"
+            ]
+          ]
+        },
+        {
+          "n": "10",
+          "t": "Corpus, facettes & fréquences",
+          "d": "audits complets",
+          "g": "Analyser tous les sous-sujets à la fois et faire ressortir ce qui distingue la marque.",
+          "s": [
+            "Charger les facettes par fichier Excel dans le Corpus Manager (catégorie, nom, requête)",
+            "Fréquences par facette ou par corpus",
+            "Fréquence différentielle : comparer deux marques ou deux facettes pour faire ressortir les mots sur-représentés"
+          ],
+          "o": [
+            "Corpus Manager",
+            "ICC"
+          ],
+          "k": [
+            "building-corpus-facets"
+          ],
+          "l": "Facettes, fréquences",
+          "v": [
+            "Selon Bamby, un junior doit faire son premier rapport à la main avant d’utiliser Claude, pour comprendre la méthode."
+          ],
+          "p": [
+            [
+              "h",
+              "Pas de bibliothèque de facettes partagée : chacun garde ses requêtes",
+              "Bamby, Emilie, Yiying",
+              "O"
+            ],
+            [
+              "m",
+              "Pas de facettes préchargées parfum, maquillage, soin dans l’ICC",
+              "Bamby · une seule source",
+              "O"
+            ]
+          ]
+        },
+        {
+          "n": "11",
+          "t": "Synthèse",
+          "d": "0,8 j",
+          "g": "Tirer les key learnings et compléter le deck.",
+          "s": [
+            "Key learnings à partir de tous les onglets",
+            "Compléter le deck (chiffres, graphiques, verbatims, notes)",
+            "Adapter couleurs et visuels à la marque"
+          ],
+          "o": [
+            "PowerPoint",
+            "Google Slides"
+          ],
+          "l": "Digest complet",
+          "v": [],
+          "p": [
+            [
+              "h",
+              "Report manuel des chiffres dans le deck : principale source d’écarts trouvés en QA",
+              "méthodo M&T, rédigé par IA",
+              "O"
+            ],
+            [
+              "m",
+              "3 j estimés, 5 j en réalité",
+              "Bamby · une seule source",
+              "M"
+            ]
+          ]
+        },
+        {
+          "n": "12",
+          "t": "Revue & livraison",
+          "d": "0,55 j",
+          "g": "Livrer un digest vérifié.",
+          "s": [
+            "Checklist projet avant la revue interne, puis avant la livraison (sommes à 100 %, mois en anglais, X plutôt que Twitter)",
+            "Revue par un pair",
+            "Nettoyage avant envoi",
+            "Retours et livraison"
+          ],
+          "o": [
+            "Playbook (onglet checklist)"
+          ],
+          "l": "Digest livré",
+          "v": [],
+          "p": [
+            [
+              "m",
+              "Le relecteur ne voit pas d’un coup d’œil quels chiffres sont estimés, extrapolés ou produits avec l’IA",
+              "méthodo M&T, rédigé par IA",
+              "M"
+            ],
+            [
+              "m",
+              "Restes du template ou de digests précédents envoyés au client",
+              "méthodo M&T, rédigé par IA",
+              "M"
+            ]
+          ]
+        },
+        {
+          "n": "F",
+          "t": "Suivi",
+          "d": "0,2 j",
+          "g": "Garder ce qui a été appris pour l’édition suivante.",
+          "s": [
+            "Mettre à jour la bibliothèque de données",
+            "Retour client et rétrospective"
+          ],
+          "o": [],
+          "l": "Bibliothèque à jour",
+          "v": [],
+          "p": [
+            [
+              "m",
+              "Les apprentissages restent dans le dossier du projet : l’édition suivante repart de zéro",
+              "méthodo M&T, rédigé par IA",
+              "M"
+            ],
+            [
+              "m",
+              "Temps réel par étape non suivi : les gains d’automatisation ne sont pas mesurables",
+              "méthodo M&T, rédigé par IA",
+              "M"
+            ]
+          ]
+        }
+      ]
+    }
+  },
+  "documents": {
+    "cadrage": [
+      [
+        "Méthode détaillée par type d'audit (SML Strat)",
+        "402cc9aecea581a08be0ce645683a3d3",
+        "sml"
+      ],
+      [
+        "Types of SML Projects (formation 2024)",
+        "3fbcc9aecea581018e85da698fdb002c",
+        "sml"
+      ],
+      [
+        "Process pour consultants et managers",
+        "3fbcc9aecea5810d9d6ad15aa18e6902",
+        "sml"
+      ],
+      [
+        "Modèle de demande de corpus",
+        "3fbcc9aecea581f59c85cbf67babee25",
+        "sml"
+      ],
+      [
+        "Modèle d'espace d'équipe client",
+        "3fbcc9aecea581be843dca565dc14455",
+        ""
+      ],
+      [
+        "Workflow d'étude M&T",
+        "402cc9aecea58168925ede5dd9951655",
+        "mt"
+      ]
+    ],
+    "comprehension": [
+      [
+        "Beauty 101",
+        "3fbcc9aecea581f9a8e6e10c702d6aad",
+        ""
+      ],
+      [
+        "Classification des marques et top players",
+        "3fbcc9aecea581a785d0f0d4696813fa",
+        ""
+      ],
+      [
+        "Exemples de livrables par type d'étude",
+        "3fbcc9aecea58120b5e1f0279baf0335",
+        "sml"
+      ]
+    ],
+    "requetes": [
+      [
+        "How to create the perfect query",
+        "3fbcc9aecea581a4b320dc4cc6f30acf",
+        ""
+      ],
+      [
+        "Requêtes booléennes Radarly",
+        "3fbcc9aecea581c092c9e3fe89010fd6",
+        ""
+      ],
+      [
+        "Requêtes de dépollution par marché",
+        "3fbcc9aecea58102b28efedfa288deb4",
+        ""
+      ],
+      [
+        "Vérifier une requête Radarly (vidéo)",
+        "3fbcc9aecea58107b578dfaa48ee3638",
+        ""
+      ],
+      [
+        "Skill Claude : requêtes Talkwalker",
+        "3fbcc9aecea581e09b6bd208aca85aa3",
+        ""
+      ],
+      [
+        "Formation Visibrain (obligatoire)",
+        "3fbcc9aecea581c18818d17571074bb7",
+        ""
+      ]
+    ],
+    "crawl": [
+      [
+        "Documentation de l'interface de crawl",
+        "3fbcc9aecea5814ca714d88b0d87a3d9",
+        ""
+      ],
+      [
+        "Formation crawl des avis Chine (à vérifier)",
+        "407cc9aecea5812ea11dc259a6a7f809",
+        ""
+      ],
+      [
+        "Ressources corpus (Mantis, crawl semi-manuel)",
+        "3fbcc9aecea581e0bc3edcf98e45a61b",
+        ""
+      ],
+      [
+        "Modèle de demande de crawl d'avis",
+        "3fbcc9aecea58156a427e4854e28d22e",
+        ""
+      ]
+    ],
+    "corpus": [
+      [
+        "Préparer un fichier pour le Corpus Manager",
+        "3fbcc9aecea581d68541c8dfc84b3dc4",
+        ""
+      ],
+      [
+        "Workflow Files Tools pour analyste",
+        "3fbcc9aecea58160aecde9bbe4d1a015",
+        ""
+      ],
+      [
+        "Charger un fichier traité dans le Corpus Manager",
+        "3fbcc9aecea5818e9347c1bd971ee6d9",
+        ""
+      ],
+      [
+        "Des données brutes au corpus",
+        "3fbcc9aecea581ffb333e2aef3a37c65",
+        ""
+      ],
+      [
+        "How to create the perfect corpus",
+        "3fbcc9aecea5819cb26bc2727cb03c49",
+        ""
+      ],
+      [
+        "Facettes officielles pour projets ad hoc",
+        "3fbcc9aecea5812999f7e2f5de16510e",
+        ""
+      ],
+      [
+        "Bibliothèque de facettes (Looker Studio)",
+        "400cc9aecea5813bb19dc33a3fa09794",
+        ""
+      ],
+      [
+        "Documentation Corpus Manager",
+        "3fbcc9aecea581c99912c74761038947",
+        ""
+      ],
+      [
+        "Formation Files Tools, Corpus Manager et ICC",
+        "3fbcc9aecea581559cb9d169a1b4b6e7",
+        ""
+      ],
+      [
+        "Facet Library chinoise (à vérifier)",
+        "407cc9aecea5815b963adccb4b418675",
+        ""
+      ]
+    ],
+    "analyse": [
+      [
+        "Interroger les corpus dans Claude (guide)",
+        "3fbcc9aecea58172b218edcefb225f8b",
+        ""
+      ],
+      [
+        "Activer le connecteur Solr dans Claude",
+        "3fbcc9aecea58195b0ecf4b9e37b76f2",
+        ""
+      ],
+      [
+        "Interface de consultation des corpus",
+        "3fbcc9aecea5813aaa9ff87b037f27e4",
+        ""
+      ],
+      [
+        "Skill Claude : analyse de réception VoC",
+        "3fbcc9aecea581ce8ab0f75508136778",
+        ""
+      ],
+      [
+        "Skill Claude : projet social listening",
+        "3fbcc9aecea58145b315f81a35c6944f",
+        ""
+      ]
+    ],
+    "rr": [
+      [
+        "R&R 10 pager",
+        "3fbcc9aecea58180b127c5bdef5b10eb",
+        ""
+      ],
+      [
+        "Formation crawl des avis Chine (à vérifier)",
+        "407cc9aecea5812ea11dc259a6a7f809",
+        ""
+      ],
+      [
+        "Modèle de demande de crawl d'avis",
+        "3fbcc9aecea58156a427e4854e28d22e",
+        ""
+      ]
+    ],
+    "livrable": [
+      [
+        "Exemples de livrables par type d'étude",
+        "3fbcc9aecea58120b5e1f0279baf0335",
+        "sml"
+      ]
+    ],
+    "qa": [
+      [
+        "Guidelines et checklist projet (2024)",
+        "3fbcc9aecea5810c8792f7e3f17806a7",
+        ""
+      ]
+    ],
+    "maintenance": []
+  }
+}

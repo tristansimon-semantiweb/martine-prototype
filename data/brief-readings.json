@@ -1,0 +1,37 @@
+{
+  "_meta": {
+    "note": "What Martine reads in each example brief (data/briefs-exemples.json). Scripted for the prototype (AI-assisted), to review."
+  },
+  "readings": {
+    "trend_report": {
+      "method": "trend_report",
+      "type": "Trend report",
+      "family": "Trends",
+      "client": "Maison Arlette",
+      "title": "Trend watch: hair skinification",
+      "short": "Hair skinification",
+      "due": "2027-01-15",
+      "scope": "Hair skinification in France, the UK and Japan.",
+      "daysSold": 28,
+      "toClarify": [
+        "Delivery date: the brief sets the presentation on January 15; confirm when the client wants the deck to review it.",
+        "Platforms: the brief asks which platforms carry the routines but only names TikTok creators; confirm the platform scope."
+      ]
+    },
+    "brand_audit": {
+      "method": "brand_audit",
+      "type": "Brand audit",
+      "family": "SML",
+      "client": "Lumen Café",
+      "title": "Lumen Café brand audit",
+      "short": "Lumen Café brand audit",
+      "due": "2027-02-05",
+      "scope": "Brand perception against three premium competitors, in France and Spain, over the last 24 months.",
+      "daysSold": null,
+      "toClarify": [
+        "Competitors: the brief mentions three premium competitors without naming them.",
+        "Budget: no number of days in the brief."
+      ]
+    }
+  }
+}

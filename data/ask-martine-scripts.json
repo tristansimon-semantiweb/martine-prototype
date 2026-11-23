@@ -1,0 +1,76 @@
+{
+  "_meta": {
+    "note": "Scripted Ask Martine answers. Every answer carries its sources. 'study' answers apply to the study they name ({study} in a source link is replaced by its id); 'all' answers apply everywhere else. Written for the prototype (AI-assisted), to review."
+  },
+  "scripts": [
+    {
+      "id": "period",
+      "scope": "study",
+      "study": "TR-2611-01",
+      "question": "What did the client decide on the period?",
+      "keywords": ["period", "decide", "decided", "months", "timeframe"],
+      "answer": "The last 12 months against the previous 12. The client confirmed it on December 2; the brief mentioned 24 months on one page, which Claire flagged at kick-off.",
+      "sources": [
+        { "label": "Decision, Dec 2", "href": "/studies/{study}" },
+        { "label": "Client brief, page 3", "href": "/studies/{study}/files" }
+      ]
+    },
+    {
+      "id": "reuse-queries",
+      "scope": "study",
+      "study": "TR-2611-01",
+      "question": "Can I reuse the queries from the last wave?",
+      "keywords": ["reuse", "last wave", "previous wave", "queries"],
+      "answer": "Partly. The previous wave’s queries cover France and the UK, not Japan. Several were rewritten mid-project, which forced a rerun: the method now says to lock them before measuring.",
+      "sources": [
+        { "label": "Queries, previous wave", "href": "/studies/{study}/files" },
+        { "label": "Method, phase 2", "href": "/methods/trend_report?phase=2" }
+      ]
+    },
+    {
+      "id": "stand",
+      "scope": "study",
+      "study": "TR-2611-01",
+      "question": "Where do we stand?",
+      "keywords": ["stand", "status", "where are we", "progress", "on track"],
+      "answer": "Phase 2, Talkwalker set-up and queries. The topic audit is done; the multilingual queries are being built and still need a native review of the Japanese before Claire approves them.\n\n- **Days:** 3.5 used out of 28 sold.\n- **Open with the client:** the delivery date.",
+      "sources": [
+        { "label": "Steps, phase 2", "href": "/studies/{study}/steps?phase=2" },
+        { "label": "Points to clarify", "href": "/studies/{study}" }
+      ]
+    },
+    {
+      "id": "email",
+      "scope": "study",
+      "study": "TR-2611-01",
+      "question": "Draft the email on the points to clarify",
+      "keywords": ["email", "draft", "clarify", "mail"],
+      "answer": "Here is a draft for Claire to send:\n\n*Hello, thank you for the brief. Before we start measuring, one point to confirm: the delivery date. The presentation is set for January 15; when would you like to receive the deck to review it? Best regards, Claire*\n\nThe period is already settled (December 2), so it is not in the email.",
+      "sources": [
+        { "label": "Scope and points to clarify", "href": "/studies/{study}/files" },
+        { "label": "Decision, Dec 2", "href": "/studies/{study}" }
+      ]
+    },
+    {
+      "id": "today",
+      "scope": "all",
+      "question": "What needs me today?",
+      "keywords": ["today", "needs me", "to do", "priority", "urgent"],
+      "answer": "Two things:\n\n- **Hair skinification:** the queries milestone waits for Claire’s approval once the Japanese review is done.\n- **November monthly report:** due November 30, collection is half done.",
+      "sources": [
+        { "label": "Hair skinification, Steps", "href": "/studies/TR-2611-01/steps?phase=2" },
+        { "label": "November monthly report", "href": "/studies/MR-2611-04" }
+      ]
+    },
+    {
+      "id": "over-budget",
+      "scope": "all",
+      "question": "Which studies run over the days sold?",
+      "keywords": ["over", "budget", "days sold", "overrun", "time"],
+      "answer": "One: Ingredients 2027, wave 2, at 31 days for 30 sold. Where the time went by step is not measured yet; it will be once time is tracked per task in Martine.",
+      "sources": [
+        { "label": "Oversight", "href": "/oversight" }
+      ]
+    }
+  ]
+}

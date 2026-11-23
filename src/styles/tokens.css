@@ -1,0 +1,192 @@
+/* =============================================================================
+ * Design Tokens, Martine (ported from the R&R prototype, reference/rr)
+ * =============================================================================
+ * Same tokens as R&R: cream canvas, white cards, indigo accent, Newsreader and
+ * Source Sans 3. Martine adds the study-family colors and the attention tone.
+ * ============================================================================= */
+
+@theme {
+	/* ── Colors: backgrounds ── */
+	--color-canvas: #faf8f4;
+	--color-surface: #ffffff;
+	--color-elevated: #f1f1f4;
+	--color-hover: rgba(90, 70, 50, 0.06);
+	--color-active: rgba(90, 70, 50, 0.10);
+
+	/* ── Colors: text ── */
+	--color-ink: #2d2926;
+	--color-ink-secondary: #55504b;
+	--color-ink-muted: #6b6560;
+
+	/* ── Colors: accent (original design-system indigo; the client's own color
+	   is applied only to the nav bar via preferences) ── */
+	--color-accent: #473b97;
+
+	/* ── Colors: accent warm (bronze doré) ── */
+	--color-accent-warm: #b8862d;
+
+	/* ── Colors: borders — hairlines for a lighter, modern feel ── */
+	--color-border: rgba(60, 50, 45, 0.10);
+	--color-border-hover: rgba(60, 50, 45, 0.18);
+	--color-border-active: rgba(60, 50, 45, 0.28);
+
+	/* ── Colors: sentiment ──
+	   Sentiment is its own hue system, kept OFF the brand violet so a coloured
+	   mark never carries two meanings. Positive = teal-emerald green (cool, so it
+	   sits with the violet), negative = crimson red, neutral = grey. The violet
+	   accent is reserved for brand / neutral magnitude / categorical identity —
+	   never for "positive". Green↔red is the weakest colour-blind pair, so every
+	   sentiment mark also carries a label / icon / position, never colour alone. */
+	--color-positive: #0f8a6a;
+	--color-positive-bg: #e0f0eb;
+	--color-negative: #d63a4f;
+	--color-negative-bg: #fdebed;
+	--color-neutral: #8b939b;
+	--color-neutral-bg: #f4f5f7;
+
+	/* ── Colors: ABSA/sentiment highlights (text background) ── */
+	--color-highlight-positive: #bce4d1;
+	--color-highlight-negative: #f6ccd0;
+
+	/* Verbatim sentiment highlights — soft green/red, scoped to the verbatim
+	   reader so the spans read as sentiment without being aggressive (the rest of
+	   the app keeps the brand purple/orange scale above). */
+	--color-verbatim-positive: #d8ecde;
+	--color-verbatim-positive-ink: #3f8a5c;
+	--color-verbatim-negative: #f5d9d3;
+	--color-verbatim-negative-ink: #c8604a;
+	--color-highlight-neutral: #e4e6ea;
+
+	/* ── Colors: semantic ── */
+	--color-error: #d4524d;
+	--color-bar-empty: rgba(90, 70, 50, 0.06);
+
+	/* ── Colors: chart palette ── muted / desaturated so it never reads as
+	   aggressive, yet stays dark enough to hold white labels on tiles & bars. */
+	--color-chart-1: #574d94;
+	--color-chart-2: #965cae;
+	--color-chart-3: #47875f;
+	--color-chart-4: #b1615f;
+	--color-chart-5: #6f74b3;
+	--color-chart-6: #438e9a;
+	--color-chart-7: #806397;
+	--color-chart-8: #b16187;
+
+	/* ── Colors: app identity ── */
+	--color-app-explorer: #3d6b9b;
+	--color-app-studio: #8b5a7a;
+	--color-app-reviews: #8b2e4b;
+	--color-app-echo: #2e6b52;
+	--color-app-pulse: #c4593a;
+	--color-app-trends: #2d6a4f;
+
+	/* ── Martine: study families (sidebar dots, family pills) ── */
+	--color-family-trends: #2d6a4f;
+	--color-family-trends-bg: #e3efe8;
+	--color-family-monitoring: #3d6b9b;
+	--color-family-monitoring-bg: #e6eef6;
+	--color-family-sml: #8b5a7a;
+	--color-family-sml-bg: #efe7ee;
+
+	/* ── Martine: attention (points to clarify, notes, consultant additions) ── */
+	--color-attention: #6b4e17;
+	--color-attention-bg: #f6eedd;
+	--color-attention-soft: #fbf6ec;
+
+	/* ── Font families ── */
+	--font-heading: 'Newsreader', Georgia, serif;
+	--font-body: 'Source Sans 3', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+	--font-mono: 'JetBrains Mono', monospace;
+	--default-font-family: var(--font-body);
+	--default-mono-font-family: var(--font-mono);
+
+	/* ── Font sizes — editorial scale ── */
+	--text-2xs: 0.75rem;
+	--text-xs: 0.875rem;
+	--text-sm: 0.9375rem;
+	--text-base: 1rem;
+	--text-body: 1.0625rem;
+	--text-lg: 1.4rem;
+	--text-xl: 1.7rem;
+	--text-2xl: 2.1rem;
+	--text-3xl: 2.7rem;
+
+	/* ── Border radius — more generous, softer ── */
+	--radius-xs: 5px;
+	--radius-sm: 8px;
+	--radius: 10px;
+	--radius-md: 12px;
+	--radius-lg: 16px;
+	--radius-xl: 22px;
+
+	/* ── Shadows — softer, more diffuse, neutral-cool ── */
+	--shadow-xs: 0 1px 2px rgba(40, 40, 50, 0.04), 0 1px 3px rgba(40, 40, 50, 0.05);
+	--shadow-sm: 0 2px 6px rgba(40, 40, 50, 0.05), 0 1px 2px rgba(40, 40, 50, 0.04);
+	--shadow: 0 4px 14px rgba(40, 40, 50, 0.07), 0 1px 3px rgba(40, 40, 50, 0.05);
+	--shadow-md: 0 8px 24px rgba(40, 40, 50, 0.09), 0 2px 6px rgba(40, 40, 50, 0.05);
+	--shadow-lg: 0 16px 44px rgba(40, 40, 50, 0.13), 0 4px 12px rgba(40, 40, 50, 0.06);
+	--shadow-xl: 0 24px 64px rgba(40, 40, 50, 0.18), 0 8px 20px rgba(40, 40, 50, 0.08);
+	--shadow-glow: 0 0 0 3px rgba(71, 59, 151, 0.14);
+
+	/* ── Frosted glass surfaces ── */
+	--glass-surface: rgba(255, 255, 255, 0.6);
+	--glass-canvas: rgba(250, 248, 244, 0.55);
+	--glass-blur: saturate(180%) blur(24px);
+}
+
+:root {
+	/* ── Spacing scale ── */
+	--space-3xs: 0.1rem;
+	--space-2xs: 0.15rem;
+	--space-xs: 0.25rem;
+	--space-sm: 0.35rem;
+	--space-base: 0.5rem;
+	--space-md: 0.75rem;
+	--space-lg: 1rem;
+	--space-xl: 1.5rem;
+	--space-2xl: 2rem;
+	--space-3xl: 2.5rem;
+
+	--tap-min: 44px;
+
+	--leading-prose: 1.6;
+	--leading-relaxed: 1.72;
+
+	--rule-editorial: #1a1a1a;
+	--fs-chart-subtitle: 0.88rem;
+
+	--ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+	--ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+	--radius-xs: 4px;
+	--color-border-hover: rgba(90, 70, 50, 0.32);
+	--color-border-active: rgba(90, 70, 50, 0.40);
+
+	/* ── Z-index layers ── */
+	--z-base: 1;
+	--z-sticky: 10;
+	--z-sidebar: 20;
+	--z-overlay: 40;
+	--z-drawer: 50;
+	--z-hint: 100;
+	--z-dropdown: 200;
+	--z-modal-overlay: 300;
+	--z-modal: 301;
+	--z-command: 400;
+	--z-command-dialog: 401;
+	--z-popover: 9999;
+	--z-tooltip: 99999;
+
+	/* ── Layout ── */
+	/* Height of the top band — shared by the banner (greeting) and the sidebar
+	   header so their bottom borders line up as one continuous strip. */
+	--band-h: 88px;
+}
+
+/* ── Runtime-derived tokens ── */
+:root {
+	--color-accent-dim: color-mix(in srgb, var(--color-accent) 12%, transparent);
+	--color-accent-glow: color-mix(in srgb, var(--color-accent) 20%, transparent);
+	--color-accent-warm-dim: color-mix(in srgb, var(--color-accent-warm) 12%, transparent);
+	--color-accent-warm-glow: color-mix(in srgb, var(--color-accent-warm) 20%, transparent);
+}

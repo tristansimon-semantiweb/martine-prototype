@@ -1,0 +1,13 @@
+{
+  "_meta": {"note": "Counts from the method files, client names removed. Owners and versions other than the trend report are placeholders to confirm."},
+  "methods": [
+    {"id": "trend_report", "name": "Trend report", "family": "Trends", "owner": "Bamby", "version": "1.2", "status": "published", "phases": 10, "tasks": 39, "skills": 2, "file": "data/methodo-trend-report.json"},
+    {"id": "bb_report", "name": "BB report", "family": "Trends", "owner": null, "version": "1.0", "status": "published", "phases": 9, "tasks": 27, "skills": 2},
+    {"id": "ingredients_tracker", "name": "Ingredients tracker", "family": "Trends", "owner": null, "version": "1.0", "status": "published", "phases": 8, "tasks": 25, "skills": 0},
+    {"id": "brand_digest", "name": "Brand digest", "family": "SML", "owner": null, "version": "1.0", "status": "published", "phases": 13, "tasks": 38, "skills": 3},
+    {"id": "activation_monitoring", "name": "Activation monitoring", "family": "Monitoring", "owner": null, "version": "1.0", "status": "published", "phases": 7, "tasks": 17, "skills": 1},
+    {"id": "monthly_reporting", "name": "Monthly reporting", "family": "Monitoring", "owner": null, "version": "1.0", "status": "published", "phases": 9, "tasks": 15, "skills": 0},
+    {"id": "brand_audit", "name": "Brand audit", "family": "SML", "owner": null, "version": null, "status": "to_import"},
+    {"id": "category_audit", "name": "Category audit", "family": "SML", "owner": null, "version": null, "status": "to_import"}
+  ]
+}

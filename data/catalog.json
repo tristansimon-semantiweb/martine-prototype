@@ -1,0 +1,21 @@
+{
+  "_meta": {"note": "The Semantiweb catalog: one entry per skill, tool, document template and guide. Skill statuses are illustrative until the owners validate them."},
+  "skills": [
+    {"id": "building-talkwalker-queries", "label": "Talkwalker queries", "does": "Writes Talkwalker queries with synonyms per language and checks the syntax limits.", "needs": "The study brief and sub-trends", "produces": "One query per market", "connectors": [], "owner": null, "status": "validated"},
+    {"id": "building-radarly-queries", "label": "Radarly queries", "does": "Same job as above, for Radarly.", "needs": "The study brief", "produces": "One query per market", "connectors": [], "owner": null, "status": "validated"},
+    {"id": "cleaning-social-volume", "label": "Noise cleaning", "does": "Measures the share of noise by cause and suggests exclusions.", "needs": "An export of posts with URL and text, up to 2,000 posts", "produces": "Exclusions and an Excel summary", "connectors": [], "owner": null, "status": "validated"},
+    {"id": "building-corpus-facets", "label": "Corpus facets", "does": "Builds facets from the facet library.", "needs": "The study scope", "produces": "Facet queries", "connectors": [], "owner": null, "status": "validated"},
+    {"id": "voc-reception-analysis", "label": "Reception analysis", "does": "Sentiment, themes and weak signals in a corpus.", "needs": "A corpus export", "produces": "An analysis note", "connectors": [], "owner": null, "status": "experimental"},
+    {"id": "social-listening-project", "label": "Social listening project", "does": "Old end-to-end guide, replaced by the methods in Martine.", "status": "deprecated"}
+  ],
+  "tools": [
+    {"id": "talkwalker", "label": "Talkwalker", "claude_connector": false},
+    {"id": "spate", "label": "Spate", "claude_connector": false},
+    {"id": "trajaan", "label": "Trajaan", "claude_connector": false},
+    {"id": "data_platform", "label": "Data platform", "claude_connector": true},
+    {"id": "google_drive", "label": "Google Drive", "claude_connector": true},
+    {"id": "slack", "label": "Slack", "claude_connector": true}
+  ],
+  "documents": ["Queries tab template", "Metrics tab template", "TikTok sample sheet", "Codebook", "Deck template"],
+  "guides": ["How to create the perfect query", "Noise cleaning by market", "Talkwalker queries skill guide"]
+}
