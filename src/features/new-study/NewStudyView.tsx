@@ -151,7 +151,7 @@ export function NewStudyView() {
 								onClick={() => {
 									const id = createStudy(r, briefKey);
 									toast("Study created with its data platform study, Slack channel and Drive folder");
-									router.push(`/studies/${id}/files`);
+									router.push(`/studies/${id}`);
 								}}
 								className="rounded-[var(--radius)] bg-[var(--color-accent)] px-5 py-3 font-semibold text-white hover:opacity-90"
 							>

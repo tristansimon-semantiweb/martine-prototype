@@ -1,19 +1,12 @@
 "use client";
 
-import { useRef } from "react";
-import { Database, FileText, FolderOpen, Hash, Radar } from "lucide-react";
+import { useRef, useState } from "react";
+import { ExternalLink, FileText, Link2 } from "lucide-react";
 import { useMartine } from "@/shared/hooks/useMartine";
 import { useToast } from "@/shared/components/ui/Toast";
 import { personById } from "@/shared/lib/data";
 import { currentPhase, phaseViews } from "@/shared/lib/studyModel";
-import type { FileOrigin, StudyLink } from "@/shared/lib/types";
-
-const LINK_ICON: Record<StudyLink["kind"], typeof Database> = {
-	data_platform: Database,
-	slack: Hash,
-	drive: FolderOpen,
-	talkwalker: Radar,
-};
+import type { FileOrigin } from "@/shared/lib/types";
 
 const card = "rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-surface)] shadow-[var(--shadow-xs)]";
 
@@ -24,11 +17,12 @@ function origin(from: FileOrigin): { text: string; tone: "plain" | "checked" | "
 	return { text: "made by Claude, to check", tone: "tocheck" };
 }
 
-// Files sit under the phase they belong to, with where they come from. On top,
-// what Martine created with the study: those are how Claude and the team find
-// the study in the other tools.
+// Files sit under the phase they belong to, with where they come from. Only
+// real files and links to documents (Sheets, Docs, decks): the study's Slack
+// channel or Drive folder are not files.
 export function FilesView({ id }: { id: string }) {
-	const { studies, markFileChecked, addFile } = useMartine();
+	const { studies, markFileChecked, addFile, addLink } = useMartine();
+	const [link, setLink] = useState<{ name: string; url: string } | null>(null);
 	const toast = useToast();
 	const input = useRef<HTMLInputElement>(null);
 	const study = studies.find((s) => s.id === id);
@@ -41,34 +35,6 @@ export function FilesView({ id }: { id: string }) {
 
 	return (
 		<div className="mx-auto flex max-w-[820px] flex-col gap-[22px] px-6 py-8">
-			{study.links.length > 0 && (
-				<section aria-labelledby="linked" className={`${card} p-5`}>
-					<h2 id="linked" className="m-0 font-[family-name:var(--font-body)] text-[15px] font-semibold">
-						Linked to this study, created with it
-					</h2>
-					<ul className="m-0 mt-3 grid list-none gap-2 p-0 sm:grid-cols-2">
-						{study.links.map((l) => {
-							const Icon = LINK_ICON[l.kind];
-							return (
-								<li key={l.kind}>
-									<a
-										href="#"
-										onClick={(e) => {
-											e.preventDefault();
-											toast("Opens the tool in the real product");
-										}}
-										className="flex items-center gap-2.5 rounded-[var(--radius)] border border-[var(--color-border)] px-3 py-2.5 text-sm text-[var(--color-ink)] no-underline hover:border-[var(--color-border-hover)]"
-									>
-										<Icon size={16} className="text-[var(--color-accent)]" aria-hidden />
-										{l.label}
-									</a>
-								</li>
-							);
-						})}
-					</ul>
-				</section>
-			)}
-
 			<div className="flex flex-wrap items-center gap-3">
 				<h1 className="m-0 flex-1 font-[family-name:var(--font-heading)] text-[26px] font-medium">Files</h1>
 				<input
@@ -84,12 +50,37 @@ export function FilesView({ id }: { id: string }) {
 					}}
 				/>
 				<button
+					onClick={() => setLink(link ? null : { name: "", url: "" })}
+					className="rounded-[var(--radius)] border border-[var(--color-border-hover)] bg-[var(--color-surface)] px-4 py-2.5 text-sm font-semibold hover:bg-[var(--color-hover)]"
+				>
+					Add a link
+				</button>
+				<button
 					onClick={() => input.current?.click()}
 					className="rounded-[var(--radius)] border border-[var(--color-border-hover)] bg-[var(--color-surface)] px-4 py-2.5 text-sm font-semibold hover:bg-[var(--color-hover)]"
 				>
 					Add a file
 				</button>
 			</div>
+
+			{link && (
+				<form
+					onSubmit={(e) => {
+						e.preventDefault();
+						if (!link.name.trim() || !/^https?:\/\/\S+$/.test(link.url.trim())) return;
+						addLink(study.id, link.name.trim(), link.url.trim(), addTo);
+						toast(`Link added under ${phaseName(addTo)}`);
+						setLink(null);
+					}}
+					className="flex flex-wrap gap-2 rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-surface)] p-3"
+				>
+					<input autoFocus value={link.name} onChange={(e) => setLink({ ...link, name: e.target.value })} aria-label="Name" placeholder="Name, e.g. Queries tab" className="rr-input min-w-[200px] flex-1" />
+					<input type="url" value={link.url} onChange={(e) => setLink({ ...link, url: e.target.value })} aria-label="Address" placeholder="https://" className="rr-input min-w-[240px] flex-[2]" />
+					<button type="submit" className="rounded-[var(--radius)] bg-[var(--color-accent)] px-4 text-sm font-semibold text-white">
+						Add
+					</button>
+				</form>
+			)}
 
 			{groups.length === 0 && <p className="m-0 text-[var(--color-ink-muted)]">No files yet.</p>}
 
@@ -103,9 +94,19 @@ export function FilesView({ id }: { id: string }) {
 								const o = origin(f.from);
 								return (
 									<li key={f.id} className="flex flex-wrap items-center gap-3 border-b border-[var(--color-border)] px-5 py-3.5 last:border-b-0">
-										<FileText size={16} className="shrink-0 text-[var(--color-ink-muted)]" aria-hidden />
+										{f.url ? (
+											<Link2 size={16} className="shrink-0 text-[var(--color-accent)]" aria-hidden />
+										) : (
+											<FileText size={16} className="shrink-0 text-[var(--color-ink-muted)]" aria-hidden />
+										)}
 										<span className="min-w-[180px] flex-1">
-											<span className="font-semibold">{f.name}</span>
+											{f.url ? (
+												<a href={f.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 font-semibold">
+													{f.name} <ExternalLink size={12} aria-hidden />
+												</a>
+											) : (
+												<span className="font-semibold">{f.name}</span>
+											)}
 											<span className="ml-2 text-sm text-[var(--color-ink-muted)]">{f.type}</span>
 										</span>
 										<span

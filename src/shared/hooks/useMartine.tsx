@@ -176,6 +176,11 @@ function useMartineState() {
 					...s,
 					files: [...s.files, { id: `f${uid()}`, name, type, phase, from: { kind: "person", by: me } }],
 				})),
+			addLink: (studyId: string, name: string, url: string, phase: string) =>
+				patchStudy(studyId, (s) => ({
+					...s,
+					files: [...s.files, { id: `f${uid()}`, name, type: "Link", phase, url, from: { kind: "person", by: me } }],
+				})),
 			addTeamMember: (studyId: string, person: string, role: RoleId) =>
 				patchStudy(studyId, (s) => ({ ...s, team: [...s.team, { person, role, steps: 0 }] })),
 

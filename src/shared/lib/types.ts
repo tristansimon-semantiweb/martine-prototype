@@ -135,6 +135,7 @@ export interface StudyFile {
 	type: string;
 	phase: string;
 	from: FileOrigin;
+	url?: string; // a link (Sheet, Doc, deck…) rather than an uploaded file
 }
 
 export interface StudyLink {
