@@ -9,6 +9,18 @@
       "items": [
         {
           "kind": "changed",
+          "title": "A phase reads top to bottom",
+          "text": "An open phase now starts with one summary: its status, its document and its tools. Then the team’s note, then its tasks, numbered in order (2.1, 2.2…) in a single list; the tasks added for this study sit at the end of that list. What your role can change closes the panel.",
+          "href": "/studies/TR-2611-01/steps?phase=2"
+        },
+        {
+          "kind": "new",
+          "title": "Rename or remove a step",
+          "text": "In a study’s Steps, each step has a pencil to rename it and a cross to remove it, for this study only: the method keeps it, and a removed step can be restored. In a study type, the method owner renames or removes a phase in the draft; studies in progress keep the published version.",
+          "href": "/studies/TR-2611-01/steps"
+        },
+        {
+          "kind": "changed",
           "title": "Add someone to a study’s team",
           "text": "Anyone on a study can add a colleague from Team: Add someone opens a list you can search by name or role. A small cross removes someone, with Undo.",
           "href": "/studies/TR-2611-01/team"

@@ -176,3 +176,44 @@ export function CanDo({ can, locked }: { can: string; locked?: string }) {
 		</div>
 	);
 }
+
+// A row's name, edited in place: Enter or clicking away saves, Escape cancels.
+export function RenameField({ value, label, onSave, onDone }: { value: string; label: string; onSave: (next: string) => void; onDone: () => void }) {
+	const [draft, setDraft] = useState(value);
+	const finish = (save: boolean) => {
+		if (save && draft.trim() && draft.trim() !== value) onSave(draft.trim());
+		onDone();
+	};
+	return (
+		<input
+			autoFocus
+			value={draft}
+			aria-label={label}
+			onChange={(e) => setDraft(e.target.value)}
+			onFocus={(e) => e.currentTarget.select()}
+			onBlur={() => finish(true)}
+			onKeyDown={(e) => {
+				if (e.key === "Enter") finish(true);
+				if (e.key === "Escape") {
+					e.stopPropagation();
+					finish(false);
+				}
+			}}
+			className="rr-input min-w-0 flex-1 py-1.5 font-semibold"
+		/>
+	);
+}
+
+// The pencil that starts renaming a row.
+export function RenameButton({ label, onClick, className }: { label: string; onClick: () => void; className?: string }) {
+	return (
+		<button
+			onClick={onClick}
+			aria-label={label}
+			title={label}
+			className={cn("flex h-7 w-7 shrink-0 items-center justify-center rounded-[var(--radius-sm)] text-[var(--color-ink-muted)] hover:bg-[var(--color-hover)] hover:text-[var(--color-ink)]", className)}
+		>
+			<Pencil size={13} aria-hidden />
+		</button>
+	);
+}

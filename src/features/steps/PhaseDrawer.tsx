@@ -16,12 +16,7 @@ import { PhaseDocument } from "@/features/files/Documents";
 // tasks as written in the method file, and the tasks added for this study.
 export function PhaseDrawer({ study, phase, onClose }: { study: Study; phase: PhaseView | null; onClose: () => void }) {
 	return (
-		<PhaseSheet
-			open={Boolean(phase)}
-			onClose={onClose}
-			kicker={phase ? kicker(phase) : ""}
-			title={phase?.name ?? ""}
-		>
+		<PhaseSheet open={Boolean(phase)} onClose={onClose} kicker={phase ? kicker(phase) : ""} title={phase?.name ?? ""}>
 			{phase && <Body key={phase.id} study={study} phase={phase} />}
 		</PhaseSheet>
 	);
@@ -65,21 +60,27 @@ function Body({ study, phase }: { study: Study; phase: PhaseView }) {
 	const tools = [...new Set(phase.tasks.flatMap((t) => t.task.tool_ids))];
 	const toConfirm = (id: string) => phase.tasks.every((t) => !t.task.tool_ids.includes(id) || t.task.tool_ids_to_confirm?.includes(id));
 
+	const label = "w-[78px] shrink-0 text-sm text-[var(--color-ink-muted)]";
+	const total = phase.tasks.length + phase.added.length;
+
+	// Read top to bottom: where the phase stands and what it works in, the
+	// team's note, then its tasks in order. What your role can change closes it.
 	return (
 		<>
-			<section aria-label="This phase" className="flex flex-col gap-2.5 rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-surface)] px-4 py-3">
+			<section aria-label="This phase" className="flex flex-col gap-2.5 rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-surface)] px-4 py-3.5">
 				<div className="flex items-center gap-3">
-					<span className="w-16 shrink-0 text-sm text-[var(--color-ink-muted)]">Status</span>
-					<PhaseStatusPicker
-						status={phase.status}
-						canEdit
-						onChange={(s) => setPhaseStatus(study.id, phase.id, s)}
-						label={`Status of phase ${phase.id}`}
-					/>
+					<span className={label}>Status</span>
+					<PhaseStatusPicker status={phase.status} canEdit onChange={(s) => setPhaseStatus(study.id, phase.id, s)} label={`Status of phase ${phase.id}`} />
 				</div>
+				{!phase.addedBy && (
+					<div className="flex items-center gap-3">
+						<span className={label}>Document</span>
+						<PhaseDocument study={study} phase={phase.id} tasks={phase.tasks.map((t) => t.task)} inline />
+					</div>
+				)}
 				{tools.length > 0 && (
 					<div className="flex items-start gap-3">
-						<span className="w-16 shrink-0 pt-1.5 text-sm text-[var(--color-ink-muted)]">Tools</span>
+						<span className={`${label} pt-1.5`}>Tools</span>
 						<span className="flex flex-wrap gap-1.5">
 							{tools.map((id) => (
 								<ToolOpenButton key={id} id={id} toConfirm={toConfirm(id)} />
@@ -89,13 +90,11 @@ function Body({ study, phase }: { study: Study; phase: PhaseView }) {
 				)}
 			</section>
 
-			<CanDo can={CAN[role].can} locked={CAN[role].locked} />
-
-			{(note || isConsultant) && (
-				<div className="rounded-[var(--radius)] bg-[var(--color-attention-bg)] px-3 py-2.5 text-[15px] leading-normal">
-					<div className="mb-0.5 text-[13px] font-bold text-[var(--color-attention)]">{note ? `Note from ${first(note.by)}` : "Note for the team"}</div>
+			{note ? (
+				<div className="rounded-[var(--radius)] bg-[var(--color-attention-bg)] px-3.5 py-2.5 text-[15px] leading-normal">
+					<div className="mb-0.5 text-[13px] font-bold text-[var(--color-attention)]">Note from {first(note.by)}</div>
 					<InlineEdit
-						value={note?.text ?? ""}
+						value={note.text}
 						onSave={(t) => setNote(study.id, phase.id, t)}
 						canEdit={isConsultant}
 						label="the note"
@@ -103,23 +102,31 @@ function Body({ study, phase }: { study: Study; phase: PhaseView }) {
 						multiline
 					/>
 				</div>
+			) : (
+				isConsultant && (
+					<div className="px-1 text-sm">
+						<InlineEdit value="" onSave={(t) => setNote(study.id, phase.id, t)} canEdit label="the note" placeholder="Add a note for the team on this phase" multiline />
+					</div>
+				)
 			)}
 
-			{!phase.addedBy && <PhaseDocument study={study} phase={phase.id} tasks={phase.tasks.map((t) => t.task)} />}
-
-			{phase.tasks.map((t) => (
-				<TaskCard key={t.key} study={study} phase={phase} view={t} />
-			))}
-
-			{(phase.added.length > 0 || isConsultant) && (
-				<section aria-label="Tasks added for this study" className="flex flex-col gap-2">
-					<div className="text-xs font-bold text-[var(--color-ink-muted)]">Added for this study</div>
-					{phase.added.map((t) => (
-						<article key={t.id} className="flex items-center gap-3 rounded-[12px] bg-[var(--color-attention-soft)] px-4 py-2.5">
+			<section aria-labelledby="tasks-h" className="flex flex-col gap-2">
+				<h3 id="tasks-h" className="m-0 flex items-baseline gap-2 font-[family-name:var(--font-body)] text-[15px] font-semibold">
+					Tasks <span className="text-sm font-normal text-[var(--color-ink-muted)]">{total}, in order</span>
+				</h3>
+				<ol className="m-0 list-none overflow-hidden rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-surface)] p-0">
+					{phase.tasks.map((t, i) => (
+						<li key={t.key} className="border-b border-[var(--color-border)] last:border-b-0">
+							<TaskCard study={study} phase={phase} view={t} number={`${phase.addedBy ? "+" : phase.id}.${i + 1}`} />
+						</li>
+					))}
+					{phase.added.map((t, i) => (
+						<li key={t.id} className="flex items-center gap-3 border-b border-[var(--color-border)] bg-[var(--color-attention-soft)] px-4 py-3 last:border-b-0">
+							<span className="w-8 shrink-0 text-[13px] font-semibold text-[var(--color-ink-muted)]">{`${phase.id}.${phase.tasks.length + i + 1}`}</span>
 							<span className="min-w-0 flex-1 font-semibold">
 								<InlineEdit value={t.title} onSave={(v) => v && renameAddedTask(study.id, t.id, v)} canEdit={isConsultant} label="the task" placeholder="Name the task" />
 							</span>
-							<span className="shrink-0 text-[13px] text-[var(--color-attention)]">added by {first(t.by)}</span>
+							<span className="shrink-0 text-[13px] text-[var(--color-attention)]">added for this study by {first(t.by)}</span>
 							{isConsultant && (
 								<RemoveButton
 									label={`Remove “${t.title}”`}
@@ -129,11 +136,14 @@ function Body({ study, phase }: { study: Study; phase: PhaseView }) {
 									}}
 								/>
 							)}
-						</article>
+						</li>
 					))}
-					{isConsultant && <AddRow label="Add a task for this study" placeholder="What needs doing, for this study only" onAdd={(v) => addTask(study.id, phase.id, v)} />}
-				</section>
-			)}
+					{total === 0 && <li className="px-4 py-3 text-sm text-[var(--color-ink-muted)]">No task yet.</li>}
+				</ol>
+				{isConsultant && <AddRow label="Add a task for this study" placeholder="What needs doing, for this study only" onAdd={(v) => addTask(study.id, phase.id, v)} />}
+			</section>
+
+			<CanDo can={CAN[role].can} locked={CAN[role].locked} />
 		</>
 	);
 }

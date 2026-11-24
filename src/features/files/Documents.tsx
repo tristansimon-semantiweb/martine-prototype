@@ -159,7 +159,8 @@ export function AttachForm({
 // The document a phase works in, in one line at the top of the phase: the
 // document, a menu to choose another one (search the study's documents, or
 // add a new one there), and a cross to take it off the phase (with Undo).
-export function PhaseDocument({ study, phase, tasks }: { study: Study; phase: string; tasks: MethodTask[] }) {
+// `inline`: no frame or title, to sit in a phase's summary next to its label.
+export function PhaseDocument({ study, phase, tasks, inline }: { study: Study; phase: string; tasks: MethodTask[]; inline?: boolean }) {
 	const { setPhaseDoc } = useMartine();
 	const toast = useToast();
 	const [query, setQuery] = useState("");
@@ -170,8 +171,11 @@ export function PhaseDocument({ study, phase, tasks }: { study: Study; phase: st
 	const options = study.files.filter((f) => !q || f.name.toLowerCase().includes(q));
 
 	return (
-		<section aria-label="Phase document" className="flex flex-wrap items-center gap-2 rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-canvas)] px-3 py-2">
-			<span className="text-sm font-semibold">Phase document</span>
+		<section
+			aria-label="Phase document"
+			className={inline ? "flex flex-wrap items-center gap-2" : "flex flex-wrap items-center gap-2 rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-canvas)] px-3 py-2"}
+		>
+			{!inline && <span className="text-sm font-semibold">Phase document</span>}
 			{doc ? (
 				<>
 					<FileChip study={study} file={doc} />
@@ -186,7 +190,7 @@ export function PhaseDocument({ study, phase, tasks }: { study: Study; phase: st
 			) : (
 				<span className="text-sm text-[var(--color-ink-muted)]">none yet</span>
 			)}
-			<span className="ml-auto">
+			<span className={inline ? undefined : "ml-auto"}>
 				<Popover
 					align="end"
 					width={380}

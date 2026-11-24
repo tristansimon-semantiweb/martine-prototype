@@ -188,6 +188,9 @@ export interface StudyState {
 	// documents (one per phase; a document can serve several phases).
 	phaseDocs: Record<string, string>; // phase id → file id
 	phaseStatus?: Record<string, PhaseStatus>; // phase id → status (absent: to start)
+	// A method step renamed or taken out for this study only: the method stays as it is.
+	stepNames?: Record<string, string>; // phase id → name for this study
+	removedSteps?: string[]; // method phase ids this study leaves out
 	addedTasks: AddedTask[];
 	addedSteps: AddedStep[];
 }

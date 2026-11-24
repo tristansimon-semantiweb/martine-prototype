@@ -4,20 +4,21 @@ import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import { usePathname, useSearchParams } from "next/navigation";
 import { TopBand } from "@/shared/components/layout/TopBand";
-import { AddRow } from "@/shared/components/ui/Editing";
+import { AddRow, RemoveButton, RenameButton, RenameField } from "@/shared/components/ui/Editing";
+import { useState } from "react";
 import { useToast } from "@/shared/components/ui/Toast";
 import { useMartine } from "@/shared/hooks/useMartine";
 import { methodEntry, methodFile, personById, studyTypeDefinition } from "@/shared/lib/data";
 import { costed, costedDays, plannedLabel, plural } from "@/shared/lib/format";
 import { cn } from "@/shared/lib/cn";
-import { methodDays, methodPhases } from "./methodModel";
+import { methodDays, methodPhases, removedPhases, type MethodPhaseView } from "./methodModel";
 import { MethodPhaseDrawer } from "./MethodPhaseDrawer";
 import { CatalogDrawer } from "./CatalogDrawer";
 
 // A method: landmarks, the pending suggestion, then its phases, laid out like
 // a study's Steps tab. ?phase= opens a phase, &add= the catalog for a task.
 export function MethodDetailView({ id }: { id: string }) {
-	const { studies, suggestions, drafts, role, addMethodPhase } = useMartine();
+	const { studies, suggestions, drafts, role, addMethodPhase, renameMethodPhase, removeMethodPhase, restoreMethodPhase } = useMartine();
 	const toast = useToast();
 	const pathname = usePathname();
 	const params = useSearchParams();
@@ -140,29 +141,35 @@ export function MethodDetailView({ id }: { id: string }) {
 							className="m-0 list-none overflow-hidden rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-surface)] p-0 shadow-[var(--shadow-xs)]"
 						>
 							{phases.map((p) => (
-								<li key={p.id} className="border-b border-[var(--color-border)] last:border-b-0">
-									<button onClick={() => go(p.id)} className="flex w-full flex-wrap items-center gap-x-4 gap-y-1 px-5 py-3.5 text-left hover:bg-[var(--color-hover)]">
-										<span className="min-w-[220px] flex-1">
-											{p.label}
-											{p.optional && <span className="ml-2 text-[13px] text-[var(--color-ink-muted)]">optional</span>}
-											{p.isNew && <span className="ml-2 text-[13px] text-[var(--color-attention)]">new in draft</span>}
-										</span>
-										{p.suggestions.length > 0 && (
-											<span className="rounded-[var(--radius-xl)] bg-[var(--color-accent-dim)] px-2 py-0.5 text-xs font-semibold text-[var(--color-accent)]">
-												{plural(p.suggestions.length, "suggestion")}
-											</span>
-										)}
-										<span className="w-16 text-sm">{plural(p.tasks.length, "task")}</span>
-										<span className={cn("w-28 text-sm", !p.days && "text-[var(--color-ink-muted)]")}>{costed(p.days)}</span>
-										<span className={cn("w-16 text-sm", p.skillCount === 0 && "text-[var(--color-ink-muted)]")}>
-											{p.skillCount === 0 ? "no skill" : plural(p.skillCount, "skill")}
-										</span>
-										<ChevronRight size={16} aria-hidden className="text-[var(--color-ink-muted)]" />
-									</button>
-								</li>
+								<MethodPhaseRow
+									key={p.id}
+									phase={p}
+									onOpen={() => go(p.id)}
+									canEdit={isOwner}
+									onRename={(name) => renameMethodPhase(id, m.version, p.id, name)}
+									onRemove={() => {
+										const added = removeMethodPhase(id, m.version, p.id);
+										toast("Phase removed in the draft", { label: "Undo", onClick: () => restoreMethodPhase(id, m.version, p.id, added) });
+									}}
+								/>
 							))}
 						</ol>
 						{isOwner && <AddRow label="Add a phase" placeholder="Name of the phase" onAdd={(v) => addMethodPhase(id, m.version, v)} />}
+						{removedPhases(id, draft).length > 0 && (
+							<p className="m-0 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-[var(--color-ink-muted)]">
+								Removed in the draft:
+								{removedPhases(id, draft).map((r) => (
+									<span key={r.id} className="inline-flex items-center gap-1.5">
+										<span className="line-through">{r.label}</span>
+										{isOwner && (
+											<button onClick={() => restoreMethodPhase(id, m.version, r.id)} className="font-semibold text-[var(--color-accent)] hover:underline">
+												Restore
+											</button>
+										)}
+									</span>
+								))}
+							</p>
+						)}
 					</section>
 				)}
 
@@ -199,5 +206,58 @@ export function MethodDetailView({ id }: { id: string }) {
 			<MethodPhaseDrawer methodId={id} phase={open} onClose={() => go(null)} onAdd={(key) => go(openId, key)} />
 			<CatalogDrawer methodId={id} phase={open} taskKey={open ? addKey : null} onClose={() => go(openId)} />
 		</>
+	);
+}
+
+// A phase of the method: the whole row opens it; the method owner renames or
+// removes it in the draft.
+function MethodPhaseRow({
+	phase: p,
+	onOpen,
+	canEdit,
+	onRename,
+	onRemove,
+}: {
+	phase: MethodPhaseView;
+	onOpen: () => void;
+	canEdit: boolean;
+	onRename: (name: string) => void;
+	onRemove: () => void;
+}) {
+	const [renaming, setRenaming] = useState(false);
+	return (
+		<li className="flex items-center border-b border-[var(--color-border)] last:border-b-0 hover:bg-[var(--color-hover)]">
+			{renaming ? (
+				<span className="flex flex-1 items-center gap-3 px-5 py-2.5">
+					<span className="text-[13px] text-[var(--color-ink-muted)]">{p.label.split(".")[0]}.</span>
+					<RenameField value={p.name} label={`New name for the phase “${p.name}”`} onSave={onRename} onDone={() => setRenaming(false)} />
+				</span>
+			) : (
+				<button onClick={onOpen} className="flex min-w-0 flex-1 flex-wrap items-center gap-x-4 gap-y-1 py-3.5 pl-5 pr-2 text-left">
+					<span className="min-w-[220px] flex-1">
+						{p.label}
+						{p.optional && <span className="ml-2 text-[13px] text-[var(--color-ink-muted)]">optional</span>}
+						{p.isNew && <span className="ml-2 text-[13px] text-[var(--color-attention)]">new in draft</span>}
+					</span>
+					{p.suggestions.length > 0 && (
+						<span className="rounded-[var(--radius-xl)] bg-[var(--color-accent-dim)] px-2 py-0.5 text-xs font-semibold text-[var(--color-accent)]">
+							{plural(p.suggestions.length, "suggestion")}
+						</span>
+					)}
+					<span className="w-16 text-sm">{plural(p.tasks.length, "task")}</span>
+					<span className={cn("w-28 text-sm", !p.days && "text-[var(--color-ink-muted)]")}>{costed(p.days)}</span>
+					<span className={cn("w-16 text-sm", p.skillCount === 0 && "text-[var(--color-ink-muted)]")}>{p.skillCount === 0 ? "no skill" : plural(p.skillCount, "skill")}</span>
+				</button>
+			)}
+			{canEdit && !renaming && (
+				<>
+					<RenameButton label={`Rename the phase “${p.name}”`} onClick={() => setRenaming(true)} />
+					<RemoveButton label={`Remove the phase “${p.name}”`} onClick={onRemove} />
+				</>
+			)}
+			<span aria-hidden onClick={onOpen} className="flex cursor-pointer items-center pl-1 pr-5 text-[var(--color-ink-muted)]">
+				<ChevronRight size={16} />
+			</span>
+		</li>
 	);
 }

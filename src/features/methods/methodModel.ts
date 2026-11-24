@@ -105,7 +105,12 @@ export function methodPhases(methodId: string, draft: MethodDraft | undefined, s
 		};
 	};
 
-	const phases = file.phases.map((p) => build(phaseId(p), `${p.phase}. ${p.name}`, p.name, p.optional, p.tasks, false, p));
+	const phases = file.phases
+		.filter((p) => !draft?.removedPhases?.includes(phaseId(p)))
+		.map((p) => {
+			const name = draft?.renamedPhases?.[phaseId(p)] ?? p.name;
+			return build(phaseId(p), `${p.phase}. ${name}`, name, p.optional, p.tasks, false, p);
+		});
 	const numbered = file.phases.filter((p) => !p.optional).length;
 	const added = (draft?.addedPhases ?? []).map((p, i) => build(p.id, `${numbered + i}. ${p.name}`, p.name, false, [], true));
 	return [...phases, ...added];
@@ -116,4 +121,11 @@ export function methodDays(methodId: string): DayRange {
 	const file = methodFile(methodId);
 	if (!file) return null;
 	return sumDays(file.phases.filter((p) => !p.optional).map(phaseDays));
+}
+
+// The published phases the draft removes, to restore them.
+export function removedPhases(methodId: string, draft: MethodDraft | undefined): { id: string; label: string }[] {
+	const file = methodFile(methodId);
+	if (!file || !draft?.removedPhases?.length) return [];
+	return file.phases.filter((p) => draft.removedPhases!.includes(phaseId(p))).map((p) => ({ id: phaseId(p), label: `${p.phase}. ${p.name}` }));
 }

@@ -18,7 +18,7 @@ import { RequestSkill } from "@/features/skills/RequestSkill";
 // One row of the method file as a task of this study, read top to bottom:
 // what to do (in a line), where to do it (Open in Claude with its skill, Open
 // each tool), what it delivers. "How to do it" unfolds the method's text.
-export function TaskCard({ study, phase, view }: { study: Study; phase: PhaseView; view: TaskView }) {
+export function TaskCard({ study, phase, view, number }: { study: Study; phase: PhaseView; view: TaskView; number: string }) {
 	const { suggestChange } = useMartine();
 	const toast = useToast();
 	const [open, setOpen] = useState(false);
@@ -33,8 +33,9 @@ export function TaskCard({ study, phase, view }: { study: Study; phase: PhaseVie
 	const summary = task.what || task.how.split(/\n|(?<=\.)\s/)[0];
 
 	return (
-		<article className="rounded-[12px] border border-[var(--color-border)] px-4 py-3">
-			<div>
+		<article className="flex gap-3 px-4 py-3.5">
+			<span className="w-8 shrink-0 pt-0.5 text-[13px] font-semibold text-[var(--color-ink-muted)]">{number}</span>
+			<div className="min-w-0 flex-1">
 				<div className="min-w-0">
 					<div className="flex items-baseline gap-3">
 						<h3 className="m-0 flex-1 font-[family-name:var(--font-body)] text-[16px] font-semibold">{task.task}</h3>
@@ -72,7 +73,9 @@ export function TaskCard({ study, phase, view }: { study: Study; phase: PhaseVie
 						{task.tool_ids.map((t) => (
 							<ToolOpenButton key={t} id={t} toConfirm={task.tool_ids_to_confirm?.includes(t)} />
 						))}
-						{task.skills.length === 0 && <RequestSkill methodId={study.method.id} version={study.method.version} taskKey={key} task={task} openInClaude={(sk) => openInClaudeUrl(study, phase, key, sk)} />}
+						{task.skills.length === 0 && (
+							<RequestSkill methodId={study.method.id} version={study.method.version} taskKey={key} task={task} openInClaude={(sk) => openInClaudeUrl(study, phase, key, sk)} />
+						)}
 					</div>
 
 					{task.output && (
@@ -91,57 +94,57 @@ export function TaskCard({ study, phase, view }: { study: Study; phase: PhaseVie
 						<ChevronDown size={14} aria-hidden className={cn("transition-transform", open && "rotate-180")} />
 					</button>
 				</div>
-			</div>
 
-			{open && (
-				<div className="mt-3 flex flex-col gap-3 border-t border-[var(--color-border)] pt-3">
-					<TaskFields
-						rows={[
-							...taskRows(task, format).filter((r) => !["What", "Tools", "Output", "Deliverable"].includes(r.label)),
-							...task.skills.map((sk) => ({
-								label: "Skill",
-								value: <SkillBlock study={study} phase={phase} taskKey={key} skillId={sk} />,
-							})),
-						]}
-					/>
-					<button onClick={() => setSuggesting(true)} className="inline-flex items-center gap-1 self-start text-sm font-semibold text-[var(--color-accent)] hover:underline">
-						<MessageSquarePlus size={14} aria-hidden /> Suggest a change to the method
-					</button>
-					<Modal open={suggesting} onClose={() => setSuggesting(false)} title="Suggest a change">
-						<form
-							onSubmit={(e) => {
-								e.preventDefault();
-								if (!text.trim()) return;
-								suggestChange(study.method.id, phase.id, key, text.trim());
-								toast(`Suggestion sent to ${method?.owner ?? "the method owner"}`);
-								setSuggesting(false);
-								setText("");
-							}}
-							className="flex flex-col gap-3 text-sm"
-						>
-							<p className="m-0 text-[var(--color-ink-muted)]">
-								On “{task.task}”, in the {method?.name.toLowerCase()} method. {method?.owner ?? "The method owner"} reviews it; studies keep their version.
-							</p>
-							<textarea
-								autoFocus
-								value={text}
-								onChange={(e) => setText(e.target.value)}
-								rows={3}
-								aria-label="Your suggestion for this task"
-								placeholder="What should the method say for this task?"
-								className="rr-input resize-y"
-							/>
-							<button
-								type="submit"
-								disabled={!text.trim()}
-								className="self-start rounded-[var(--radius)] bg-[var(--color-accent)] px-4 py-2 font-semibold text-white disabled:opacity-40"
+				{open && (
+					<div className="mt-3 flex flex-col gap-3 border-t border-[var(--color-border)] pt-3">
+						<TaskFields
+							rows={[
+								...taskRows(task, format).filter((r) => !["What", "Tools", "Output", "Deliverable"].includes(r.label)),
+								...task.skills.map((sk) => ({
+									label: "Skill",
+									value: <SkillBlock study={study} phase={phase} taskKey={key} skillId={sk} />,
+								})),
+							]}
+						/>
+						<button onClick={() => setSuggesting(true)} className="inline-flex items-center gap-1 self-start text-sm font-semibold text-[var(--color-accent)] hover:underline">
+							<MessageSquarePlus size={14} aria-hidden /> Suggest a change to the method
+						</button>
+						<Modal open={suggesting} onClose={() => setSuggesting(false)} title="Suggest a change">
+							<form
+								onSubmit={(e) => {
+									e.preventDefault();
+									if (!text.trim()) return;
+									suggestChange(study.method.id, phase.id, key, text.trim());
+									toast(`Suggestion sent to ${method?.owner ?? "the method owner"}`);
+									setSuggesting(false);
+									setText("");
+								}}
+								className="flex flex-col gap-3 text-sm"
 							>
-								Send to {method?.owner ?? "the method owner"}
-							</button>
-						</form>
-					</Modal>
-				</div>
-			)}
+								<p className="m-0 text-[var(--color-ink-muted)]">
+									On “{task.task}”, in the {method?.name.toLowerCase()} method. {method?.owner ?? "The method owner"} reviews it; studies keep their version.
+								</p>
+								<textarea
+									autoFocus
+									value={text}
+									onChange={(e) => setText(e.target.value)}
+									rows={3}
+									aria-label="Your suggestion for this task"
+									placeholder="What should the method say for this task?"
+									className="rr-input resize-y"
+								/>
+								<button
+									type="submit"
+									disabled={!text.trim()}
+									className="self-start rounded-[var(--radius)] bg-[var(--color-accent)] px-4 py-2 font-semibold text-white disabled:opacity-40"
+								>
+									Send to {method?.owner ?? "the method owner"}
+								</button>
+							</form>
+						</Modal>
+					</div>
+				)}
+			</div>
 		</article>
 	);
 }

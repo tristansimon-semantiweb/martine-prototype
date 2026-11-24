@@ -17,6 +17,8 @@ export interface MethodDraft {
 	confirmedTools?: Record<string, string[]>; // links to confirm, confirmed by the owner
 	addedTasks: { id: string; phase: string; task: string; by: string }[];
 	addedPhases: { id: string; name: string; by: string }[];
+	renamedPhases?: Record<string, string>; // phase id → new name
+	removedPhases?: string[]; // published phases the draft removes
 }
 
 interface MartineData {
@@ -157,6 +159,17 @@ function useMartineState() {
 			},
 			restoreAddedStep: (studyId: string, step: AddedStep) =>
 				patchState(studyId, (st) => ({ ...st, addedSteps: [...st.addedSteps, step] })),
+			// Rename or take out a method step for this study only (an added step is
+			// renamed in place; removing one is removeAddedStep).
+			renameStep: (studyId: string, phase: string, name: string) =>
+				patchState(studyId, (st) => {
+					if (st.addedSteps.some((s) => s.id === phase)) return { ...st, addedSteps: st.addedSteps.map((s) => (s.id === phase ? { ...s, name } : s)) };
+					return { ...st, stepNames: { ...st.stepNames, [phase]: name } };
+				}),
+			removeStep: (studyId: string, phase: string) =>
+				patchState(studyId, (st) => ({ ...st, removedSteps: [...new Set([...(st.removedSteps ?? []), phase])] })),
+			restoreStep: (studyId: string, phase: string) =>
+				patchState(studyId, (st) => ({ ...st, removedSteps: (st.removedSteps ?? []).filter((p) => p !== phase) })),
 
 			// ── Study files ──
 			markFileChecked: (studyId: string, fileId: string) =>
@@ -353,6 +366,25 @@ function useMartineState() {
 				patchDraft(methodId, version, (dr) => ({ ...dr, addedTasks: [...dr.addedTasks, task] })),
 			addMethodPhase: (methodId: string, version: string | null, name: string) =>
 				patchDraft(methodId, version, (dr) => ({ ...dr, addedPhases: [...dr.addedPhases, { id: `p${uid()}`, name, by: me }] })),
+			// Rename or remove a phase in the draft. A phase added in the draft is
+			// changed in place; a published one is marked, and can be restored.
+			renameMethodPhase: (methodId: string, version: string | null, phase: string, name: string) =>
+				patchDraft(methodId, version, (dr) =>
+					dr.addedPhases.some((p) => p.id === phase)
+						? { ...dr, addedPhases: dr.addedPhases.map((p) => (p.id === phase ? { ...p, name } : p)) }
+						: { ...dr, renamedPhases: { ...dr.renamedPhases, [phase]: name } },
+				),
+			removeMethodPhase: (methodId: string, version: string | null, phase: string): MethodDraft["addedPhases"][number] | undefined => {
+				const added = read().drafts[methodId]?.addedPhases.find((p) => p.id === phase);
+				patchDraft(methodId, version, (dr) =>
+					added ? { ...dr, addedPhases: dr.addedPhases.filter((p) => p.id !== phase) } : { ...dr, removedPhases: [...new Set([...(dr.removedPhases ?? []), phase])] },
+				);
+				return added;
+			},
+			restoreMethodPhase: (methodId: string, version: string | null, phase: string, added?: MethodDraft["addedPhases"][number]) =>
+				patchDraft(methodId, version, (dr) =>
+					added ? { ...dr, addedPhases: [...dr.addedPhases, added] } : { ...dr, removedPhases: (dr.removedPhases ?? []).filter((p) => p !== phase) },
+				),
 			saveDraft: (methodId: string, version: string | null) =>
 				update((d) => ({ ...d, drafts: { ...d.drafts, [methodId]: { ...(d.drafts[methodId] ?? emptyDraft(version)), saved: true } } })),
 		}),

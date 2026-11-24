@@ -36,11 +36,15 @@ export function hasMethodFile(study: Study): boolean {
 
 export function phaseViews(study: Study): PhaseView[] {
 	const st = study.state;
-	const base = studyPhases(study.method.id, study.phases).map((p) => {
-		const id = phaseId(p);
-		const tasks = p.tasks.map((task, i) => ({ key: taskKey(id, i), task }));
-		return { id, label: `${p.phase}. ${p.name}`, name: p.name, tasks, days: phaseDays(p), time: p.time };
-	});
+	// The method's phases, less the ones this study leaves out, with this study's names.
+	const base = studyPhases(study.method.id, study.phases)
+		.filter((p) => !st.removedSteps?.includes(phaseId(p)))
+		.map((p) => {
+			const id = phaseId(p);
+			const name = st.stepNames?.[id] ?? p.name;
+			const tasks = p.tasks.map((task, i) => ({ key: taskKey(id, i), task }));
+			return { id, label: `${p.phase}. ${name}`, name, tasks, days: phaseDays(p), time: p.time };
+		});
 	const extra = st.addedSteps.map((s, i) => ({
 		id: s.id,
 		label: `${base.length + i}. ${s.name}`,
@@ -53,4 +57,12 @@ export function phaseViews(study: Study): PhaseView[] {
 		const added = st.addedTasks.filter((t) => t.phase === p.id);
 		return { ...p, added, total: p.tasks.length + added.length, status: st.phaseStatus?.[p.id] ?? "to_start" };
 	});
+}
+
+// The method steps this study leaves out, to restore them.
+export function removedSteps(study: Study): { id: string; label: string }[] {
+	const removed = study.state.removedSteps ?? [];
+	return studyPhases(study.method.id, study.phases)
+		.filter((p) => removed.includes(phaseId(p)))
+		.map((p) => ({ id: phaseId(p), label: `${p.phase}. ${study.state.stepNames?.[phaseId(p)] ?? p.name}` }));
 }

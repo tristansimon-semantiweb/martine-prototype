@@ -5,10 +5,11 @@ import { usePathname, useSearchParams } from "next/navigation";
 import { Check, ChevronRight } from "lucide-react";
 import { useMartine } from "@/shared/hooks/useMartine";
 import { useToast } from "@/shared/components/ui/Toast";
-import { AddRow, RemoveButton } from "@/shared/components/ui/Editing";
+import { AddRow, RemoveButton, RenameButton, RenameField } from "@/shared/components/ui/Editing";
+import { useState } from "react";
 import { methodEntry, skillById } from "@/shared/lib/data";
 import { costed, plural } from "@/shared/lib/format";
-import { hasMethodFile, phaseViews, type PhaseView } from "@/shared/lib/studyModel";
+import { hasMethodFile, phaseViews, removedSteps, type PhaseView } from "@/shared/lib/studyModel";
 import { statusLine } from "@/shared/lib/martineContext";
 import { toolById } from "@/shared/lib/tools";
 import { cn } from "@/shared/lib/cn";
@@ -19,7 +20,7 @@ import { PhaseDrawer } from "./PhaseDrawer";
 // The phases of the study's method, in order. The open phase is in the URL
 // (?phase=2) so Ask Martine's sources and Overview's Continue can link to it.
 export function StepsView({ id }: { id: string }) {
-	const { studies, role, addStep, removeAddedStep, restoreAddedStep, setPhaseStatus } = useMartine();
+	const { studies, addStep, removeAddedStep, restoreAddedStep, setPhaseStatus, renameStep, removeStep, restoreStep } = useMartine();
 	const toast = useToast();
 	const pathname = usePathname();
 	const params = useSearchParams();
@@ -40,8 +41,7 @@ export function StepsView({ id }: { id: string }) {
 				<div className="rounded-[var(--radius-lg)] border border-dashed border-[var(--color-border-active)] bg-[var(--color-surface)] px-6 py-8 text-[var(--color-ink-secondary)]">
 					<p className="m-0 font-semibold text-[var(--color-ink)]">The {method?.name.toLowerCase() ?? "study"} method is not in Martine yet.</p>
 					<p className="mb-0 mt-1.5 text-[15px]">
-						Its tab in the method file is still empty: its phases and tasks show here once it is written.{" "}
-						<Link href="/study-types">See the study types</Link>
+						Its tab in the method file is still empty: its phases and tasks show here once it is written. <Link href="/study-types">See the study types</Link>
 					</p>
 				</div>
 			</div>
@@ -55,7 +55,10 @@ export function StepsView({ id }: { id: string }) {
 				<span className="mt-1 block text-sm text-[var(--color-ink-muted)]">Where it stands: {statusLine(views)}.</span>
 			</p>
 
-			<ol aria-label="Phases" className="m-0 list-none overflow-hidden rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-surface)] p-0 shadow-[var(--shadow-xs)]">
+			<ol
+				aria-label="Phases"
+				className="m-0 list-none overflow-hidden rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-surface)] p-0 shadow-[var(--shadow-xs)]"
+			>
 				{views.map((p) => (
 					<PhaseRow
 						key={p.id}
@@ -63,19 +66,35 @@ export function StepsView({ id }: { id: string }) {
 						onOpen={() => setOpen(p.id)}
 						canSetStatus
 						onStatus={(s) => setPhaseStatus(study.id, p.id, s)}
-						onRemove={
-							p.addedBy && role === "consultant"
-								? () => {
-										const removed = removeAddedStep(study.id, p.id);
-										toast("Step removed", removed && { label: "Undo", onClick: () => restoreAddedStep(study.id, removed) });
-									}
-								: undefined
-						}
+						onRename={(name) => renameStep(study.id, p.id, name)}
+						onRemove={() => {
+							if (p.addedBy) {
+								const removed = removeAddedStep(study.id, p.id);
+								toast("Step removed", removed && { label: "Undo", onClick: () => restoreAddedStep(study.id, removed) });
+							} else {
+								removeStep(study.id, p.id);
+								toast("Step removed for this study; the method keeps it", { label: "Undo", onClick: () => restoreStep(study.id, p.id) });
+							}
+						}}
 					/>
 				))}
 			</ol>
 
-			{role === "consultant" && <AddRow label="Add a step for this study" placeholder="Name of the step, for this study only" onAdd={(v) => addStep(study.id, v)} />}
+			<AddRow label="Add a step for this study" placeholder="Name of the step, for this study only" onAdd={(v) => addStep(study.id, v)} />
+
+			{removedSteps(study).length > 0 && (
+				<p className="m-0 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-[var(--color-ink-muted)]">
+					Left out of this study:
+					{removedSteps(study).map((r) => (
+						<span key={r.id} className="inline-flex items-center gap-1.5">
+							<span className="line-through">{r.label}</span>
+							<button onClick={() => restoreStep(study.id, r.id)} className="font-semibold text-[var(--color-accent)] hover:underline">
+								Restore
+							</button>
+						</span>
+					))}
+				</p>
+			)}
 
 			<PhaseDrawer study={study} phase={open} onClose={() => setOpen(null)} />
 		</div>
@@ -87,19 +106,30 @@ export function StepsView({ id }: { id: string }) {
 function PhaseRow({
 	phase: p,
 	onOpen,
+	onRename,
 	onRemove,
 	canSetStatus,
 	onStatus,
 }: {
 	phase: PhaseView;
 	onOpen: () => void;
-	onRemove?: () => void;
+	onRename: (name: string) => void;
+	onRemove: () => void;
 	canSetStatus: boolean;
 	onStatus: (s: PhaseStatus) => void;
 }) {
 	const tools = [...new Set(p.tasks.flatMap((t) => t.task.tool_ids))].map((id) => toolById(id)?.label ?? id);
 	const skills = [...new Set(p.tasks.flatMap((t) => t.task.skills))].map((id) => skillById(id)?.label ?? id);
 	const off = p.status === "not_needed";
+	const [renaming, setRenaming] = useState(false);
+	if (renaming) {
+		return (
+			<li className="flex items-center gap-3 border-b border-[var(--color-border)] px-5 py-2.5 last:border-b-0">
+				<span className="w-[30px] shrink-0 text-center text-[13px] text-[var(--color-ink-muted)]">{p.addedBy ? "+" : p.id}</span>
+				<RenameField value={p.name} label={`New name for the step “${p.name}”`} onSave={onRename} onDone={() => setRenaming(false)} />
+			</li>
+		);
+	}
 	return (
 		<li className="flex items-center border-b border-[var(--color-border)] transition-colors last:border-b-0 hover:bg-[var(--color-hover)]">
 			<button
@@ -137,7 +167,8 @@ function PhaseRow({
 			<span className="flex w-[124px] shrink-0">
 				<PhaseStatusPicker status={p.status} canEdit={canSetStatus} onChange={onStatus} label={`Status of phase ${p.id}`} />
 			</span>
-			{onRemove && <RemoveButton label={`Remove the step “${p.name}”`} onClick={onRemove} />}
+			<RenameButton label={`Rename the step “${p.name}”`} onClick={() => setRenaming(true)} className="ml-1" />
+			<RemoveButton label={`Remove the step “${p.name}”`} onClick={onRemove} />
 			<span aria-hidden onClick={onOpen} className="flex cursor-pointer self-stretch items-center pl-1 pr-5 text-[var(--color-ink-muted)]">
 				<ChevronRight size={16} />
 			</span>
