@@ -193,8 +193,9 @@
 					"what": "Collect e-commerce reviews for the ratings & reviews analysis.",
 					"how": "List all key products of the brand and its competitors.\nCheck that they are in the Semantiweb reviews database: ICC > R&R - Semantiweb reviews Live Deduplicate.\nIf not, email the R&R crawl owner the products to crawl and the e-retailer scope (e.g. Sephora, as stated in the brief).",
 					"watch_out": "If you are unsure about the e-retailer scope, validate it with the project lead. If the crawl is not finished after 2 working days, contact the Tech team on Slack.",
-					"tools": "Slack",
+					"tools": "ICC, Slack",
 					"tool_ids": [
+						"icc",
 						"slack"
 					],
 					"check": "",

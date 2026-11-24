@@ -285,9 +285,10 @@
 					"what": "Top platforms.",
 					"how": "Via Meltwater or the ICC.",
 					"watch_out": "",
-					"tools": "Meltwater",
+					"tools": "Meltwater, ICC",
 					"tool_ids": [
-						"meltwater"
+						"meltwater",
+						"icc"
 					],
 					"check": "",
 					"output": "Top platforms slide",

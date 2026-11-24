@@ -189,6 +189,13 @@
       "url": null
     },
     {
+      "id": "icc",
+      "label": "ICC",
+      "kind": "Semantiweb",
+      "claude_connector": null,
+      "url": null
+    },
+    {
       "id": "corpus_manager",
       "label": "Corpus Manager",
       "kind": "Semantiweb",

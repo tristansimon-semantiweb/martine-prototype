@@ -247,8 +247,9 @@
 					"what": "Add ratings & reviews to the corpus.",
 					"how": "Crawl request: list the key products and check whether they are already in the Semantiweb reviews database (ICC > R&R - Semantiweb reviews Live Deduplicate). If not, email the R&R crawl owner the products to crawl and the e-retailer scope (e.g. Sephora, as stated in the brief).\nIf the product is not a beauty product, you may be asked to crawl the reviews yourself with Export Comments: ask Gemini for the 20 most popular products in the category / sub-category for each country / target, and crawl at least one URL per product (ideally 50 reviews minimum per product). Import the Export Comments file as a source in Corpus Manager.",
 					"watch_out": "If you are unsure about the e-retailer scope, validate it with the project lead. If the crawl is not finished after 2 working days, contact the Tech team on Slack.",
-					"tools": "Corpus Manager, Export Comments, Gemini, Slack",
+					"tools": "ICC, Corpus Manager, Export Comments, Gemini, Slack",
 					"tool_ids": [
+						"icc",
 						"corpus_manager",
 						"export_comments",
 						"gemini",
@@ -284,8 +285,9 @@
 					"what": "Load the data into Corpus Manager.",
 					"how": "Load extracts, crawls and reviews into Corpus Manager.\nPrefer one single corpus mixing reviews and social listening, to better understand what drives expectations, positivity and negativity. This implies clean facets.\nLoading and deduplication (see Corpus Manager methodology): first run each file through the Files tool on ICC (it handles deduplication, translation and format), then add all sources to your Corpus Manager project, and only then create the corpus with its facets and SOB.",
 					"watch_out": "Brand Audit 4.1 recommends a separate reviews corpus: rule to harmonise.; A single corpus with SML and R&R macro-source categories makes it faster to identify top products by SML facet and gives a more exhaustive sentiment analysis, but it requires clean facets.",
-					"tools": "Corpus Manager",
+					"tools": "ICC, Corpus Manager",
 					"tool_ids": [
+						"icc",
 						"corpus_manager"
 					],
 					"check": "",
@@ -355,8 +357,9 @@
 					"what": "Get the vocabulary of the conversation, globally and by segment.",
 					"how": "As soon as the corpus is ready (facets from 4.1 applied), run the frequencies: they feed the topic categories (5.2), the AI labelling (5.3), rising words, sentiment drivers and targets.\nScope: global, by country, by platform, by facet (target, gender, category / sub-category, brand segment, positive, negative).\nPeriods: for each scope, run L12M and P12M (YoY), plus L24M for the overall top words if the corpus covers 2 years.\nICC path (see ICC TOOLS 1.1): select the facets in the corpus > Frequencies tab > choose the type (default: lexical + hashtags; emoji or syntagmatic if useful) > select the right language (FR by default) > tick \"receive an email when ready\" > view on the ICC or download.\nYoY and comparisons (see ICC TOOLS 1.2): run the frequencies on each period or segment with the same settings, then use the \"Difference\" button to read over-represented, under-represented and new words (specificities = L12M rising words).\nFirst reading: pass the downloaded files to Claude to clear the ground (first clusters, noise, pollution check); the Claude Excel extension can colour-code the frequencies. The analyst reviews the output.\nUnclear top word: check its context in the concordancer (ICC TOOLS 4).\nLanguages: frequencies run on one language at a time. On a multi-country corpus (e.g. FR + US, see 3.1), run one batch per language, or on the translated text if the corpus was translated.\nSources: if the corpus mixes social listening and reviews (see 3.4), run the frequencies per macro-source (SML / R&R) on top of the total: review vocabulary (product, rating) differs from social conversation.\nDone when: all frequency exports (scope × period) are saved in the Project Drive and logged in the working sheet.",
 					"watch_out": "Automatable (ODP-06).\nLanguage is set to FR by default: change it if the corpus is not French.\nFrequencies can get queued when many people run them: running icon (walking person) = in progress, warning icon = real issue. Check before alerting Tech.\nDifferential: both batches need the same settings and comparable volumes. A small period 2 produces artificial specificities.\nRemove brand names and generic words before reading top / rising words; group variants and translations.\nSegment and facet runs only (not global frequencies): when a run rests on a small segment (minor country, target, sub-category), tag it \"LOW SIGNAL\" and read it as directional rather than over-reading it (see Category Audit rule on LOW SIGNAL).",
-					"tools": "Claude, Google Drive, Excel",
+					"tools": "ICC, Claude, Google Drive, Excel",
 					"tool_ids": [
+						"icc",
 						"claude",
 						"google_drive",
 						"excel"

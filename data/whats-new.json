@@ -8,6 +8,12 @@
       "summary": "Documents work by phase, tasks put their tools and skills up front, and the first version narrows its scope.",
       "items": [
         {
+          "kind": "changed",
+          "title": "ICC in Tools",
+          "text": "The ICC joins the tool repository, linked to the steps that use it: collecting reviews (R&R), building a corpus, running frequencies.",
+          "href": "/tools/icc"
+        },
+        {
           "kind": "new",
           "title": "Request a skill",
           "text": "A step with no skill offers “Request a skill”: say what Claude should do there and which tools it needs a connector for. The request lands with the tech team, who build the connectors and the skill; once Fabien validates it, the skill is available to everyone and linked to its step.",
