@@ -3,7 +3,8 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { X } from "lucide-react";
+import { Sparkles, X } from "lucide-react";
+import { useHasNews } from "@/features/whats-new/seen";
 import { cn } from "@/shared/lib/cn";
 import { useSidebar } from "@/shared/hooks/useSidebar";
 import { useMartine } from "@/shared/hooks/useMartine";
@@ -24,6 +25,7 @@ export function Sidebar() {
 	const { mobileOpen, setMobileOpen } = useSidebar();
 	const { studies, me } = useMartine();
 	const [query, setQuery] = useState("");
+	const hasNews = useHasNews();
 
 	const recent = studies
 		.filter((s) => s.status !== "delivered" && s.team.some((m) => m.person === me))
@@ -106,6 +108,15 @@ export function Sidebar() {
 					})}
 					{recent.length === 0 && <p className="px-2.5 py-2 text-sm text-[var(--color-ink-muted)]">No study matches.</p>}
 				</nav>
+				<div className="mt-auto border-t border-[var(--color-border)] p-3">
+					<Link href="/whats-new" className={item(pathname === "/whats-new")} aria-current={pathname === "/whats-new" ? "page" : undefined}>
+						<Sparkles size={15} aria-hidden className="text-[var(--color-accent)]" />
+						<span className="flex-1">What’s new</span>
+						{hasNews && pathname !== "/whats-new" && (
+							<span className="rounded-[var(--radius-xl)] bg-[var(--color-accent)] px-2 py-px text-[11px] font-semibold text-white">New</span>
+						)}
+					</Link>
+				</div>
 			</aside>
 		</>
 	);

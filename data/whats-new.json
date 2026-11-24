@@ -1,0 +1,26 @@
+{
+  "_meta": {
+    "note": "What changed in the prototype, newest first. Shown in the sidebar's What's new. Add an entry with each change people will notice."
+  },
+  "entries": [
+    {
+      "date": "2026-11-24",
+      "items": [
+        "Files is the study’s document space: its documents by phase, each saying which task it delivers. Add a document from Files, or from the task itself.",
+        "Each task shows its deliverable and attaches a link, a file, or a copy of the template it starts from.",
+        "Each task shows its skill with Open in Claude, and its tools as buttons that open the tool.",
+        "Skills: the skills we have, and the steps of each study type that use them. Files to the Corpus Manager now sits on the corpus steps.",
+        "Set aside for the first version: ticking tasks, validating phases, time tracking, Oversight, the automatic Slack channel."
+      ]
+    },
+    {
+      "date": "2026-11-23",
+      "items": [
+        "Studies: one table of every study, filtered by family, study type, status and person. It replaces My studies.",
+        "Tools: the tools we work in, each linked to the steps that use it.",
+        "Study types (formerly Methods): the 18 methods from the method files, each with what it is and the question it answers.",
+        "The prototype now asks for an access code."
+      ]
+    }
+  ]
+}

@@ -7,6 +7,7 @@ import studiesRaw from "../../../data/studies.json";
 import readingsRaw from "../../../data/brief-readings.json";
 import askScriptsRaw from "../../../data/ask-martine-scripts.json";
 import studyTypesRaw from "../../../data/study-types.json";
+import whatsNewRaw from "../../../data/whats-new.json";
 import { METHOD_FILES } from "./methodFiles.generated";
 import type {
 	AskScript,
@@ -29,6 +30,7 @@ export const seedSuggestions = studiesRaw.methodSuggestions as MethodSuggestion[
 export const briefs = briefsRaw as unknown as Record<string, string>;
 export const briefReadings = readingsRaw.readings as Record<string, BriefReading>;
 export const askScripts = askScriptsRaw.scripts as AskScript[];
+export const whatsNew = whatsNewRaw.entries as { date: string; items: string[] }[];
 const studyTypes = studyTypesRaw.types as unknown as Record<string, StudyTypeDefinition | null>;
 
 export function studyTypeDefinition(id: string): StudyTypeDefinition | null {
