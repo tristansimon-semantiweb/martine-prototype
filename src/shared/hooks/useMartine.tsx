@@ -32,8 +32,8 @@ interface MartineData {
 // Bumped when the seed data changes shape (v2: the methods import), so a
 // browser that kept an older demo starts again from the new seed (v3: files
 // attached to tasks; v4: V1 scope, no ticking, validation or time; v5: one
-// document per phase; v6: skill requests; v7: phase status; v8: scope and past studies; v9, v10: outputs traced to tasks, then not: no task state in V1; v11: a document used by two phases; v12: last edition, not previous wave; v13: documents by category).
-const KEY = "martine_v13";
+// document per phase; v6: skill requests; v7: phase status; v8: scope and past studies; v9, v10: outputs traced to tasks, then not: no task state in V1; v11: a document used by two phases; v12: last edition, not previous wave; v13: documents by category; v14: no renaming or removing a method phase in a study).
+const KEY = "martine_v14";
 
 const ROLE_PERSON: Record<RoleId, string> = { analyst: "marie", consultant: "claire", method_owner: "bamby", skills_owner: "fabien" };
 
@@ -159,17 +159,6 @@ function useMartineState() {
 			},
 			restoreAddedStep: (studyId: string, step: AddedStep) =>
 				patchState(studyId, (st) => ({ ...st, addedSteps: [...st.addedSteps, step] })),
-			// Rename or take out a method step for this study only (an added step is
-			// renamed in place; removing one is removeAddedStep).
-			renameStep: (studyId: string, phase: string, name: string) =>
-				patchState(studyId, (st) => {
-					if (st.addedSteps.some((s) => s.id === phase)) return { ...st, addedSteps: st.addedSteps.map((s) => (s.id === phase ? { ...s, name } : s)) };
-					return { ...st, stepNames: { ...st.stepNames, [phase]: name } };
-				}),
-			removeStep: (studyId: string, phase: string) =>
-				patchState(studyId, (st) => ({ ...st, removedSteps: [...new Set([...(st.removedSteps ?? []), phase])] })),
-			restoreStep: (studyId: string, phase: string) =>
-				patchState(studyId, (st) => ({ ...st, removedSteps: (st.removedSteps ?? []).filter((p) => p !== phase) })),
 
 			// ── Study files ──
 			markFileChecked: (studyId: string, fileId: string) =>

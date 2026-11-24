@@ -22,7 +22,7 @@
         {
           "kind": "changed",
           "title": "Steps opens on the phase in progress",
-          "text": "Steps no longer starts with a list of phases: it opens on the phase in progress (or the first not done), with every phase in a column on the left to move between them, rename, remove or add one.",
+          "text": "Steps no longer starts with a list of phases: it opens on the phase in progress (or the first not done), with every phase in a column on the left to move between them, and Add a step at the bottom.",
           "href": "/studies/TR-2611-01/steps"
         },
         {
@@ -45,9 +45,9 @@
         },
         {
           "kind": "new",
-          "title": "Rename or remove a step",
-          "text": "In a study’s Steps, hover a phase in the column: a pencil renames it, a cross takes it out of this study (the method keeps it, and a removed step can be restored below the column). Add a step at the bottom of the column. In a study type, the method owner renames or removes a phase in the draft; studies in progress keep the published version.",
-          "href": "/studies/TR-2611-01/steps"
+          "title": "Rename or remove a phase in a study type",
+          "text": "In a study type, the method owner renames or removes a phase in the draft; studies in progress keep the published version. In a study, the method’s phases stay as they are: only a step added for this study can be removed.",
+          "href": "/study-types/trend_report"
         },
         {
           "kind": "changed",

@@ -1,24 +1,24 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import { Check } from "lucide-react";
 import { useMartine } from "@/shared/hooks/useMartine";
 import { useToast } from "@/shared/components/ui/Toast";
-import { AddRow, RemoveButton, RenameButton, RenameField } from "@/shared/components/ui/Editing";
+import { AddRow, RemoveButton } from "@/shared/components/ui/Editing";
 import { methodEntry } from "@/shared/lib/data";
-import { hasMethodFile, phaseViews, removedSteps, type PhaseView } from "@/shared/lib/studyModel";
+import { hasMethodFile, phaseViews, type PhaseView } from "@/shared/lib/studyModel";
 import { cn } from "@/shared/lib/cn";
 import { PhasePage } from "./PhasePage";
 
 // The study's steps: the phases in a column on the left, to move between them
-// and to rename, remove or add one; the open phase on the rest of the page.
+// (the method's phases as they are, plus the steps added for this study); the
+// open phase on the rest of the page.
 // Steps opens on the phase in progress (else the first not done). The open
 // phase is in the URL (?phase=2) so Ask Martine's sources and Overview's
 // Continue can link to it.
 export function StepsView({ id }: { id: string }) {
-	const { studies, addStep, removeAddedStep, restoreAddedStep, renameStep, removeStep, restoreStep } = useMartine();
+	const { studies, addStep, removeAddedStep, restoreAddedStep } = useMartine();
 	const toast = useToast();
 	const pathname = usePathname();
 	const params = useSearchParams();
@@ -48,16 +48,11 @@ export function StepsView({ id }: { id: string }) {
 
 	const counted = views.filter((p) => p.status !== "not_needed");
 	const done = counted.filter((p) => p.status === "done").length;
-	const removed = removedSteps(study);
 
+	// Only a step added for this study can be removed: the method's phases stay as they are.
 	const remove = (p: PhaseView) => {
-		if (p.addedBy) {
-			const r = removeAddedStep(study.id, p.id);
-			toast("Step removed", r && { label: "Undo", onClick: () => restoreAddedStep(study.id, r) });
-		} else {
-			removeStep(study.id, p.id);
-			toast("Step removed for this study; the method keeps it", { label: "Undo", onClick: () => restoreStep(study.id, p.id) });
-		}
+		const r = removeAddedStep(study.id, p.id);
+		toast("Step removed", r && { label: "Undo", onClick: () => restoreAddedStep(study.id, r) });
 	};
 
 	return (
@@ -74,40 +69,19 @@ export function StepsView({ id }: { id: string }) {
 				</div>
 				<ol aria-label="Phases" className="m-0 flex list-none flex-col gap-0.5 p-0">
 					{views.map((p) => (
-						<PhaseItem key={p.id} phase={p} active={p.id === open.id} onOpen={() => setOpen(p.id)} onRename={(name) => renameStep(study.id, p.id, name)} onRemove={() => remove(p)} />
+						<PhaseItem key={p.id} phase={p} active={p.id === open.id} onOpen={() => setOpen(p.id)} onRemove={p.addedBy ? () => remove(p) : undefined} />
 					))}
 				</ol>
 				<AddRow label="Add a step" placeholder="Name of the step, for this study only" onAdd={(v) => addStep(study.id, v)} />
-				{removed.length > 0 && (
-					<div className="flex flex-col gap-1 px-2 pb-1 text-[13px] text-[var(--color-ink-muted)]">
-						Left out of this study:
-						{removed.map((r) => (
-							<span key={r.id} className="flex items-center gap-1.5">
-								<span className="min-w-0 flex-1 truncate line-through">{r.label}</span>
-								<button onClick={() => restoreStep(study.id, r.id)} className="font-semibold text-[var(--color-accent)] hover:underline">
-									Restore
-								</button>
-							</span>
-						))}
-					</div>
-				)}
 			</nav>
 			<PhasePage key={open.id} study={study} phase={open} />
 		</div>
 	);
 }
 
-// A phase in the column: its state and name; the pencil and the cross show
-// on hover (or keyboard focus) to rename it or take it out of this study.
-function PhaseItem({ phase: p, active, onOpen, onRename, onRemove }: { phase: PhaseView; active: boolean; onOpen: () => void; onRename: (name: string) => void; onRemove: () => void }) {
-	const [renaming, setRenaming] = useState(false);
-	if (renaming) {
-		return (
-			<li className="px-1 py-0.5">
-				<RenameField value={p.name} label={`New name for the step “${p.name}”`} onSave={onRename} onDone={() => setRenaming(false)} />
-			</li>
-		);
-	}
+// A phase in the column: its state and name. A step added for this study
+// shows a cross on hover (or keyboard focus) to remove it.
+function PhaseItem({ phase: p, active, onOpen, onRemove }: { phase: PhaseView; active: boolean; onOpen: () => void; onRemove?: () => void }) {
 	return (
 		<li className={cn("group flex items-center rounded-[var(--radius-sm)]", active ? "bg-[var(--color-accent-dim)]" : "hover:bg-[var(--color-hover)]")}>
 			<button
@@ -134,10 +108,11 @@ function PhaseItem({ phase: p, active, onOpen, onRename, onRemove }: { phase: Ph
 				</span>
 				<span className="min-w-0 flex-1 leading-snug">{p.name}</span>
 			</button>
-			<span className="flex w-0 shrink-0 overflow-hidden focus-within:w-auto group-hover:w-auto">
-				<RenameButton label={`Rename the step “${p.name}”`} onClick={() => setRenaming(true)} className="h-6 w-6" />
-				<RemoveButton label={`Remove the step “${p.name}”`} onClick={onRemove} />
-			</span>
+			{onRemove && (
+				<span className="flex w-0 shrink-0 overflow-hidden focus-within:w-auto group-hover:w-auto">
+					<RemoveButton label={`Remove the step “${p.name}”`} onClick={onRemove} />
+				</span>
+			)}
 		</li>
 	);
 }
