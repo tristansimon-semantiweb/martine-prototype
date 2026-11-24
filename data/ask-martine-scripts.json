@@ -42,8 +42,8 @@
       "answer": "Partly. The last edition’s queries (Trend watch: scalp care) cover France and the UK, not Japan. Several were rewritten mid-project, which forced a rerun: the method now says to lock them before measuring.",
       "sources": [
         {
-          "label": "Queries, last edition",
-          "href": "/studies/{study}/files"
+          "label": "Trend watch: scalp care, last edition",
+          "href": "/studies/TR-2604-02"
         },
         {
           "label": "Method, phase 2",

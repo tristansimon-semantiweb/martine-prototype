@@ -105,8 +105,8 @@ function From({ study, file }: { study: Study; file: StudyFile }) {
 // The study's document space, read like a drive, in three tabs: scope and
 // brief, production documents, deliverables. Each document shows its
 // type, where it comes from and the phases that work in it (a document can
-// serve several phases, so it is not filed under one). The last edition's
-// documents sit below.
+// serve several phases, so it is not filed under one). Earlier studies of
+// the same type are in the Overview's Similar studies.
 export function FilesView({ id }: { id: string }) {
 	const { studies } = useMartine();
 	const [adding, setAdding] = useState<FileCategory | null>(null);
@@ -121,11 +121,6 @@ export function FilesView({ id }: { id: string }) {
 	const current = SECTIONS.find((x) => x.id === tab)!;
 	const files = shown.filter((f) => categoryOf(f) === tab);
 	const usedIn = (fileId: string) => views.filter((p) => study.state.phaseDocs?.[p.id] === fileId);
-	// The last edition: this client's latest delivered study of the same type,
-	// whose documents can be reused here.
-	const lastEdition = studies
-		.filter((s) => s.id !== study.id && s.client === study.client && s.method.id === study.method.id && s.status === "delivered" && s.due < study.due)
-		.sort((a, b) => b.due.localeCompare(a.due))[0];
 	const cols = "grid grid-cols-[minmax(0,1fr)_auto] items-center gap-x-4 sm:grid-cols-[minmax(0,1.6fr)_minmax(0,1.2fr)_minmax(0,1fr)]";
 	const card = "overflow-hidden rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-surface)] shadow-[var(--shadow-xs)]";
 
@@ -205,30 +200,6 @@ export function FilesView({ id }: { id: string }) {
 					</ul>
 				)}
 			</section>
-
-			{study.previousWave.length > 0 && (
-				<section aria-labelledby="prev" className={card}>
-					<h2 id="prev" className="m-0 flex items-center gap-2 border-b border-[var(--color-border)] bg-[var(--color-canvas)] px-5 py-2.5 font-[family-name:var(--font-body)] text-[13px] font-semibold text-[var(--color-ink-secondary)]">
-						<Folder size={14} aria-hidden className="text-[var(--color-ink-muted)]" />
-						From the last edition
-						{lastEdition ? (
-							<>
-								: <Link href={`/studies/${lastEdition.id}`}>{lastEdition.title}</Link>
-							</>
-						) : (
-							", same client"
-						)}
-						<span className="font-normal text-[var(--color-ink-muted)]">{study.previousWave.length}</span>
-					</h2>
-					<ul className="m-0 list-none p-0">
-						{study.previousWave.map((f) => (
-							<li key={f.id} className="flex items-center gap-3 border-b border-[var(--color-border)] px-5 py-3 text-sm last:border-b-0">
-								<NameCell name={f.name} type={f.type} />
-							</li>
-						))}
-					</ul>
-				</section>
-			)}
 		</div>
 	);
 }
