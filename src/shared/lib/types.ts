@@ -107,6 +107,7 @@ export interface CatalogTool {
 	kind: string; // "Social listening", "AI assistant"…
 	claude_connector: boolean | null; // null: not checked yet
 	aliases?: string[]; // patterns that find the tool in the method files' text
+	url: string | null; // where to open it (null: internal, not in the prototype)
 }
 
 export interface Catalog {

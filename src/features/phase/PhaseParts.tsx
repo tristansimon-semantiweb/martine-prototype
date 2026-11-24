@@ -2,7 +2,7 @@
 
 import { Sheet } from "@/shared/components/ui/Sheet";
 import Link from "next/link";
-import { X } from "lucide-react";
+import { ExternalLink, X } from "lucide-react";
 import { methodFile } from "@/shared/lib/data";
 import { otherToolItems, toolById } from "@/shared/lib/tools";
 import { dayRange } from "@/shared/lib/format";
@@ -45,6 +45,38 @@ export function PhaseSheet({
 	);
 }
 
+// One tool of a task, as a button that opens the tool (its public address,
+// in a new tab), or its page in the repository for internal tools.
+export function ToolChip({ id, isNew, onUnlink }: { id: string; isNew?: boolean; onUnlink?: (id: string) => void }) {
+	const t = toolById(id);
+	const label = (
+		<>
+			{t?.label ?? id}
+			{isNew && <span className="font-normal text-[var(--color-ink-muted)]"> (new)</span>}
+			{t?.url && <ExternalLink size={12} aria-hidden className="text-[var(--color-ink-muted)]" />}
+		</>
+	);
+	const cls = "inline-flex items-center gap-1 px-2.5 py-1 font-medium text-[var(--color-ink)] no-underline hover:text-[var(--color-accent)]";
+	return (
+		<span className="inline-flex items-center rounded-[var(--radius-sm)] border border-[var(--color-border-hover)] bg-[var(--color-surface)] text-[13px] shadow-[var(--shadow-xs)] hover:border-[var(--color-accent)]">
+			{t?.url ? (
+				<a href={t.url} target="_blank" rel="noopener noreferrer" title={`Open ${t.label}`} className={cls}>
+					{label}
+				</a>
+			) : (
+				<Link href={`/tools/${id}`} title={`${t?.label ?? id}: internal tool`} className={cls}>
+					{label}
+				</Link>
+			)}
+			{onUnlink && (
+				<button onClick={() => onUnlink(id)} aria-label={`Unlink ${t?.label ?? id}`} className="-ml-1 px-1.5 text-[var(--color-ink-muted)] hover:text-[var(--color-negative)]">
+					<X size={12} aria-hidden />
+				</button>
+			)}
+		</span>
+	);
+}
+
 // A task's tools: the repository tools it is linked to (links to their page,
 // removable by the method owner), then what else the Tools column names
 // (documents, sources) as plain text.
@@ -62,22 +94,9 @@ export function ToolList({
 	const others = otherToolItems(task);
 	return (
 		<span className="flex flex-wrap items-center gap-1.5">
-			{task.tool_ids.map((id) => {
-				const t = toolById(id);
-				return (
-					<span key={id} className="inline-flex items-center rounded-[var(--radius-xl)] border border-[var(--color-border-hover)] text-[13px]">
-						<Link href={`/tools/${id}`} title={t?.kind} className="px-2.5 py-0.5 text-[var(--color-ink)] no-underline hover:text-[var(--color-accent)]">
-							{t?.label ?? id}
-							{newIds.includes(id) && <span className="text-[var(--color-ink-muted)]"> (new)</span>}
-						</Link>
-						{onUnlink && (
-							<button onClick={() => onUnlink(id)} aria-label={`Unlink ${t?.label ?? id}`} className="-ml-1 px-1.5 text-[var(--color-ink-muted)] hover:text-[var(--color-negative)]">
-								<X size={12} aria-hidden />
-							</button>
-						)}
-					</span>
-				);
-			})}
+			{task.tool_ids.map((id) => (
+				<ToolChip key={id} id={id} isNew={newIds.includes(id)} onUnlink={onUnlink} />
+			))}
 			{others.map((o) => (
 				<span key={o} title="Named in the method file, not a tool of the repository" className="px-1 text-[13px] text-[var(--color-ink-secondary)]">
 					{o}

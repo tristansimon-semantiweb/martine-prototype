@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "note": "The Semantiweb catalog: one entry per skill, tool, document template and guide. Skill statuses are illustrative until the owners validate them. Tools: the applications people work in, the tool repository; 'aliases' are patterns that find a tool in the method files' text; claude_connector null means not checked yet. Skills: the Semantiweb skills available in Claude, without the tech delivery ones; status null means not set yet."
+    "note": "The Semantiweb catalog: one entry per skill, tool, document template and guide. Skill statuses are illustrative until the owners validate them. Tools: the applications people work in, the tool repository; 'aliases' are patterns that find a tool in the method files' text; claude_connector null means not checked yet. Skills: the Semantiweb skills available in Claude, without the tech delivery ones; status null means not set yet. url: the tool's public address (null for Semantiweb's internal tools, whose addresses stay out of the prototype)."
   },
   "skills": [
     {
@@ -91,55 +91,64 @@
       "id": "radarly",
       "label": "Radarly",
       "kind": "Social listening",
-      "claude_connector": null
+      "claude_connector": null,
+      "url": "https://radarly.linkfluence.com"
     },
     {
       "id": "talkwalker",
       "label": "Talkwalker",
       "kind": "Social listening",
-      "claude_connector": false
+      "claude_connector": false,
+      "url": "https://app.talkwalker.com"
     },
     {
       "id": "meltwater",
       "label": "Meltwater",
       "kind": "Social listening",
-      "claude_connector": null
+      "claude_connector": null,
+      "url": "https://app.meltwater.com"
     },
     {
       "id": "sprinklr",
       "label": "Sprinklr",
       "kind": "Social listening",
-      "claude_connector": null
+      "claude_connector": null,
+      "url": "https://www.sprinklr.com"
     },
     {
       "id": "synthesio",
       "label": "Synthesio",
       "kind": "Social listening",
-      "claude_connector": null
+      "claude_connector": null,
+      "url": "https://www.synthesio.com"
     },
     {
       "id": "visibrain",
       "label": "Visibrain",
       "kind": "Social listening",
-      "claude_connector": null
+      "claude_connector": null,
+      "url": "https://www.visibrain.com"
     },
     {
       "id": "spate",
       "label": "Spate",
       "kind": "Search & trends",
-      "claude_connector": false
+      "claude_connector": false,
+      "url": "https://www.spate.nyc"
     },
     {
       "id": "trajaan",
       "label": "Trajaan",
       "kind": "Search & trends",
-      "claude_connector": false
+      "claude_connector": false,
+      "url": "https://www.trajaan.com"
     },
     {
       "id": "google_trends",
       "label": "Google Trends",
       "kind": "Search & trends",
-      "claude_connector": null
+      "claude_connector": null,
+      "url": "https://trends.google.com"
     },
     {
       "id": "google_search",
@@ -148,61 +157,71 @@
       "claude_connector": null,
       "aliases": [
         "\\bGoogle\\b(?! (?:Drive|Slides|Sheets|News|Trends|Docs))"
-      ]
+      ],
+      "url": "https://www.google.com"
     },
     {
       "id": "google_news",
       "label": "Google News",
       "kind": "Search & trends",
-      "claude_connector": null
+      "claude_connector": null,
+      "url": "https://news.google.com"
     },
     {
       "id": "hypeauditor",
       "label": "HypeAuditor",
       "kind": "Influencer data",
-      "claude_connector": null
+      "claude_connector": null,
+      "url": "https://app.hypeauditor.com"
     },
     {
       "id": "traackr",
       "label": "Traackr",
       "kind": "Influencer data",
-      "claude_connector": null
+      "claude_connector": null,
+      "url": "https://www.traackr.com"
     },
     {
       "id": "data_platform",
       "label": "Data platform",
       "kind": "Semantiweb",
-      "claude_connector": true
+      "claude_connector": true,
+      "url": null
     },
     {
       "id": "corpus_manager",
       "label": "Corpus Manager",
       "kind": "Semantiweb",
-      "claude_connector": null
+      "claude_connector": null,
+      "url": null
     },
     {
       "id": "live_fix",
       "label": "Live Fix",
       "kind": "Semantiweb",
-      "claude_connector": null
+      "claude_connector": null,
+      "url": null
     },
     {
       "id": "sorter",
       "label": "Sorter",
       "kind": "Semantiweb",
-      "claude_connector": null
+      "claude_connector": null,
+      "url": null
     },
     {
       "id": "export_comments",
       "label": "Export Comments",
       "kind": "Collection",
-      "claude_connector": null
+      "claude_connector": null,
+      "url": "https://exportcomments.com"
     },
     {
       "id": "ssstik",
       "label": "ssstik",
       "kind": "Collection",
-      "claude_connector": null
+      "claude_connector": null,
+      "url": "https://ssstik.io"
     },
     {
       "id": "claude",
@@ -211,49 +230,57 @@
       "claude_connector": null,
       "aliases": [
         "\\bClaude\\b(?! (?:Design|Docs))"
-      ]
+      ],
+      "url": "https://claude.ai"
     },
     {
       "id": "claude_design",
       "label": "Claude Design",
       "kind": "AI assistant",
-      "claude_connector": null
+      "claude_connector": null,
+      "url": "https://claude.ai"
     },
     {
       "id": "claude_docs",
       "label": "Claude Docs",
       "kind": "AI assistant",
-      "claude_connector": null
+      "claude_connector": null,
+      "url": "https://claude.ai"
     },
     {
       "id": "chatgpt",
       "label": "ChatGPT",
       "kind": "AI assistant",
-      "claude_connector": null
+      "claude_connector": null,
+      "url": "https://chatgpt.com"
     },
     {
       "id": "gemini",
       "label": "Gemini",
       "kind": "AI assistant",
-      "claude_connector": null
+      "claude_connector": null,
+      "url": "https://gemini.google.com"
     },
     {
       "id": "perplexity",
       "label": "Perplexity",
       "kind": "AI assistant",
-      "claude_connector": null
+      "claude_connector": null,
+      "url": "https://www.perplexity.ai"
     },
     {
       "id": "slack",
       "label": "Slack",
       "kind": "Collaboration",
-      "claude_connector": true
+      "claude_connector": true,
+      "url": "https://app.slack.com"
     },
     {
       "id": "teams",
       "label": "Teams",
       "kind": "Collaboration",
-      "claude_connector": null
+      "claude_connector": null,
+      "url": "https://teams.microsoft.com"
     },
     {
       "id": "google_drive",
@@ -262,55 +289,64 @@
       "claude_connector": true,
       "aliases": [
         "\\b(?:Google )?Drive\\b"
-      ]
+      ],
+      "url": "https://drive.google.com"
     },
     {
       "id": "notion",
       "label": "Notion",
       "kind": "Collaboration",
-      "claude_connector": null
+      "claude_connector": null,
+      "url": "https://www.notion.so"
     },
     {
       "id": "float",
       "label": "Float",
       "kind": "Collaboration",
-      "claude_connector": null
+      "claude_connector": null,
+      "url": "https://app.float.com"
     },
     {
       "id": "granola",
       "label": "Granola",
       "kind": "Collaboration",
-      "claude_connector": null
+      "claude_connector": null,
+      "url": "https://www.granola.ai"
     },
     {
       "id": "excel",
       "label": "Excel",
       "kind": "Office",
-      "claude_connector": null
+      "claude_connector": null,
+      "url": "https://www.office.com/launch/excel"
     },
     {
       "id": "powerpoint",
       "label": "PowerPoint",
       "kind": "Office",
-      "claude_connector": null
+      "claude_connector": null,
+      "url": "https://www.office.com/launch/powerpoint"
     },
     {
       "id": "google_slides",
       "label": "Google Slides",
       "kind": "Office",
-      "claude_connector": null
+      "claude_connector": null,
+      "url": "https://docs.google.com/presentation"
     },
     {
       "id": "canva",
       "label": "Canva",
       "kind": "Office",
-      "claude_connector": null
+      "claude_connector": null,
+      "url": "https://www.canva.com"
     },
     {
       "id": "wordart",
       "label": "WordArt",
       "kind": "Office",
-      "claude_connector": null
+      "claude_connector": null,
+      "url": "https://wordart.com"
     }
   ],
   "documents": [

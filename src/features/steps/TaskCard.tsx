@@ -5,11 +5,12 @@ import { cn } from "@/shared/lib/cn";
 import { useMartine } from "@/shared/hooks/useMartine";
 import { useToast } from "@/shared/components/ui/Toast";
 import { methodEntry, skillById } from "@/shared/lib/data";
-import { toolById } from "@/shared/lib/tools";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, ExternalLink } from "lucide-react";
 import type { PhaseView, TaskView } from "@/shared/lib/studyModel";
 import type { Study } from "@/shared/lib/types";
-import { TaskFields, ToolList, formatOf, taskMeta, taskRows } from "@/features/phase/PhaseParts";
+import { TaskFields, ToolChip, formatOf, taskMeta, taskRows } from "@/features/phase/PhaseParts";
+import { otherToolItems } from "@/shared/lib/tools";
+import { openInClaudeUrl } from "@/shared/lib/martineContext";
 import { SkillBlock } from "./SkillBlock";
 
 // The days spent on a done task: filled with the planned minimum, editable.
@@ -65,16 +66,8 @@ export function TaskCard({ study, phase, view, highlight }: { study: Study; phas
 
 	const format = formatOf(study.method.id);
 	const summary = task.what || task.output;
-	const toolNames = task.tool_ids.map((t) => toolById(t)?.label ?? t);
-	const tools = (
-		<div className="flex flex-col gap-2.5">
-			<ToolList task={task} />
-			{task.skills.map((s) => (
-				<SkillBlock key={s} study={study} phase={phase} taskKey={key} skillId={s} />
-			))}
-		</div>
-	);
-	const hasTools = task.tool_ids.length > 0 || task.skills.length > 0 || Boolean(task.tools);
+	const others = otherToolItems(task);
+	const hasTools = task.tool_ids.length > 0 || task.skills.length > 0;
 
 	return (
 		<article
@@ -85,29 +78,57 @@ export function TaskCard({ study, phase, view, highlight }: { study: Study; phas
 		>
 			<div className="flex items-start gap-3">
 				{checkbox}
-				<button onClick={() => setOpen((v) => !v)} aria-expanded={open} className="min-w-0 flex-1 text-left">
-					<span className="flex items-baseline gap-3">
-						<span className="flex-1 text-[16px] font-semibold">{task.task}</span>
+				<div className="min-w-0 flex-1">
+					<div className="flex items-baseline gap-3">
+						<h3 className="m-0 flex-1 font-[family-name:var(--font-body)] text-[16px] font-semibold">{task.task}</h3>
 						<span className="shrink-0 text-[13px] text-[var(--color-ink-muted)]">{taskMeta(task)}</span>
-						<ChevronDown size={16} aria-hidden className={cn("shrink-0 self-center text-[var(--color-ink-muted)] transition-transform", open && "rotate-180")} />
-					</span>
-					{!open && summary && <span className="mt-0.5 block truncate text-sm text-[var(--color-ink-secondary)]">{summary}</span>}
-					{!open && (toolNames.length > 0 || task.skills.length > 0) && (
-						<span className="mt-1.5 flex flex-wrap items-center gap-1.5 text-[13px] text-[var(--color-ink-muted)]">
+					</div>
+					{summary && <p className={cn("m-0 mt-0.5 text-sm text-[var(--color-ink-secondary)]", !open && "line-clamp-2")}>{summary}</p>}
+
+					{hasTools && (
+						<div className="mt-2.5 flex flex-wrap items-center gap-1.5">
 							{task.skills.map((sk) => (
-								<span key={sk} className="rounded-[var(--radius-xl)] bg-[var(--color-accent-dim)] px-2 py-px font-semibold text-[var(--color-accent)]">
+								<span key={sk} className="inline-flex items-center gap-1 rounded-[var(--radius-sm)] bg-[var(--color-accent-dim)] py-0.5 pl-2.5 pr-1 text-[13px] font-semibold text-[var(--color-accent)]">
 									Skill: {skillById(sk)?.label ?? sk}
+									<a
+										href={openInClaudeUrl(study, phase, key, sk)}
+										target="_blank"
+										rel="noopener noreferrer"
+										className="ml-1 inline-flex items-center gap-1 rounded-[var(--radius-xs)] bg-[var(--color-accent)] px-2 py-0.5 text-[12px] text-white no-underline hover:opacity-90"
+									>
+										Open in Claude <ExternalLink size={11} aria-hidden />
+									</a>
 								</span>
 							))}
-							{toolNames.length > 0 && <span>{toolNames.join(" · ")}</span>}
-						</span>
+							{task.tool_ids.map((t) => (
+								<ToolChip key={t} id={t} />
+							))}
+						</div>
 					)}
-				</button>
+
+					<button
+						onClick={() => setOpen((v) => !v)}
+						aria-expanded={open}
+						className="mt-2.5 inline-flex items-center gap-1 text-[13px] font-semibold text-[var(--color-accent)] hover:underline"
+					>
+						{open ? "Hide the details" : format === "steps" ? "How to do it, what to watch" : "How to do it, the check, the output"}
+						<ChevronDown size={14} aria-hidden className={cn("transition-transform", open && "rotate-180")} />
+					</button>
+				</div>
 			</div>
 
 			{open && (
 				<div className="mt-3 flex flex-col gap-3 border-t border-[var(--color-border)] pt-3 pl-8">
-					<TaskFields rows={taskRows(task, format, format === "tasks" || hasTools ? { tools } : {})} />
+					<TaskFields
+						rows={[
+							...taskRows(task, format).filter((r) => r.label !== "What" && r.label !== "Tools"),
+							...(others.length ? [{ label: "Also named", value: others.join(", ") }] : []),
+							...task.skills.map((sk) => ({
+								label: "Skill",
+								value: <SkillBlock study={study} phase={phase} taskKey={key} skillId={sk} />,
+							})),
+						]}
+					/>
 					{suggesting ? (
 						<div className="flex flex-col gap-2">
 							<textarea
