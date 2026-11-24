@@ -7,7 +7,7 @@ import { useToast } from "@/shared/components/ui/Toast";
 import { methodEntry, personById, skillById } from "@/shared/lib/data";
 import { costedDays } from "@/shared/lib/format";
 import { PhaseSheet, TaskFields, ToolList, formatOf, taskMeta, taskRows } from "@/features/phase/PhaseParts";
-import { DraftSkill } from "@/features/skills/DraftSkill";
+import { RequestSkill } from "@/features/skills/RequestSkill";
 import type { MethodPhaseView, MethodTaskView } from "./methodModel";
 
 // The study's phase drawer in edit mode, for the method owner: accept or
@@ -189,7 +189,7 @@ function EditableTask({ methodId, index, view, isOwner, onAdd }: { methodId: str
 				</button>
 			)}
 			{!isOwner && !task.tool_ids.length && !task.skills.length && !task.tools && <span className="text-[var(--color-ink-muted)]">None named</span>}
-			{!(view.original?.skills.length ?? 0) && <DraftSkill methodId={methodId} version={m?.version ?? null} taskKey={view.key} task={task} />}
+			{!(view.original?.skills.length ?? 0) && <RequestSkill methodId={methodId} version={m?.version ?? null} taskKey={view.key} task={task} />}
 		</ToolList>
 	);
 

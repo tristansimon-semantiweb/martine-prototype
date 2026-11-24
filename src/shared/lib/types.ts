@@ -88,9 +88,9 @@ export interface MethodSuggestion {
 }
 
 // ── Catalog ──
-// draft: to review by the method owner; approved: approved for the method,
-// waiting for the skills owner; validated: available to everyone.
-export type SkillStatus = "draft" | "approved" | "validated" | "experimental" | "deprecated";
+// requested / in_development: a skill asked for from a method step, in the
+// tech team's hands; validated: available to everyone.
+export type SkillStatus = "requested" | "in_development" | "validated" | "experimental" | "deprecated";
 
 export interface CatalogSkill {
 	id: string;
@@ -99,8 +99,18 @@ export interface CatalogSkill {
 	needs?: string;
 	produces?: string;
 	status: SkillStatus | null; // null: not set yet
-	// A skill drafted from a method step in Martine (Draft a skill with Claude).
-	origin?: { method: string; version: string | null; task: string; taskName: string; by: string; date: string };
+	// A skill requested from a method step: what Claude should do there, and
+	// the tools Claude needs a connector for (the tech team builds both).
+	request?: {
+		method: string;
+		version: string | null;
+		task: string;
+		taskName: string;
+		by: string;
+		date: string;
+		need: string;
+		connectors: string[]; // tool ids
+	};
 }
 
 // A tool: an application people work in. The catalog's tools are the tool

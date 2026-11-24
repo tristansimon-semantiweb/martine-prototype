@@ -9,8 +9,8 @@
       "items": [
         {
           "kind": "new",
-          "title": "Draft a skill with Claude",
-          "text": "A step with no skill offers “Draft a skill with Claude”. Claude drafts it from the step, which it reads through Martine. The draft appears in Skills, linked to its step. The method owner tests it and approves it for the method; then Fabien validates it, and only then is it available to everyone.",
+          "title": "Request a skill",
+          "text": "A step with no skill offers “Request a skill”: say what Claude should do there and which tools it needs a connector for. The request lands with the tech team, who build the connectors and the skill; once Fabien validates it, the skill is available to everyone and linked to its step.",
           "href": "/skills"
         },
         {

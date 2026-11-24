@@ -8,6 +8,7 @@ import { allSkills, catalog, methodEntry } from "@/shared/lib/data";
 import { cn } from "@/shared/lib/cn";
 import type { CatalogSkill, MethodTask } from "@/shared/lib/types";
 import { SkillStatusBadge } from "@/shared/components/ui/SkillStatus";
+import { RequestSkill } from "@/features/skills/RequestSkill";
 import type { MethodPhaseView } from "./methodModel";
 
 type Tab = "Skills" | "Tools" | "Documents" | "Guides";
@@ -173,10 +174,9 @@ export function CatalogDrawer({
 							</ul>
 						</section>
 						<div className="rounded-[var(--radius-md)] border border-dashed border-[var(--color-border-active)] px-4 py-3 text-sm">
-							<button onClick={() => toast("Request sent to the skills owner")} className="font-semibold text-[var(--color-accent)]">
-								No skill fits? Request one
-							</button>
-							<p className="m-0 mt-0.5 text-[var(--color-ink-muted)]">The request goes to the skills owner and joins the list of skills to create.</p>
+							<p className="m-0 mb-2 font-semibold">No skill fits?</p>
+							{task && taskKey && <RequestSkill methodId={methodId} version={m?.version ?? null} taskKey={taskKey} task={task} />}
+							<p className="m-0 mt-1.5 text-[var(--color-ink-muted)]">The request goes to the tech team, who build the connectors and the skill.</p>
 						</div>
 					</>
 				)}

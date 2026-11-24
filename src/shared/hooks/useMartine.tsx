@@ -2,7 +2,6 @@
 
 import { createContext, useCallback, useContext, useMemo, useSyncExternalStore } from "react";
 import { methodEntry, registerDraftSkills, seedStudies, seedSuggestions } from "@/shared/lib/data";
-import { toolById } from "@/shared/lib/tools";
 import type { BriefReading, CatalogSkill, MethodSuggestion, MethodTask, RoleId, Study, StudyState } from "@/shared/lib/types";
 
 // The prototype's whole mutable state, persisted in localStorage like the R&R
@@ -24,14 +23,14 @@ interface MartineData {
 	studies: Study[];
 	suggestions: MethodSuggestion[];
 	drafts: Record<string, MethodDraft>; // key: method id
-	skillDrafts?: CatalogSkill[]; // skills drafted from method steps, to review
+	skillDrafts?: CatalogSkill[]; // skills requested from method steps
 }
 
 // Bumped when the seed data changes shape (v2: the methods import), so a
 // browser that kept an older demo starts again from the new seed (v3: files
 // attached to tasks; v4: V1 scope, no ticking, validation or time; v5: one
-// document per phase).
-const KEY = "martine_v5";
+// document per phase; v6: skill requests).
+const KEY = "martine_v6";
 
 const ROLE_PERSON: Record<RoleId, string> = { analyst: "marie", consultant: "claire", method_owner: "bamby", skills_owner: "fabien" };
 
@@ -212,41 +211,41 @@ function useMartineState() {
 				return id;
 			},
 
-			// ── Skills drafted from a method step ──
-			// In the real product Claude drafts the skill with skill-creator from
-			// the step it reads through the Martine connector; the prototype
-			// writes a draft from the step's own columns. It is linked to the step
-			// in the method's draft and waits for the method owner's review.
-			draftSkill: (methodId: string, version: string | null, key: string, task: MethodTask): string => {
-				const id = `draft-${methodId}-${key}`.toLowerCase().replace(/[^a-z0-9]+/g, "-");
-				const firstSentence = (t: string) => t.split(/\n|(?<=\.)\s/)[0]?.trim() ?? "";
-				const tools = task.tool_ids.map((t) => toolById(t)?.label ?? t);
+			// ── Skills requested from a method step ──
+			// The request goes to the tech team (Fabien), who builds the connectors
+			// and the skill. Once available, the skill is linked to its step in the
+			// method's draft.
+			requestSkill: (methodId: string, version: string | null, key: string, task: MethodTask, need: string, connectors: string[]): string => {
+				const id = `request-${methodId}-${key}`.toLowerCase().replace(/[^a-z0-9]+/g, "-");
 				const skill: CatalogSkill = {
 					id,
 					label: task.task,
-					does: firstSentence(task.what || task.how) || "[to describe]",
-					needs: tools.length ? `The study context from Martine; works with ${tools.join(", ")}` : "The study context from Martine",
-					produces: task.output || "[to define]",
-					status: "draft",
-					origin: { method: methodId, version, task: key, taskName: task.task, by: me, date: new Date().toISOString().slice(0, 10) },
+					does: need,
+					produces: task.output || undefined,
+					status: "requested",
+					request: { method: methodId, version, task: key, taskName: task.task, by: me, date: new Date().toISOString().slice(0, 10), need, connectors },
 				};
 				update((d) => {
 					const list = d.skillDrafts ?? [];
-					if (list.some((x) => x.id === id)) return d;
-					const draft = d.drafts[methodId] ?? emptyDraft(version);
-					const added = draft.addedSkills[key] ?? [];
-					return {
-						...d,
-						skillDrafts: [...list, skill],
-						drafts: { ...d.drafts, [methodId]: { ...draft, saved: false, addedSkills: { ...draft.addedSkills, [key]: [...added, id] } } },
-					};
+					return list.some((x) => x.id === id) ? d : { ...d, skillDrafts: [...list, skill] };
 				});
 				return id;
 			},
-			// Two reviews: the method owner approves it for the method, then the
-			// skills owner validates it, which makes it available to everyone.
-			setSkillStatus: (id: string, status: "approved" | "validated") =>
-				update((d) => ({ ...d, skillDrafts: (d.skillDrafts ?? []).map((x) => (x.id === id ? { ...x, status } : x)) })),
+			setSkillStatus: (id: string, status: "in_development" | "validated") =>
+				update((d) => {
+					const skill = (d.skillDrafts ?? []).find((x) => x.id === id);
+					if (!skill) return d;
+					const skillDrafts = (d.skillDrafts ?? []).map((x) => (x.id === id ? { ...x, status } : x));
+					if (status !== "validated" || !skill.request) return { ...d, skillDrafts };
+					const { method, version, task } = skill.request;
+					const draft = d.drafts[method] ?? emptyDraft(version);
+					const added = draft.addedSkills[task] ?? [];
+					return {
+						...d,
+						skillDrafts,
+						drafts: { ...d.drafts, [method]: { ...draft, saved: false, addedSkills: { ...draft.addedSkills, [task]: added.includes(id) ? added : [...added, id] } } },
+					};
+				}),
 			discardSkill: (id: string) =>
 				update((d) => ({
 					...d,

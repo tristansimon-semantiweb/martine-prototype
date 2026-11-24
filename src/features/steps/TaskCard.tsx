@@ -12,7 +12,7 @@ import { TaskFields, ToolChip, formatOf, taskMeta, taskRows } from "@/features/p
 import { otherToolItems } from "@/shared/lib/tools";
 import { openInClaudeUrl } from "@/shared/lib/martineContext";
 import { SkillBlock } from "./SkillBlock";
-import { DraftSkill } from "@/features/skills/DraftSkill";
+import { RequestSkill } from "@/features/skills/RequestSkill";
 
 // One row of the method file as a task of this study: the task, what it is
 // for, its skill (Open in Claude), its tools and its deliverable at a glance.
@@ -60,7 +60,7 @@ export function TaskCard({ study, phase, view }: { study: Study; phase: PhaseVie
 							{task.tool_ids.map((t) => (
 								<ToolChip key={t} id={t} />
 							))}
-							{task.skills.length === 0 && <DraftSkill methodId={study.method.id} version={study.method.version} taskKey={key} task={task} />}
+							{task.skills.length === 0 && <RequestSkill methodId={study.method.id} version={study.method.version} taskKey={key} task={task} />}
 						</div>
 					)}
 

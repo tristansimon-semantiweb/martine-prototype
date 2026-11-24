@@ -5,6 +5,7 @@ import { TopBand } from "@/shared/components/layout/TopBand";
 import { SkillStatusBadge } from "@/shared/components/ui/SkillStatus";
 import { useMartine } from "@/shared/hooks/useMartine";
 import { methodEntry, personById, skillById } from "@/shared/lib/data";
+import { toolById } from "@/shared/lib/tools";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/shared/components/ui/Toast";
 import { skillUsage } from "@/features/tools/toolUsage";
@@ -47,77 +48,56 @@ export function SkillDetailView({ id }: { id: string }) {
 				</div>
 			</TopBand>
 			<div className="mx-auto flex max-w-[820px] flex-col gap-[18px] px-6 py-8">
-				{skill.origin && (
-					<section aria-label="Review" className="flex flex-col gap-2 rounded-[var(--radius-lg)] bg-[var(--color-accent-dim)] px-5 py-4 text-[15px]">
+				{skill.request && (
+					<section aria-label="Request" className="flex flex-col gap-2.5 rounded-[var(--radius-lg)] bg-[var(--color-accent-dim)] px-5 py-4 text-[15px]">
 						<p className="m-0">
-							Drafted by Claude from the step{" "}
-							<Link href={`/study-types/${skill.origin.method}`}>
-								“{skill.origin.taskName}” of the {methodEntry(skill.origin.method)?.name.toLowerCase()} method
+							Requested by {personById(skill.request.by)?.name.split(" ")[0]} on{" "}
+							{new Date(`${skill.request.date}T12:00:00`).toLocaleDateString("en-US", { month: "long", day: "numeric" })}, for the step{" "}
+							<Link href={`/study-types/${skill.request.method}`}>
+								“{skill.request.taskName}” of the {methodEntry(skill.request.method)?.name.toLowerCase()} method
 							</Link>
-							, at {personById(skill.origin.by)?.name.split(" ")[0]}’s request, on {new Date(`${skill.origin.date}T12:00:00`).toLocaleDateString("en-US", { month: "long", day: "numeric" })}. It is linked to that step in the method’s draft.
+							.
 						</p>
-						<ol className="m-0 flex flex-wrap gap-x-4 gap-y-1 pl-5 text-sm">
-							<li className={skill.status === "draft" ? "font-semibold" : "text-[var(--color-ink-muted)]"}>Bamby approves it for the method</li>
-							<li className={skill.status === "approved" ? "font-semibold" : "text-[var(--color-ink-muted)]"}>Fabien validates it for everyone</li>
-						</ol>
-						{skill.status === "draft" &&
-							(role === "method_owner" ? (
-								<div className="flex flex-wrap items-center gap-2">
-									<button
-										onClick={() => {
-											setSkillStatus(skill.id, "approved");
-											toast("Approved for the method: Fabien validates it next");
-										}}
-										className="rounded-[var(--radius)] bg-[var(--color-accent)] px-3.5 py-2 text-sm font-semibold text-white"
-									>
-										Approve for the method
-									</button>
-									<button
-										onClick={() => {
-											discardSkill(skill.id);
-											toast("Draft discarded");
-											router.push("/skills");
-										}}
-										className="rounded-[var(--radius)] border border-[var(--color-border-hover)] bg-[var(--color-surface)] px-3.5 py-2 text-sm"
-									>
-										Discard
-									</button>
-									<span className="text-sm text-[var(--color-ink-muted)]">Test it on a real study first.</span>
-								</div>
-							) : (
-								<p className="m-0 text-sm text-[var(--color-ink-muted)]">
-									Waiting for the method owner’s review. (In the prototype, view as Bamby from the account menu.)
-								</p>
+						<div className="text-sm">
+							<span className="font-semibold">Connectors to build: </span>
+							{skill.request.connectors.length ? skill.request.connectors.map((t) => toolById(t)?.label ?? t).join(", ") : "none, the existing ones are enough"}
+						</div>
+						<ol className="m-0 flex flex-wrap gap-x-5 gap-y-1 pl-5 text-sm">
+							{(["requested", "in_development", "validated"] as const).map((st) => (
+								<li key={st} className={skill.status === st ? "font-semibold" : "text-[var(--color-ink-muted)]"}>
+									{st === "requested" ? "Requested" : st === "in_development" ? "The tech team builds the connectors and the skill" : "Fabien validates it: available to everyone"}
+								</li>
 							))}
-						{skill.status === "approved" &&
+						</ol>
+						{skill.status !== "validated" &&
 							(role === "skills_owner" ? (
 								<div className="flex flex-wrap items-center gap-2">
 									<button
 										onClick={() => {
-											setSkillStatus(skill.id, "validated");
-											toast("Validated: the skill is available to everyone");
+											setSkillStatus(skill.id, skill.status === "requested" ? "in_development" : "validated");
+											toast(skill.status === "requested" ? "In development" : "Available to everyone, linked to its step");
 										}}
 										className="rounded-[var(--radius)] bg-[var(--color-accent)] px-3.5 py-2 text-sm font-semibold text-white"
 									>
-										Validate for everyone
+										{skill.status === "requested" ? "Start the development" : "Validate: available to everyone"}
 									</button>
 									<button
 										onClick={() => {
 											discardSkill(skill.id);
-											toast("Draft discarded");
+											toast("Request declined");
 											router.push("/skills");
 										}}
 										className="rounded-[var(--radius)] border border-[var(--color-border-hover)] bg-[var(--color-surface)] px-3.5 py-2 text-sm"
 									>
-										Discard
+										Decline
 									</button>
 								</div>
 							) : (
 								<p className="m-0 text-sm text-[var(--color-ink-muted)]">
-									Approved for the method; waiting for Fabien, who validates skills for everyone. (In the prototype, view as Fabien from the account menu.)
+									With the tech team. (In the prototype, view as Fabien from the account menu.)
 								</p>
 							))}
-						{skill.status === "validated" && <p className="m-0 text-sm">Validated by Fabien: every analyst can use it from the step.</p>}
+						{skill.status === "validated" && <p className="m-0 text-sm">Available to everyone, and linked to its step in the method’s draft.</p>}
 					</section>
 				)}
 
