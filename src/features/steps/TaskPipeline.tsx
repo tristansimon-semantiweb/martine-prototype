@@ -1,6 +1,8 @@
 "use client";
 
-import { ExternalLink, Play } from "lucide-react";
+import { BookOpen, ExternalLink, Play } from "lucide-react";
+import { helpFor } from "@/shared/lib/help";
+import { plural } from "@/shared/lib/format";
 import { useMartine } from "@/shared/hooks/useMartine";
 import { useToast } from "@/shared/components/ui/Toast";
 import { InlineEdit, RemoveButton } from "@/shared/components/ui/Editing";
@@ -38,6 +40,7 @@ export function TaskPipeline({ study, phase, onOpen }: { study: Study; phase: Ph
 				const e = executorOf(t);
 				// Under the name, what to do: the step's purpose, else the start of how to do it.
 				const summary = t.task.what || t.task.how.split(/\n|(?<=\.)\s/)[0];
+				const help = helpFor(t.task);
 				return (
 					<li key={t.key}>
 						{/* The whole card opens the task's detail; its one action runs it. */}
@@ -51,6 +54,11 @@ export function TaskPipeline({ study, phase, onOpen }: { study: Study; phase: Ph
 									<span className="text-[16px] font-semibold">{t.task.task}</span>
 								</span>
 								{summary && <span className="mt-0.5 line-clamp-2 block text-sm text-[var(--color-ink-secondary)]">{summary}</span>}
+								{help.length > 0 && (
+									<span className="mt-1 inline-flex items-center gap-1 text-[12px] font-semibold text-[var(--color-ink-muted)]" title={help.map((d) => d.title).join(", ")}>
+										<BookOpen size={12} aria-hidden /> {plural(help.length, "doc")} to help
+									</span>
+								)}
 							</button>
 							<span onClick={(ev) => ev.stopPropagation()} className="shrink-0">
 								{e.kind === "claude" && (

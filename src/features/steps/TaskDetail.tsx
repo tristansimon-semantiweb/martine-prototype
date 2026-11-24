@@ -15,6 +15,7 @@ import { TaskFields, ToolOpenButton, formatOf, taskMeta, taskRows } from "@/feat
 import { RequestSkill } from "@/features/skills/RequestSkill";
 import { SkillBlock } from "./SkillBlock";
 import { TaskDocuments } from "./TaskDocuments";
+import { TaskHelp } from "./TaskHelp";
 import { otherToolItems } from "@/shared/lib/tools";
 
 // A task's detail, over its phase: where to run it, what it delivers, then
@@ -96,6 +97,8 @@ function Body({ study, phase, taskKey }: { study: Study; phase: PhaseView; taskK
 					</p>
 				)}
 			</section>
+
+			<TaskHelp task={task} />
 
 			<TaskFields
 				rows={[

@@ -208,7 +208,8 @@ function EditableTask({ methodId, index, view, isOwner, onAdd }: { methodId: str
 			{!(view.original?.skills.length ?? 0) && <RequestSkill methodId={methodId} version={m?.version ?? null} taskKey={view.key} task={task} />}
 		</span>
 	);
-	const docs = otherToolItems(task).documents;
+	// The method owner sees documents and guides together: what the catalog's Documents tab adds.
+	const docs = [...otherToolItems(task).documents, ...otherToolItems(task).guides];
 	const documents = (
 		<span className="flex flex-wrap items-center gap-1.5">
 			{docs.length ? <span>{docs.join(", ")}</span> : !isOwner && <span className="text-[var(--color-ink-muted)]">None named</span>}

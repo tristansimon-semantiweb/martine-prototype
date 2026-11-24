@@ -8,6 +8,12 @@
       "summary": "Documents work by phase, tasks put their tools and skills up front, and the first version narrows its scope.",
       "items": [
         {
+          "kind": "new",
+          "title": "Documentation on each task",
+          "text": "A task now shows the documentation that helps to do it: the methodologies, guides, skill guides and references that apply to its tools, its skills or what it says (How to create the perfect query, Corpus Manager methodology, the ICC tools, the facet library…). Its detail lists them at the top, and its row in the phase says how many there are. Documentation is what helps; Documents stay what the team works in.",
+          "href": "/studies/TR-2611-01/steps?phase=2"
+        },
+        {
           "kind": "changed",
           "title": "Where it stands, written by the team",
           "text": "On the Overview, Where it stands is rewritten in place; it says who updated it and when (until then, Martine’s line from the phases’ status), and Claude reads it. Points to clarify and decisions are left out of the first version. Files: Used in shows a count of steps (2 steps), and a click lists them.",

@@ -1,0 +1,16 @@
+{
+  "_meta": {
+    "note": "Semantiweb's documentation for analysts: what helps to do a task (methodologies, guides, references). Each entry says what it applies to: tools of the repository, skills of the catalog, or words of the task's text. A task shows the entries that apply to it. Titles are illustrative; the documents themselves live in the internal documentation, not in the prototype."
+  },
+  "docs": [
+    { "id": "perfect-query", "title": "How to create the perfect query", "kind": "Guide", "about": "Boolean syntax, synonyms per language, proximity, testing on the random display.", "tools": ["talkwalker", "radarly", "meltwater"], "words": ["\\bquer(y|ies)\\b"] },
+    { "id": "talkwalker-skill", "title": "Talkwalker queries skill guide", "kind": "Skill guide", "about": "What to give the Talkwalker queries skill, and how to check what it returns.", "skills": ["building-talkwalker-queries"] },
+    { "id": "radarly-skill", "title": "Radarly queries skill guide", "kind": "Skill guide", "about": "What to give the Radarly queries skill, and how to check what it returns.", "skills": ["building-radarly-queries"] },
+    { "id": "noise-by-market", "title": "Noise cleaning by market", "kind": "Guide", "about": "The usual sources of noise per market and the exclusions that work.", "skills": ["cleaning-social-volume"], "words": ["\\bnoise\\b", "\\bpollution\\b", "\\bdepollut", "\\bexclusions?\\b"] },
+    { "id": "cm-methodology", "title": "Corpus Manager methodology", "kind": "Methodology", "about": "Loading sources, deduplication, translation, creating the corpus and its facets.", "tools": ["corpus_manager", "files_tool"], "words": ["corpus manager methodology"] },
+    { "id": "files-to-cm", "title": "Files to the Corpus Manager: skill guide", "kind": "Skill guide", "about": "Which Files tool treatment for which export, and why rows disappear.", "skills": ["onboarding-files-tools-to-cm"] },
+    { "id": "icc-tools", "title": "ICC tools: frequencies, Difference, concordancer", "kind": "Tool guide", "about": "Running frequencies on the corpus facets, comparing two periods, reading a word in context.", "tools": ["icc"], "words": ["\\bfrequenc", "\\bconcordanc", "icc tools"] },
+    { "id": "facet-library", "title": "Facet library", "kind": "Reference", "about": "The standard facets, their definitions and examples, to reuse and adapt.", "skills": ["building-corpus-facets"], "words": ["\\bfacets?\\b"] },
+    { "id": "queries-library", "title": "Queries library", "kind": "Reference", "about": "Past queries by category and market, to start from.", "words": ["quer(y|ies) library"] }
+  ]
+}
