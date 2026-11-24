@@ -164,7 +164,7 @@ export function RemoveButton({ label, onClick, className }: { label: string; onC
 
 export function CanDo({ can, locked }: { can: string; locked?: string }) {
 	return (
-		<div className="flex flex-col gap-1 rounded-[var(--radius)] border border-[var(--color-border)] px-3 py-2 text-[13px]">
+		<div className="flex flex-col gap-1 text-[13px]">
 			<span className="flex items-center gap-1.5 text-[var(--color-ink-secondary)]">
 				<Pencil size={12} aria-hidden className="text-[var(--color-accent)]" /> {can}
 			</span>

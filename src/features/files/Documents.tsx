@@ -177,6 +177,15 @@ export function PhaseDocument({ study, phase, tasks, inline }: { study: Study; p
 		>
 			{!inline && <span className="text-sm font-semibold">Phase document</span>}
 			{doc ? (
+				inline ? (
+					doc.url ? (
+						<a href={doc.url} target="_blank" rel="noopener noreferrer" className="font-semibold">
+							{doc.name}
+						</a>
+					) : (
+						<span className="font-semibold">{doc.name}</span>
+					)
+				) : (
 				<>
 					<FileChip study={study} file={doc} />
 					<RemoveButton
@@ -187,6 +196,7 @@ export function PhaseDocument({ study, phase, tasks, inline }: { study: Study; p
 						}}
 					/>
 				</>
+				)
 			) : (
 				<span className="text-sm text-[var(--color-ink-muted)]">none yet</span>
 			)}

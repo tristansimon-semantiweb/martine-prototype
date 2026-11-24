@@ -9,7 +9,7 @@ import { walkthroughUrl } from "@/shared/lib/martineContext";
 import type { PhaseView } from "@/shared/lib/studyModel";
 import type { RoleId, Study } from "@/shared/lib/types";
 import { AddRow, CanDo, InlineEdit } from "@/shared/components/ui/Editing";
-import { ToolOpenButton, ownerLabel } from "@/features/phase/PhaseParts";
+import { ownerLabel } from "@/features/phase/PhaseParts";
 import { PhaseDocument } from "@/features/files/Documents";
 import { PhaseStatusPicker } from "./PhaseStatus";
 import { TaskPipeline } from "./TaskPipeline";
@@ -25,9 +25,6 @@ export function PhasePage({ study, phase }: { study: Study; phase: PhaseView }) 
 	const isConsultant = role === "consultant";
 	const note = study.state.notes[phase.id];
 	const first = (id: string) => personById(id)?.name.split(" ")[0];
-	// Every tool the phase's tasks work in, once each: open them from here.
-	const tools = [...new Set(phase.tasks.flatMap((t) => t.task.tool_ids))];
-	const toConfirm = (id: string) => phase.tasks.every((t) => !t.task.tool_ids.includes(id) || t.task.tool_ids_to_confirm?.includes(id));
 	const total = phase.tasks.length + phase.added.length;
 
 	return (
@@ -52,8 +49,8 @@ export function PhasePage({ study, phase }: { study: Study; phase: PhaseView }) 
 				)}
 			</header>
 
-			{/* Where the phase stands and what it works in: one quiet line under the
-			    title, so the tasks below carry the page. */}
+			{/* Where the phase stands and the document it works in: one quiet line
+			    under the title, so the tasks below carry the page. */}
 			<section aria-label="This phase" className="-mt-2 flex flex-wrap items-center gap-x-6 gap-y-2.5 text-sm">
 				<span className="flex items-center gap-2">
 					<span className="text-[var(--color-ink-muted)]">Status</span>
@@ -63,14 +60,6 @@ export function PhasePage({ study, phase }: { study: Study; phase: PhaseView }) 
 					<span className="flex items-center gap-2">
 						<span className="text-[var(--color-ink-muted)]">Document</span>
 						<PhaseDocument study={study} phase={phase.id} tasks={phase.tasks.map((t) => t.task)} inline />
-					</span>
-				)}
-				{tools.length > 0 && (
-					<span className="flex flex-wrap items-center gap-2">
-						<span className="text-[var(--color-ink-muted)]">Tools</span>
-						{tools.map((id) => (
-							<ToolOpenButton key={id} id={id} toConfirm={toConfirm(id)} />
-						))}
 					</span>
 				)}
 			</section>

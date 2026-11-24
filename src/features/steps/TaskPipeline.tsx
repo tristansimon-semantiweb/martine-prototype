@@ -1,6 +1,6 @@
 "use client";
 
-import { ExternalLink, Play, User, Zap } from "lucide-react";
+import { ExternalLink, Play } from "lucide-react";
 import { useMartine } from "@/shared/hooks/useMartine";
 import { useToast } from "@/shared/components/ui/Toast";
 import { InlineEdit, RemoveButton } from "@/shared/components/ui/Editing";
@@ -8,7 +8,6 @@ import { personById, skillById } from "@/shared/lib/data";
 import { openInClaudeUrl } from "@/shared/lib/martineContext";
 import type { PhaseView, TaskView } from "@/shared/lib/studyModel";
 import { toolById } from "@/shared/lib/tools";
-import { cn } from "@/shared/lib/cn";
 import type { Study } from "@/shared/lib/types";
 import { ToolOpenButton, taskTime } from "@/features/phase/PhaseParts";
 
@@ -32,34 +31,9 @@ function executorLine(e: Executor): string {
 	return "By hand";
 }
 
-// The node on the rail: who runs the task. No done state on a task in V1:
-// the phase's status says where the work stands.
-function Node({ e }: { e: Executor }) {
-	const ring = "ring-[var(--color-border-active)]";
-	const face =
-		e.kind === "claude" || e.kind === "automation"
-			? "bg-[var(--color-accent)] text-white"
-			: e.kind === "tool"
-				? "bg-[var(--color-elevated)] text-[var(--color-ink)]"
-				: "bg-[var(--color-surface)] text-[var(--color-ink-secondary)]";
-	return (
-		<span className={cn("relative flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-[11px] font-bold ring-2 ring-offset-2 ring-offset-[var(--color-canvas)]", face, ring)}>
-			{e.kind === "claude" ? (
-				"Cl"
-			) : e.kind === "automation" ? (
-				<Zap size={15} aria-hidden />
-			) : e.kind === "tool" ? (
-				(toolById(e.tool)?.label ?? e.tool).slice(0, 2)
-			) : (
-				<User size={15} aria-hidden />
-			)}
-		</span>
-	);
-}
-
-// The phase as a run: one card per task, from top to bottom, each with who
-// runs it, its one action and what it delivers. No ticking or done state on
-// tasks in V1. A click opens the task's detail.
+// The phase as a run: one card per task, from top to bottom: its name, then
+// who runs it, how long, what it delivers, and its one action. No ticking or
+// done state on tasks in V1. A click on the card opens the task's detail.
 export function TaskPipeline({ study, phase, onOpen }: { study: Study; phase: PhaseView; onOpen: (key: string) => void }) {
 	const { role, renameAddedTask, removeAddedTask, restoreAddedTask } = useMartine();
 	const toast = useToast();
@@ -68,33 +42,27 @@ export function TaskPipeline({ study, phase, onOpen }: { study: Study; phase: Ph
 
 	return (
 		<ol aria-label="Tasks" className="m-0 list-none p-0">
-			{phase.tasks.map((t, i) => {
+			{phase.tasks.map((t) => {
 				const e = executorOf(t);
-				const last = i === phase.tasks.length - 1 && phase.added.length === 0;
+				const meta = [executorLine(e), taskTime(t.task)].filter(Boolean).join(" · ");
 				return (
-					<li key={t.key} className="relative flex gap-4">
-						{!last && <span aria-hidden className="absolute bottom-0 left-[18px] top-11 w-px bg-[var(--color-border-active)]" />}
-						<div className="pt-4">
-							<Node e={e} />
-						</div>
+					<li key={t.key}>
+						{/* The whole card opens the task's detail; its one action runs it. */}
 						<div
-							className={cn(
-								"mb-3 flex min-w-0 flex-1 flex-wrap items-start gap-x-4 gap-y-2 rounded-[var(--radius-lg)] border bg-[var(--color-surface)] px-5 py-4 shadow-[var(--shadow-xs)] transition-shadow hover:shadow-[var(--shadow-sm)]",
-								"border-[var(--color-border)]",
-							)}
+							onClick={() => onOpen(t.key)}
+							className="mb-2.5 flex cursor-pointer flex-wrap items-center gap-x-4 gap-y-2 rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-surface)] px-5 py-4 shadow-[var(--shadow-xs)] transition-shadow hover:shadow-[var(--shadow-sm)]"
 						>
-							<button onClick={() => onOpen(t.key)} className="min-w-[260px] flex-1 text-left">
-								<span className="flex flex-wrap items-baseline gap-x-2">
-									<span className="text-[13px] font-semibold text-[var(--color-ink-muted)]">{t.key}</span>
+							<button onClick={() => onOpen(t.key)} aria-label={`${t.task.task}: details`} className="min-w-[260px] flex-1 text-left">
+								<span className="flex items-baseline gap-2">
+									<span className="text-[13px] text-[var(--color-ink-muted)]">{t.key}</span>
 									<span className="text-[16px] font-semibold">{t.task.task}</span>
 								</span>
-								<span className="mt-0.5 block text-sm text-[var(--color-ink-secondary)]">
-									{executorLine(e)}
-									{taskTime(t.task) && <span className="text-[var(--color-ink-muted)]">, {taskTime(t.task)}</span>}
+								<span className="mt-0.5 block text-sm text-[var(--color-ink-muted)]">
+									{meta}
+									{t.task.output && <span className="text-[var(--color-ink-secondary)]"> · → {t.task.output}</span>}
 								</span>
-								{t.task.output && <span className="mt-1 block text-sm text-[var(--color-ink-muted)]">→ {t.task.output}</span>}
 							</button>
-							<span className="flex shrink-0 items-center gap-2 pt-0.5">
+							<span onClick={(ev) => ev.stopPropagation()} className="shrink-0">
 								{e.kind === "claude" && (
 									<a
 										href={openInClaudeUrl(study, phase, t.key, e.skill)}
@@ -106,22 +74,15 @@ export function TaskPipeline({ study, phase, onOpen }: { study: Study; phase: Ph
 									</a>
 								)}
 								{e.kind === "tool" && <ToolOpenButton id={e.tool} toConfirm={t.task.tool_ids_to_confirm?.includes(e.tool)} />}
-								<button onClick={() => onOpen(t.key)} className="rounded-[var(--radius)] px-2.5 py-2 text-sm font-semibold text-[var(--color-accent)] hover:bg-[var(--color-accent-dim)]">
-									Details
-								</button>
 							</span>
 						</div>
 					</li>
 				);
 			})}
 			{phase.added.map((t, i) => (
-				<li key={t.id} className="relative flex gap-4">
-					{i < phase.added.length - 1 && <span aria-hidden className="absolute bottom-0 left-[18px] top-11 w-px bg-[var(--color-border-active)]" />}
-					<div className="pt-4">
-						<Node e={{ kind: "person" }} />
-					</div>
-					<div className="mb-3 flex min-w-0 flex-1 items-center gap-3 rounded-[var(--radius-lg)] border border-dashed border-[var(--color-border-active)] bg-[var(--color-surface)] px-5 py-3.5">
-						<span className="text-[13px] font-semibold text-[var(--color-ink-muted)]">{`${phase.id}.${phase.tasks.length + i + 1}`}</span>
+				<li key={t.id}>
+					<div className="mb-2.5 flex min-w-0 items-center gap-3 rounded-[var(--radius-lg)] border border-dashed border-[var(--color-border-active)] bg-[var(--color-surface)] px-5 py-3.5">
+						<span className="text-[13px] text-[var(--color-ink-muted)]">{`${phase.id}.${phase.tasks.length + i + 1}`}</span>
 						<span className="min-w-0 flex-1 font-semibold">
 							<InlineEdit value={t.title} onSave={(v) => v && renameAddedTask(study.id, t.id, v)} canEdit={isConsultant} label="the task" placeholder="Name the task" />
 						</span>
