@@ -20,9 +20,15 @@ export function Modal({
 }) {
 	useEffect(() => {
 		if (!open) return;
-		const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
-		window.addEventListener("keydown", onKey);
-		return () => window.removeEventListener("keydown", onKey);
+		// Capture phase, and stop there: Escape closes the modal only, not the
+		// drawer it was opened from.
+		const onKey = (e: KeyboardEvent) => {
+			if (e.key !== "Escape") return;
+			e.stopPropagation();
+			onClose();
+		};
+		window.addEventListener("keydown", onKey, true);
+		return () => window.removeEventListener("keydown", onKey, true);
 	}, [open, onClose]);
 
 	if (!open) return null;

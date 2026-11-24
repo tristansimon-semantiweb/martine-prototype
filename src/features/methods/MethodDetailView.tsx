@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import { TopBand } from "@/shared/components/layout/TopBand";
+import { AddRow } from "@/shared/components/ui/Editing";
 import { useToast } from "@/shared/components/ui/Toast";
 import { useMartine } from "@/shared/hooks/useMartine";
 import { methodEntry, methodFile, personById, studyTypeDefinition } from "@/shared/lib/data";
@@ -20,7 +20,6 @@ export function MethodDetailView({ id }: { id: string }) {
 	const toast = useToast();
 	const pathname = usePathname();
 	const params = useSearchParams();
-	const [newPhase, setNewPhase] = useState<string | null>(null);
 	const m = methodEntry(id);
 
 	if (!m) {
@@ -155,33 +154,7 @@ export function MethodDetailView({ id }: { id: string }) {
 								</li>
 							))}
 						</ol>
-						{isOwner &&
-							(newPhase === null ? (
-								<button
-									onClick={() => setNewPhase("")}
-									className="self-start rounded-[var(--radius)] border border-dashed border-[var(--color-border-active)] bg-[var(--color-surface)] px-4 py-2.5 font-semibold"
-								>
-									Add a phase
-								</button>
-							) : (
-								<form
-									onSubmit={(e) => {
-										e.preventDefault();
-										if (!newPhase.trim()) return;
-										addMethodPhase(id, m.version, newPhase.trim());
-										setNewPhase(null);
-									}}
-									className="flex flex-wrap gap-2"
-								>
-									<input autoFocus value={newPhase} onChange={(e) => setNewPhase(e.target.value)} aria-label="Name of the phase" placeholder="Name of the phase" className="rr-input min-w-[260px] flex-1" />
-									<button type="submit" className="rounded-[var(--radius)] bg-[var(--color-accent)] px-4 text-sm font-semibold text-white">
-										Add
-									</button>
-									<button type="button" onClick={() => setNewPhase(null)} className="rounded-[var(--radius)] px-3 text-sm text-[var(--color-ink-secondary)] hover:bg-[var(--color-hover)]">
-										Cancel
-									</button>
-								</form>
-							))}
+						{isOwner && <AddRow label="Add a phase" placeholder="Name of the phase" onAdd={(v) => addMethodPhase(id, m.version, v)} />}
 					</section>
 				)}
 

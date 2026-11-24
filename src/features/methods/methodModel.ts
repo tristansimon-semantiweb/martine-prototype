@@ -13,6 +13,7 @@ export interface MethodTaskView {
 	addedTools: string[]; // linked in the draft
 	edited: boolean;
 	isNew: boolean;
+	draftId?: string; // a task added in the draft: its id, to remove it
 }
 
 export interface MethodPhaseView {
@@ -81,6 +82,7 @@ export function methodPhases(methodId: string, draft: MethodDraft | undefined, s
 					addedTools: tools.added,
 					edited: false,
 					isNew: true,
+					draftId: t.id,
 				};
 			});
 		const tasks = [...fromFile, ...fromDraft];

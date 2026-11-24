@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
 import { useMartine } from "@/shared/hooks/useMartine";
 import { personById } from "@/shared/lib/data";
 import { costedDays } from "@/shared/lib/format";
 import type { PhaseView } from "@/shared/lib/studyModel";
-import type { Study } from "@/shared/lib/types";
+import type { RoleId, Study } from "@/shared/lib/types";
+import { useToast } from "@/shared/components/ui/Toast";
+import { AddRow, CanDo, InlineEdit, RemoveButton } from "@/shared/components/ui/Editing";
 import { PhaseSheet, ownerLabel } from "@/features/phase/PhaseParts";
 import { TaskCard } from "./TaskCard";
 import { PhaseDocument } from "@/features/files/Documents";
@@ -32,55 +33,50 @@ function kicker(p: PhaseView) {
 	return p.days ? `Phase ${p.id}, planned ${p.time ?? costedDays(p.days)}${owner}` : `Phase ${p.id}, not costed in the method file${owner}`;
 }
 
+// What each role can do in a study's phase, said up front so nothing is a
+// guess and nothing silently disappears.
+const CAN: Record<RoleId, { can: string; locked: string }> = {
+	consultant: {
+		can: "You can write the note, add, rename or remove tasks for this study, and choose the phase document.",
+		locked: "The method’s tasks come from the method file: suggest a change from a task.",
+	},
+	analyst: {
+		can: "You can choose the phase document, open skills in Claude, suggest a change to a task or request a skill.",
+		locked: "The note and the tasks added for this study are the consultant’s.",
+	},
+	method_owner: {
+		can: "You can choose the phase document. The method itself is edited in Study types.",
+		locked: "The note and the tasks added for this study are the consultant’s.",
+	},
+	skills_owner: {
+		can: "You can choose the phase document and follow skill requests in Skills.",
+		locked: "The note and the tasks added for this study are the consultant’s.",
+	},
+};
+
 function Body({ study, phase }: { study: Study; phase: PhaseView }) {
-	const { role, setNote, addTask } = useMartine();
+	const { role, setNote, addTask, renameAddedTask, removeAddedTask, restoreAddedTask } = useMartine();
+	const toast = useToast();
 	const isConsultant = role === "consultant";
 	const note = study.state.notes[phase.id];
-	const [editingNote, setEditingNote] = useState(false);
-	const [noteText, setNoteText] = useState(note?.text ?? "");
-	const [newTask, setNewTask] = useState<string | null>(null);
+	const first = (id: string) => personById(id)?.name.split(" ")[0];
 
 	return (
 		<>
-			{editingNote ? (
-				<div className="flex flex-col gap-2 rounded-[var(--radius)] bg-[var(--color-attention-bg)] p-3">
-					<label htmlFor="note" className="text-sm font-bold text-[var(--color-attention)]">
-						Note for the team on this phase
-					</label>
-					<textarea id="note" value={noteText} onChange={(e) => setNoteText(e.target.value)} rows={3} className="rr-input resize-none" />
-					<div className="flex gap-2">
-						<button
-							onClick={() => {
-								setNote(study.id, phase.id, noteText);
-								setEditingNote(false);
-							}}
-							className="rounded-[var(--radius)] bg-[var(--color-accent)] px-3 py-1.5 text-sm font-semibold text-white"
-						>
-							Save the note
-						</button>
-						<button onClick={() => setEditingNote(false)} className="rounded-[var(--radius)] px-3 py-1.5 text-sm text-[var(--color-ink-secondary)] hover:bg-[var(--color-hover)]">
-							Cancel
-						</button>
-					</div>
-				</div>
-			) : note ? (
+			<CanDo can={CAN[role].can} locked={CAN[role].locked} />
+
+			{(note || isConsultant) && (
 				<div className="rounded-[var(--radius)] bg-[var(--color-attention-bg)] px-3 py-2.5 text-[15px] leading-normal">
-					<span className="font-bold text-[var(--color-attention)]">Note from {personById(note.by)?.name.split(" ")[0]}:</span> {note.text}
-					{isConsultant && (
-						<button onClick={() => setEditingNote(true)} className="ml-2 text-sm font-semibold text-[var(--color-accent)]">
-							Edit
-						</button>
-					)}
+					<div className="mb-0.5 text-[13px] font-bold text-[var(--color-attention)]">{note ? `Note from ${first(note.by)}` : "Note for the team"}</div>
+					<InlineEdit
+						value={note?.text ?? ""}
+						onSave={(t) => setNote(study.id, phase.id, t)}
+						canEdit={isConsultant}
+						label="the note"
+						placeholder="Add a note for the team on this phase"
+						multiline
+					/>
 				</div>
-			) : (
-				isConsultant && (
-					<button
-						onClick={() => setEditingNote(true)}
-						className="self-start rounded-[var(--radius)] border border-dashed border-[var(--color-border-active)] px-3.5 py-2 text-sm font-semibold"
-					>
-						Add a note for the team
-					</button>
-				)
 			)}
 
 			{!phase.addedBy && <PhaseDocument study={study} phase={phase.id} tasks={phase.tasks.map((t) => t.task)} />}
@@ -89,50 +85,29 @@ function Body({ study, phase }: { study: Study; phase: PhaseView }) {
 				<TaskCard key={t.key} study={study} phase={phase} view={t} />
 			))}
 
-			{phase.added.length > 0 && (
+			{(phase.added.length > 0 || isConsultant) && (
 				<section aria-label="Tasks added for this study" className="flex flex-col gap-2">
-					{phase.tasks.length > 0 && <div className="text-xs font-bold text-[var(--color-ink-muted)]">Added for this study</div>}
+					<div className="text-xs font-bold text-[var(--color-ink-muted)]">Added for this study</div>
 					{phase.added.map((t) => (
-						<article key={t.id} className="flex items-center gap-3 rounded-[14px] bg-[var(--color-attention-soft)] px-4 py-3.5">
-							<span className="flex-1 font-semibold">{t.title}</span>
-							<span className="text-[13px] text-[var(--color-attention)]">added by {personById(t.by)?.name.split(" ")[0]}</span>
+						<article key={t.id} className="flex items-center gap-3 rounded-[12px] bg-[var(--color-attention-soft)] px-4 py-2.5">
+							<span className="min-w-0 flex-1 font-semibold">
+								<InlineEdit value={t.title} onSave={(v) => v && renameAddedTask(study.id, t.id, v)} canEdit={isConsultant} label="the task" placeholder="Name the task" />
+							</span>
+							<span className="shrink-0 text-[13px] text-[var(--color-attention)]">added by {first(t.by)}</span>
+							{isConsultant && (
+								<RemoveButton
+									label={`Remove “${t.title}”`}
+									onClick={() => {
+										const removed = removeAddedTask(study.id, t.id);
+										toast("Task removed", removed && { label: "Undo", onClick: () => restoreAddedTask(study.id, removed) });
+									}}
+								/>
+							)}
 						</article>
 					))}
+					{isConsultant && <AddRow label="Add a task for this study" placeholder="What needs doing, for this study only" onAdd={(v) => addTask(study.id, phase.id, v)} />}
 				</section>
 			)}
-
-			{isConsultant &&
-				(newTask === null ? (
-					<button onClick={() => setNewTask("")} className="self-start text-sm font-semibold text-[var(--color-accent)]">
-						Add a task
-					</button>
-				) : (
-					<form
-						onSubmit={(e) => {
-							e.preventDefault();
-							if (!newTask.trim()) return;
-							addTask(study.id, phase.id, newTask.trim());
-							setNewTask(null);
-						}}
-						className="flex flex-wrap gap-2"
-					>
-						<input
-							autoFocus
-							value={newTask}
-							onChange={(e) => setNewTask(e.target.value)}
-							aria-label="The task to add for this study"
-							placeholder="What needs doing, for this study only"
-							className="rr-input min-w-[240px] flex-1"
-						/>
-						<button type="submit" className="rounded-[var(--radius)] bg-[var(--color-accent)] px-3.5 text-sm font-semibold text-white">
-							Add
-						</button>
-						<button type="button" onClick={() => setNewTask(null)} className="rounded-[var(--radius)] px-3 text-sm text-[var(--color-ink-secondary)] hover:bg-[var(--color-hover)]">
-							Cancel
-						</button>
-					</form>
-				))}
 		</>
 	);
 }
-

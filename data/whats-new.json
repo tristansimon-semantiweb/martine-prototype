@@ -9,6 +9,12 @@
       "items": [
         {
           "kind": "changed",
+          "title": "Edit where you read",
+          "text": "No more forms opening inside a panel. What you can change shows a pencil on hover: click the text, type, Enter saves, Escape cancels. To add, a dashed “+” row turns into a field in place. To remove, a small cross, with Undo for a few seconds. Choosing (a phase document, a teammate) opens a short list next to the button. Each panel says at the top what your role can change and what stays locked.",
+          "href": "/studies/TR-2611-01/steps?phase=2"
+        },
+        {
+          "kind": "changed",
           "title": "ICC in Tools",
           "text": "The ICC joins the tool repository, linked to the steps that use it: collecting reviews (R&R), building a corpus, running frequencies.",
           "href": "/tools/icc"

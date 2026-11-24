@@ -6,6 +6,7 @@ import { FileText } from "lucide-react";
 import { useMartine } from "@/shared/hooks/useMartine";
 import { phaseViews } from "@/shared/lib/studyModel";
 import { AttachForm, FileChip } from "@/features/files/Documents";
+import { Modal } from "@/shared/components/ui/Modal";
 
 const card = "rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-surface)] shadow-[var(--shadow-xs)]";
 
@@ -30,13 +31,14 @@ export function FilesView({ id }: { id: string }) {
 						The study’s documents. Each phase works in one of them, chosen in the phase. Claude can read them; nothing from another client shows here.
 					</p>
 				</div>
-				{!adding && (
-					<button onClick={() => setAdding(true)} className="rounded-[var(--radius)] bg-[var(--color-accent)] px-4 py-2.5 text-sm font-semibold text-white hover:opacity-90">
-						Add a document
-					</button>
-				)}
+				<button onClick={() => setAdding(true)} className="rounded-[var(--radius)] bg-[var(--color-accent)] px-4 py-2.5 text-sm font-semibold text-white hover:opacity-90">
+					Add a document
+				</button>
 			</div>
-			{adding && <AttachForm study={study} phase="0" defaultName="" onDone={() => setAdding(false)} />}
+			<Modal open={adding} onClose={() => setAdding(false)} title="Add a document">
+				<p className="m-0 mb-3 text-sm text-[var(--color-ink-muted)]">A link to a Sheet, Doc or deck, or a file. Any phase can then pick it as its document.</p>
+				<AttachForm study={study} phase="0" defaultName="" onDone={() => setAdding(false)} />
+			</Modal>
 
 			{study.files.length === 0 ? (
 				<p className="m-0 text-[var(--color-ink-muted)]">No document yet.</p>

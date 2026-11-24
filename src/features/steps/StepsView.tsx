@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import { ChevronRight } from "lucide-react";
 import { useMartine } from "@/shared/hooks/useMartine";
+import { useToast } from "@/shared/components/ui/Toast";
+import { AddRow, RemoveButton } from "@/shared/components/ui/Editing";
 import { methodEntry } from "@/shared/lib/data";
 import { costed, plural } from "@/shared/lib/format";
 import { hasMethodFile, phaseViews, type PhaseView } from "@/shared/lib/studyModel";
@@ -13,10 +14,10 @@ import { PhaseDrawer } from "./PhaseDrawer";
 // The phases of the study's method, in order. The open phase is in the URL
 // (?phase=2) so Ask Martine's sources and Overview's Continue can link to it.
 export function StepsView({ id }: { id: string }) {
-	const { studies, role, addStep } = useMartine();
+	const { studies, role, addStep, removeAddedStep, restoreAddedStep } = useMartine();
+	const toast = useToast();
 	const pathname = usePathname();
 	const params = useSearchParams();
-	const [newStep, setNewStep] = useState<string | null>(null);
 	const study = studies.find((s) => s.id === id);
 	if (!study) return null;
 
@@ -50,44 +51,23 @@ export function StepsView({ id }: { id: string }) {
 
 			<ol aria-label="Phases" className="m-0 list-none overflow-hidden rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-surface)] p-0 shadow-[var(--shadow-xs)]">
 				{views.map((p) => (
-					<PhaseRow key={p.id} phase={p} onOpen={() => setOpen(p.id)} />
+					<PhaseRow
+						key={p.id}
+						phase={p}
+						onOpen={() => setOpen(p.id)}
+						onRemove={
+							p.addedBy && role === "consultant"
+								? () => {
+										const removed = removeAddedStep(study.id, p.id);
+										toast("Step removed", removed && { label: "Undo", onClick: () => restoreAddedStep(study.id, removed) });
+									}
+								: undefined
+						}
+					/>
 				))}
 			</ol>
 
-			{role === "consultant" &&
-				(newStep === null ? (
-					<button
-						onClick={() => setNewStep("")}
-						className="self-start rounded-[var(--radius)] border border-dashed border-[var(--color-border-active)] bg-[var(--color-surface)] px-4 py-2.5 font-semibold"
-					>
-						Add a step for this study
-					</button>
-				) : (
-					<form
-						onSubmit={(e) => {
-							e.preventDefault();
-							if (!newStep.trim()) return;
-							addStep(study.id, newStep.trim());
-							setNewStep(null);
-						}}
-						className="flex flex-wrap gap-2"
-					>
-						<input
-							autoFocus
-							value={newStep}
-							onChange={(e) => setNewStep(e.target.value)}
-							aria-label="Name of the step"
-							placeholder="Name of the step, for this study only"
-							className="rr-input min-w-[260px] flex-1"
-						/>
-						<button type="submit" className="rounded-[var(--radius)] bg-[var(--color-accent)] px-4 text-sm font-semibold text-white">
-							Add
-						</button>
-						<button type="button" onClick={() => setNewStep(null)} className="rounded-[var(--radius)] px-3 text-sm text-[var(--color-ink-secondary)] hover:bg-[var(--color-hover)]">
-							Cancel
-						</button>
-					</form>
-				))}
+			{role === "consultant" && <AddRow label="Add a step for this study" placeholder="Name of the step, for this study only" onAdd={(v) => addStep(study.id, v)} />}
 
 			<PhaseDrawer study={study} phase={open} onClose={() => setOpen(null)} />
 		</div>
@@ -96,12 +76,12 @@ export function StepsView({ id }: { id: string }) {
 
 // A phase: its number and name, its tasks and planned days. The whole row
 // opens it.
-function PhaseRow({ phase: p, onOpen }: { phase: PhaseView; onOpen: () => void }) {
+function PhaseRow({ phase: p, onOpen, onRemove }: { phase: PhaseView; onOpen: () => void; onRemove?: () => void }) {
 	return (
-		<li className="border-b border-[var(--color-border)] last:border-b-0">
+		<li className="flex items-center border-b border-[var(--color-border)] last:border-b-0">
 			<button
 				onClick={onOpen}
-				className="grid w-full grid-cols-[30px_minmax(0,1fr)_auto_16px] items-center gap-3 px-5 py-3.5 text-left hover:bg-[var(--color-hover)] sm:grid-cols-[30px_minmax(0,1fr)_90px_120px_16px]"
+				className="grid min-w-0 flex-1 grid-cols-[30px_minmax(0,1fr)_auto_16px] items-center gap-3 px-5 py-3.5 text-left hover:bg-[var(--color-hover)] sm:grid-cols-[30px_minmax(0,1fr)_90px_120px_16px]"
 			>
 				<span
 					aria-hidden
@@ -117,6 +97,7 @@ function PhaseRow({ phase: p, onOpen }: { phase: PhaseView; onOpen: () => void }
 				<span className="text-sm text-[var(--color-ink-muted)]">{p.addedBy ? "" : costed(p.days)}</span>
 				<ChevronRight size={16} aria-hidden className="text-[var(--color-ink-muted)]" />
 			</button>
+			{onRemove && <RemoveButton label={`Remove the step “${p.name}”`} onClick={onRemove} className="mr-3" />}
 		</li>
 	);
 }

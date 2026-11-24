@@ -1,12 +1,12 @@
 "use client";
 
-import { useState } from "react";
 import { Plus } from "lucide-react";
 import { useMartine } from "@/shared/hooks/useMartine";
 import { useToast } from "@/shared/components/ui/Toast";
 import { methodEntry, personById, skillById } from "@/shared/lib/data";
 import { costedDays } from "@/shared/lib/format";
-import { PhaseSheet, TaskFields, ToolList, formatOf, taskMeta, taskRows } from "@/features/phase/PhaseParts";
+import { Lines, PhaseSheet, TaskFields, ToolList, formatOf, taskMeta, taskRows } from "@/features/phase/PhaseParts";
+import { AddRow, CanDo, InlineEdit, RemoveButton } from "@/shared/components/ui/Editing";
 import { RequestSkill } from "@/features/skills/RequestSkill";
 import type { MethodPhaseView, MethodTaskView } from "./methodModel";
 
@@ -68,13 +68,21 @@ function nextVersion(v: string | null) {
 }
 
 function Body({ methodId, phase, isOwner, onAdd }: { methodId: string; phase: MethodPhaseView; isOwner: boolean; onAdd: (k: string) => void }) {
-	const { resolveSuggestion, addMethodTask } = useMartine();
+	const { resolveSuggestion, addMethodTask, drafts } = useMartine();
 	const toast = useToast();
 	const m = methodEntry(methodId);
-	const [newTask, setNewTask] = useState<string | null>(null);
+	const draftVersion = drafts[methodId]?.version ?? nextVersion(m?.version ?? null);
 
 	return (
 		<>
+			{isOwner ? (
+				<CanDo
+					can="You edit this method: click any text to change it, add or remove tools and skills, add tasks."
+					locked={`Your changes go to draft v${draftVersion}; studies in progress keep v${m?.version} until you publish.`}
+				/>
+			) : (
+				<CanDo can="You can read this method." locked={`${m?.owner ?? "The method owner"} edits it. Suggest a change from a task in a study.`} />
+			)}
 			{phase.suggestions.map((s) => {
 				const target = phase.tasks.find((t) => t.key === s.task);
 				return (
@@ -110,30 +118,7 @@ function Body({ methodId, phase, isOwner, onAdd }: { methodId: string; phase: Me
 			))}
 			{phase.tasks.length === 0 && <p className="m-0 text-[var(--color-ink-muted)]">No task in this phase yet.</p>}
 
-			{isOwner &&
-				(newTask === null ? (
-					<button onClick={() => setNewTask("")} className="self-start text-sm font-semibold text-[var(--color-accent)]">
-						Add a task
-					</button>
-				) : (
-					<form
-						onSubmit={(e) => {
-							e.preventDefault();
-							if (!newTask.trim()) return;
-							addMethodTask(methodId, m?.version ?? null, phase.id, newTask.trim());
-							setNewTask(null);
-						}}
-						className="flex flex-wrap gap-2"
-					>
-						<input autoFocus value={newTask} onChange={(e) => setNewTask(e.target.value)} aria-label="Name of the task" placeholder="Name of the task" className="rr-input min-w-[240px] flex-1" />
-						<button type="submit" className="rounded-[var(--radius)] bg-[var(--color-accent)] px-3.5 text-sm font-semibold text-white">
-							Add
-						</button>
-						<button type="button" onClick={() => setNewTask(null)} className="rounded-[var(--radius)] px-3 text-sm text-[var(--color-ink-secondary)] hover:bg-[var(--color-hover)]">
-							Cancel
-						</button>
-					</form>
-				))}
+			{isOwner && <AddRow label="Add a task to this phase" placeholder="Name of the task" onAdd={(v) => addMethodTask(methodId, m?.version ?? null, phase.id, v)} />}
 		</>
 	);
 }
@@ -154,26 +139,47 @@ const FIELDS: Record<"tasks" | "steps", { key: Field; label: string }[]> = {
 };
 
 function EditableTask({ methodId, index, view, isOwner, onAdd }: { methodId: string; index: number; view: MethodTaskView; isOwner: boolean; onAdd: () => void }) {
-	const { editMethodTask, unlinkTool } = useMartine();
+	const { editMethodTask, unlinkTool, linkTool, removeMethodTask, restoreMethodTask, drafts } = useMartine();
+	const toast = useToast();
 	const m = methodEntry(methodId);
+	const version = m?.version ?? null;
 	const format = formatOf(methodId);
 	const fields = FIELDS[format];
-	const [editing, setEditing] = useState(false);
-	const current = () => Object.fromEntries(fields.map((f) => [f.key, view.task[f.key] ?? ""])) as Partial<Record<Field, string>>;
-	const [values, setValues] = useState(current);
 	const { task } = view;
+	const added = view.draftId ? drafts[methodId]?.addedTasks.find((t) => t.id === view.draftId) : undefined;
 
-	const editor = (f: { key: Field; label: string }) => (
-		<textarea
-			value={values[f.key] ?? ""}
-			onChange={(e) => setValues((v) => ({ ...v, [f.key]: e.target.value }))}
-			rows={f.key === "how" ? 4 : 2}
-			aria-label={f.label}
-			className="rr-input resize-y"
-		/>
-	);
+	// Every field of the task edits in place for the method owner.
+	const editors = isOwner
+		? Object.fromEntries(
+				fields.map((f) => [
+					f.key,
+					<InlineEdit
+						key={f.key}
+						value={task[f.key] ?? ""}
+						onSave={(v) => editMethodTask(methodId, version, view.key, { [f.key]: v })}
+						canEdit
+						multiline
+						label={f.label.toLowerCase()}
+						placeholder={`Add ${f.label.toLowerCase()}`}
+					>
+						{f.key === "how" || f.key === "watch_out" ? <Lines text={task[f.key] ?? ""} /> : task[f.key]}
+					</InlineEdit>,
+				]),
+			)
+		: {};
 	const tools = (
-		<ToolList task={task} newIds={view.addedTools} onUnlink={isOwner ? (t) => unlinkTool(methodId, m?.version ?? null, view.key, t) : undefined}>
+		<ToolList
+			task={task}
+			newIds={view.addedTools}
+			onUnlink={
+				isOwner
+					? (t) => {
+							unlinkTool(methodId, version, view.key, t);
+							toast("Tool unlinked", { label: "Undo", onClick: () => linkTool(methodId, version, view.key, t) });
+						}
+					: undefined
+			}
+		>
 			{task.skills.map((s) => (
 				<span key={s} className="rounded-[var(--radius-xl)] bg-[var(--color-accent-dim)] px-2.5 py-0.5 text-[13px] font-semibold text-[var(--color-accent)]">
 					Skill: {skillById(s)?.label ?? s}
@@ -203,30 +209,17 @@ function EditableTask({ methodId, index, view, isOwner, onAdd }: { methodId: str
 					{view.edited && <span className="ml-2 text-[13px] font-normal text-[var(--color-attention)]">edited in draft</span>}
 				</h3>
 				<span className="text-[13px] text-[var(--color-ink-muted)]">{taskMeta(task)}</span>
-				{isOwner &&
-					(editing ? (
-						<button
-							onClick={() => {
-								editMethodTask(methodId, m?.version ?? null, view.key, values);
-								setEditing(false);
-							}}
-							className="rounded-[var(--radius)] bg-[var(--color-accent)] px-3 py-1.5 text-sm font-semibold text-white"
-						>
-							Done
-						</button>
-					) : (
-						<button
-							onClick={() => {
-								setValues(current());
-								setEditing(true);
-							}}
-							className="rounded-[var(--radius)] border border-[var(--color-border-hover)] px-3 py-1.5 text-sm hover:bg-[var(--color-hover)]"
-						>
-							Edit
-						</button>
-					))}
+				{isOwner && added && (
+					<RemoveButton
+						label={`Remove “${task.task}” from the draft`}
+						onClick={() => {
+							removeMethodTask(methodId, version, added.id);
+							toast("Task removed from the draft", { label: "Undo", onClick: () => restoreMethodTask(methodId, version, added) });
+						}}
+					/>
+				)}
 			</div>
-			<TaskFields rows={taskRows(task, format, { tools, ...(editing ? Object.fromEntries(fields.map((f) => [f.key, editor(f)])) : {}) })} />
+			<TaskFields rows={taskRows(task, format, { tools, ...editors })} />
 		</article>
 	);
 }

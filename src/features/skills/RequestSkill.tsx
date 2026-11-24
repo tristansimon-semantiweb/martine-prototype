@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { Wrench } from "lucide-react";
 import { useMartine } from "@/shared/hooks/useMartine";
+import { Modal } from "@/shared/components/ui/Modal";
 import { useToast } from "@/shared/components/ui/Toast";
 import { allSkills } from "@/shared/lib/data";
 import { toolById } from "@/shared/lib/tools";
@@ -36,18 +37,15 @@ export function RequestSkill({ methodId, version, taskKey, task }: { methodId: s
 		);
 	}
 
-	if (!open) {
-		return (
+	return (
+		<>
 			<button
 				onClick={() => setOpen(true)}
 				className="inline-flex items-center gap-1 rounded-[var(--radius-sm)] border border-dashed border-[var(--color-accent)]/40 px-2.5 py-1 text-[13px] font-semibold text-[var(--color-accent)] hover:bg-[var(--color-accent-dim)]"
 			>
 				<Wrench size={13} aria-hidden /> Request a skill
 			</button>
-		);
-	}
-
-	return (
+			<Modal open={open} onClose={() => setOpen(false)} title="Request a skill">
 		<form
 			onSubmit={(e) => {
 				e.preventDefault();
@@ -56,8 +54,11 @@ export function RequestSkill({ methodId, version, taskKey, task }: { methodId: s
 				toast("Request sent to the tech team");
 				setOpen(false);
 			}}
-			className="flex w-full flex-col gap-2 rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-canvas)] p-3 text-sm"
+			className="flex w-full flex-col gap-3 text-sm"
 		>
+			<p className="m-0 text-[var(--color-ink-muted)]">
+				For the step “{task.task}”. The request goes to the tech team, who build the connectors and the skill.
+			</p>
 			<label className="flex flex-col gap-1">
 				<span className="font-semibold">What should Claude do on this step?</span>
 				<textarea value={need} onChange={(e) => setNeed(e.target.value)} rows={2} className="rr-input resize-y" />
@@ -91,5 +92,7 @@ export function RequestSkill({ methodId, version, taskKey, task }: { methodId: s
 				</button>
 			</div>
 		</form>
+			</Modal>
+		</>
 	);
 }

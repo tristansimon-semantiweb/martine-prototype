@@ -1,6 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { Plus } from "lucide-react";
+import { Popover } from "@/shared/components/ui/Popover";
+import { useToast } from "@/shared/components/ui/Toast";
 import { useMartine } from "@/shared/hooks/useMartine";
 import { methodEntry, people, personById } from "@/shared/lib/data";
 import { plural } from "@/shared/lib/format";
@@ -18,7 +20,7 @@ const avatar = "flex h-9 w-9 shrink-0 items-center justify-center rounded-full t
 
 export function TeamView({ id }: { id: string }) {
 	const { studies, role, addTeamMember } = useMartine();
-	const [adding, setAdding] = useState(false);
+	const toast = useToast();
 	const study = studies.find((s) => s.id === id);
 	if (!study) return null;
 
@@ -32,31 +34,41 @@ export function TeamView({ id }: { id: string }) {
 			<div className="flex flex-wrap items-center gap-3">
 				<h1 className="m-0 flex-1 font-[family-name:var(--font-heading)] text-[26px] font-medium">Team</h1>
 				{role === "consultant" && candidates.length > 0 && (
-					<button
-						onClick={() => setAdding((v) => !v)}
-						className="rounded-[var(--radius)] border border-[var(--color-border-hover)] bg-[var(--color-surface)] px-4 py-2.5 text-sm font-semibold hover:bg-[var(--color-hover)]"
+					<Popover
+						align="end"
+						width={280}
+						trigger={({ open, toggle }) => (
+							<button
+								onClick={toggle}
+								aria-expanded={open}
+								className="inline-flex items-center gap-1.5 rounded-[var(--radius)] border border-[var(--color-border-hover)] bg-[var(--color-surface)] px-4 py-2.5 text-sm font-semibold hover:bg-[var(--color-hover)]"
+							>
+								<Plus size={15} aria-hidden /> Add someone
+							</button>
+						)}
 					>
-						Add someone
-					</button>
+						{(close) => (
+							<ul className="m-0 list-none p-0">
+								{candidates.map((p) => (
+									<li key={p.id}>
+										<button
+											onClick={() => {
+												addTeamMember(study.id, p.id, p.role);
+												toast(`${p.name} added to the team`);
+												close();
+											}}
+											className="flex w-full items-center gap-2 rounded-[var(--radius-sm)] px-2 py-2 text-left text-sm hover:bg-[var(--color-hover)]"
+										>
+											<span className="flex h-7 w-7 items-center justify-center rounded-full bg-[var(--color-elevated)] text-[11px] font-bold">{p.initials}</span>
+											{p.name}, {p.role.replace("_", " ")}
+										</button>
+									</li>
+								))}
+							</ul>
+						)}
+					</Popover>
 				)}
 			</div>
-
-			{adding && (
-				<div className="flex flex-wrap gap-2 rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-surface)] p-3">
-					{candidates.map((p) => (
-						<button
-							key={p.id}
-							onClick={() => {
-								addTeamMember(study.id, p.id, p.role);
-								setAdding(false);
-							}}
-							className="rounded-[var(--radius-xl)] border border-[var(--color-border-hover)] px-3 py-1.5 text-sm hover:bg-[var(--color-hover)]"
-						>
-							{p.name}, {p.role.replace("_", " ")}
-						</button>
-					))}
-				</div>
-			)}
 
 			<ul aria-label="Team" className="m-0 list-none overflow-hidden rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-surface)] p-0 shadow-[var(--shadow-xs)]">
 				{study.team.map((m) => {

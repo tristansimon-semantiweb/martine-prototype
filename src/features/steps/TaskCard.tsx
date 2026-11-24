@@ -5,7 +5,8 @@ import { cn } from "@/shared/lib/cn";
 import { useMartine } from "@/shared/hooks/useMartine";
 import { useToast } from "@/shared/components/ui/Toast";
 import { methodEntry, skillById } from "@/shared/lib/data";
-import { ChevronDown, ExternalLink } from "lucide-react";
+import { ChevronDown, ExternalLink, MessageSquarePlus } from "lucide-react";
+import { Modal } from "@/shared/components/ui/Modal";
 import type { PhaseView, TaskView } from "@/shared/lib/studyModel";
 import type { Study } from "@/shared/lib/types";
 import { TaskFields, ToolChip, formatOf, taskMeta, taskRows } from "@/features/phase/PhaseParts";
@@ -94,39 +95,38 @@ export function TaskCard({ study, phase, view }: { study: Study; phase: PhaseVie
 							})),
 						]}
 					/>
-					{suggesting ? (
-						<div className="flex flex-col gap-2">
+					<button onClick={() => setSuggesting(true)} className="inline-flex items-center gap-1 self-start text-sm font-semibold text-[var(--color-accent)] hover:underline">
+						<MessageSquarePlus size={14} aria-hidden /> Suggest a change to the method
+					</button>
+					<Modal open={suggesting} onClose={() => setSuggesting(false)} title="Suggest a change">
+						<form
+							onSubmit={(e) => {
+								e.preventDefault();
+								if (!text.trim()) return;
+								suggestChange(study.method.id, phase.id, key, text.trim());
+								toast(`Suggestion sent to ${method?.owner ?? "the method owner"}`);
+								setSuggesting(false);
+								setText("");
+							}}
+							className="flex flex-col gap-3 text-sm"
+						>
+							<p className="m-0 text-[var(--color-ink-muted)]">
+								On “{task.task}”, in the {method?.name.toLowerCase()} method. {method?.owner ?? "The method owner"} reviews it; studies keep their version.
+							</p>
 							<textarea
+								autoFocus
 								value={text}
 								onChange={(e) => setText(e.target.value)}
-								rows={2}
+								rows={3}
 								aria-label="Your suggestion for this task"
 								placeholder="What should the method say for this task?"
-								className="rr-input resize-none"
+								className="rr-input resize-y"
 							/>
-							<div className="flex gap-2">
-								<button
-									disabled={!text.trim()}
-									onClick={() => {
-										suggestChange(study.method.id, phase.id, key, text.trim());
-										toast(`Suggestion sent to ${method?.owner ?? "the method owner"}`);
-										setSuggesting(false);
-										setText("");
-									}}
-									className="rounded-[var(--radius)] bg-[var(--color-accent)] px-3 py-1.5 text-sm font-semibold text-white disabled:opacity-40"
-								>
-									Send
-								</button>
-								<button onClick={() => setSuggesting(false)} className="rounded-[var(--radius)] px-3 py-1.5 text-sm text-[var(--color-ink-secondary)] hover:bg-[var(--color-hover)]">
-									Cancel
-								</button>
-							</div>
-						</div>
-					) : (
-						<button onClick={() => setSuggesting(true)} className="self-start text-sm font-semibold text-[var(--color-accent)] hover:underline">
-							Suggest a change to the method
-						</button>
-					)}
+							<button type="submit" disabled={!text.trim()} className="self-start rounded-[var(--radius)] bg-[var(--color-accent)] px-4 py-2 font-semibold text-white disabled:opacity-40">
+								Send to {method?.owner ?? "the method owner"}
+							</button>
+						</form>
+					</Modal>
 				</div>
 			)}
 		</article>

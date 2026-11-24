@@ -2,7 +2,7 @@
 
 import { createContext, useCallback, useContext, useMemo, useSyncExternalStore } from "react";
 import { methodEntry, registerDraftSkills, seedStudies, seedSuggestions } from "@/shared/lib/data";
-import type { BriefReading, CatalogSkill, MethodSuggestion, MethodTask, RoleId, Study, StudyState } from "@/shared/lib/types";
+import type { AddedStep, AddedTask, BriefReading, CatalogSkill, MethodSuggestion, MethodTask, RoleId, Study, StudyState } from "@/shared/lib/types";
 
 // The prototype's whole mutable state, persisted in localStorage like the R&R
 // prototype (useUserContent). Seeded from /data; "Reset the demo" restores it.
@@ -135,6 +135,25 @@ function useMartineState() {
 				patchState(studyId, (st) => ({ ...st, addedTasks: [...st.addedTasks, { id: `x${uid()}`, phase, title, by: me }] })),
 			addStep: (studyId: string, name: string) =>
 				patchState(studyId, (st) => ({ ...st, addedSteps: [...st.addedSteps, { id: `x${uid()}`, name, by: me }] })),
+			renameAddedTask: (studyId: string, id: string, title: string) =>
+				patchState(studyId, (st) => ({ ...st, addedTasks: st.addedTasks.map((t) => (t.id === id ? { ...t, title } : t)) })),
+			// Removing returns what was removed, so the toast can offer Undo.
+			removeAddedTask: (studyId: string, id: string): AddedTask | undefined => {
+				const study = read().studies.find((s) => s.id === studyId);
+				const removed = study?.state.addedTasks.find((t) => t.id === id);
+				patchState(studyId, (st) => ({ ...st, addedTasks: st.addedTasks.filter((t) => t.id !== id) }));
+				return removed;
+			},
+			restoreAddedTask: (studyId: string, task: AddedTask) =>
+				patchState(studyId, (st) => ({ ...st, addedTasks: [...st.addedTasks, task] })),
+			removeAddedStep: (studyId: string, id: string): AddedStep | undefined => {
+				const study = read().studies.find((s) => s.id === studyId);
+				const removed = study?.state.addedSteps.find((t) => t.id === id);
+				patchState(studyId, (st) => ({ ...st, addedSteps: st.addedSteps.filter((t) => t.id !== id) }));
+				return removed;
+			},
+			restoreAddedStep: (studyId: string, step: AddedStep) =>
+				patchState(studyId, (st) => ({ ...st, addedSteps: [...st.addedSteps, step] })),
 
 			// ── Study files ──
 			markFileChecked: (studyId: string, fileId: string) =>
@@ -317,6 +336,10 @@ function useMartineState() {
 				}),
 			addMethodTask: (methodId: string, version: string | null, phase: string, task: string) =>
 				patchDraft(methodId, version, (dr) => ({ ...dr, addedTasks: [...dr.addedTasks, { id: `t${uid()}`, phase, task, by: me }] })),
+			removeMethodTask: (methodId: string, version: string | null, id: string) =>
+				patchDraft(methodId, version, (dr) => ({ ...dr, addedTasks: dr.addedTasks.filter((t) => t.id !== id) })),
+			restoreMethodTask: (methodId: string, version: string | null, task: MethodDraft["addedTasks"][number]) =>
+				patchDraft(methodId, version, (dr) => ({ ...dr, addedTasks: [...dr.addedTasks, task] })),
 			addMethodPhase: (methodId: string, version: string | null, name: string) =>
 				patchDraft(methodId, version, (dr) => ({ ...dr, addedPhases: [...dr.addedPhases, { id: `p${uid()}`, name, by: me }] })),
 			saveDraft: (methodId: string, version: string | null) =>

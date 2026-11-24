@@ -1,7 +1,9 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { ExternalLink, FileText, Link2 } from "lucide-react";
+import { ChevronDown, ExternalLink, FileText, Link2, Plus } from "lucide-react";
+import { Popover } from "@/shared/components/ui/Popover";
+import { RemoveButton } from "@/shared/components/ui/Editing";
 import { useMartine } from "@/shared/hooks/useMartine";
 import { useToast } from "@/shared/components/ui/Toast";
 import { catalog, personById } from "@/shared/lib/data";
@@ -154,75 +156,107 @@ export function AttachForm({
 	);
 }
 
-// The document a phase works in: shown at the top of the phase, chosen among
-// the study's documents, or added for it (link, upload, template).
+// The document a phase works in, in one line at the top of the phase: the
+// document, a menu to choose another one (search the study's documents, or
+// add a new one there), and a cross to take it off the phase (with Undo).
 export function PhaseDocument({ study, phase, tasks }: { study: Study; phase: string; tasks: MethodTask[] }) {
 	const { setPhaseDoc } = useMartine();
 	const toast = useToast();
-	const [mode, setMode] = useState<"idle" | "choose" | "add">("idle");
+	const [query, setQuery] = useState("");
+	const [adding, setAdding] = useState(false);
 	const docId = study.state.phaseDocs?.[phase];
 	const doc = study.files.find((f) => f.id === docId);
+	const q = query.trim().toLowerCase();
+	const options = study.files.filter((f) => !q || f.name.toLowerCase().includes(q));
 
 	return (
-		<section aria-label="Phase document" className="flex flex-col gap-2 rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-canvas)] px-4 py-3">
-			<div className="flex flex-wrap items-center gap-2">
-				<span className="text-sm font-semibold">Phase document</span>
-				{doc ? <FileChip study={study} file={doc} /> : <span className="text-sm text-[var(--color-ink-muted)]">none yet</span>}
-				{mode === "idle" && (
-					<button onClick={() => setMode("choose")} className="ml-auto text-[13px] font-semibold text-[var(--color-accent)]">
-						{doc ? "Change" : "Choose a document"}
-					</button>
-				)}
-			</div>
-			{mode === "choose" && (
-				<div className="flex flex-wrap items-center gap-2">
-					<select
-						defaultValue={docId ?? ""}
-						onChange={(e) => {
-							if (!e.target.value) return;
-							setPhaseDoc(study.id, phase, e.target.value);
-							toast("Document set for this phase");
-							setMode("idle");
+		<section aria-label="Phase document" className="flex flex-wrap items-center gap-2 rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-canvas)] px-3 py-2">
+			<span className="text-sm font-semibold">Phase document</span>
+			{doc ? (
+				<>
+					<FileChip study={study} file={doc} />
+					<RemoveButton
+						label="Take this document off the phase"
+						onClick={() => {
+							setPhaseDoc(study.id, phase, null);
+							toast("Document taken off the phase", { label: "Undo", onClick: () => setPhaseDoc(study.id, phase, doc.id) });
 						}}
-						aria-label="The study's documents"
-						className="rr-input w-auto min-w-[240px] max-w-full py-2"
-					>
-						<option value="">Choose among the study’s documents</option>
-						{study.files.map((f) => (
-							<option key={f.id} value={f.id}>
-								{f.name} ({f.type})
-							</option>
-						))}
-					</select>
-					<button onClick={() => setMode("add")} className="text-[13px] font-semibold text-[var(--color-accent)]">
-						or add a new one
-					</button>
-					{doc && (
+					/>
+				</>
+			) : (
+				<span className="text-sm text-[var(--color-ink-muted)]">none yet</span>
+			)}
+			<span className="ml-auto">
+				<Popover
+					align="end"
+					width={380}
+					trigger={({ open, toggle }) => (
 						<button
 							onClick={() => {
-								setPhaseDoc(study.id, phase, null);
-								setMode("idle");
+								setAdding(false);
+								setQuery("");
+								toggle();
 							}}
-							className="text-[13px] text-[var(--color-ink-muted)]"
+							aria-expanded={open}
+							className="inline-flex items-center gap-1 rounded-[var(--radius-sm)] px-2 py-1 text-[13px] font-semibold text-[var(--color-accent)] hover:bg-[var(--color-accent-dim)]"
 						>
-							Remove from this phase
+							{doc ? "Change" : "Choose a document"} <ChevronDown size={13} aria-hidden />
 						</button>
 					)}
-					<button onClick={() => setMode("idle")} className="ml-auto text-[13px] text-[var(--color-ink-muted)]">
-						Cancel
-					</button>
-				</div>
-			)}
-			{mode === "add" && (
-				<AttachForm
-					study={study}
-					phase={phase}
-					defaultName=""
-					template={templateFor(tasks)}
-					onAttached={(id) => setPhaseDoc(study.id, phase, id)}
-					onDone={() => setMode("idle")}
-				/>
-			)}
+				>
+					{(close) =>
+						adding ? (
+							<AttachForm
+								study={study}
+								phase={phase}
+								defaultName=""
+								template={templateFor(tasks)}
+								onAttached={(id) => setPhaseDoc(study.id, phase, id)}
+								onDone={close}
+							/>
+						) : (
+							<div className="flex flex-col gap-1">
+								<input
+									autoFocus
+									value={query}
+									onChange={(e) => setQuery(e.target.value)}
+									aria-label="Search the study’s documents"
+									placeholder="Search the study’s documents"
+									className="rr-input py-1.5"
+								/>
+								<ul className="m-0 max-h-60 list-none overflow-y-auto p-0">
+									{options.map((f) => (
+										<li key={f.id}>
+											<button
+												onClick={() => {
+													setPhaseDoc(study.id, phase, f.id);
+													toast(`${f.name} is this phase’s document`);
+													close();
+												}}
+												className={cn(
+													"flex w-full items-center gap-2 rounded-[var(--radius-sm)] px-2 py-1.5 text-left text-sm hover:bg-[var(--color-hover)]",
+													f.id === docId && "font-semibold text-[var(--color-accent)]",
+												)}
+											>
+												{f.url ? <Link2 size={13} aria-hidden /> : <FileText size={13} aria-hidden />}
+												<span className="flex-1 truncate">{f.name}</span>
+												<span className="text-[12px] text-[var(--color-ink-muted)]">{f.type}</span>
+											</button>
+										</li>
+									))}
+									{options.length === 0 && <li className="px-2 py-1.5 text-sm text-[var(--color-ink-muted)]">No document matches.</li>}
+								</ul>
+								<button
+									onClick={() => setAdding(true)}
+									className="mt-1 flex items-center gap-1.5 rounded-[var(--radius-sm)] border-t border-[var(--color-border)] px-2 pt-2 text-left text-sm font-semibold text-[var(--color-accent)]"
+								>
+									<Plus size={14} aria-hidden /> New document: link, upload{templateFor(tasks) ? " or template" : ""}
+								</button>
+							</div>
+						)
+					}
+				</Popover>
+			</span>
 		</section>
 	);
 }
