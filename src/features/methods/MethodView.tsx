@@ -8,7 +8,7 @@ import { Sheet } from "@/shared/components/ui/Sheet";
 import { AddRow, CanDo, RemoveButton, RenameButton, RenameField } from "@/shared/components/ui/Editing";
 import { methodEntry, skillById } from "@/shared/lib/data";
 import { costedDays, plural } from "@/shared/lib/format";
-import { helpFor } from "@/shared/lib/help";
+import { useHelp } from "@/shared/hooks/useHelp";
 import { cn } from "@/shared/lib/cn";
 import { BookOpen } from "lucide-react";
 import { taskMeta } from "@/features/phase/PhaseParts";
@@ -189,6 +189,7 @@ function PhaseItem({
 // Save to draft (owner), the suggestions waiting on it, then its tasks as rows.
 function MethodPhasePage({ methodId, phase, isOwner, onOpenTask }: { methodId: string; phase: MethodPhaseView; isOwner: boolean; onOpenTask: (key: string) => void }) {
 	const { drafts, saveDraft, addMethodTask } = useMartine();
+	const docsFor = useHelp().forTask;
 	const toast = useToast();
 	const m = methodEntry(methodId);
 	const draft = drafts[methodId];
@@ -246,7 +247,7 @@ function MethodPhasePage({ methodId, phase, isOwner, onOpenTask }: { methodId: s
 					<ol aria-label="Tasks" className="m-0 list-none p-0">
 						{phase.tasks.map((t) => {
 							const summary = t.task.what || t.task.how.split(/\n|(?<=\.)\s/)[0];
-							const help = helpFor(t.task);
+							const help = docsFor(methodId, t.key, t.task);
 							return (
 								<li key={t.key} className="border-b border-[var(--color-border)] last:border-b-0">
 									<button onClick={() => onOpenTask(t.key)} aria-label={`${t.task.task}: details`} className="flex w-full flex-wrap items-center gap-x-4 gap-y-2 px-6 py-4 text-left hover:bg-[var(--color-hover)]">

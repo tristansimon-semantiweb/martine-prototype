@@ -98,7 +98,7 @@ function Body({ study, phase, taskKey }: { study: Study; phase: PhaseView; taskK
 				)}
 			</section>
 
-			<TaskHelp task={task} />
+			<TaskHelp methodId={study.method.id} taskKey={key} task={task} />
 
 			<TaskFields
 				rows={[

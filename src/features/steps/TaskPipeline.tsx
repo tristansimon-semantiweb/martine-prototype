@@ -1,7 +1,7 @@
 "use client";
 
 import { BookOpen, ExternalLink, Play } from "lucide-react";
-import { helpFor } from "@/shared/lib/help";
+import { useHelp } from "@/shared/hooks/useHelp";
 import { plural } from "@/shared/lib/format";
 import { useMartine } from "@/shared/hooks/useMartine";
 import { useToast } from "@/shared/components/ui/Toast";
@@ -33,6 +33,7 @@ export function TaskPipeline({ study, phase, onOpen }: { study: Study; phase: Ph
 	const toast = useToast();
 	const isConsultant = role === "consultant";
 	const first = (id: string) => personById(id)?.name.split(" ")[0];
+	const docsFor = useHelp().forTask;
 
 	return (
 		<ol aria-label="Tasks" className="m-0 list-none p-0 [&>li:last-child>div]:border-b-0">
@@ -40,7 +41,7 @@ export function TaskPipeline({ study, phase, onOpen }: { study: Study; phase: Ph
 				const e = executorOf(t);
 				// Under the name, what to do: the step's purpose, else the start of how to do it.
 				const summary = t.task.what || t.task.how.split(/\n|(?<=\.)\s/)[0];
-				const help = helpFor(t.task);
+				const help = docsFor(study.method.id, t.key, t.task);
 				return (
 					<li key={t.key}>
 						{/* The whole card opens the task's detail; its one action runs it. */}

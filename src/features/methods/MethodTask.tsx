@@ -129,7 +129,7 @@ export function EditableTask({ methodId, view, isOwner, onAdd }: { methodId: str
 					)}
 				</div>
 			)}
-			<TaskHelp task={task} />
+			<TaskHelp methodId={methodId} taskKey={view.key} task={task} />
 			<TaskFields rows={taskRows(task, format, { skills, tools, documents, ...editors })} />
 		</div>
 	);
