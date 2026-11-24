@@ -190,9 +190,10 @@ const toolLabels = (task: MethodTask) => task.tool_ids.map((id) => toolById(id)?
 // What the Tools column names besides tools: documents, then sources and
 // channels. Absent when there is none.
 function otherRows(task: MethodTask) {
-	const { documents, other } = otherToolItems(task);
+	const { documents, guides, other } = otherToolItems(task);
 	return [
 		...(documents.length ? [{ label: "Documents", value: documents.join(", ") }] : []),
+		...(guides.length ? [{ label: "Guides", value: guides.join(", ") }] : []),
 		...(other.length ? [{ label: "Also used", value: other.join(", ") }] : []),
 	];
 }
@@ -209,7 +210,8 @@ export function taskRows(task: MethodTask, format: MethodFormat, slots: Partial<
 			{ label: "How", value: v("how", <Lines text={task.how} />, Boolean(task.how)) },
 			{ label: "Watch out", value: v("watch_out", <Lines text={task.watch_out ?? ""} tone="attention" />, Boolean(task.watch_out)) },
 			// Tools are read from the step's text (the SML file has no Tools column).
-			...("tools" in slots ? [{ label: "Tools", value: slots.tools }] : task.tools ? [{ label: "Tools", value: toolLabels(task) }] : []),
+			...("tools" in slots ? [{ label: "Tools", value: slots.tools }] : task.tool_ids.length ? [{ label: "Tools", value: toolLabels(task) }] : []),
+			...otherRows(task),
 			{ label: "Deliverable", value: v("output", task.output, Boolean(task.output)) },
 		].filter((r) => !(r.label === "Watch out" && !task.watch_out && !("watch_out" in slots)));
 	}

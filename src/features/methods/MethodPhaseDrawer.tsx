@@ -62,7 +62,7 @@ export function MethodPhaseDrawer({
 	);
 }
 
-function nextVersion(v: string | null) {
+export function nextVersion(v: string | null) {
 	const [a, b] = (v ?? "1.0").split(".").map(Number);
 	return `${a}.${b + 1}`;
 }

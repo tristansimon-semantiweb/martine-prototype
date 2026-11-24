@@ -33,9 +33,18 @@ function splitItems(s: string): string[] {
 	return out.map((t) => t.trim()).filter(Boolean);
 }
 
-export function otherToolItems(task: MethodTask): { documents: string[]; other: string[] } {
-	const items = splitItems(task.tools).filter((t) => !/\bskills?\b/i.test(t) && !MATCHERS.some((res) => res.some((re) => re.test(t))));
-	return { documents: items.filter((t) => DOCUMENT.test(t)), other: items.filter((t) => !DOCUMENT.test(t)) };
+// Guides: the catalog's guides, and what reads as one (a guide, a library, a methodology).
+const GUIDE = /\b(guides?|library|libraries|methodology|start here)\b/i;
+const isGuide = (t: string) => GUIDE.test(t) || catalog.guides.some((g) => g.toLowerCase() === t.toLowerCase());
+// A skill named in the column ("building radarly queries skill") is shown as a skill, not here.
+const isSkill = (t: string) => /\bskills?\b/i.test(t) && !isGuide(t);
+
+export function otherToolItems(task: MethodTask): { documents: string[]; guides: string[]; other: string[] } {
+	// A guide can name a tool ("Talkwalker queries skill guide"): it stays a guide.
+	const items = splitItems(task.tools).filter((t) => isGuide(t) || (!isSkill(t) && !MATCHERS.some((res) => res.some((re) => re.test(t)))));
+	const guides = items.filter(isGuide);
+	const rest = items.filter((t) => !isGuide(t));
+	return { documents: rest.filter((t) => DOCUMENT.test(t)), guides, other: rest.filter((t) => !DOCUMENT.test(t)) };
 }
 
 export const TOOL_KINDS = [...new Set(catalog.tools.map((t) => t.kind))];

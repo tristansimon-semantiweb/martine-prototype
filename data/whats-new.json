@@ -9,6 +9,12 @@
       "items": [
         {
           "kind": "changed",
+          "title": "Documents and guides added to a task show on it",
+          "text": "In a study type, a document or a guide added to a task from the catalog now shows on the task, under Documents or Guides, in both method formats; the catalog says where it goes and the draft it goes into. Studies see it once the draft is published.",
+          "href": "/study-types/archetype?phase=0"
+        },
+        {
+          "kind": "changed",
           "title": "A phase reads top to bottom",
           "text": "An open phase now starts with one summary: its status, its document and its tools. Then the team’s note, then its tasks, numbered in order (2.1, 2.2…) in a single list; the tasks added for this study sit at the end of that list. What your role can change closes the panel.",
           "href": "/studies/TR-2611-01/steps?phase=2"

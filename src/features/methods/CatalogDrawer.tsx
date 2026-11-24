@@ -9,6 +9,7 @@ import { cn } from "@/shared/lib/cn";
 import type { CatalogSkill, MethodTask } from "@/shared/lib/types";
 import { SkillStatusBadge } from "@/shared/components/ui/SkillStatus";
 import { RequestSkill } from "@/features/skills/RequestSkill";
+import { nextVersion } from "./MethodPhaseDrawer";
 import type { MethodPhaseView } from "./methodModel";
 
 type Tab = "Skills" | "Tools" | "Documents" | "Guides";
@@ -50,7 +51,8 @@ export function CatalogDrawer({
 	const m = methodEntry(methodId);
 	const view = phase?.tasks.find((t) => t.key === taskKey);
 	const task = view?.task;
-	const version = drafts[methodId]?.version ?? m?.version;
+	// Changes go into the next draft, never into the published version.
+	const version = drafts[methodId]?.version ?? nextVersion(m?.version ?? null);
 	const q = query.trim().toLowerCase();
 	const matches = (s: string) => !q || s.toLowerCase().includes(q);
 
@@ -61,10 +63,12 @@ export function CatalogDrawer({
 		addSkillToTask(methodId, m?.version ?? null, taskKey!, id);
 		toast(`${label} added to the task`);
 	};
-	const addTool = (label: string) => {
+	// A document or a guide goes into the task's Tools column in the draft, and
+	// shows under the task's Documents or Guides row.
+	const addTool = (label: string, where: string) => {
 		const tools = task?.tools ? `${task.tools}, ${label}` : label;
 		editMethodTask(methodId, m?.version ?? null, taskKey!, { tools });
-		toast(`${label} added to the task`);
+		toast(`${label} added to the task’s ${where}, in draft v${version}`);
 	};
 
 	const skillRow = (s: CatalogSkill, why?: string) => {
@@ -92,16 +96,16 @@ export function CatalogDrawer({
 		);
 	};
 
-	const simpleRow = (label: string, meta?: string) => {
+	const simpleRow = (label: string, where: string) => {
 		const onTask = task?.tools.toLowerCase().includes(label.toLowerCase());
 		return (
 			<li key={label} className="flex flex-wrap items-center gap-2 border-b border-[var(--color-border)] py-3 last:border-b-0">
 				<span className="flex-1 font-semibold">{label}</span>
-				{meta && <span className="text-sm text-[var(--color-ink-muted)]">{meta}</span>}
+				{!onTask && <span className="text-sm text-[var(--color-ink-muted)]">goes under {where}</span>}
 				{onTask ? (
 					<span className="text-sm text-[var(--color-ink-muted)]">on this task</span>
 				) : (
-					<button onClick={() => addTool(label)} className="rounded-[var(--radius)] bg-[var(--color-accent)] px-3 py-1 text-sm font-semibold text-white">
+					<button onClick={() => addTool(label, where)} className="rounded-[var(--radius)] bg-[var(--color-accent)] px-3 py-1 text-sm font-semibold text-white">
 						Add
 					</button>
 				)}
@@ -119,7 +123,7 @@ export function CatalogDrawer({
 			header={
 				<>
 					<div className="text-sm text-[var(--color-ink-muted)]">
-						{m?.name} method, editing v{version}
+						{m?.name} method, draft v{version}
 					</div>
 					<div className="mt-2 text-sm text-[var(--color-ink-muted)]">Add to the task, phase {phase?.id}</div>
 					<h2 className="mt-0.5 font-[family-name:var(--font-heading)] text-[26px] font-medium">{task?.task}</h2>
@@ -211,8 +215,8 @@ export function CatalogDrawer({
 							})}
 					</ul>
 				)}
-				{tab === "Documents" && <ul className="m-0 list-none p-0">{catalog.documents.filter(matches).map((d) => simpleRow(d, "lives in Files"))}</ul>}
-				{tab === "Guides" && <ul className="m-0 list-none p-0">{catalog.guides.filter(matches).map((g) => simpleRow(g, "to read"))}</ul>}
+				{tab === "Documents" && <ul className="m-0 list-none p-0">{catalog.documents.filter(matches).map((d) => simpleRow(d, "Documents"))}</ul>}
+				{tab === "Guides" && <ul className="m-0 list-none p-0">{catalog.guides.filter(matches).map((g) => simpleRow(g, "Guides"))}</ul>}
 			</div>
 		</Sheet>
 	);
