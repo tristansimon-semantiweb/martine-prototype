@@ -10,7 +10,7 @@
         {
           "kind": "changed",
           "title": "Tools read in the steps’ text",
-          "text": "17 steps that run frequencies, use the concordancer or work on the corpus facets now show the tool their text describes (ICC or Corpus Manager), marked “to confirm”: the method files describe the work without naming the tool. The method owner confirms each link in one click, or removes it. The Files tool joins the tool repository.",
+          "text": "Steps that run frequencies, use the concordancer or work on the corpus facets now show the tool their text describes, marked “to confirm”: the method files describe the work without naming the tool. Facets are created in the Corpus Manager and read in the ICC. The method owner confirms each link in one click, or removes it. The Files tool joins the tool repository.",
           "href": "/tools/icc"
         },
         {

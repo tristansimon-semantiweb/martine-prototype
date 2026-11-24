@@ -572,7 +572,7 @@
 					"watch_out": "",
 					"tools": "",
 					"tool_ids": [
-						"corpus_manager"
+						"icc"
 					],
 					"check": "",
 					"output": "Top topics slides",
@@ -582,7 +582,7 @@
 					"owner": "Analyst",
 					"skills": [],
 					"tool_ids_to_confirm": [
-						"corpus_manager"
+						"icc"
 					]
 				},
 				{
@@ -592,7 +592,7 @@
 					"watch_out": "",
 					"tools": "",
 					"tool_ids": [
-						"corpus_manager"
+						"icc"
 					],
 					"check": "",
 					"output": "Emblematic features slides",
@@ -602,7 +602,7 @@
 					"owner": "Analyst",
 					"skills": [],
 					"tool_ids_to_confirm": [
-						"corpus_manager"
+						"icc"
 					]
 				},
 				{

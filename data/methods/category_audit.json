@@ -466,7 +466,8 @@
 					"watch_out": "Generic words (e.g. \"dry\" for hair and skin, \"oil\" as ingredient and as product) cause most false tags: check them first.",
 					"tools": "",
 					"tool_ids": [
-						"corpus_manager"
+						"corpus_manager",
+						"icc"
 					],
 					"check": "",
 					"output": "Clean corpus, validated facets",
@@ -476,7 +477,8 @@
 					"owner": "Analyst + project lead",
 					"skills": [],
 					"tool_ids_to_confirm": [
-						"corpus_manager"
+						"corpus_manager",
+						"icc"
 					]
 				},
 				{
@@ -647,7 +649,7 @@
 					"watch_out": "Mark small sub-blocks as \"LOW SIGNAL\" and marke any cultural specificities in \"good to know\" boxes in the slide. Do not deep dive a topic with too little volume: fold it into another one.",
 					"tools": "",
 					"tool_ids": [
-						"corpus_manager"
+						"icc"
 					],
 					"check": "",
 					"output": "Topic deep-dive slides",
@@ -657,7 +659,7 @@
 					"owner": "Analyst",
 					"skills": [],
 					"tool_ids_to_confirm": [
-						"corpus_manager"
+						"icc"
 					]
 				}
 			]
