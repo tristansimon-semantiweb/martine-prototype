@@ -28,7 +28,7 @@ export function DocumentationView() {
 				<div className="font-[family-name:var(--font-heading)] text-[23px] font-medium">Documentation</div>
 				<div className="text-sm text-[var(--color-ink-muted)]">Guides, methodologies and references that help the analysts, shown on the tasks they apply to</div>
 			</TopBand>
-			<div className="mx-auto flex max-w-[1120px] flex-col gap-4 px-6 py-7">
+			<div className="mx-auto flex max-w-[1240px] flex-col gap-4 px-6 py-7">
 				<div className="flex flex-wrap items-center gap-3">
 					<input type="search" value={q} onChange={(e) => setQ(e.target.value)} aria-label="Search the documentation" placeholder="Search the documentation" className="rr-input max-w-[320px] flex-1" />
 					<button onClick={() => setAdding(true)} className="ml-auto rounded-[var(--radius)] bg-[var(--color-accent)] px-4 py-2.5 text-sm font-semibold text-white hover:opacity-90">

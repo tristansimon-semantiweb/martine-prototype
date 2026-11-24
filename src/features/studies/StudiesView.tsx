@@ -35,8 +35,9 @@ const lead = (s: Study) => {
 };
 
 export function StudiesView() {
-	const { studies } = useMartine();
+	const { studies, me } = useMartine();
 	const router = useRouter();
+	const [mine, setMine] = useState(false);
 	const [family, setFamily] = useState<Family | "All">("All");
 	const [type, setType] = useState("all");
 	const [status, setStatus] = useState<Status | "all">("all");
@@ -45,7 +46,9 @@ export function StudiesView() {
 	const [query, setQuery] = useState("");
 
 	const q = query.trim().toLowerCase();
+	const isMine = (s: (typeof studies)[number]) => s.team.some((m) => m.person === me);
 	const rows = studies
+		.filter((s) => !mine || isMine(s))
 		.filter((s) => family === "All" || s.family === family)
 		.filter((s) => type === "all" || s.method.id === type)
 		.filter((s) => status === "all" || statusOf(s) === status)
@@ -66,8 +69,28 @@ export function StudiesView() {
 				<div className="font-[family-name:var(--font-heading)] text-[23px] font-medium">Studies</div>
 				<div className="text-sm text-[var(--color-ink-muted)]">Every study run in Martine</div>
 			</TopBand>
-			<div className="mx-auto flex max-w-[1120px] flex-col gap-4 px-6 py-7">
+			<div className="mx-auto flex max-w-[1240px] flex-col gap-4 px-6 py-7">
 				<div className="flex flex-wrap items-center gap-3">
+					{/* Mine: the studies you are on, the way back to your own work. */}
+					<div role="group" aria-label="Whose studies" className="flex rounded-[var(--radius)] border border-[var(--color-border)] bg-[var(--color-surface)] p-0.5">
+						{[
+							{ on: false, label: "All studies", n: studies.length },
+							{ on: true, label: "Mine", n: studies.filter(isMine).length },
+						].map((o) => (
+							<button
+								key={o.label}
+								onClick={() => setMine(o.on)}
+								aria-pressed={mine === o.on}
+								className={cn(
+									"flex items-center gap-1.5 rounded-[var(--radius-sm)] px-3 py-1 text-[15px] font-semibold",
+									mine === o.on ? "bg-[var(--color-accent-dim)] text-[var(--color-accent)]" : "text-[var(--color-ink-secondary)] hover:bg-[var(--color-hover)]",
+								)}
+							>
+								{o.label}
+								<span className="text-[12px] font-normal text-[var(--color-ink-muted)]">{o.n}</span>
+							</button>
+						))}
+					</div>
 					<div role="group" aria-label="Family" className="flex flex-wrap gap-1">
 						{FAMILIES.map((f) => (
 							<button

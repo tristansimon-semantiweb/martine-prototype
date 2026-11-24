@@ -37,7 +37,7 @@ export function StepsView({ id }: { id: string }) {
 
 	if (!hasMethodFile(study) || !open) {
 		return (
-			<div className="mx-auto max-w-[820px] px-6 py-8">
+			<div className="mx-auto max-w-[1240px] [&>*]:max-w-[820px] px-6 py-8">
 				<div className="rounded-[var(--radius-lg)] border border-dashed border-[var(--color-border-active)] bg-[var(--color-surface)] px-6 py-8 text-[var(--color-ink-secondary)]">
 					<p className="m-0 font-semibold text-[var(--color-ink)]">The {method?.name.toLowerCase() ?? "study"} method is not in Martine yet.</p>
 					<p className="mb-0 mt-1.5 text-[15px]">

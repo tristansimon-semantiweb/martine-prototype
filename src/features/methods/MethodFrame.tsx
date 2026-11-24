@@ -19,7 +19,7 @@ export function MethodFrame({ id, children }: { id: string; children: React.Reac
 				<TopBand>
 					<div className="font-[family-name:var(--font-heading)] text-[23px] font-medium">Study type not found</div>
 				</TopBand>
-				<div className="mx-auto max-w-[820px] px-6 py-10">
+				<div className="mx-auto max-w-[1240px] [&>*]:max-w-[820px] px-6 py-10">
 					<Link href="/study-types">Back to the study types</Link>
 				</div>
 			</>

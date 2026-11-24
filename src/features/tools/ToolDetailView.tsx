@@ -27,7 +27,7 @@ export function ToolDetailView({ id }: { id: string }) {
 				<TopBand>
 					<div className="font-[family-name:var(--font-heading)] text-[23px] font-medium">Tool not found</div>
 				</TopBand>
-				<div className="mx-auto max-w-[820px] px-6 py-10">
+				<div className="mx-auto max-w-[1240px] [&>*]:max-w-[820px] px-6 py-10">
 					<Link href="/tools">Back to the tools</Link>
 				</div>
 			</>
@@ -54,7 +54,7 @@ export function ToolDetailView({ id }: { id: string }) {
 				<div className="font-[family-name:var(--font-heading)] text-[23px] font-medium">{tool.label}</div>
 			</TopBand>
 
-			<div className="mx-auto flex max-w-[820px] flex-col gap-[18px] px-6 py-8">
+			<div className="mx-auto flex max-w-[1240px] [&>*]:max-w-[820px] flex-col gap-[18px] px-6 py-8">
 				<dl className="m-0 grid grid-cols-2 gap-3.5 sm:grid-cols-3">
 					{[
 						["Kind", tool.kind],

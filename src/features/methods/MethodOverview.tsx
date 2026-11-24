@@ -40,7 +40,7 @@ export function MethodOverview({ id }: { id: string }) {
 	const base = `/study-types/${id}/method`;
 
 	return (
-		<div className="mx-auto flex max-w-[1080px] flex-col gap-5 px-6 py-7">
+		<div className="mx-auto flex max-w-[1240px] flex-col gap-5 px-6 py-7">
 			<section aria-label="What this study type is" className={`${card} flex flex-col gap-4 px-6 py-5`}>
 				{def ? (
 					<div>

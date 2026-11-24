@@ -33,7 +33,7 @@ export function ToolsView() {
 				<div className="font-[family-name:var(--font-heading)] text-[23px] font-medium">Tools</div>
 				<div className="text-sm text-[var(--color-ink-muted)]">The applications we work in, and the steps of each study type that use them</div>
 			</TopBand>
-			<div className="mx-auto flex max-w-[1120px] flex-col gap-4 px-6 py-7">
+			<div className="mx-auto flex max-w-[1240px] flex-col gap-4 px-6 py-7">
 				<div className="flex flex-wrap items-center gap-3">
 					<div role="group" aria-label="Kind of tool" className="flex flex-wrap gap-1">
 						{["All", ...TOOL_KINDS].map((k) => (

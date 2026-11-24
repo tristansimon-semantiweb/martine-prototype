@@ -31,7 +31,7 @@ export function MethodsView() {
 				<div className="font-[family-name:var(--font-heading)] text-[23px] font-medium">Study types</div>
 				<div className="text-sm text-[var(--color-ink-muted)]">Each study type has its method; every new study starts from it</div>
 			</TopBand>
-			<div className="mx-auto flex max-w-[1120px] flex-col gap-4 px-6 py-7">
+			<div className="mx-auto flex max-w-[1240px] flex-col gap-4 px-6 py-7">
 				<div className="flex flex-wrap items-center gap-3">
 					<div role="group" aria-label="Family" className="flex flex-wrap gap-1">
 						{FAMILIES.map((f) => (

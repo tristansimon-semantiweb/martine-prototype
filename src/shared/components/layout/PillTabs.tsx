@@ -21,7 +21,7 @@ export function PillTabs({
 		<div className="border-b border-[var(--color-border)] bg-[var(--color-surface)]">
 			<nav
 				aria-label={label}
-				className="mx-auto flex min-h-[calc(var(--band-h)/2)] max-w-[1120px] flex-wrap items-center gap-1 px-6 py-1.5"
+				className="mx-auto flex min-h-[calc(var(--band-h)/2)] max-w-[1240px] flex-wrap items-center gap-1 px-6 py-1.5"
 			>
 				{items.map((i) => {
 					const active = i.href === pathname;

@@ -8,6 +8,12 @@
       "summary": "Documents work by phase, tasks put their tools and skills up front, and the first version narrows its scope.",
       "items": [
         {
+          "kind": "changed",
+          "title": "Your studies: Mine, on the Studies page",
+          "text": "The sidebar no longer lists studies: Studies leads to the page, where “Mine” narrows the table to the studies you are on. Titles, tabs and content now start from the same edge on every page.",
+          "href": "/"
+        },
+        {
           "kind": "removed",
           "title": "No more method sheet",
           "text": "The method lives in Martine: “Open the method sheet” is gone from study types, and a study shows its method as “trend report v1.2, owned by …”, with no sheet or file behind it.",

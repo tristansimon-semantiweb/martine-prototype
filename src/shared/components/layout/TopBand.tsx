@@ -30,7 +30,7 @@ export function TopBand({ children }: { children?: React.ReactNode }) {
 	const { setMobileOpen } = useSidebar();
 	return (
 		<header className="border-b border-[var(--color-border)] bg-[var(--color-surface)]">
-			<div className="mx-auto flex min-h-[var(--band-h)] max-w-[1120px] flex-wrap items-center gap-4 px-6 py-3">
+			<div className="mx-auto flex min-h-[var(--band-h)] max-w-[1240px] flex-wrap items-center gap-4 px-6 py-3">
 				<button
 					onClick={() => setMobileOpen(true)}
 					aria-label="Open the menu"

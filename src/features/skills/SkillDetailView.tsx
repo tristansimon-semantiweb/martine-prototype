@@ -23,7 +23,7 @@ export function SkillDetailView({ id }: { id: string }) {
 				<TopBand>
 					<div className="font-[family-name:var(--font-heading)] text-[23px] font-medium">Skill not found</div>
 				</TopBand>
-				<div className="mx-auto max-w-[820px] px-6 py-10">
+				<div className="mx-auto max-w-[1240px] [&>*]:max-w-[820px] px-6 py-10">
 					<Link href="/skills">Back to the skills</Link>
 				</div>
 			</>
@@ -47,7 +47,7 @@ export function SkillDetailView({ id }: { id: string }) {
 					<SkillStatusBadge status={skill.status} />
 				</div>
 			</TopBand>
-			<div className="mx-auto flex max-w-[820px] flex-col gap-[18px] px-6 py-8">
+			<div className="mx-auto flex max-w-[1240px] [&>*]:max-w-[820px] flex-col gap-[18px] px-6 py-8">
 				{skill.request && (
 					<section aria-label="Request" className="flex flex-col gap-2.5 rounded-[var(--radius-lg)] bg-[var(--color-accent-dim)] px-5 py-4 text-[15px]">
 						<p className="m-0">

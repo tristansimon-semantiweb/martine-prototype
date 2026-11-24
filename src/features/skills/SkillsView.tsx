@@ -32,7 +32,7 @@ export function SkillsView() {
 				<div className="font-[family-name:var(--font-heading)] text-[23px] font-medium">Skills</div>
 				<div className="text-sm text-[var(--color-ink-muted)]">What Claude does for a task, and the steps of each study type that use it</div>
 			</TopBand>
-			<div className="mx-auto flex max-w-[1120px] flex-col gap-4 px-6 py-7">
+			<div className="mx-auto flex max-w-[1240px] flex-col gap-4 px-6 py-7">
 				{requests.length > 0 && (
 					<section aria-labelledby="requests" className="flex flex-col gap-2">
 						<h2 id="requests" className="m-0 font-[family-name:var(--font-body)] text-lg font-semibold">

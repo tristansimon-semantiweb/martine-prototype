@@ -49,7 +49,7 @@ export function MethodView({ id }: { id: string }) {
 
 	if (!open) {
 		return (
-			<div className="mx-auto max-w-[820px] px-6 py-8">
+			<div className="mx-auto max-w-[1240px] [&>*]:max-w-[820px] px-6 py-8">
 				<p className={`${card} m-0 border-dashed px-6 py-8 text-[var(--color-ink-secondary)]`}>This method is not written yet. Its phases and tasks show here once it is.</p>
 			</div>
 		);

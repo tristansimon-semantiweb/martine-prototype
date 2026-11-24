@@ -24,7 +24,7 @@ export function WhatsNewView() {
 				<div className="font-[family-name:var(--font-heading)] text-[23px] font-medium">What’s new</div>
 				<div className="text-sm text-[var(--color-ink-muted)]">What changed in Martine, newest first</div>
 			</TopBand>
-			<div className="mx-auto flex max-w-[760px] flex-col gap-8 px-6 py-8">
+			<div className="mx-auto flex max-w-[1240px] [&>*]:max-w-[760px] flex-col gap-8 px-6 py-8">
 				{whatsNew.map((e) => (
 					<section key={e.date} aria-labelledby={`d-${e.date}`} className="flex flex-col gap-3">
 						<div>

@@ -5,16 +5,12 @@ import { usePathname } from "next/navigation";
 import { BookOpen, FolderKanban, Layers, Puzzle, Wrench, X } from "lucide-react";
 import { cn } from "@/shared/lib/cn";
 import { useSidebar } from "@/shared/hooks/useSidebar";
-import { useMartine } from "@/shared/hooks/useMartine";
-import { FamilyDot } from "@/shared/components/ui/Family";
 
 // Adapted from R&R's FilterRail: same structure (an 88 px logo band lined up
-// with the page header, then the content), without the filters. Content per
-// the brief: Studies and the studies in progress, then the library. Search and New study are
-// on the Studies page; What's new is in the top band, Ask Martine bottom right.
-// The work comes first (Studies, then the studies in progress); below, the
-// library the studies are run with (study types, tools, skills, documentation),
-// quieter, under its own label.
+// with the page header, then the content), without the filters. The work
+// comes first (Studies, lit on any study); below, quieter under its own label,
+// the library the studies are run with. Search, Mine and New study are on the
+// Studies page; What's new is in the top band, Ask Martine bottom right.
 const LIBRARY = [
 	{ href: "/study-types", label: "Study types", icon: Layers, match: (p: string) => p.startsWith("/study-types") },
 	{ href: "/tools", label: "Tools", icon: Wrench, match: (p: string) => p.startsWith("/tools") },
@@ -25,17 +21,7 @@ const LIBRARY = [
 export function Sidebar() {
 	const pathname = usePathname();
 	const { mobileOpen, setMobileOpen } = useSidebar();
-	const { studies, me } = useMartine();
-
-	const recent = studies.filter((s) => s.status !== "delivered" && s.team.some((m) => m.person === me));
-
-	const item = (active: boolean) =>
-		cn(
-			"flex items-center gap-2 rounded-[var(--radius-sm)] px-2.5 py-2 text-sm transition-colors",
-			active
-				? "bg-[var(--color-accent-dim)] font-semibold text-[var(--color-accent)]"
-				: "text-[var(--color-ink)] hover:bg-[var(--color-hover)]",
-		);
+	const onStudies = pathname === "/" || pathname.startsWith("/studies");
 
 	return (
 		<>
@@ -78,26 +64,12 @@ export function Sidebar() {
 						aria-current={pathname === "/" ? "page" : undefined}
 						className={cn(
 							"flex items-center gap-2.5 rounded-[var(--radius-sm)] px-2.5 py-2 text-[15px] font-semibold transition-colors",
-							pathname === "/" ? "bg-[var(--color-accent-dim)] text-[var(--color-accent)]" : "text-[var(--color-ink)] hover:bg-[var(--color-hover)]",
+							onStudies ? "bg-[var(--color-accent-dim)] text-[var(--color-accent)]" : "text-[var(--color-ink)] hover:bg-[var(--color-hover)]",
 						)}
 					>
 						<FolderKanban size={17} aria-hidden className="text-[var(--color-accent)]" />
-						<span className="flex-1">Studies</span>
-						<span aria-hidden title="Studies in progress" className="text-[12px] font-normal text-[var(--color-ink-muted)]">{studies.filter((s) => s.status !== "delivered").length}</span>
+						Studies
 					</Link>
-					<div className="ml-[18px] flex flex-col gap-0.5 border-l border-[var(--color-border)] pl-2">
-						{recent.map((s) => {
-							const active = pathname.startsWith(`/studies/${s.id}`);
-							return (
-								<Link key={s.id} href={`/studies/${s.id}`} className={item(active)} aria-current={active ? "page" : undefined}>
-									<FamilyDot family={s.family} />
-									<span className="truncate">{s.short}</span>
-								</Link>
-							);
-						})}
-						{recent.length === 0 && <p className="m-0 px-2.5 py-1.5 text-[13px] text-[var(--color-ink-muted)]">No study in progress.</p>}
-					</div>
-
 					<div className="mx-2.5 mb-1 mt-4 border-t border-[var(--color-border)] pt-3 text-[11px] font-semibold uppercase tracking-wide text-[var(--color-ink-muted)]">Library</div>
 					{LIBRARY.map((n) => {
 						const active = n.match(pathname);
