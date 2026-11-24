@@ -7,9 +7,8 @@ import { InlineEdit, RemoveButton } from "@/shared/components/ui/Editing";
 import { personById, skillById } from "@/shared/lib/data";
 import { openInClaudeUrl } from "@/shared/lib/martineContext";
 import type { PhaseView, TaskView } from "@/shared/lib/studyModel";
-import { toolById } from "@/shared/lib/tools";
 import type { Study } from "@/shared/lib/types";
-import { ToolOpenButton, taskTime } from "@/features/phase/PhaseParts";
+import { ToolOpenButton } from "@/features/phase/PhaseParts";
 
 // Where a task runs: in Claude with its skill, in a tool, or by hand.
 type Executor = { kind: "claude"; skill: string } | { kind: "automation"; skill: string } | { kind: "tool"; tool: string } | { kind: "person" };
@@ -24,15 +23,8 @@ function executorOf(view: TaskView): Executor {
 	return { kind: "person" };
 }
 
-function executorLine(e: Executor): string {
-	if (e.kind === "claude") return `In Claude, with ${skillById(e.skill)?.label ?? e.skill}`;
-	if (e.kind === "automation") return `Runs on its own: ${skillById(e.skill)?.label ?? e.skill}`;
-	if (e.kind === "tool") return `In ${toolById(e.tool)?.label ?? e.tool}`;
-	return "By hand";
-}
-
-// The phase as a run: one card per task, from top to bottom: its name, then
-// who runs it, how long, what it delivers, and its one action. No ticking or
+// The phase as a run: one row per task, from top to bottom: its name, then
+// what to do (the start of how to do it), and its one action. No ticking or
 // done state on tasks in V1. A click on the card opens the task's detail.
 export function TaskPipeline({ study, phase, onOpen }: { study: Study; phase: PhaseView; onOpen: (key: string) => void }) {
 	const { role, renameAddedTask, removeAddedTask, restoreAddedTask } = useMartine();
@@ -44,7 +36,8 @@ export function TaskPipeline({ study, phase, onOpen }: { study: Study; phase: Ph
 		<ol aria-label="Tasks" className="m-0 list-none p-0 [&>li:last-child>div]:border-b-0">
 			{phase.tasks.map((t) => {
 				const e = executorOf(t);
-				const meta = [executorLine(e), taskTime(t.task)].filter(Boolean).join(" · ");
+				// Under the name, what to do: the step's purpose, else the start of how to do it.
+				const summary = t.task.what || t.task.how.split(/\n|(?<=\.)\s/)[0];
 				return (
 					<li key={t.key}>
 						{/* The whole card opens the task's detail; its one action runs it. */}
@@ -57,10 +50,7 @@ export function TaskPipeline({ study, phase, onOpen }: { study: Study; phase: Ph
 									<span className="text-[13px] text-[var(--color-ink-muted)]">{t.key}</span>
 									<span className="text-[16px] font-semibold">{t.task.task}</span>
 								</span>
-								<span className="mt-0.5 block text-sm text-[var(--color-ink-muted)]">
-									{meta}
-									{t.task.output && <span className="text-[var(--color-ink-secondary)]"> · → {t.task.output}</span>}
-								</span>
+								{summary && <span className="mt-0.5 line-clamp-2 block text-sm text-[var(--color-ink-secondary)]">{summary}</span>}
 							</button>
 							<span onClick={(ev) => ev.stopPropagation()} className="shrink-0">
 								{e.kind === "claude" && (
