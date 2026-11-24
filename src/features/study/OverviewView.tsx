@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { MoreLink } from "@/shared/components/ui/MoreLink";
 import { ChevronDown, FileText, Lock } from "lucide-react";
 import { useMartine } from "@/shared/hooks/useMartine";
 import { days, dueDate, fromToday, plural } from "@/shared/lib/format";
@@ -98,9 +99,9 @@ export function OverviewView({ id }: { id: string }) {
 							<span className="text-sm text-[var(--color-ink-muted)]">
 								{done} of {counted.length} done
 							</span>
-							<Link href={`/studies/${study.id}/steps`} className="ml-auto text-sm font-semibold">
+							<MoreLink href={`/studies/${study.id}/steps`} className="ml-auto">
 								All the steps
-							</Link>
+							</MoreLink>
 						</div>
 						<ol aria-label="Phases, in order" className="m-0 flex list-none gap-1 p-0">
 							{views.map((p) => (
@@ -124,9 +125,9 @@ export function OverviewView({ id }: { id: string }) {
 							<h2 id="docs" className={h2}>
 								Latest documents
 							</h2>
-							<Link href={`/studies/${study.id}/files`} className="ml-auto text-sm font-semibold">
+							<MoreLink href={`/studies/${study.id}/files`} className="ml-auto">
 								All files
-							</Link>
+							</MoreLink>
 						</div>
 						{recentFiles.length ? (
 							<ul className="m-0 mt-2 flex list-none flex-col p-0 text-[15px]">
@@ -156,9 +157,9 @@ export function OverviewView({ id }: { id: string }) {
 						<h2 id="team-h" className={h2}>
 							Team
 						</h2>
-						<Link href={`/studies/${study.id}/team`} className="ml-auto text-sm font-semibold">
+						<MoreLink href={`/studies/${study.id}/team`} className="ml-auto">
 							Manage
-						</Link>
+						</MoreLink>
 					</div>
 					<ul className="m-0 mt-2.5 flex list-none flex-col gap-2 p-0 text-sm">
 						{study.team.map((m) => {
