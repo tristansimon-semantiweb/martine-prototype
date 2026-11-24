@@ -65,7 +65,7 @@ export function knownToClaude(s: Study, views: PhaseView[]): ContextItem[] {
 	return [
 		{ label: "Study", detail: `${s.title}, ${s.client}`, ref: refs.study(s) },
 		{ label: "Method", detail: methodLabel(s), ref: refs.method(s) },
-		{ label: "Steps", detail: views.length ? `${views.length} phases, ${views.filter((p) => p.status === "done").length} done` : "none yet" },
+		{ label: "Steps", detail: views.length ? `${views.length} phases` : "none yet" },
 		{ label: "Decisions", detail: s.decisions.length ? s.decisions.map((d) => `${d.date}: ${d.text}`).join(" ") : "none yet" },
 		{ label: "Notes and added tasks", detail: `${notes} note${notes === 1 ? "" : "s"}, ${added} added task${added === 1 ? "" : "s"}` },
 		{

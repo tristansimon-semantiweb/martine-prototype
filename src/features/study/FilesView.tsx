@@ -4,7 +4,7 @@ import { useState } from "react";
 import { FileText } from "lucide-react";
 import { useMartine } from "@/shared/hooks/useMartine";
 import { plural } from "@/shared/lib/format";
-import { currentPhase, phaseViews } from "@/shared/lib/studyModel";
+import { phaseViews } from "@/shared/lib/studyModel";
 import { AttachForm, FileChip, TaskDeliverable } from "@/features/files/Deliverables";
 
 const card = "rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-surface)] shadow-[var(--shadow-xs)]";
@@ -20,12 +20,9 @@ export function FilesView({ id }: { id: string }) {
 	if (!study) return null;
 
 	const views = phaseViews(study);
-	const started = views.filter((p) => p.status !== "todo" || study.files.some((f) => f.task?.startsWith(`${p.id}.`)));
-	const later = views.length - started.length;
-	const expected = started.flatMap((p) => p.tasks.filter((t) => t.task.output));
+	const expected = views.flatMap((p) => p.tasks.filter((t) => t.task.output));
 	const attached = expected.filter((t) => study.files.some((f) => f.task === t.key)).length;
 	const others = study.files.filter((f) => !f.task);
-	const addTo = currentPhase(views)?.id ?? "0";
 
 	return (
 		<div className="mx-auto flex max-w-[820px] flex-col gap-[22px] px-6 py-8">
@@ -34,7 +31,7 @@ export function FilesView({ id }: { id: string }) {
 					<h1 className="m-0 font-[family-name:var(--font-heading)] text-[26px] font-medium">Files</h1>
 					{expected.length > 0 && (
 						<p className="m-0 text-sm text-[var(--color-ink-muted)]">
-							{attached} of {plural(expected.length, "deliverable")} attached so far. Each task’s deliverable is attached from the task, here or in Steps.
+							{attached} of {plural(expected.length, "deliverable")} attached. Each task’s deliverable is attached from the task, here or in Steps.
 						</p>
 					)}
 				</div>
@@ -47,9 +44,9 @@ export function FilesView({ id }: { id: string }) {
 					</button>
 				)}
 			</div>
-			{adding && <AttachForm study={study} phase={addTo} defaultName="" onDone={() => setAdding(false)} />}
+			{adding && <AttachForm study={study} phase="0" defaultName="" onDone={() => setAdding(false)} />}
 
-			{started.map((p) => {
+			{views.map((p) => {
 				const tasks = p.tasks.filter((t) => t.task.output || study.files.some((f) => f.task === t.key));
 				if (!tasks.length) return null;
 				return (
@@ -60,9 +57,6 @@ export function FilesView({ id }: { id: string }) {
 								<li key={t.key} className="border-b border-[var(--color-border)] px-5 py-3 last:border-b-0">
 									<div className="flex items-baseline gap-2">
 										<span className="font-semibold">{t.task.task}</span>
-										{t.state.done && !study.files.some((f) => f.task === t.key) && (
-											<span className="text-[13px] text-[var(--color-attention)]">done, no deliverable attached</span>
-										)}
 									</div>
 									<TaskDeliverable study={study} phase={p.id} taskKey={t.key} task={t.task} />
 								</li>
@@ -71,7 +65,6 @@ export function FilesView({ id }: { id: string }) {
 					</section>
 				);
 			})}
-			{later > 0 && <p className="m-0 text-sm text-[var(--color-ink-muted)]">{plural(later, "later phase")}: their deliverables show here once they start.</p>}
 
 			{others.length > 0 && (
 				<section aria-labelledby="others">

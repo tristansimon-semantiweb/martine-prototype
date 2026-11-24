@@ -7,7 +7,6 @@ import { FamilyPill } from "@/shared/components/ui/Family";
 import { useMartine } from "@/shared/hooks/useMartine";
 import { methodEntry, methodsIndex, people } from "@/shared/lib/data";
 import { dueDate, plural } from "@/shared/lib/format";
-import { phaseLabelForCard } from "@/shared/lib/studyModel";
 import { cn } from "@/shared/lib/cn";
 import type { Family, Study } from "@/shared/lib/types";
 
@@ -20,9 +19,9 @@ const STATUS_STYLE: Record<Status, string> = {
 };
 const FAMILIES: (Family | "All")[] = ["All", "SML", "Monitoring", "Trends"];
 
+// The study's status as recorded (V1 does not track progress task by task).
 function statusOf(s: Study): Status {
-	if (s.status === "delivered") return "delivered";
-	return phaseLabelForCard(s) ? "in_progress" : "not_started";
+	return s.status;
 }
 
 // The home page: every study, in one plain table, so anyone can find how a

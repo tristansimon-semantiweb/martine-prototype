@@ -3,8 +3,9 @@
 import Link from "next/link";
 import { useMartine } from "@/shared/hooks/useMartine";
 import { days, plural } from "@/shared/lib/format";
-import { knownToClaude } from "@/shared/lib/martineContext";
-import { currentPhase, daysActual, hasMethodFile, phaseViews } from "@/shared/lib/studyModel";
+import { knownToClaude, methodLabel } from "@/shared/lib/martineContext";
+import { methodEntry } from "@/shared/lib/data";
+import { hasMethodFile, phaseViews } from "@/shared/lib/studyModel";
 
 const tile = "rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-surface)] p-[18px]";
 
@@ -14,18 +15,14 @@ export function OverviewView({ id }: { id: string }) {
 	if (!study) return null;
 
 	const views = phaseViews(study);
-	const cur = currentPhase(views);
-	const used = daysActual(study);
 	const open = study.toClarify.filter((c) => c.open);
-	const started = used > 0 || views.some((p) => p.status === "done");
+	const method = methodEntry(study.method.id);
 
-	// Seeded studies carry Martine's written summary; a new study gets one
-	// derived from where it stands.
+	// Seeded studies carry a written summary; a new study gets a plain one.
 	const summary = study.summary ?? {
-		headline: started ? "Under way." : "Not started yet.",
+		headline: study.status === "not_started" ? "Not started yet." : "Under way.",
 		body: [
-			cur ? `Phase ${cur.id}, ${cur.name}, is ${started ? "in progress" : "next"}.` : hasMethodFile(study) ? "" : "The method file for this study type is not imported in Martine yet.",
-			study.daysSold != null ? `${days(used)} days used out of ${days(study.daysSold)} sold.` : "No budget in days yet.",
+			hasMethodFile(study) ? `The ${method?.name.toLowerCase() ?? "study"} method: ${views.length} phases.` : "The method file for this study type is not imported in Martine yet.",
 			open.length ? `${plural(open.length, "point")} to clarify with the client.` : "",
 		]
 			.filter(Boolean)
@@ -44,40 +41,20 @@ export function OverviewView({ id }: { id: string }) {
 
 			<div className="grid gap-3.5 sm:grid-cols-3">
 				<div className={tile}>
-					<div className="text-[13px] text-[var(--color-ink-muted)]">Current phase</div>
-					{cur ? (
-						<>
-							<div className="mt-1 text-lg font-semibold">
-								{cur.id}. {cur.name}
-							</div>
-							<Link
-								href={`/studies/${study.id}/steps?phase=${cur.id}`}
-								className="mt-3 inline-block rounded-[var(--radius)] bg-[var(--color-accent)] px-3.5 py-2 text-sm font-semibold text-white hover:opacity-90"
-							>
-								{started ? "Continue" : "Start"}
-							</Link>
-						</>
-					) : (
-						<div className="mt-1 text-lg font-semibold">{study.snapshot?.phaseLabel ?? "No phases yet"}</div>
+					<div className="text-[13px] text-[var(--color-ink-muted)]">Method</div>
+					<div className="mt-1 text-lg font-semibold">{methodLabel(study)}</div>
+					{hasMethodFile(study) && (
+						<Link
+							href={`/studies/${study.id}/steps`}
+							className="mt-3 inline-block rounded-[var(--radius)] bg-[var(--color-accent)] px-3.5 py-2 text-sm font-semibold text-white hover:opacity-90"
+						>
+							See the steps
+						</Link>
 					)}
 				</div>
 				<div className={tile}>
-					<div className="text-[13px] text-[var(--color-ink-muted)]">Days</div>
-					{study.daysSold != null ? (
-						<>
-							<div className="mt-1 text-lg font-semibold">
-								{days(used)} of {days(study.daysSold)} sold
-							</div>
-							<div className="mt-3.5 h-2 overflow-hidden rounded-[var(--radius-sm)] bg-[var(--color-elevated)]">
-								<div
-									className={used > study.daysSold ? "h-2 bg-[var(--color-negative)]" : "h-2 bg-[var(--color-accent)]"}
-									style={{ width: `${Math.min((used / study.daysSold) * 100, 100)}%` }}
-								/>
-							</div>
-						</>
-					) : (
-						<div className="mt-1 text-lg font-semibold">[days sold]</div>
-					)}
+					<div className="text-[13px] text-[var(--color-ink-muted)]">Budget</div>
+					<div className="mt-1 text-lg font-semibold">{study.daysSold != null ? `${days(study.daysSold)} days sold` : "[days sold]"}</div>
 				</div>
 				<div className={tile}>
 					<div className="text-[13px] text-[var(--color-ink-muted)]">To clarify</div>

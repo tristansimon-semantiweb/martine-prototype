@@ -1,12 +1,32 @@
 {
   "_meta": {
-    "note": "Demo studies for the prototype. Fictional clients and people; figures are illustrative. Written for the prototype (AI-assisted), to review before any client-facing use."
+    "note": "Demo studies for the prototype. Fictional clients and people; figures are illustrative. Written for the prototype (AI-assisted), to review before any client-facing use. V1 leaves out ticking tasks, validating phases, time tracking, the Team tab and the automatic Slack channel."
   },
   "people": [
-    { "id": "marie", "name": "Marie D.", "initials": "MD", "role": "analyst" },
-    { "id": "sam", "name": "Sam G.", "initials": "SG", "role": "analyst" },
-    { "id": "claire", "name": "Claire L.", "initials": "CL", "role": "consultant" },
-    { "id": "bamby", "name": "Bamby", "initials": "BS", "role": "method_owner" }
+    {
+      "id": "marie",
+      "name": "Marie D.",
+      "initials": "MD",
+      "role": "analyst"
+    },
+    {
+      "id": "sam",
+      "name": "Sam G.",
+      "initials": "SG",
+      "role": "analyst"
+    },
+    {
+      "id": "claire",
+      "name": "Claire L.",
+      "initials": "CL",
+      "role": "consultant"
+    },
+    {
+      "id": "bamby",
+      "name": "Bamby",
+      "initials": "BS",
+      "role": "method_owner"
+    }
   ],
   "studies": [
     {
@@ -15,63 +35,149 @@
       "short": "Hair skinification",
       "client": "Maison Arlette",
       "family": "Trends",
-      "method": { "id": "trend_report", "version": "1.2" },
+      "method": {
+        "id": "trend_report",
+        "version": "1.2"
+      },
       "due": "2027-01-15",
       "status": "in_progress",
       "daysSold": 28,
       "brief": "trend_report",
       "summary": {
-        "headline": "On track; the queries are waiting for approval.",
-        "body": "The France, UK and Japan queries are written. A native review of the Japanese is still needed before Claire approves them. 3.5 days used out of 28 sold. One point is still open with the client: the delivery date."
+        "headline": "Queries written; the Japanese needs a native review.",
+        "body": "The France, UK and Japan queries are written. A native review of the Japanese is still needed before they go into the tool. One point is still open with the client: the delivery date."
       },
-      "milestones": ["0", "2", "6", "9"],
       "team": [
-        { "person": "claire", "role": "consultant", "steps": 4 },
-        { "person": "marie", "role": "analyst", "steps": 6 },
-        { "person": "sam", "role": "analyst", "steps": 2 },
-        { "person": "bamby", "role": "method_owner" }
+        {
+          "person": "claire",
+          "role": "consultant"
+        },
+        {
+          "person": "marie",
+          "role": "analyst"
+        },
+        {
+          "person": "sam",
+          "role": "analyst"
+        },
+        {
+          "person": "bamby",
+          "role": "method_owner"
+        }
       ],
       "toClarify": [
-        { "id": "c1", "label": "Delivery date", "open": true },
-        { "id": "c2", "label": "Period", "open": false, "decision": "d1" }
+        {
+          "id": "c1",
+          "label": "Delivery date",
+          "open": true
+        },
+        {
+          "id": "c2",
+          "label": "Period",
+          "open": false,
+          "decision": "d1"
+        }
       ],
       "decisions": [
-        { "id": "d1", "date": "December 2", "text": "Period: the last 12 months against the previous 12, confirmed by the client." }
+        {
+          "id": "d1",
+          "date": "December 2",
+          "text": "Period: the last 12 months against the previous 12, confirmed by the client."
+        }
       ],
       "links": [
-        { "kind": "data_platform", "label": "Data platform: study TR-2611-01" },
-        { "kind": "slack", "label": "Slack: #tr-2611-maison-arlette" },
-        { "kind": "drive", "label": "Drive folder" },
-        { "kind": "talkwalker", "label": "Talkwalker topic" }
+        {
+          "kind": "data_platform",
+          "label": "Data platform: study TR-2611-01"
+        },
+        {
+          "kind": "drive",
+          "label": "Drive folder"
+        },
+        {
+          "kind": "talkwalker",
+          "label": "Talkwalker topic"
+        }
       ],
       "files": [
-        { "id": "f1", "name": "Client brief", "type": "PDF", "phase": "0", "from": { "kind": "client" } },
-        { "id": "f2", "name": "Proposal and SOW", "type": "PDF", "phase": "0", "from": { "kind": "person", "by": "claire" } },
-        { "id": "f3", "name": "Scope and points to clarify", "type": "Doc", "phase": "0", "task": "0.1", "from": { "kind": "person", "by": "claire" } },
-        { "id": "f4", "name": "Queries tab, FR, UK, JP", "type": "Sheet", "phase": "2", "task": "2.2", "from": { "kind": "claude", "checkedBy": "marie" } },
-        { "id": "f5", "name": "Noise audit and exclusions", "type": "Excel", "phase": "2", "task": "2.3", "from": { "kind": "claude" } }
+        {
+          "id": "f1",
+          "name": "Client brief",
+          "type": "PDF",
+          "phase": "0",
+          "from": {
+            "kind": "client"
+          }
+        },
+        {
+          "id": "f2",
+          "name": "Proposal and SOW",
+          "type": "PDF",
+          "phase": "0",
+          "from": {
+            "kind": "person",
+            "by": "claire"
+          }
+        },
+        {
+          "id": "f3",
+          "name": "Scope and points to clarify",
+          "type": "Doc",
+          "phase": "0",
+          "task": "0.1",
+          "from": {
+            "kind": "person",
+            "by": "claire"
+          }
+        },
+        {
+          "id": "f4",
+          "name": "Queries tab, FR, UK, JP",
+          "type": "Sheet",
+          "phase": "2",
+          "task": "2.2",
+          "from": {
+            "kind": "claude",
+            "checkedBy": "marie"
+          }
+        },
+        {
+          "id": "f5",
+          "name": "Noise audit and exclusions",
+          "type": "Excel",
+          "phase": "2",
+          "task": "2.3",
+          "from": {
+            "kind": "claude"
+          }
+        }
       ],
       "previousWave": [
-        { "id": "p1", "name": "Queries, previous wave", "type": "Sheet" },
-        { "id": "p2", "name": "Final report, previous wave", "type": "PDF" }
+        {
+          "id": "p1",
+          "name": "Queries, previous wave",
+          "type": "Sheet"
+        },
+        {
+          "id": "p2",
+          "name": "Final report, previous wave",
+          "type": "PDF"
+        }
       ],
       "state": {
-        "tasks": {
-          "0.1": { "done": true, "days": 0.5 },
-          "0.2": { "done": true, "days": 0.25 },
-          "0.3": { "done": true, "days": 0.25 },
-          "0.4": { "done": true, "days": 0.25 },
-          "1.1": { "done": true, "days": 0.75 },
-          "1.2": { "done": true, "days": 0.25 },
-          "1.3": { "done": true, "days": 0.5 },
-          "2.1": { "done": true, "days": 0.75 }
-        },
-        "completedPhases": ["0", "1"],
         "notes": {
-          "2": { "by": "claire", "text": "the client wants the English keywords kept as they are." }
+          "2": {
+            "by": "claire",
+            "text": "the client wants the English keywords kept as they are."
+          }
         },
         "addedTasks": [
-          { "id": "x1", "phase": "2", "title": "Add the local Japanese brands to the scope", "by": "claire" }
+          {
+            "id": "x1",
+            "phase": "2",
+            "title": "Add the local Japanese brands to the scope",
+            "by": "claire"
+          }
         ],
         "addedSteps": []
       }
@@ -82,32 +188,43 @@
       "short": "November monthly report",
       "client": "Sample client",
       "family": "Monitoring",
-      "method": { "id": "recurring_report_a", "version": "1.0" },
+      "method": {
+        "id": "recurring_report_a",
+        "version": "1.0"
+      },
       "due": "2026-11-30",
       "status": "in_progress",
       "daysSold": 2.5,
-      "milestones": [],
-      "phases": ["0", "1", "2"],
+      "phases": [
+        "0",
+        "1",
+        "2"
+      ],
       "team": [
-        { "person": "claire", "role": "consultant", "steps": 1 },
-        { "person": "marie", "role": "analyst", "steps": 8 }
+        {
+          "person": "claire",
+          "role": "consultant"
+        },
+        {
+          "person": "marie",
+          "role": "analyst"
+        }
       ],
       "toClarify": [],
       "decisions": [],
       "links": [
-        { "kind": "data_platform", "label": "Data platform: study MR-2611-04" },
-        { "kind": "slack", "label": "Slack: #mr-2611-sample-client" },
-        { "kind": "drive", "label": "Drive folder" }
+        {
+          "kind": "data_platform",
+          "label": "Data platform: study MR-2611-04"
+        },
+        {
+          "kind": "drive",
+          "label": "Drive folder"
+        }
       ],
       "files": [],
       "previousWave": [],
       "state": {
-        "tasks": {
-          "0.1": { "done": true, "days": 0.25 },
-          "0.2": { "done": true, "days": 0.25 },
-          "1.1": { "done": true, "days": 0.5 }
-        },
-        "completedPhases": ["0"],
         "notes": {},
         "addedTasks": [],
         "addedSteps": []
@@ -119,28 +236,53 @@
       "short": "Lumen Café brand audit",
       "client": "Lumen Café",
       "family": "SML",
-      "method": { "id": "brand_audit", "version": "1.0" },
+      "method": {
+        "id": "brand_audit",
+        "version": "1.0"
+      },
       "due": "2027-02-05",
       "status": "not_started",
       "daysSold": null,
       "brief": "brand_audit",
-      "milestones": [],
       "team": [
-        { "person": "claire", "role": "consultant", "steps": 0 },
-        { "person": "marie", "role": "analyst", "steps": 0 }
+        {
+          "person": "claire",
+          "role": "consultant"
+        },
+        {
+          "person": "marie",
+          "role": "analyst"
+        }
       ],
       "toClarify": [],
       "decisions": [],
       "links": [
-        { "kind": "data_platform", "label": "Data platform: study BA-2611-02" },
-        { "kind": "slack", "label": "Slack: #ba-2611-lumen-cafe" },
-        { "kind": "drive", "label": "Drive folder" }
+        {
+          "kind": "data_platform",
+          "label": "Data platform: study BA-2611-02"
+        },
+        {
+          "kind": "drive",
+          "label": "Drive folder"
+        }
       ],
       "files": [
-        { "id": "f1", "name": "Client brief", "type": "PDF", "phase": "0", "from": { "kind": "client" } }
+        {
+          "id": "f1",
+          "name": "Client brief",
+          "type": "PDF",
+          "phase": "0",
+          "from": {
+            "kind": "client"
+          }
+        }
       ],
       "previousWave": [],
-      "state": { "tasks": {}, "completedPhases": [], "notes": {}, "addedTasks": [], "addedSteps": [] }
+      "state": {
+        "notes": {},
+        "addedTasks": [],
+        "addedSteps": []
+      }
     },
     {
       "id": "IT-2609-03",
@@ -148,22 +290,33 @@
       "short": "Ingredients 2027, wave 2",
       "client": "Maison Arlette",
       "family": "Trends",
-      "method": { "id": "ingredients_tracker", "version": "1.0" },
+      "method": {
+        "id": "ingredients_tracker",
+        "version": "1.0"
+      },
       "due": "2026-11-06",
       "status": "delivered",
       "daysSold": 30,
-      "snapshot": { "phaseLabel": "Delivered", "progress": 1, "daysPlanned": 24, "daysActual": 31 },
-      "milestones": [],
       "team": [
-        { "person": "claire", "role": "consultant", "steps": 3 },
-        { "person": "sam", "role": "analyst", "steps": 7 }
+        {
+          "person": "claire",
+          "role": "consultant"
+        },
+        {
+          "person": "sam",
+          "role": "analyst"
+        }
       ],
       "toClarify": [],
       "decisions": [],
       "links": [],
       "files": [],
       "previousWave": [],
-      "state": { "tasks": {}, "completedPhases": [], "notes": {}, "addedTasks": [], "addedSteps": [] }
+      "state": {
+        "notes": {},
+        "addedTasks": [],
+        "addedSteps": []
+      }
     }
   ],
   "methodSuggestions": [
@@ -174,7 +327,10 @@
       "task": "2.3",
       "by": "marie",
       "text": "compare the volume before and after each exclusion.",
-      "change": { "field": "check", "text": "Volume compared before and after each exclusion." },
+      "change": {
+        "field": "check",
+        "text": "Volume compared before and after each exclusion."
+      },
       "status": "pending"
     }
   ]

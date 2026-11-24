@@ -142,13 +142,8 @@ export interface StudyFile {
 }
 
 export interface StudyLink {
-	kind: "data_platform" | "slack" | "drive" | "talkwalker";
+	kind: "data_platform" | "drive" | "talkwalker";
 	label: string;
-}
-
-export interface TaskState {
-	done: boolean;
-	days?: number;
 }
 
 export interface AddedTask {
@@ -156,8 +151,6 @@ export interface AddedTask {
 	phase: string;
 	title: string;
 	by: string;
-	done?: boolean;
-	days?: number;
 }
 
 export interface AddedStep {
@@ -168,9 +161,6 @@ export interface AddedStep {
 
 // Everything that changes while the study runs. Persisted locally.
 export interface StudyState {
-	tasks: Record<string, TaskState>; // key: "<phase>.<n>", e.g. "2.2"
-	completedPhases: string[];
-	awaitingApproval?: string[];
 	notes: Record<string, { by: string; text: string }>; // key: phase id
 	addedTasks: AddedTask[];
 	addedSteps: AddedStep[];
@@ -188,13 +178,10 @@ export interface Study {
 	daysSold: number | null;
 	brief?: string; // key in data/briefs-exemples.json
 	summary?: { headline: string; body: string };
-	// For studies whose method file is not imported in the prototype.
-	snapshot?: { phaseLabel: string; progress: number; daysPlanned: number; daysActual: number };
-	milestones: string[];
 	// The method phases this study runs, when it runs only some of them (a
 	// method file can hold several report cycles). Absent: all but the optional ones.
 	phases?: string[];
-	team: { person: string; role: RoleId; steps?: number }[];
+	team: { person: string; role: RoleId }[];
 	toClarify: { id: string; label: string; open: boolean; decision?: string }[];
 	decisions: { id: string; date: string; text: string }[];
 	links: StudyLink[];

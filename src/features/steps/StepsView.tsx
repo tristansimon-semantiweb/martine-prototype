@@ -3,8 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { Check } from "lucide-react";
-import { cn } from "@/shared/lib/cn";
+import { ChevronRight } from "lucide-react";
 import { useMartine } from "@/shared/hooks/useMartine";
 import { methodEntry } from "@/shared/lib/data";
 import { costed, plural } from "@/shared/lib/format";
@@ -45,7 +44,7 @@ export function StepsView({ id }: { id: string }) {
 	return (
 		<div className="mx-auto flex max-w-[820px] flex-col gap-4 px-6 py-8">
 			<p className="m-0 text-[15px] text-[var(--color-ink-secondary)]">
-				The phases of the {method?.name.toLowerCase()} method, in order. A phase is done when its tasks pass their quality check.
+				The phases of the {method?.name.toLowerCase()} method, in order. Open one to see its tasks, their tools and their deliverables.
 			</p>
 
 			<ol aria-label="Phases" className="m-0 list-none overflow-hidden rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-surface)] p-0 shadow-[var(--shadow-xs)]">
@@ -94,50 +93,29 @@ export function StepsView({ id }: { id: string }) {
 	);
 }
 
+// A phase: its number and name, its tasks and planned days. The whole row
+// opens it.
 function PhaseRow({ phase: p, onOpen }: { phase: PhaseView; onOpen: () => void }) {
-	const active = p.status === "current" || p.status === "awaiting";
-	const counts =
-		p.status === "todo" ? plural(p.total, "task") : `${p.doneCount} of ${plural(p.total, "task")}`;
 	return (
-		<li
-			className={cn(
-				"grid grid-cols-[30px_minmax(0,1fr)_auto] items-center gap-3 border-b border-[var(--color-border)] px-5 last:border-b-0 sm:grid-cols-[30px_minmax(0,1fr)_110px_130px]",
-				active ? "bg-[var(--color-accent-dim)] py-4" : "py-3.5",
-				p.status === "done" && "text-[var(--color-ink-muted)]",
-			)}
-		>
-			<span
-				aria-hidden
-				className={cn(
-					"box-border flex h-[26px] w-[26px] items-center justify-center rounded-full text-[13px]",
-					p.status === "done" && "bg-[var(--color-positive)] text-white",
-					active && "border-2 border-[var(--color-accent)] font-bold text-[var(--color-accent)]",
-					p.status === "todo" && "border-[1.5px] border-[var(--color-border-active)] text-[var(--color-ink-muted)]",
-				)}
-			>
-				{p.status === "done" ? <Check size={14} /> : p.id.replace(/^x.*/, "+")}
-			</span>
+		<li className="border-b border-[var(--color-border)] last:border-b-0">
 			<button
 				onClick={onOpen}
-				className={cn("text-left hover:text-[var(--color-accent)]", active && "text-[17px] font-semibold text-[var(--color-ink)]")}
+				className="grid w-full grid-cols-[30px_minmax(0,1fr)_auto_16px] items-center gap-3 px-5 py-3.5 text-left hover:bg-[var(--color-hover)] sm:grid-cols-[30px_minmax(0,1fr)_90px_120px_16px]"
 			>
-				{p.label}
-				{p.addedBy && <span className="ml-2 text-[13px] font-normal text-[var(--color-attention)]">added for this study</span>}
-				{p.status === "awaiting" && (
-					<span className="ml-2 rounded-[var(--radius-xl)] bg-[var(--color-attention-bg)] px-2 py-0.5 text-xs font-semibold text-[var(--color-attention)]">to approve</span>
-				)}
-			</button>
-			<span className="hidden text-sm sm:block">{counts}</span>
-			{active ? (
-				<button
-					onClick={onOpen}
-					className="justify-self-start rounded-[var(--radius)] bg-[var(--color-accent)] px-3.5 py-2 text-sm font-semibold text-white hover:opacity-90"
+				<span
+					aria-hidden
+					className="box-border flex h-[26px] w-[26px] items-center justify-center rounded-full border-[1.5px] border-[var(--color-border-active)] text-[13px] text-[var(--color-ink-secondary)]"
 				>
-					Continue
-				</button>
-			) : (
-				<span className={cn("text-sm", p.status === "todo" && "text-[var(--color-ink-muted)]")}>{p.addedBy ? "" : costed(p.days)}</span>
-			)}
+					{p.addedBy ? "+" : p.id.replace(/bis$/, "b")}
+				</span>
+				<span className="font-semibold">
+					{p.label}
+					{p.addedBy && <span className="ml-2 text-[13px] font-normal text-[var(--color-attention)]">added for this study</span>}
+				</span>
+				<span className="hidden text-sm text-[var(--color-ink-muted)] sm:block">{plural(p.total, "task")}</span>
+				<span className="text-sm text-[var(--color-ink-muted)]">{p.addedBy ? "" : costed(p.days)}</span>
+				<ChevronRight size={16} aria-hidden className="text-[var(--color-ink-muted)]" />
+			</button>
 		</li>
 	);
 }

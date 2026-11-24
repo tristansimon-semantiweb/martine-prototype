@@ -27,8 +27,8 @@ interface MartineData {
 
 // Bumped when the seed data changes shape (v2: the methods import), so a
 // browser that kept an older demo starts again from the new seed (v3: files
-// attached to tasks).
-const KEY = "martine_v3";
+// attached to tasks; v4: V1 scope, no ticking, validation or time).
+const KEY = "martine_v4";
 
 const ROLE_PERSON: Record<RoleId, string> = { analyst: "marie", consultant: "claire", method_owner: "bamby" };
 
@@ -55,10 +55,6 @@ function nextStudyId(studies: Study[], methodId: string): string {
 	const stamp = `${String(now.getFullYear()).slice(2)}${String(now.getMonth() + 1).padStart(2, "0")}`;
 	const n = studies.filter((s) => s.id.startsWith(`${prefix}-${stamp}`)).length + 1;
 	return `${prefix}-${stamp}-${String(n).padStart(2, "0")}`;
-}
-
-function slug(s: string) {
-	return s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 }
 
 // A small external store over localStorage. The server (and the first client
@@ -122,24 +118,7 @@ function useMartineState() {
 			setRole: (role: RoleId) => update((d) => ({ ...d, role })),
 			reset: () => write(null),
 
-			// ── Study tasks ──
-			setTaskDone: (studyId: string, key: string, done: boolean, defaultDays: number) =>
-				patchState(studyId, (st) => ({
-					...st,
-					tasks: { ...st.tasks, [key]: { done, days: done ? (st.tasks[key]?.days ?? defaultDays) : undefined } },
-				})),
-			setTaskDays: (studyId: string, key: string, value: number) =>
-				patchState(studyId, (st) => ({ ...st, tasks: { ...st.tasks, [key]: { done: true, days: value } } })),
-			setAddedTaskDone: (studyId: string, id: string, done: boolean) =>
-				patchState(studyId, (st) => ({
-					...st,
-					addedTasks: st.addedTasks.map((t) => (t.id === id ? { ...t, done, days: done ? (t.days ?? 0.25) : undefined } : t)),
-				})),
-			setAddedTaskDays: (studyId: string, id: string, value: number) =>
-				patchState(studyId, (st) => ({
-					...st,
-					addedTasks: st.addedTasks.map((t) => (t.id === id ? { ...t, days: value } : t)),
-				})),
+			// ── Study notes, added tasks and steps (consultant) ──
 			setNote: (studyId: string, phase: string, text: string) =>
 				patchState(studyId, (st) => {
 					const notes = { ...st.notes };
@@ -151,22 +130,8 @@ function useMartineState() {
 				patchState(studyId, (st) => ({ ...st, addedTasks: [...st.addedTasks, { id: `x${uid()}`, phase, title, by: me }] })),
 			addStep: (studyId: string, name: string) =>
 				patchState(studyId, (st) => ({ ...st, addedSteps: [...st.addedSteps, { id: `x${uid()}`, name, by: me }] })),
-			// The consultant approves milestone phases; an analyst completing one
-			// sends it for approval instead.
-			completePhase: (studyId: string, phase: string, isMilestone: boolean, asConsultant: boolean) =>
-				patchState(studyId, (st) => {
-					const awaiting = st.awaitingApproval ?? [];
-					if (isMilestone && !asConsultant) {
-						return { ...st, awaitingApproval: awaiting.includes(phase) ? awaiting : [...awaiting, phase] };
-					}
-					return {
-						...st,
-						awaitingApproval: awaiting.filter((p) => p !== phase),
-						completedPhases: st.completedPhases.includes(phase) ? st.completedPhases : [...st.completedPhases, phase],
-					};
-				}),
 
-			// ── Study files and team ──
+			// ── Study files ──
 			markFileChecked: (studyId: string, fileId: string) =>
 				patchStudy(studyId, (s) => ({
 					...s,
@@ -191,14 +156,11 @@ function useMartineState() {
 					],
 				})),
 			removeFile: (studyId: string, fileId: string) => patchStudy(studyId, (s) => ({ ...s, files: s.files.filter((f) => f.id !== fileId) })),
-			addTeamMember: (studyId: string, person: string, role: RoleId) =>
-				patchStudy(studyId, (s) => ({ ...s, team: [...s.team, { person, role, steps: 0 }] })),
 
 			// ── New study: what Martine creates with it (simulated) ──
 			createStudy: (reading: BriefReading, briefKey: string): string => {
 				const id = nextStudyId(read().studies, reading.method);
 				update((d) => {
-					const channel = `#${id.toLowerCase().slice(0, 7)}-${slug(reading.client)}`;
 					const study: Study = {
 						id,
 						title: reading.title,
@@ -211,23 +173,21 @@ function useMartineState() {
 						status: "not_started",
 						daysSold: reading.daysSold,
 						brief: briefKey,
-						milestones: ["0", "2", "6", "9"],
 						team: [
-							{ person: "claire", role: "consultant", steps: 0 },
-							{ person: "marie", role: "analyst", steps: 0 },
+							{ person: "claire", role: "consultant" },
+							{ person: "marie", role: "analyst" },
 							{ person: "bamby", role: "method_owner" },
 						],
 						toClarify: reading.toClarify.map((label, i) => ({ id: `c${i + 1}`, label: label.split(":")[0], open: true })),
 						decisions: [],
 						links: [
 							{ kind: "data_platform", label: `Data platform: study ${id}` },
-							{ kind: "slack", label: `Slack: ${channel}` },
 							{ kind: "drive", label: "Drive folder" },
 							...(reading.family === "Trends" ? [{ kind: "talkwalker" as const, label: "Talkwalker topic" }] : []),
 						],
 						files: [{ id: "f1", name: "Client brief", type: "PDF", phase: "0", from: { kind: "client" } }],
 						previousWave: [],
-						state: { tasks: {}, completedPhases: [], notes: {}, addedTasks: [], addedSteps: [] },
+						state: { notes: {}, addedTasks: [], addedSteps: [] },
 					};
 					return { ...d, studies: [study, ...d.studies] };
 				});

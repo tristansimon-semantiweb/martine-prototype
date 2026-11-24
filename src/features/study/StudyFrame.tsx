@@ -55,7 +55,6 @@ export function StudyFrame({ id, children }: { id: string; children: React.React
 				items={[
 					{ href: base, label: "Overview" },
 					{ href: `${base}/steps`, label: "Steps" },
-					{ href: `${base}/team`, label: "Team" },
 					{ href: `${base}/files`, label: "Files" },
 				]}
 				aside={

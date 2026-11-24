@@ -44,7 +44,7 @@ Jamais un autre client : la vague précédente n'est lue que si c'est le même c
 
 En cible (pas dans le prototype) :
 
-- cocher une tâche quand son contrôle est passé, avec le temps passé ;
+- cocher une tâche quand son contrôle est passé, avec le temps passé (mis de côté en V1 : pas de cases à cocher, de validation de phase ni de suivi du temps) ;
 - déposer un fichier sous la phase de la tâche, marqué « made by Claude, to check » ;
 - proposer une note ou une suggestion de changement de méthode, qu'une personne accepte.
 

@@ -2,17 +2,15 @@
 
 import { useState } from "react";
 import { useMartine } from "@/shared/hooks/useMartine";
-import { useToast } from "@/shared/components/ui/Toast";
 import { personById } from "@/shared/lib/data";
-import { costedDays, plural } from "@/shared/lib/format";
+import { costedDays } from "@/shared/lib/format";
 import type { PhaseView } from "@/shared/lib/studyModel";
 import type { Study } from "@/shared/lib/types";
 import { PhaseSheet, ownerLabel } from "@/features/phase/PhaseParts";
-import { DaysInput, TaskCard } from "./TaskCard";
+import { TaskCard } from "./TaskCard";
 
 // A phase of a study, opened from Steps: the consultant's note, the method's
-// tasks as written in the method file, the tasks added for this study, then
-// completing (or approving) the phase.
+// tasks as written in the method file, and the tasks added for this study.
 export function PhaseDrawer({ study, phase, onClose }: { study: Study; phase: PhaseView | null; onClose: () => void }) {
 	return (
 		<PhaseSheet
@@ -20,7 +18,6 @@ export function PhaseDrawer({ study, phase, onClose }: { study: Study; phase: Ph
 			onClose={onClose}
 			kicker={phase ? kicker(phase) : ""}
 			title={phase?.name ?? ""}
-			footer={phase && <Footer study={study} phase={phase} onDone={onClose} />}
 		>
 			{phase && <Body key={phase.id} study={study} phase={phase} />}
 		</PhaseSheet>
@@ -34,19 +31,13 @@ function kicker(p: PhaseView) {
 	return p.days ? `Phase ${p.id}, planned ${p.time ?? costedDays(p.days)}${owner}` : `Phase ${p.id}, not costed in the method file${owner}`;
 }
 
-function consultantOf(study: Study) {
-	const id = study.team.find((m) => m.role === "consultant")?.person;
-	return personById(id ?? "")?.name.split(" ")[0] ?? "The consultant";
-}
-
 function Body({ study, phase }: { study: Study; phase: PhaseView }) {
-	const { role, setNote, addTask, setAddedTaskDone, setAddedTaskDays } = useMartine();
+	const { role, setNote, addTask } = useMartine();
 	const isConsultant = role === "consultant";
 	const note = study.state.notes[phase.id];
 	const [editingNote, setEditingNote] = useState(false);
 	const [noteText, setNoteText] = useState(note?.text ?? "");
 	const [newTask, setNewTask] = useState<string | null>(null);
-	const firstOpen = phase.tasks.find((t) => !t.state.done)?.key;
 
 	return (
 		<>
@@ -92,7 +83,7 @@ function Body({ study, phase }: { study: Study; phase: PhaseView }) {
 			)}
 
 			{phase.tasks.map((t) => (
-				<TaskCard key={t.key} study={study} phase={phase} view={t} highlight={t.key === firstOpen} />
+				<TaskCard key={t.key} study={study} phase={phase} view={t} />
 			))}
 
 			{phase.added.length > 0 && (
@@ -100,19 +91,8 @@ function Body({ study, phase }: { study: Study; phase: PhaseView }) {
 					{phase.tasks.length > 0 && <div className="text-xs font-bold text-[var(--color-ink-muted)]">Added for this study</div>}
 					{phase.added.map((t) => (
 						<article key={t.id} className="flex items-center gap-3 rounded-[14px] bg-[var(--color-attention-soft)] px-4 py-3.5">
-							<input
-								type="checkbox"
-								checked={Boolean(t.done)}
-								onChange={(e) => setAddedTaskDone(study.id, t.id, e.target.checked)}
-								aria-label={t.done ? `${t.title}: done` : `${t.title}: mark as done`}
-								className="h-5 w-5 shrink-0 accent-[var(--color-accent)]"
-							/>
-							<span className={t.done ? "flex-1 text-[var(--color-ink-muted)] line-through" : "flex-1 font-semibold"}>{t.title}</span>
-							{t.done ? (
-								<DaysInput value={t.days ?? 0.25} onChange={(v) => setAddedTaskDays(study.id, t.id, v)} label={`Days spent on ${t.title}`} />
-							) : (
-								<span className="text-[13px] text-[var(--color-attention)]">added by {personById(t.by)?.name.split(" ")[0]}</span>
-							)}
+							<span className="flex-1 font-semibold">{t.title}</span>
+							<span className="text-[13px] text-[var(--color-attention)]">added by {personById(t.by)?.name.split(" ")[0]}</span>
 						</article>
 					))}
 				</section>
@@ -153,53 +133,3 @@ function Body({ study, phase }: { study: Study; phase: PhaseView }) {
 	);
 }
 
-function Footer({ study, phase, onDone }: { study: Study; phase: PhaseView; onDone: () => void }) {
-	const { role, completePhase } = useMartine();
-	const toast = useToast();
-	const isConsultant = role === "consultant";
-	const left = phase.total - phase.doneCount;
-	// Not blocking: a phase can close without every deliverable attached, but it says so.
-	const missing = phase.tasks.filter((t) => t.task.output && !study.files.some((f) => f.task === t.key)).length;
-	const consultant = consultantOf(study);
-	const btn = "rounded-[var(--radius)] bg-[var(--color-accent)] px-5 py-3 font-semibold text-white hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40";
-
-	if (phase.status === "done") {
-		return <p className="text-sm text-[var(--color-ink-muted)]">This phase is complete.</p>;
-	}
-
-	const complete = () => {
-		completePhase(study.id, phase.id, phase.milestone, isConsultant);
-		toast(phase.milestone && !isConsultant ? `Sent to ${consultant} for approval` : `Phase ${phase.id} complete`);
-		onDone();
-	};
-
-	if (phase.status === "awaiting") {
-		return isConsultant ? (
-			<div className="flex flex-wrap items-center gap-3">
-				<button onClick={complete} className={btn}>
-					Approve the phase
-				</button>
-				<span className="text-sm text-[var(--color-ink-muted)]">The next phase opens for the team</span>
-			</div>
-		) : (
-			<p className="text-sm text-[var(--color-ink-muted)]">Waiting for {consultant}’s approval.</p>
-		);
-	}
-
-	return (
-		<div className="flex flex-wrap items-center gap-3">
-			<button onClick={complete} disabled={left > 0 || phase.total === 0} className={btn}>
-				{phase.milestone && isConsultant ? "Approve the phase" : "Complete the phase"}
-			</button>
-			<span className="text-sm text-[var(--color-ink-muted)]">
-				{left > 0
-					? `${plural(left, "task")} left before the phase can close`
-					: phase.milestone && !isConsultant
-						? `${consultant} approves this phase next`
-						: missing
-							? `Every task has passed its check; ${plural(missing, "deliverable")} not attached`
-							: "Every task has passed its check"}
-			</span>
-		</div>
-	);
-}

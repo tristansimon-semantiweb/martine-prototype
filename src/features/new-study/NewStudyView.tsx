@@ -150,7 +150,7 @@ export function NewStudyView() {
 							<button
 								onClick={() => {
 									const id = createStudy(r, briefKey);
-									toast("Study created with its data platform study, Slack channel and Drive folder");
+									toast("Study created with its data platform study and Drive folder");
 									router.push(`/studies/${id}`);
 								}}
 								className="rounded-[var(--radius)] bg-[var(--color-accent)] px-5 py-3 font-semibold text-white hover:opacity-90"
@@ -158,7 +158,7 @@ export function NewStudyView() {
 								Create the study
 							</button>
 							<span className="text-sm text-[var(--color-ink-muted)]">
-								Martine also creates its data platform study, Slack channel and Drive folder{r.family === "Trends" ? ", and links the Talkwalker topic" : ""}.
+								Martine also creates its data platform study and Drive folder{r.family === "Trends" ? ", and links the Talkwalker topic" : ""}.
 							</span>
 						</div>
 					</section>
