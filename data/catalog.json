@@ -194,14 +194,15 @@
       "kind": "Semantiweb",
       "claude_connector": null,
       "url": null,
-      "note": "Semantiweb’s platform. The method files run the frequencies there (ICC TOOLS 1.1), the Difference between two periods (1.2) and the concordancer (4), and check the R&R reviews database there."
+      "note": "Semantiweb’s analysis platform. It works on the facets set in the corpus (Corpus Manager): frequencies (ICC TOOLS 1.1), the Difference between two periods (1.2), the concordancer (4). The R&R reviews database is checked there too."
     },
     {
       "id": "corpus_manager",
       "label": "Corpus Manager",
       "kind": "Semantiweb",
       "claude_connector": null,
-      "url": null
+      "url": null,
+      "note": "Where the corpus is built: sources and crawls are loaded, deduplicated, and the facets are set. The ICC then uses those facets for analysis."
     },
     {
       "id": "files_tool",
