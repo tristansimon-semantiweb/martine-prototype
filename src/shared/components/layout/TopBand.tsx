@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Check, Menu, RotateCcw } from "lucide-react";
 import { cn } from "@/shared/lib/cn";
+import { HeaderActions } from "./AskMartineButton";
 import { useSidebar } from "@/shared/hooks/useSidebar";
 import { useMartine } from "@/shared/hooks/useMartine";
 import { personById } from "@/shared/lib/data";
@@ -24,7 +25,7 @@ const ROLES: { role: RoleId; person: string }[] = [
 
 // The white 88 px band at the top of every page, lined up with the sidebar's
 // logo band (same height token as R&R's banner). The page puts its title in
-// it; the account menu sits on the right.
+// it; What's new, Ask Martine and the account menu sit on the right.
 export function TopBand({ children }: { children?: React.ReactNode }) {
 	const { setMobileOpen } = useSidebar();
 	return (
@@ -38,6 +39,7 @@ export function TopBand({ children }: { children?: React.ReactNode }) {
 					<Menu size={18} />
 				</button>
 				<div className="min-w-0 flex-1 leading-tight">{children}</div>
+				<HeaderActions />
 				<AccountMenu />
 			</div>
 		</header>

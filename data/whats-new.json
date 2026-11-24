@@ -9,6 +9,12 @@
       "items": [
         {
           "kind": "changed",
+          "title": "What’s new and Ask Martine next to your profile",
+          "text": "What’s new and Ask Martine now sit at the top right of every page, next to your profile; Ask Martine still opens with ⌘K. New study moves from the sidebar to the Studies page.",
+          "href": "/"
+        },
+        {
+          "kind": "changed",
           "title": "Files: brief, production, deliverables",
           "text": "A study’s Files is laid out like Steps: three folders on the left, in this order, Scope and brief (the client’s brief, the proposal, the scope), Production documents (what the team works in) and Deliverables (what goes to the client), each with its count, and the open folder’s documents on the right; Add puts a document in the open folder, and the search runs across all three. Every document shows its type, where it comes from (the client, someone on the team, Claude, checked or to check) and the phases that work in it: a document is not filed under a phase, the same one can serve several. Earlier studies of the same type, the client’s last edition first, are in the Overview’s Similar studies.",
           "href": "/studies/TR-2611-01/files"

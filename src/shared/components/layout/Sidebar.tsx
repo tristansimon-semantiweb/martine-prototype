@@ -3,8 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Megaphone, X } from "lucide-react";
-import { useHasNews } from "@/features/whats-new/seen";
+import { X } from "lucide-react";
 import { cn } from "@/shared/lib/cn";
 import { useSidebar } from "@/shared/hooks/useSidebar";
 import { useMartine } from "@/shared/hooks/useMartine";
@@ -12,7 +11,8 @@ import { FamilyDot } from "@/shared/components/ui/Family";
 
 // Adapted from R&R's FilterRail: same structure (an 88 px logo band lined up
 // with the page header, then the content), without the filters. Content per
-// the brief: New study, search, the three sections, then recent studies.
+// the brief: search, the four sections, then recent studies. New study is on
+// the Studies page; What's new and Ask Martine are in the top band.
 const NAV = [
 	{ href: "/", label: "Studies", match: (p: string) => p === "/" },
 	{ href: "/study-types", label: "Study types", match: (p: string) => p.startsWith("/study-types") },
@@ -25,7 +25,6 @@ export function Sidebar() {
 	const { mobileOpen, setMobileOpen } = useSidebar();
 	const { studies, me } = useMartine();
 	const [query, setQuery] = useState("");
-	const hasNews = useHasNews();
 
 	const recent = studies
 		.filter((s) => s.status !== "delivered" && s.team.some((m) => m.person === me))
@@ -74,12 +73,6 @@ export function Sidebar() {
 				</div>
 
 				<div className="flex flex-col gap-2.5 border-b border-[var(--color-border)] px-3 py-3.5">
-					<Link
-						href="/studies/new"
-						className="rounded-[var(--radius)] bg-[var(--color-accent)] px-3 py-2.5 text-center text-sm font-semibold text-white hover:opacity-90"
-					>
-						New study
-					</Link>
 					<input
 						type="search"
 						value={query}
@@ -108,15 +101,6 @@ export function Sidebar() {
 					})}
 					{recent.length === 0 && <p className="px-2.5 py-2 text-sm text-[var(--color-ink-muted)]">No study matches.</p>}
 				</nav>
-				<div className="mt-auto border-t border-[var(--color-border)] p-3">
-					<Link href="/whats-new" className={item(pathname === "/whats-new")} aria-current={pathname === "/whats-new" ? "page" : undefined}>
-						<Megaphone size={15} aria-hidden className="text-[var(--color-accent)]" />
-						<span className="flex-1">What’s new</span>
-						{hasNews && pathname !== "/whats-new" && (
-							<span className="rounded-[var(--radius-xl)] bg-[var(--color-accent)] px-2 py-px text-[11px] font-semibold text-white">New</span>
-						)}
-					</Link>
-				</div>
 			</aside>
 		</>
 	);

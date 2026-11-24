@@ -8,10 +8,9 @@ import { ToastProvider } from "@/shared/components/ui/Toast";
 import { AskMartineProvider } from "@/features/ask-martine/AskMartineProvider";
 import { ChatDrawer } from "@/features/ask-martine/ChatDrawer";
 import { Sidebar } from "./Sidebar";
-import { AskMartineButton } from "./AskMartineButton";
 
 // Adapted from R&R's AppShell: the sidebar on the left, the page on the right,
-// Ask Martine floating on top. No filters, no banner (the access code is
+// Ask Martine and What's new in each page's top band. No filters, no banner (the access code is
 // checked before any page, in src/proxy.ts): each page draws
 // its own top band (TopBand).
 export function AppShell({ children }: { children: React.ReactNode }) {
@@ -48,7 +47,6 @@ function ShellBody({ children }: { children: React.ReactNode }) {
 					{children}
 				</div>
 			</main>
-			<AskMartineButton />
 		</div>
 	);
 }

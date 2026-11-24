@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { Plus } from "lucide-react";
 import { TopBand } from "@/shared/components/layout/TopBand";
 import { FamilyPill } from "@/shared/components/ui/Family";
 import { useMartine } from "@/shared/hooks/useMartine";
@@ -61,8 +62,15 @@ export function StudiesView() {
 	return (
 		<>
 			<TopBand>
-				<div className="font-[family-name:var(--font-heading)] text-[23px] font-medium">Studies</div>
-				<div className="text-sm text-[var(--color-ink-muted)]">Every study run in Martine</div>
+				<div className="flex flex-wrap items-center gap-x-5 gap-y-2">
+					<div>
+						<div className="font-[family-name:var(--font-heading)] text-[23px] font-medium">Studies</div>
+						<div className="text-sm text-[var(--color-ink-muted)]">Every study run in Martine</div>
+					</div>
+					<Link href="/studies/new" className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-[var(--radius)] bg-[var(--color-accent)] px-4 py-2 text-sm font-semibold text-white no-underline hover:opacity-90">
+						<Plus size={15} aria-hidden /> New study
+					</Link>
+				</div>
 			</TopBand>
 			<div className="mx-auto flex max-w-[1120px] flex-col gap-4 px-6 py-7">
 				<div className="flex flex-wrap items-center gap-3">
