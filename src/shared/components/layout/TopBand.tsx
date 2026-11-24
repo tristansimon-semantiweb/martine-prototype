@@ -25,17 +25,10 @@ const ROLES: { role: RoleId; person: string }[] = [
 // The white 88 px band at the top of every page, lined up with the sidebar's
 // logo band (same height token as R&R's banner). The page puts its title in
 // it; the account menu sits on the right.
-// With `folded`, the band folds away (the study pages fold it on scroll down).
-export function TopBand({ children, folded = false }: { children?: React.ReactNode; folded?: boolean }) {
+export function TopBand({ children }: { children?: React.ReactNode }) {
 	const { setMobileOpen } = useSidebar();
 	return (
-		<header
-			className={cn(
-				"bg-[var(--color-surface)] transition-all duration-[600ms] ease-[cubic-bezier(0.22,0.61,0.36,1)] motion-reduce:transition-none",
-				// Clip only once folded: the account menu opens below the band.
-				folded ? "max-h-0 overflow-hidden border-b-0 opacity-0" : "max-h-40 border-b border-[var(--color-border)] opacity-100",
-			)}
-		>
+		<header className="border-b border-[var(--color-border)] bg-[var(--color-surface)]">
 			<div className="mx-auto flex min-h-[var(--band-h)] max-w-[1120px] flex-wrap items-center gap-4 px-6 py-3">
 				<button
 					onClick={() => setMobileOpen(true)}

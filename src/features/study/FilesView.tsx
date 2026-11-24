@@ -133,7 +133,7 @@ export function FilesView({ id }: { id: string }) {
 			</Modal>
 
 			{/* The folders on the left, as Steps lists its phases. */}
-			<nav aria-label="Folders" className="flex flex-col gap-2 rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-surface)] p-2.5 shadow-[var(--shadow-xs)] lg:sticky lg:top-[64px]">
+			<nav aria-label="Folders" className="flex flex-col gap-2 rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-surface)] p-2.5 shadow-[var(--shadow-xs)] lg:sticky lg:top-6">
 				<div className="px-2 pt-1">
 					<div className="text-sm font-semibold">Files</div>
 					<div className="text-[13px] text-[var(--color-ink-muted)]">{plural(study.files.length, "document")}</div>

@@ -57,12 +57,6 @@
         },
         {
           "kind": "changed",
-          "title": "The study header folds as you scroll",
-          "text": "In a study, the title band folds away as you scroll down and comes back as soon as you scroll up, as in R&R; the Overview, Steps, Team and Files tabs stay at the top.",
-          "href": "/studies/TR-2611-01/steps"
-        },
-        {
-          "kind": "changed",
           "title": "Tools only under Tools",
           "text": "The method files’ Tools column also names documents, guides and sources. A task now shows only the repository’s tools under Tools; the documents (decks, tabs, sheets, libraries, guides) go under Documents, and the sources and channels (TikTok, press, email) under Also used.",
           "href": "/studies/TR-2611-01/steps?phase=5"

@@ -64,7 +64,7 @@ export function StepsView({ id }: { id: string }) {
 		<div className="mx-auto grid max-w-[1240px] items-start gap-7 px-6 py-7 lg:grid-cols-[260px_minmax(0,1fr)]">
 			<nav
 				aria-label="Phases of the study"
-				className="flex flex-col gap-2 rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-surface)] p-2.5 shadow-[var(--shadow-xs)] lg:sticky lg:top-[64px]"
+				className="flex flex-col gap-2 rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-surface)] p-2.5 shadow-[var(--shadow-xs)] lg:sticky lg:top-6"
 			>
 				<div className="px-2 pt-1">
 					<div className="text-sm font-semibold">Phases</div>
