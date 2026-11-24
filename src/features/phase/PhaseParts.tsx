@@ -63,13 +63,9 @@ export function ToolChip({
 	onConfirm?: (id: string) => void;
 }) {
 	const t = toolById(id);
-	const parent = t?.part_of ? toolById(t.part_of) : undefined;
 	const label = (
 		<>
-			<span>
-				{t?.label ?? id}
-				{parent && <span className="font-normal text-[var(--color-ink-muted)]">, {parent.label}</span>}
-			</span>
+			{t?.label ?? id}
 			{isNew && <span className="font-normal text-[var(--color-ink-muted)]"> (new)</span>}
 			{toConfirm && <span className="font-normal text-[var(--color-attention)]"> to confirm</span>}
 			{t?.url && <ExternalLink size={12} aria-hidden className="text-[var(--color-ink-muted)]" />}

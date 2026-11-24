@@ -125,7 +125,6 @@ export interface CatalogTool {
 	claude_connector: boolean | null; // null: not checked yet
 	aliases?: string[]; // patterns that find the tool in the method files' text
 	url: string | null; // where to open it (null: internal, not in the prototype)
-	part_of?: string; // the platform it is a module of (the ICC)
 	note?: string; // what it is, when the method files say more than its name
 }
 
