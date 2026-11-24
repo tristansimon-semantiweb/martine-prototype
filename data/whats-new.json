@@ -16,7 +16,7 @@
         {
           "kind": "changed",
           "title": "What’s new next to your profile",
-          "text": "What’s new now sits at the top right of every page, next to your profile; Ask Martine stays at the bottom right (⌘K). New study moves from the sidebar to the Studies page, at the end of the filter row, as New study type on Study types.",
+          "text": "What’s new now sits at the top right of every page, next to your profile; Ask Martine stays at the bottom right (⌘K), now white and quiet so it does not compete with the page’s own actions. New study moves from the sidebar to the Studies page, at the end of the filter row, as New study type on Study types.",
           "href": "/"
         },
         {

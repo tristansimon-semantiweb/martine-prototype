@@ -32,7 +32,8 @@ export function HeaderActions() {
 }
 
 // Ported from R&R's GlobalAiBar: one launcher, bottom right, that opens the
-// drawer directly. Hidden on the full Ask Martine page and while the drawer is
+// drawer directly. Quiet (white, thin border) so it never competes with a
+// page's own actions. Hidden on the full Ask Martine page and while the drawer is
 // open; sits under the phase and catalog drawers (z 40 < 50).
 export function AskMartineButton() {
 	const pathname = usePathname();
@@ -44,12 +45,12 @@ export function AskMartineButton() {
 	return (
 		<button
 			onClick={openChat}
-			className="fixed bottom-6 right-6 z-40 flex items-center gap-2 rounded-full bg-[var(--color-accent)] px-5 py-3.5 text-sm font-semibold text-white shadow-[var(--shadow-lg)] transition-opacity hover:opacity-90"
+			className="fixed bottom-6 right-6 z-40 flex items-center gap-2 rounded-full border border-[var(--color-border-hover)] bg-[var(--color-surface)] px-4 py-2.5 text-sm font-semibold text-[var(--color-ink)] shadow-[var(--shadow-md)] transition-colors hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]"
 			title={scope ? "Ask Martine about this study" : "Ask Martine about your studies"}
 		>
-			<MessageCircle size={17} aria-hidden />
+			<MessageCircle size={16} aria-hidden className="text-[var(--color-accent)]" />
 			<span className="hidden sm:inline">Ask Martine</span>
-			<kbd className="hidden items-center rounded-[var(--radius-sm)] border border-white/30 bg-white/15 px-1.5 py-0.5 text-[10px] font-medium text-white/90 md:flex">
+			<kbd className="hidden items-center rounded-[var(--radius-sm)] border border-[var(--color-border)] px-1.5 py-0.5 text-[10px] font-medium text-[var(--color-ink-muted)] md:flex">
 				⌘K
 			</kbd>
 		</button>
