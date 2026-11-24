@@ -8,6 +8,12 @@
       "summary": "Documents work by phase, tasks put their tools and skills up front, and the first version narrows its scope.",
       "items": [
         {
+          "kind": "changed",
+          "title": "Study types read like studies",
+          "text": "A study type now has two tabs, as a study has its own: Overview (the question it answers, its owner, version, studies using it, planned days, the suggestions to review, its phases, terms and notes) and Method. Method is laid out like Steps: the phases in a column on the left (the method owner renames, removes or adds one), the open phase on the page with its properties, Save to draft and its suggestions, its tasks as rows; a task opens beside it, in edit mode for the method owner, with the catalog over it to add a skill, a tool or a document.",
+          "href": "/study-types/trend_report/method?phase=2"
+        },
+        {
           "kind": "new",
           "title": "Documentation on each task",
           "text": "A task now shows the documentation that helps to do it: the methodologies, guides, skill guides and references that apply to its tools, its skills or what it says (How to create the perfect query, Corpus Manager methodology, the ICC tools, the facet library…). Its detail lists them at the top, and its row in the phase says how many there are. Documentation is what helps; Documents stay what the team works in.",

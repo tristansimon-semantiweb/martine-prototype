@@ -9,7 +9,7 @@ import { cn } from "@/shared/lib/cn";
 import type { CatalogSkill, MethodTask } from "@/shared/lib/types";
 import { SkillStatusBadge } from "@/shared/components/ui/SkillStatus";
 import { RequestSkill } from "@/features/skills/RequestSkill";
-import { nextVersion } from "./MethodPhaseDrawer";
+import { nextVersion } from "./MethodTask";
 import type { MethodPhaseView } from "./methodModel";
 
 export type Tab = "Skills" | "Tools" | "Documents";
@@ -38,12 +38,14 @@ export function CatalogDrawer({
 	phase,
 	taskKey,
 	initialTab = "Skills",
+	level = 1,
 	onClose,
 }: {
 	methodId: string;
 	phase: MethodPhaseView | null;
 	taskKey: string | null;
 	initialTab?: Tab;
+	level?: number; // stacked over the task's detail in the Method tab
 	onClose: () => void;
 }) {
 	const { drafts, addSkillToTask, editMethodTask, linkTool } = useMartine();
@@ -120,7 +122,7 @@ export function CatalogDrawer({
 			open={Boolean(task)}
 			onClose={onClose}
 			width={560}
-			level={1}
+			level={level}
 			label="Catalog"
 			header={
 				<>

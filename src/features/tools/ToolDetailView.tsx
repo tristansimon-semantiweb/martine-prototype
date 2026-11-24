@@ -89,7 +89,7 @@ export function ToolDetailView({ id }: { id: string }) {
 						<ul className="m-0 list-none overflow-hidden rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-surface)] p-0">
 							{rows.map((u) => (
 								<li key={u.taskKey} className="flex flex-wrap items-center gap-3 border-b border-[var(--color-border)] px-5 py-3 last:border-b-0">
-									<Link href={`/study-types/${m}?phase=${u.phaseId}`} className="flex-1 text-[var(--color-ink)] no-underline hover:text-[var(--color-accent)]">
+									<Link href={`/study-types/${m}/method?phase=${u.phaseId}`} className="flex-1 text-[var(--color-ink)] no-underline hover:text-[var(--color-accent)]">
 										<span className="text-sm text-[var(--color-ink-muted)]">{u.phaseLabel}</span>
 										<span className="block font-semibold">{u.taskName}</span>
 									</Link>
