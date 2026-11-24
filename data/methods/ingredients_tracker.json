@@ -151,7 +151,7 @@
 				{
 					"task": "Build the video sample",
 					"how": "Save the URLs of interesting TikTok videos while researching (55 unique videos). Give Claude the list of URLs and the column headers wanted in the measurement file. Claude returns a sheet with URL, creator, followers, views, engagement, transcript, hashtags, brands mentioned and more.",
-					"tools": "TikTok, Claude, COLGATE_SAMPLE_OCT 26",
+					"tools": "TikTok, Claude, the client’s sample file",
 					"check": "Spot-check against the live video: handle, numbers and transcript wording. Verbatims are checked against the audio.",
 					"output": "Categorised sample sheet",
 					"days_min": 1,

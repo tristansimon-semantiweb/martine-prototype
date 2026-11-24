@@ -126,17 +126,12 @@ export function ToolList({
 	toConfirm?: string[];
 	children?: React.ReactNode;
 }) {
-	const others = otherToolItems(task);
 	return (
 		<span className="flex flex-wrap items-center gap-1.5">
 			{task.tool_ids.map((id) => (
 				<ToolChip key={id} id={id} isNew={newIds.includes(id)} toConfirm={toConfirm.includes(id)} onUnlink={onUnlink} onConfirm={onConfirm} />
 			))}
-			{others.map((o) => (
-				<span key={o} title="Named in the method file, not a tool of the repository" className="px-1 text-[13px] text-[var(--color-ink-secondary)]">
-					{o}
-				</span>
-			))}
+			{task.tool_ids.length === 0 && !children && <span className="text-[var(--color-ink-muted)]">No tool</span>}
 			{children}
 		</span>
 	);
@@ -189,6 +184,19 @@ export function Lines({ text, tone }: { text: string; tone?: "attention" }) {
 	);
 }
 
+// The repository tools of a task, by name.
+const toolLabels = (task: MethodTask) => task.tool_ids.map((id) => toolById(id)?.label ?? id).join(", ");
+
+// What the Tools column names besides tools: documents, then sources and
+// channels. Absent when there is none.
+function otherRows(task: MethodTask) {
+	const { documents, other } = otherToolItems(task);
+	return [
+		...(documents.length ? [{ label: "Documents", value: documents.join(", ") }] : []),
+		...(other.length ? [{ label: "Also used", value: other.join(", ") }] : []),
+	];
+}
+
 // The rows a task shows, by format. Each row's value can be replaced (an
 // editor, the tools with their skills) through `slots`.
 type Slot = "how" | "tools" | "check" | "output" | "what" | "watch_out";
@@ -201,13 +209,14 @@ export function taskRows(task: MethodTask, format: MethodFormat, slots: Partial<
 			{ label: "How", value: v("how", <Lines text={task.how} />, Boolean(task.how)) },
 			{ label: "Watch out", value: v("watch_out", <Lines text={task.watch_out ?? ""} tone="attention" />, Boolean(task.watch_out)) },
 			// Tools are read from the step's text (the SML file has no Tools column).
-			...("tools" in slots ? [{ label: "Tools", value: slots.tools }] : task.tools ? [{ label: "Tools", value: task.tools }] : []),
+			...("tools" in slots ? [{ label: "Tools", value: slots.tools }] : task.tools ? [{ label: "Tools", value: toolLabels(task) }] : []),
 			{ label: "Deliverable", value: v("output", task.output, Boolean(task.output)) },
 		].filter((r) => !(r.label === "Watch out" && !task.watch_out && !("watch_out" in slots)));
 	}
 	return [
 		{ label: "How to do it", value: v("how", task.how, Boolean(task.how)) },
-		{ label: "Tools", value: v("tools", task.tools, Boolean(task.tools)) },
+		{ label: "Tools", value: v("tools", toolLabels(task), task.tool_ids.length > 0) },
+		...otherRows(task),
 		{ label: "Check before moving on", value: v("check", task.check, Boolean(task.check)) },
 		{ label: "Output", value: v("output", task.output, Boolean(task.output)) },
 	];

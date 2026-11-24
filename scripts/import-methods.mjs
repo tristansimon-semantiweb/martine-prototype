@@ -28,6 +28,8 @@ const SCRUB = [
 	[/\(e\.g\. LVMH, the client\)/g, "(e.g. a group with several brands)"],
 	[/\bLVMH\b/g, "[client]"],
 	[/\bCOTY\b/g, "[client]"],
+	[/\bCOLGATE_SAMPLE_[A-Z]+ \d+\b/g, "the client’s sample file"],
+	[/\b(COLGATE|Colgate|Palmolive)\b/g, "[client]"],
 	[/\bpureology\b/gi, "[brand]"],
 	[/Born in Roma/g, "[franchise]"],
 	[/Yves Saint Laurent/g, "[competitor brand]"],

@@ -9,6 +9,12 @@
       "items": [
         {
           "kind": "changed",
+          "title": "Tools only under Tools",
+          "text": "The method files’ Tools column also names documents, guides and sources. A task now shows only the repository’s tools under Tools; the documents (decks, tabs, sheets, libraries, guides) go under Documents, and the sources and channels (TikTok, press, email) under Also used.",
+          "href": "/studies/TR-2611-01/steps?phase=5"
+        },
+        {
+          "kind": "changed",
           "title": "Overview: the study at a glance, and similar studies",
           "text": "The Overview opens on a recap: the study type, the client and what the study covers, then where it stands. Four landmarks follow: the study type, the due date (in how many days, or late), the steps done out of the total with Continue on the phase in progress, and the budget. On the side, Similar studies lists the other studies of the same type, newest first, to see how the team ran them; another client’s study is for internal reference, its material stays in it.",
           "href": "/studies/TR-2611-01"

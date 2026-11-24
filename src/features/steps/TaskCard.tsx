@@ -11,7 +11,6 @@ import { Modal } from "@/shared/components/ui/Modal";
 import type { PhaseView, TaskView } from "@/shared/lib/studyModel";
 import type { Study } from "@/shared/lib/types";
 import { TaskFields, ToolOpenButton, formatOf, taskMeta, taskRows } from "@/features/phase/PhaseParts";
-import { otherToolItems } from "@/shared/lib/tools";
 import { openInClaudeUrl } from "@/shared/lib/martineContext";
 import { SkillBlock } from "./SkillBlock";
 import { RequestSkill } from "@/features/skills/RequestSkill";
@@ -32,7 +31,6 @@ export function TaskCard({ study, phase, view }: { study: Study; phase: PhaseVie
 	// What to do, in a line: the step's purpose (steps format), else the first
 	// sentence of how to do it. The full text unfolds below.
 	const summary = task.what || task.how.split(/\n|(?<=\.)\s/)[0];
-	const others = otherToolItems(task);
 
 	return (
 		<article className="rounded-[12px] border border-[var(--color-border)] px-4 py-3">
@@ -100,7 +98,6 @@ export function TaskCard({ study, phase, view }: { study: Study; phase: PhaseVie
 					<TaskFields
 						rows={[
 							...taskRows(task, format).filter((r) => !["What", "Tools", "Output", "Deliverable"].includes(r.label)),
-							...(others.length ? [{ label: "Also named", value: others.join(", ") }] : []),
 							...task.skills.map((sk) => ({
 								label: "Skill",
 								value: <SkillBlock study={study} phase={phase} taskKey={key} skillId={sk} />,
