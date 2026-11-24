@@ -12,12 +12,14 @@ export const ROLE_LABEL: Record<RoleId, string> = {
 	analyst: "Analyst",
 	consultant: "Consultant",
 	method_owner: "Method owner",
+	skills_owner: "Skills owner",
 };
 
 const ROLES: { role: RoleId; person: string }[] = [
 	{ role: "analyst", person: "marie" },
 	{ role: "consultant", person: "claire" },
 	{ role: "method_owner", person: "bamby" },
+	{ role: "skills_owner", person: "fabien" },
 ];
 
 // The white 88 px band at the top of every page, lined up with the sidebar's

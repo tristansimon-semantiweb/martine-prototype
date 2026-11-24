@@ -29,7 +29,7 @@ export function DraftSkill({ methodId, version, taskKey, task }: { methodId: str
 	if (draft) {
 		return (
 			<Link href={`/skills/${draft.id}`} className="inline-flex items-center gap-1 text-[13px] font-semibold">
-				<Sparkles size={13} aria-hidden /> Skill {draft.status === "draft" ? "drafted, to review" : "validated"}: {draft.label}
+				<Sparkles size={13} aria-hidden /> Skill {draft.status === "draft" ? "drafted, to review" : draft.status === "approved" ? "approved, waiting for Fabien" : "validated"}: {draft.label}
 			</Link>
 		);
 	}

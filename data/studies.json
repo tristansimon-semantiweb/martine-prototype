@@ -26,6 +26,12 @@
       "name": "Bamby",
       "initials": "BS",
       "role": "method_owner"
+    },
+    {
+      "id": "fabien",
+      "name": "Fabien",
+      "initials": "FA",
+      "role": "skills_owner"
     }
   ],
   "studies": [

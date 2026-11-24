@@ -33,7 +33,7 @@ interface MartineData {
 // document per phase).
 const KEY = "martine_v5";
 
-const ROLE_PERSON: Record<RoleId, string> = { analyst: "marie", consultant: "claire", method_owner: "bamby" };
+const ROLE_PERSON: Record<RoleId, string> = { analyst: "marie", consultant: "claire", method_owner: "bamby", skills_owner: "fabien" };
 
 function seed(): MartineData {
 	return {
@@ -243,8 +243,10 @@ function useMartineState() {
 				});
 				return id;
 			},
-			validateSkill: (id: string) =>
-				update((d) => ({ ...d, skillDrafts: (d.skillDrafts ?? []).map((x) => (x.id === id ? { ...x, status: "validated" as const } : x)) })),
+			// Two reviews: the method owner approves it for the method, then the
+			// skills owner validates it, which makes it available to everyone.
+			setSkillStatus: (id: string, status: "approved" | "validated") =>
+				update((d) => ({ ...d, skillDrafts: (d.skillDrafts ?? []).map((x) => (x.id === id ? { ...x, status } : x)) })),
 			discardSkill: (id: string) =>
 				update((d) => ({
 					...d,

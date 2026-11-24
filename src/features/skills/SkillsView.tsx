@@ -12,7 +12,8 @@ import { skillUsage } from "@/features/tools/toolUsage";
 // The skills: what Claude knows how to do for a task, and the steps of each
 // study type that name them. Same source as the catalog drawer.
 export function SkillsView() {
-	const { drafts } = useMartine();
+	const { drafts, role } = useMartine();
+	const toReview = allSkills().filter((s) => (role === "skills_owner" ? s.status === "approved" : role === "method_owner" ? s.status === "draft" : false));
 	const rows = allSkills()
 		.map((s) => {
 			const uses = skillUsage(s.id, drafts);
@@ -27,6 +28,18 @@ export function SkillsView() {
 				<div className="text-sm text-[var(--color-ink-muted)]">What Claude does for a task, and the steps of each study type that use it</div>
 			</TopBand>
 			<div className="mx-auto flex max-w-[1120px] flex-col gap-4 px-6 py-7">
+				{toReview.length > 0 && (
+					<section aria-label="To review" className="flex flex-wrap items-center gap-2 rounded-[var(--radius-lg)] bg-[var(--color-accent-dim)] px-5 py-3 text-[15px]">
+						<span className="font-semibold">
+							{role === "skills_owner" ? "Waiting for your validation:" : "Drafts waiting for your review:"}
+						</span>
+						{toReview.map((s) => (
+							<Link key={s.id} href={`/skills/${s.id}`} className="font-semibold">
+								{s.label}
+							</Link>
+						))}
+					</section>
+				)}
 				<div className="overflow-x-auto rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-surface)] shadow-[var(--shadow-xs)]">
 					<table className="w-full min-w-[760px] border-collapse text-[15px]">
 						<thead>

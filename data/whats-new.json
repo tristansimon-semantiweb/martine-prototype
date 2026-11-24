@@ -10,7 +10,7 @@
         {
           "kind": "new",
           "title": "Draft a skill with Claude",
-          "text": "A step with no skill offers “Draft a skill with Claude”. Claude drafts it from the step, which it reads through Martine. The draft appears in Skills, linked to its step; the method owner tests it on a study and validates it, then an admin publishes it in Claude.",
+          "text": "A step with no skill offers “Draft a skill with Claude”. Claude drafts it from the step, which it reads through Martine. The draft appears in Skills, linked to its step. The method owner tests it and approves it for the method; then Fabien validates it, and only then is it available to everyone.",
           "href": "/skills"
         },
         {

@@ -10,6 +10,7 @@ const ROLE_LINE: Record<RoleId, string> = {
 	consultant: "Consultant, talks to the client",
 	analyst: "Analyst",
 	method_owner: "Method owner",
+	skills_owner: "Skills owner",
 };
 
 const row = "flex items-center gap-3.5 border-b border-[var(--color-border)] px-5 py-4 last:border-b-0";

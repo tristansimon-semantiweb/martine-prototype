@@ -3,7 +3,7 @@
 // and Claude read the same thing. See docs/MCP-CONTEXT.md.
 
 export type Family = "Trends" | "Monitoring" | "SML";
-export type RoleId = "analyst" | "consultant" | "method_owner";
+export type RoleId = "analyst" | "consultant" | "method_owner" | "skills_owner";
 
 // ── Method (from the method files, imported by scripts/import-methods.mjs) ──
 // Two formats: "tasks" (M&T file: task, how, tools, check, output, days, owner)
@@ -88,7 +88,9 @@ export interface MethodSuggestion {
 }
 
 // ── Catalog ──
-export type SkillStatus = "draft" | "validated" | "experimental" | "deprecated";
+// draft: to review by the method owner; approved: approved for the method,
+// waiting for the skills owner; validated: available to everyone.
+export type SkillStatus = "draft" | "approved" | "validated" | "experimental" | "deprecated";
 
 export interface CatalogSkill {
 	id: string;

@@ -3,6 +3,7 @@ import type { SkillStatus } from "@/shared/lib/types";
 
 const STATUS: Record<SkillStatus, { label: string; cls: string }> = {
 	draft: { label: "Draft, to review", cls: "bg-[var(--color-accent-dim)] text-[var(--color-accent)]" },
+	approved: { label: "Waiting for Fabien", cls: "bg-[var(--color-attention-bg)] text-[var(--color-attention)]" },
 	validated: { label: "Validated", cls: "bg-[var(--color-positive-bg)] text-[var(--color-positive)]" },
 	experimental: { label: "Experimental", cls: "bg-[var(--color-attention-bg)] text-[var(--color-attention)]" },
 	deprecated: { label: "Deprecated", cls: "bg-[var(--color-elevated)] text-[var(--color-ink-muted)]" },
