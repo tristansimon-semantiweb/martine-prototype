@@ -1,20 +1,32 @@
 "use client";
 
 import Link from "next/link";
+import { ChevronDown, FileText } from "lucide-react";
 import { useMartine } from "@/shared/hooks/useMartine";
 import { days, dueDate, fromToday, plural } from "@/shared/lib/format";
 import { knownToClaude, statusLine } from "@/shared/lib/martineContext";
 import { methodEntry, personById } from "@/shared/lib/data";
-import { hasMethodFile, phaseViews } from "@/shared/lib/studyModel";
+import { hasMethodFile, phaseViews, type PhaseView } from "@/shared/lib/studyModel";
 import { cn } from "@/shared/lib/cn";
-import type { Study } from "@/shared/lib/types";
+import type { PhaseStatus, Study } from "@/shared/lib/types";
 
-const tile = "rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-surface)] p-[18px]";
-const label = "text-[13px] text-[var(--color-ink-muted)]";
+const card = "rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-surface)] shadow-[var(--shadow-xs)]";
+const tile = `${card} p-[18px]`;
+const prop = "text-[11px] font-semibold uppercase tracking-wide text-[var(--color-ink-muted)]";
+const h2 = "m-0 font-[family-name:var(--font-body)] text-[15px] font-semibold";
+const SEGMENT: Record<PhaseStatus, string> = {
+	done: "bg-[var(--color-positive)]",
+	in_progress: "bg-[var(--color-accent)]",
+	to_start: "bg-[var(--color-elevated)]",
+	not_needed: "bg-[var(--color-elevated)] opacity-50",
+};
+const shortDate = (iso: string) => new Date(`${iso}T12:00:00`).toLocaleDateString("en-US", { month: "short", day: "numeric" });
 
-// A study at a glance: what it is (recap), where it stands, the four
-// landmarks (study type, due date, steps done, budget), what is open with the
-// client, and the similar studies, to see how the team ran them before.
+// A study at a glance, read like a project page: what it covers and its key
+// properties (client, study type, lead, due date, budget); where the phases
+// stand, with the one in progress and who is on it; where it stands in words
+// and what is open with the client; the decisions and the latest documents.
+// On the side: the team, similar studies, and what Claude knows (folded).
 export function OverviewView({ id }: { id: string }) {
 	const { studies } = useMartine();
 	const study = studies.find((s) => s.id === id);
@@ -26,150 +38,264 @@ export function OverviewView({ id }: { id: string }) {
 	const type = method?.name ?? study.method.id;
 	const counted = views.filter((v) => v.status !== "not_needed");
 	const done = counted.filter((v) => v.status === "done").length;
-	const inProgress = views.find((v) => v.status === "in_progress");
+	const now = views.find((v) => v.status === "in_progress") ?? views.find((v) => v.status === "to_start");
+	const next = now ? views.slice(views.indexOf(now) + 1).find((v) => v.status === "to_start") : undefined;
 	const late = study.status !== "delivered" && new Date(`${study.due}T23:59:59`) < new Date();
 	const similar = studies.filter((s) => s.method.id === study.method.id && s.id !== study.id).sort((a, b) => b.due.localeCompare(a.due));
+	const lead = study.team.find((m) => m.role === "consultant");
+	const leadPerson = lead ? personById(lead.person) : undefined;
+	const nowPerson = now ? personById(study.state.assignees?.[now.id] ?? "") : undefined;
+	const recentFiles = [...study.files].sort((a, b) => (b.added ?? "").localeCompare(a.added ?? "")).slice(0, 4);
 
 	// Seeded studies carry a written summary; a new study gets a plain one.
 	const summary = study.summary ?? {
 		headline: study.status === "delivered" ? "Delivered." : views.some((v) => v.status === "in_progress" || v.status === "done") ? "Under way." : "Not started yet.",
-		body: [
-			hasMethodFile(study)
-				? `The ${type.toLowerCase()} method: ${views.length} phases, ${statusLine(views)}.`
-				: "The method file for this study type is not imported in Martine yet.",
-			open.length ? `${plural(open.length, "point")} to clarify with the client.` : "",
-		]
-			.filter(Boolean)
-			.join(" "),
+		body: hasMethodFile(study) ? `The ${type.toLowerCase()} method: ${views.length} phases, ${statusLine(views)}.` : "The method file for this study type is not imported in Martine yet.",
 	};
 
 	return (
-		<div className="mx-auto grid max-w-[1180px] items-start gap-5 px-6 py-8 lg:grid-cols-[minmax(0,1fr)_340px]">
-			<div className="flex min-w-0 flex-col gap-[18px]">
-				<section
-					aria-labelledby="recap"
-					className="rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-surface)] px-[26px] py-6 shadow-[var(--shadow-xs)]"
-				>
-					<div className="text-[13px] font-semibold text-[var(--color-accent)]">
-						{type} for {study.client}
+		<div className="mx-auto grid max-w-[1240px] items-start gap-6 px-6 py-7 lg:grid-cols-[minmax(0,1fr)_320px]">
+			<div className="flex min-w-0 flex-col gap-5">
+				{/* What the study covers, and its key properties. */}
+				<section aria-labelledby="recap" className={`${card} flex flex-col gap-4 px-6 py-5`}>
+					<div>
+						<div className="text-[13px] font-semibold text-[var(--color-accent)]">
+							{type} for {study.client}
+						</div>
+						<h1 id="recap" className="m-0 mt-1 font-[family-name:var(--font-heading)] text-[24px] font-medium leading-snug">
+							{study.scope ?? study.title}
+						</h1>
 					</div>
-					<h1 id="recap" className="mt-1.5 font-[family-name:var(--font-heading)] text-[24px] font-medium leading-snug">
-						{study.scope ?? study.title}
-					</h1>
-					<div className="mt-4 border-t border-[var(--color-border)] pt-4">
-						<div className={label}>Where it stands</div>
-						<p className="m-0 mt-1 text-[17px] leading-[1.6]">
-							<span className="font-semibold">{summary.headline}</span> <span className="text-[var(--color-ink-secondary)]">{summary.body}</span>
-						</p>
-					</div>
+					<dl className="m-0 grid overflow-hidden rounded-[var(--radius-md)] border border-[var(--color-border)] text-sm sm:grid-cols-5 sm:divide-x sm:divide-[var(--color-border)] max-sm:divide-y max-sm:divide-[var(--color-border)]">
+						<Prop label="Client">{study.client}</Prop>
+						<Prop label="Study type">
+							<Link href={`/study-types/${study.method.id}`} className="font-semibold">
+								{type}
+							</Link>
+							<span className="block text-[12px] text-[var(--color-ink-muted)]">{study.method.version ? `method v${study.method.version}` : "not imported yet"}</span>
+						</Prop>
+						<Prop label="Lead">
+							{leadPerson ? (
+								<span className="flex items-center gap-2">
+									<Avatar initials={leadPerson.initials} />
+									{leadPerson.name}
+								</span>
+							) : (
+								<span className="text-[var(--color-ink-muted)]">To name</span>
+							)}
+						</Prop>
+						<Prop label="Due">
+							<span className={cn("font-semibold", late && "text-[var(--color-negative)]")}>{dueDate(study.due)}</span>
+							<span className={cn("block text-[12px]", late ? "text-[var(--color-negative)]" : "text-[var(--color-ink-muted)]")}>
+								{study.status === "delivered" ? "delivered" : late ? `late, ${fromToday(study.due)}` : fromToday(study.due)}
+							</span>
+						</Prop>
+						<Prop label="Budget">{study.daysSold != null ? `${days(study.daysSold)} days sold` : <span className="text-[var(--color-ink-muted)]">[days sold]</span>}</Prop>
+					</dl>
 				</section>
 
-				<div className="grid gap-3.5 sm:grid-cols-2">
-					<div className={tile}>
-						<div className={label}>Study type</div>
-						<div className="mt-1 text-lg font-semibold">{type}</div>
-						<div className="text-sm text-[var(--color-ink-muted)]">{study.method.version ? `method v${study.method.version}` : "method not imported yet"}</div>
-						<Link href={`/study-types/${study.method.id}`} className="mt-2 inline-block text-sm font-semibold">
-							See the study type
-						</Link>
-					</div>
-					<div className={tile}>
-						<div className={label}>Due date</div>
-						<div className={cn("mt-1 text-lg font-semibold", late && "text-[var(--color-negative)]")}>{dueDate(study.due)}</div>
-						<div className={cn("text-sm", late ? "text-[var(--color-negative)]" : "text-[var(--color-ink-muted)]")}>
-							{study.status === "delivered" ? "delivered" : late ? `late, ${fromToday(study.due)}` : fromToday(study.due)}
+				{/* Where the phases stand: one segment per phase, then the one in progress. */}
+				{hasMethodFile(study) && (
+					<section aria-labelledby="phases-h" className={`${card} flex flex-col gap-4 px-6 py-5`}>
+						<div className="flex flex-wrap items-baseline gap-x-3">
+							<h2 id="phases-h" className={h2}>
+								Phases
+							</h2>
+							<span className="text-sm text-[var(--color-ink-muted)]">
+								{done} of {counted.length} done
+							</span>
+							<Link href={`/studies/${study.id}/steps`} className="ml-auto text-sm font-semibold">
+								All the steps
+							</Link>
 						</div>
-					</div>
-					<div className={tile}>
-						<div className={label}>Steps</div>
-						{hasMethodFile(study) ? (
-							<>
-								<div className="mt-1 text-lg font-semibold">
-									{done} / {counted.length} done
-								</div>
-								<div
-									role="progressbar"
-									aria-label="Steps done"
-									aria-valuemin={0}
-									aria-valuemax={counted.length}
-									aria-valuenow={done}
-									className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-[var(--color-elevated)]"
-								>
-									<div className="h-full rounded-full bg-[var(--color-positive)]" style={{ width: `${counted.length ? (done / counted.length) * 100 : 0}%` }} />
-								</div>
-								<Link href={`/studies/${study.id}/steps${inProgress ? `?phase=${inProgress.id}` : ""}`} className="mt-2 inline-block text-sm font-semibold">
-									{inProgress ? `Continue: ${inProgress.name}` : "See the steps"}
-								</Link>
-							</>
-						) : (
-							<div className="mt-1 text-sm text-[var(--color-ink-muted)]">Method not imported yet</div>
-						)}
-					</div>
-					<div className={tile}>
-						<div className={label}>Budget</div>
-						<div className="mt-1 text-lg font-semibold">{study.daysSold != null ? `${days(study.daysSold)} days sold` : "[days sold]"}</div>
-					</div>
-				</div>
-
-				{open.length > 0 && (
-					<section aria-labelledby="clarify" className={tile}>
-						<h2 id="clarify" className="font-[family-name:var(--font-body)] text-[15px] font-semibold">
-							To clarify with the client
-						</h2>
-						<div className="mt-2.5 flex flex-wrap gap-1.5">
-							{open.map((c) => (
-								<span key={c.id} className="rounded-[var(--radius-sm)] bg-[var(--color-attention-bg)] px-2.5 py-1.5 text-sm text-[var(--color-attention)]">
-									{c.label}
-								</span>
-							))}
-						</div>
-					</section>
-				)}
-
-				{study.decisions.length > 0 && (
-					<section aria-labelledby="dec" className={tile}>
-						<h2 id="dec" className="font-[family-name:var(--font-body)] text-[15px] font-semibold">
-							Decisions
-						</h2>
-						<ul className="mt-2 flex flex-col gap-1.5 text-[15px] text-[var(--color-ink-secondary)]">
-							{study.decisions.map((d) => (
-								<li key={d.id}>
-									<span className="font-semibold text-[var(--color-ink)]">{d.date}:</span> {d.text}
+						<ol aria-label="Phases, in order" className="m-0 flex list-none gap-1 p-0">
+							{views.map((p) => (
+								<li key={p.id} className="min-w-0 flex-1">
+									<Link href={`/studies/${study.id}/steps?phase=${p.id}`} title={`${p.label}: ${p.status.replace("_", " ")}`} className="group block">
+										<span className={cn("block h-2.5 rounded-full transition-opacity group-hover:opacity-80", SEGMENT[p.status], now?.id === p.id && "ring-2 ring-[var(--color-accent)] ring-offset-2")} />
+										<span className={cn("mt-1.5 hidden truncate text-[11px] md:block", now?.id === p.id ? "font-semibold text-[var(--color-accent)]" : "text-[var(--color-ink-muted)]")}>
+											{p.addedBy ? "+" : p.id}. {p.name}
+										</span>
+									</Link>
 								</li>
 							))}
-						</ul>
+						</ol>
+						{now && <Now study={study} phase={now} person={nowPerson} next={next} />}
 					</section>
 				)}
+
+				<div className="grid gap-5 md:grid-cols-2">
+					<section aria-labelledby="stands" className={tile}>
+						<h2 id="stands" className={h2}>
+							Where it stands
+						</h2>
+						<p className="m-0 mt-2 text-[15px] leading-relaxed">
+							<span className="font-semibold">{summary.headline}</span> <span className="text-[var(--color-ink-secondary)]">{summary.body}</span>
+						</p>
+					</section>
+					<section aria-labelledby="clarify" className={tile}>
+						<h2 id="clarify" className={h2}>
+							To clarify with the client <span className="font-normal text-[var(--color-ink-muted)]">{open.length}</span>
+						</h2>
+						{open.length ? (
+							<ul className="m-0 mt-2 flex list-none flex-col gap-1.5 p-0 text-[15px]">
+								{open.map((c) => (
+									<li key={c.id} className="flex items-start gap-2">
+										<span aria-hidden className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--color-attention)]" />
+										{c.label}
+									</li>
+								))}
+							</ul>
+						) : (
+							<p className="m-0 mt-2 text-sm text-[var(--color-ink-muted)]">Nothing open.</p>
+						)}
+					</section>
+				</div>
+
+				<div className="grid gap-5 md:grid-cols-2">
+					<section aria-labelledby="dec" className={tile}>
+						<h2 id="dec" className={h2}>
+							Decisions <span className="font-normal text-[var(--color-ink-muted)]">{study.decisions.length}</span>
+						</h2>
+						{study.decisions.length ? (
+							<ol className="m-0 mt-2 flex list-none flex-col gap-2.5 p-0 text-[15px]">
+								{study.decisions.map((d) => (
+									<li key={d.id} className="flex gap-3">
+										<span className="w-[92px] shrink-0 text-[13px] font-semibold text-[var(--color-ink-muted)]">{d.date}</span>
+										<span className="text-[var(--color-ink-secondary)]">{d.text}</span>
+									</li>
+								))}
+							</ol>
+						) : (
+							<p className="m-0 mt-2 text-sm text-[var(--color-ink-muted)]">No decision yet.</p>
+						)}
+					</section>
+					<section aria-labelledby="docs" className={tile}>
+						<div className="flex items-baseline gap-2">
+							<h2 id="docs" className={h2}>
+								Latest documents
+							</h2>
+							<Link href={`/studies/${study.id}/files`} className="ml-auto text-sm font-semibold">
+								All files
+							</Link>
+						</div>
+						{recentFiles.length ? (
+							<ul className="m-0 mt-2 flex list-none flex-col p-0 text-[15px]">
+								{recentFiles.map((f) => (
+									<li key={f.id}>
+										<Link
+											href={`/studies/${study.id}/files?folder=${f.category ?? "production"}&file=${f.id}`}
+											className="-mx-2 flex items-center gap-2.5 rounded-[var(--radius-sm)] px-2 py-1.5 text-[var(--color-ink)] no-underline hover:bg-[var(--color-hover)]"
+										>
+											<FileText size={15} aria-hidden className="shrink-0 text-[var(--color-ink-muted)]" />
+											<span className="min-w-0 flex-1 truncate">{f.name}</span>
+											{f.added && <span className="shrink-0 text-[13px] text-[var(--color-ink-muted)]">{shortDate(f.added)}</span>}
+										</Link>
+									</li>
+								))}
+							</ul>
+						) : (
+							<p className="m-0 mt-2 text-sm text-[var(--color-ink-muted)]">No document yet.</p>
+						)}
+					</section>
+				</div>
 			</div>
 
-			<aside className="flex flex-col gap-[18px]">
+			<aside className="flex flex-col gap-5">
+				<section aria-labelledby="team-h" className={tile}>
+					<div className="flex items-baseline gap-2">
+						<h2 id="team-h" className={h2}>
+							Team
+						</h2>
+						<Link href={`/studies/${study.id}/team`} className="ml-auto text-sm font-semibold">
+							Manage
+						</Link>
+					</div>
+					<ul className="m-0 mt-2.5 flex list-none flex-col gap-2 p-0 text-sm">
+						{study.team.map((m) => {
+							const p = personById(m.person);
+							return (
+								<li key={m.person} className="flex items-center gap-2.5">
+									<Avatar initials={p?.initials ?? "?"} />
+									<span className="flex-1">{p?.name}</span>
+									<span className="text-[13px] text-[var(--color-ink-muted)]">{m.role === "method_owner" ? "advisor" : m.role.replace("_", " ")}</span>
+								</li>
+							);
+						})}
+					</ul>
+				</section>
+
 				<SimilarStudies study={study} similar={similar} type={type} />
 
-				<section aria-labelledby="known" className={tile}>
-					<h2 id="known" className="font-[family-name:var(--font-body)] text-[15px] font-semibold">
-						Known to Claude
-					</h2>
-					<p className="mt-0.5 text-sm text-[var(--color-ink-muted)]">Claude finds this study by its code and reads the same as this page, through Martine. Nothing else.</p>
-					<dl className="mt-3 flex flex-col gap-2 text-sm">
+				<details className={`${tile} group`}>
+					<summary className="flex list-none items-center gap-2 [&::-webkit-details-marker]:hidden">
+						<span className={h2}>What Claude knows</span>
+						<ChevronDown size={15} aria-hidden className="ml-auto text-[var(--color-ink-muted)] transition-transform group-open:rotate-180" />
+					</summary>
+					<p className="m-0 mt-1.5 text-[13px] text-[var(--color-ink-muted)]">Claude finds this study by its code and reads the same as this page, through Martine. Nothing else.</p>
+					<dl className="m-0 mt-3 flex flex-col gap-2 text-sm">
 						{knownToClaude(study, views).map((item) => (
 							<div key={item.label}>
-								<dt className="text-[13px] text-[var(--color-ink-muted)]">{item.label}</dt>
+								<dt className="text-[12px] text-[var(--color-ink-muted)]">{item.label}</dt>
 								<dd className="m-0 flex flex-wrap items-baseline gap-x-2">
 									<span>{item.detail}</span>
-									{item.ref && <code className="text-[12px] text-[var(--color-ink-muted)]">{item.ref}</code>}
+									{item.ref && <code className="text-[11px] text-[var(--color-ink-muted)]">{item.ref}</code>}
 								</dd>
 							</div>
 						))}
 					</dl>
-				</section>
+				</details>
 			</aside>
 		</div>
 	);
 }
 
-// The other studies of the same type, newest first: open one to see how the
-// team ran it (its steps, its tools, its documents). Another client's study
-// is for internal reference: its material stays in that study.
+function Prop({ label, children }: { label: string; children: React.ReactNode }) {
+	return (
+		<div className="flex flex-col gap-1 px-4 py-3">
+			<dt className={prop}>{label}</dt>
+			<dd className="m-0">{children}</dd>
+		</div>
+	);
+}
+
+function Avatar({ initials }: { initials: string }) {
+	return <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[var(--color-elevated)] text-[10px] font-bold text-[var(--color-ink-secondary)]">{initials}</span>;
+}
+
+// The phase in progress (else the next to start): who is on it, its tasks,
+// Continue; and the phase after it.
+function Now({ study, phase, person, next }: { study: Study; phase: PhaseView; person?: { name: string; initials: string }; next?: PhaseView }) {
+	return (
+		<div className="flex flex-wrap items-center gap-x-5 gap-y-3 rounded-[var(--radius-md)] bg-[var(--color-accent-dim)] px-4 py-3.5">
+			<div className="min-w-[220px] flex-1">
+				<div className={prop}>{phase.status === "in_progress" ? "In progress" : "Up next"}</div>
+				<div className="mt-0.5 text-[17px] font-semibold">
+					{phase.addedBy ? "+" : phase.id}. {phase.name}
+				</div>
+				<div className="mt-0.5 flex flex-wrap items-center gap-x-2 text-sm text-[var(--color-ink-secondary)]">
+					{person ? (
+						<span className="flex items-center gap-1.5">
+							<Avatar initials={person.initials} />
+							{person.name}
+						</span>
+					) : (
+						<span className="text-[var(--color-ink-muted)]">Not assigned</span>
+					)}
+					<span className="text-[var(--color-ink-muted)]">· {plural(phase.total, "task")}</span>
+					{next && <span className="text-[var(--color-ink-muted)]">· then {next.name}</span>}
+				</div>
+			</div>
+			<Link
+				href={`/studies/${study.id}/steps?phase=${phase.id}`}
+				className="rounded-[var(--radius)] bg-[var(--color-accent)] px-4 py-2.5 text-sm font-semibold text-white no-underline hover:opacity-90"
+			>
+				Continue
+			</Link>
+		</div>
+	);
+}
+
 function SimilarStudies({ study, similar, type }: { study: Study; similar: Study[]; type: string }) {
 	const others = similar.some((s) => s.client !== study.client);
 	return (

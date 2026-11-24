@@ -9,6 +9,12 @@
       "items": [
         {
           "kind": "changed",
+          "title": "Overview reads like a project page",
+          "text": "A study’s Overview opens on what it covers, with its key properties in cells: client, study type, lead, due date (in how many days, or late), budget. Then the phases as a bar, one segment per phase coloured by status, with the phase in progress, who is on it and Continue. Then where it stands and what is open with the client, the decisions and the latest documents with their dates. On the side: the team, similar studies, and what Claude knows about the study, folded.",
+          "href": "/studies/TR-2611-01"
+        },
+        {
+          "kind": "changed",
           "title": "A task’s documents open",
           "text": "In a task’s detail, each document the method names is a link: to the study’s document when it has one (it opens, or Files shows it in its folder), or + Add to add it there and then (a link, a file, or a copy of the catalog template). Anything you can click shows the hand cursor, and a whole row of the Studies table opens the study.",
           "href": "/studies/TR-2611-01/steps?phase=2"
@@ -78,12 +84,6 @@
           "title": "Tools only under Tools",
           "text": "The method files’ Tools column also names documents, guides and sources. A task now shows only the repository’s tools under Tools; the documents (decks, tabs, sheets, libraries, guides) go under Documents, and the sources and channels (TikTok, press, email) under Also used.",
           "href": "/studies/TR-2611-01/steps?phase=5"
-        },
-        {
-          "kind": "changed",
-          "title": "Overview: the study at a glance, and similar studies",
-          "text": "The Overview opens on a recap: the study type, the client and what the study covers, then where it stands. Four landmarks follow: the study type, the due date (in how many days, or late), the steps done out of the total with Continue on the phase in progress, and the budget. On the side, Similar studies lists the other studies of the same type, newest first, to see how the team ran them; another client’s study is for internal reference, its material stays in it.",
-          "href": "/studies/TR-2611-01"
         },
         {
           "kind": "changed",
