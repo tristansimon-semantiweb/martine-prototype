@@ -160,6 +160,7 @@ export interface StudyFile {
 	type: string;
 	phase: string;
 	category?: FileCategory; // absent: the client's documents are brief, the rest production
+	added?: string; // ISO date it was added to the study
 	from: FileOrigin;
 	url?: string; // a link (Sheet, Doc, deck…) rather than an uploaded file
 }

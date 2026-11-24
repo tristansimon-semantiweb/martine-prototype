@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { X } from "lucide-react";
@@ -11,8 +10,8 @@ import { FamilyDot } from "@/shared/components/ui/Family";
 
 // Adapted from R&R's FilterRail: same structure (an 88 px logo band lined up
 // with the page header, then the content), without the filters. Content per
-// the brief: search, the four sections, then recent studies. New study is on
-// the Studies page; What's new and Ask Martine are in the top band.
+// the brief: the four sections, then recent studies. Search and New study are
+// on the Studies page; What's new is in the top band, Ask Martine bottom right.
 const NAV = [
 	{ href: "/", label: "Studies", match: (p: string) => p === "/" },
 	{ href: "/study-types", label: "Study types", match: (p: string) => p.startsWith("/study-types") },
@@ -24,11 +23,8 @@ export function Sidebar() {
 	const pathname = usePathname();
 	const { mobileOpen, setMobileOpen } = useSidebar();
 	const { studies, me } = useMartine();
-	const [query, setQuery] = useState("");
 
-	const recent = studies
-		.filter((s) => s.status !== "delivered" && s.team.some((m) => m.person === me))
-		.filter((s) => !query.trim() || `${s.title} ${s.client}`.toLowerCase().includes(query.trim().toLowerCase()));
+	const recent = studies.filter((s) => s.status !== "delivered" && s.team.some((m) => m.person === me));
 
 	const item = (active: boolean) =>
 		cn(
@@ -72,16 +68,6 @@ export function Sidebar() {
 					</button>
 				</div>
 
-				<div className="flex flex-col gap-2.5 border-b border-[var(--color-border)] px-3 py-3.5">
-					<input
-						type="search"
-						value={query}
-						onChange={(e) => setQuery(e.target.value)}
-						aria-label="Search studies"
-						placeholder="Search studies"
-						className="rr-input"
-					/>
-				</div>
 
 				<nav aria-label="Sections" className="flex flex-col gap-0.5 overflow-y-auto p-3">
 					{NAV.map((n) => (
@@ -99,7 +85,7 @@ export function Sidebar() {
 							</Link>
 						);
 					})}
-					{recent.length === 0 && <p className="px-2.5 py-2 text-sm text-[var(--color-ink-muted)]">No study matches.</p>}
+					{recent.length === 0 && <p className="px-2.5 py-2 text-sm text-[var(--color-ink-muted)]">No study in progress.</p>}
 				</nav>
 			</aside>
 		</>

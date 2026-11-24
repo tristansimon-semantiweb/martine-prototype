@@ -132,7 +132,8 @@
           "from": {
             "kind": "client"
           },
-          "category": "brief"
+          "category": "brief",
+          "added": "2026-11-06"
         },
         {
           "id": "f2",
@@ -143,7 +144,8 @@
             "kind": "person",
             "by": "claire"
           },
-          "category": "brief"
+          "category": "brief",
+          "added": "2026-11-07"
         },
         {
           "id": "f3",
@@ -154,7 +156,8 @@
             "kind": "person",
             "by": "claire"
           },
-          "category": "brief"
+          "category": "brief",
+          "added": "2026-11-10"
         },
         {
           "id": "f4",
@@ -165,7 +168,8 @@
             "kind": "claude",
             "checkedBy": "marie"
           },
-          "category": "production"
+          "category": "production",
+          "added": "2026-11-18"
         },
         {
           "id": "f5",
@@ -175,7 +179,8 @@
           "from": {
             "kind": "claude"
           },
-          "category": "production"
+          "category": "production",
+          "added": "2026-11-21"
         }
       ],
       "previousWave": [
@@ -322,7 +327,8 @@
           "from": {
             "kind": "client"
           },
-          "category": "brief"
+          "category": "brief",
+          "added": "2026-11-20"
         }
       ],
       "previousWave": [],

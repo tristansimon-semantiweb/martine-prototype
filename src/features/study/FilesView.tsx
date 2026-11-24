@@ -9,6 +9,8 @@ import { personById } from "@/shared/lib/data";
 import { phaseViews } from "@/shared/lib/studyModel";
 import { cn } from "@/shared/lib/cn";
 import { plural } from "@/shared/lib/format";
+
+const shortDate = (iso: string) => new Date(`${iso}T12:00:00`).toLocaleDateString("en-US", { month: "short", day: "numeric" });
 import { Modal } from "@/shared/components/ui/Modal";
 import type { FileCategory, Study, StudyFile } from "@/shared/lib/types";
 import { AttachForm } from "@/features/files/Documents";
@@ -48,10 +50,10 @@ function NameCell({ name, type, url }: { name: string; type: string; url?: strin
 			<span className="min-w-0">
 				{url ? (
 					<a href={url} target="_blank" rel="noopener noreferrer" className="inline-flex max-w-full items-center gap-1 font-semibold text-[var(--color-ink)]">
-						<span className="truncate">{name}</span> <ExternalLink size={12} aria-hidden className="shrink-0 text-[var(--color-ink-muted)]" />
+						<span>{name}</span> <ExternalLink size={12} aria-hidden className="shrink-0 text-[var(--color-ink-muted)]" />
 					</a>
 				) : (
-					<span className="block truncate font-semibold">{name}</span>
+					<span className="block font-semibold leading-snug">{name}</span>
 				)}
 				<span className="block text-[12px] text-[var(--color-ink-muted)]">{TYPE_LABEL[type] ?? type}</span>
 			</span>
@@ -123,11 +125,16 @@ export function FilesView({ id }: { id: string }) {
 
 	const views = phaseViews(study);
 	const q = query.trim().toLowerCase();
-	const shown = study.files.filter((f) => !q || f.name.toLowerCase().includes(q)).reverse();
+	// Newest first, by the date each document was added.
+	const shown = study.files
+		.filter((f) => !q || f.name.toLowerCase().includes(q))
+		.map((f, i) => ({ f, i }))
+		.sort((a, b) => (b.f.added ?? "").localeCompare(a.f.added ?? "") || b.i - a.i)
+		.map(({ f }) => f);
 	const current = SECTIONS.find((x) => x.id === tab)!;
 	const files = shown.filter((f) => categoryOf(f) === tab);
 	const usedIn = (fileId: string) => views.filter((p) => study.state.phaseDocs?.[p.id] === fileId);
-	const cols = "grid grid-cols-[minmax(0,1fr)_auto] items-center gap-x-4 sm:grid-cols-[minmax(0,1.6fr)_minmax(0,1.2fr)_minmax(0,1fr)]";
+	const cols = "grid grid-cols-[minmax(0,1fr)_auto] items-center gap-x-4 sm:grid-cols-[minmax(0,2fr)_72px_minmax(0,1fr)_minmax(0,1.2fr)]";
 	const card = "overflow-hidden rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-surface)] shadow-[var(--shadow-xs)]";
 
 	return (
@@ -185,6 +192,7 @@ export function FilesView({ id }: { id: string }) {
 				</div>
 				<div className={cn(cols, "border-b border-[var(--color-border)] px-5 py-2 text-[12px] font-semibold text-[var(--color-ink-muted)]")}>
 					<span>Name</span>
+					<span className="hidden sm:block">Added</span>
 					<span className="hidden sm:block">From</span>
 					<span className="text-right sm:text-left">Used in</span>
 				</div>
@@ -197,6 +205,7 @@ export function FilesView({ id }: { id: string }) {
 							return (
 								<li key={f.id} className={cn(cols, "border-b border-[var(--color-border)] px-5 py-3 text-sm last:border-b-0 hover:bg-[var(--color-hover)]", f.id === pointed && "bg-[var(--color-accent-dim)]")}>
 									<NameCell name={f.name} type={f.type} url={f.url} />
+									<span className={cn("hidden sm:block", f.added ? "text-[var(--color-ink-secondary)]" : "text-[var(--color-ink-muted)]")}>{f.added ? shortDate(f.added) : "not dated"}</span>
 									<span className="hidden sm:block">
 										<From study={study} file={f} />
 									</span>

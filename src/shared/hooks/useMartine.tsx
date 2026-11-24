@@ -32,8 +32,8 @@ interface MartineData {
 // Bumped when the seed data changes shape (v2: the methods import), so a
 // browser that kept an older demo starts again from the new seed (v3: files
 // attached to tasks; v4: V1 scope, no ticking, validation or time; v5: one
-// document per phase; v6: skill requests; v7: phase status; v8: scope and past studies; v9, v10: outputs traced to tasks, then not: no task state in V1; v11: a document used by two phases; v12: last edition, not previous wave; v13: documents by category; v14: no renaming or removing a method phase in a study; v15, v16: assignees, on tasks then on phases).
-const KEY = "martine_v16";
+// document per phase; v6: skill requests; v7: phase status; v8: scope and past studies; v9, v10: outputs traced to tasks, then not: no task state in V1; v11: a document used by two phases; v12: last edition, not previous wave; v13: documents by category; v14: no renaming or removing a method phase in a study; v15, v16: assignees, on tasks then on phases; v17: upload dates).
+const KEY = "martine_v17";
 
 const ROLE_PERSON: Record<RoleId, string> = { analyst: "marie", consultant: "claire", method_owner: "bamby", skills_owner: "fabien" };
 
@@ -195,6 +195,7 @@ function useMartineState() {
 							type: f.type,
 							phase: f.phase,
 							category: f.category ?? "production",
+							added: new Date().toISOString().slice(0, 10),
 							url: f.url,
 							from: f.template ? { kind: "template", template: f.template, by: me } : { kind: "person", by: me },
 						},
@@ -244,7 +245,7 @@ function useMartineState() {
 							{ kind: "drive", label: "Drive folder" },
 							...(reading.family === "Trends" ? [{ kind: "talkwalker" as const, label: "Talkwalker topic" }] : []),
 						],
-						files: [{ id: "f1", name: "Client brief", type: "PDF", phase: "0", category: "brief", from: { kind: "client" } }],
+						files: [{ id: "f1", name: "Client brief", type: "PDF", phase: "0", category: "brief", added: new Date().toISOString().slice(0, 10), from: { kind: "client" } }],
 						previousWave: [],
 						state: { notes: {}, phaseDocs: {}, addedTasks: [], addedSteps: [] },
 					};
