@@ -28,7 +28,6 @@ export function PhasePage({ study, phase }: { study: Study; phase: PhaseView }) 
 	// Every tool the phase's tasks work in, once each: open them from here.
 	const tools = [...new Set(phase.tasks.flatMap((t) => t.task.tool_ids))];
 	const toConfirm = (id: string) => phase.tasks.every((t) => !t.task.tool_ids.includes(id) || t.task.tool_ids_to_confirm?.includes(id));
-	const label = "w-[78px] shrink-0 text-sm text-[var(--color-ink-muted)]";
 	const total = phase.tasks.length + phase.added.length;
 
 	return (
@@ -53,31 +52,31 @@ export function PhasePage({ study, phase }: { study: Study; phase: PhaseView }) 
 				)}
 			</header>
 
-			<section aria-label="This phase" className="flex flex-col gap-2.5 rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-surface)] px-5 py-4">
-				<div className="flex items-center gap-3">
-					<span className={label}>Status</span>
+			{/* Where the phase stands and what it works in: one quiet line under the
+			    title, so the tasks below carry the page. */}
+			<section aria-label="This phase" className="-mt-2 flex flex-wrap items-center gap-x-6 gap-y-2.5 text-sm">
+				<span className="flex items-center gap-2">
+					<span className="text-[var(--color-ink-muted)]">Status</span>
 					<PhaseStatusPicker status={phase.status} canEdit onChange={(s) => setPhaseStatus(study.id, phase.id, s)} label={`Status of phase ${phase.id}`} />
-				</div>
+				</span>
 				{!phase.addedBy && (
-					<div className="flex items-center gap-3">
-						<span className={label}>Document</span>
+					<span className="flex items-center gap-2">
+						<span className="text-[var(--color-ink-muted)]">Document</span>
 						<PhaseDocument study={study} phase={phase.id} tasks={phase.tasks.map((t) => t.task)} inline />
-					</div>
+					</span>
 				)}
 				{tools.length > 0 && (
-					<div className="flex items-start gap-3">
-						<span className={`${label} pt-1.5`}>Tools</span>
-						<span className="flex flex-wrap gap-1.5">
-							{tools.map((id) => (
-								<ToolOpenButton key={id} id={id} toConfirm={toConfirm(id)} />
-							))}
-						</span>
-					</div>
+					<span className="flex flex-wrap items-center gap-2">
+						<span className="text-[var(--color-ink-muted)]">Tools</span>
+						{tools.map((id) => (
+							<ToolOpenButton key={id} id={id} toConfirm={toConfirm(id)} />
+						))}
+					</span>
 				)}
 			</section>
 
 			{note ? (
-				<div className="rounded-[var(--radius)] bg-[var(--color-attention-bg)] px-4 py-3 text-[15px] leading-normal">
+				<div className="border-l-[3px] border-[var(--color-attention)] py-0.5 pl-3.5 text-[15px] leading-normal">
 					<div className="mb-0.5 text-[13px] font-bold text-[var(--color-attention)]">Note from {first(note.by)}</div>
 					<InlineEdit value={note.text} onSave={(t) => setNote(study.id, phase.id, t)} canEdit={isConsultant} label="the note" placeholder="Add a note for the team on this phase" multiline />
 				</div>
@@ -90,7 +89,7 @@ export function PhasePage({ study, phase }: { study: Study; phase: PhaseView }) 
 			)}
 
 			<section aria-labelledby="tasks-h" className="flex flex-col gap-2">
-				<h3 id="tasks-h" className="m-0 flex items-baseline gap-2 font-[family-name:var(--font-body)] text-[15px] font-semibold">
+				<h3 id="tasks-h" className="m-0 flex items-baseline gap-2 font-[family-name:var(--font-body)] text-lg font-semibold">
 					Tasks <span className="text-sm font-normal text-[var(--color-ink-muted)]">{total}, in order</span>
 				</h3>
 				{total === 0 ? <p className="m-0 text-sm text-[var(--color-ink-muted)]">No task yet.</p> : <TaskPipeline study={study} phase={phase} onOpen={setOpenTask} />}

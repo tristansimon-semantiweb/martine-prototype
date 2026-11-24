@@ -42,7 +42,7 @@ function Node({ e, trace, next }: { e: Executor; trace: TaskTrace | null; next: 
 				? "bg-[var(--color-elevated)] text-[var(--color-ink)]"
 				: "bg-[var(--color-surface)] text-[var(--color-ink-secondary)]";
 	return (
-		<span className={cn("relative flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-[11px] font-bold ring-2 ring-offset-2 ring-offset-[var(--color-surface)]", face, ring)}>
+		<span className={cn("relative flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-[11px] font-bold ring-2 ring-offset-2 ring-offset-[var(--color-canvas)]", face, ring)}>
 			{e.kind === "claude" ? (
 				"Cl"
 			) : e.kind === "automation" ? (
@@ -82,13 +82,13 @@ export function TaskPipeline({ study, phase, onOpen }: { study: Study; phase: Ph
 				return (
 					<li key={t.key} className="relative flex gap-4">
 						{!last && <span aria-hidden className="absolute bottom-0 left-[18px] top-11 w-px bg-[var(--color-border-active)]" />}
-						<div className="pt-3">
+						<div className="pt-4">
 							<Node e={e} trace={trace} next={next} />
 						</div>
 						<div
 							className={cn(
-								"mb-3 flex min-w-0 flex-1 flex-wrap items-start gap-x-4 gap-y-2 rounded-[var(--radius-md)] border px-4 py-3 transition-colors",
-								next ? "border-[var(--color-accent)] bg-[var(--color-accent-dim)]/40" : "border-transparent hover:border-[var(--color-border)] hover:bg-[var(--color-hover)]",
+								"mb-3 flex min-w-0 flex-1 flex-wrap items-start gap-x-4 gap-y-2 rounded-[var(--radius-lg)] border bg-[var(--color-surface)] px-5 py-4 shadow-[var(--shadow-xs)] transition-shadow hover:shadow-[var(--shadow-sm)]",
+								next ? "border-[var(--color-accent)] ring-1 ring-[var(--color-accent)]" : "border-[var(--color-border)]",
 							)}
 						>
 							<button onClick={() => onOpen(t.key)} className="min-w-[260px] flex-1 text-left">
@@ -135,10 +135,10 @@ export function TaskPipeline({ study, phase, onOpen }: { study: Study; phase: Ph
 			{phase.added.map((t, i) => (
 				<li key={t.id} className="relative flex gap-4">
 					{i < phase.added.length - 1 && <span aria-hidden className="absolute bottom-0 left-[18px] top-11 w-px bg-[var(--color-border-active)]" />}
-					<div className="pt-3">
+					<div className="pt-4">
 						<Node e={{ kind: "person" }} trace={null} next={false} />
 					</div>
-					<div className="mb-3 flex min-w-0 flex-1 items-center gap-3 rounded-[var(--radius-md)] bg-[var(--color-attention-soft)] px-4 py-3">
+					<div className="mb-3 flex min-w-0 flex-1 items-center gap-3 rounded-[var(--radius-lg)] border border-dashed border-[var(--color-border-active)] bg-[var(--color-surface)] px-5 py-3.5">
 						<span className="text-[13px] font-semibold text-[var(--color-ink-muted)]">{`${phase.id}.${phase.tasks.length + i + 1}`}</span>
 						<span className="min-w-0 flex-1 font-semibold">
 							<InlineEdit value={t.title} onSave={(v) => v && renameAddedTask(study.id, t.id, v)} canEdit={isConsultant} label="the task" placeholder="Name the task" />
