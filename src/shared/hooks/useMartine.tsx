@@ -159,6 +159,13 @@ function useMartineState() {
 			},
 			restoreAddedStep: (studyId: string, step: AddedStep) =>
 				patchState(studyId, (st) => ({ ...st, addedSteps: [...st.addedSteps, step] })),
+			// Place a step added for this study: at the start, or after a method phase.
+			placeAddedStep: (studyId: string, id: string, after: string) =>
+				patchState(studyId, (st) => {
+					const step = st.addedSteps.find((s) => s.id === id);
+					if (!step) return st;
+					return { ...st, addedSteps: [...st.addedSteps.filter((s) => s.id !== id), { ...step, after }] };
+				}),
 
 			// ── Study files ──
 			markFileChecked: (studyId: string, fileId: string) =>

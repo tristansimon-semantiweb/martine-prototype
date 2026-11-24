@@ -3,7 +3,7 @@
 // V1 leaves out ticking tasks, validating phases and tracking time; a phase
 // carries a status the team sets (to start, in progress, done, not needed).
 import { methodFile, phaseDays, phaseId, studyPhases, taskKey, type DayRange } from "./data";
-import type { AddedTask, MethodTask, PhaseStatus, Study } from "./types";
+import type { AddedStep, AddedTask, MethodTask, PhaseStatus, Study } from "./types";
 
 export interface TaskView {
 	key: string; // "2.2"
@@ -41,15 +41,20 @@ export function phaseViews(study: Study): PhaseView[] {
 		const tasks = p.tasks.map((task, i) => ({ key: taskKey(id, i), task }));
 		return { id, label: `${p.phase}. ${p.name}`, name: p.name, tasks, days: phaseDays(p), time: p.time };
 	});
-	const extra = st.addedSteps.map((s, i) => ({
+	const extra = (s: AddedStep) => ({
 		id: s.id,
-		label: `${base.length + i}. ${s.name}`,
+		label: `+ ${s.name}`,
 		name: s.name,
 		tasks: [] as TaskView[],
 		days: null as DayRange,
 		addedBy: s.by,
-	}));
-	return [...base, ...extra].map((p) => {
+	});
+	// A step added for this study sits where it was placed: at the start, after
+	// a method phase, or at the end.
+	const at = (anchor: string) => st.addedSteps.filter((s) => s.after === anchor).map(extra);
+	const placed = [...at("start"), ...base.flatMap((p) => [p, ...at(p.id)])];
+	const rest = st.addedSteps.filter((s) => !placed.some((p) => p.id === s.id)).map(extra);
+	return [...placed, ...rest].map((p) => {
 		const added = st.addedTasks.filter((t) => t.phase === p.id);
 		return { ...p, added, total: p.tasks.length + added.length, status: st.phaseStatus?.[p.id] ?? "to_start" };
 	});

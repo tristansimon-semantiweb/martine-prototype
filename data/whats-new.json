@@ -46,7 +46,7 @@
         {
           "kind": "new",
           "title": "Rename or remove a phase in a study type",
-          "text": "In a study type, the method owner renames or removes a phase in the draft; studies in progress keep the published version. In a study, the method’s phases stay as they are: only a step added for this study can be removed.",
+          "text": "In a study type, the method owner renames or removes a phase in the draft; studies in progress keep the published version. In a study, the method’s phases stay as they are. A step added for this study can be placed where it belongs (Move: at the start, or after a method phase) or removed.",
           "href": "/study-types/trend_report"
         },
         {

@@ -180,6 +180,7 @@ export interface AddedStep {
 	id: string; // "x1"
 	name: string;
 	by: string;
+	after?: string; // the method phase it comes after, "start" for first (absent: at the end)
 }
 
 // Everything that changes while the study runs. Persisted locally.

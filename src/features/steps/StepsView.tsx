@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
-import { Check } from "lucide-react";
+import { ArrowUpDown, Check } from "lucide-react";
+import { Popover } from "@/shared/components/ui/Popover";
 import { useMartine } from "@/shared/hooks/useMartine";
 import { useToast } from "@/shared/components/ui/Toast";
 import { AddRow, RemoveButton } from "@/shared/components/ui/Editing";
@@ -18,7 +19,7 @@ import { PhasePage } from "./PhasePage";
 // phase is in the URL (?phase=2) so Ask Martine's sources and Overview's
 // Continue can link to it.
 export function StepsView({ id }: { id: string }) {
-	const { studies, addStep, removeAddedStep, restoreAddedStep } = useMartine();
+	const { studies, addStep, removeAddedStep, restoreAddedStep, placeAddedStep } = useMartine();
 	const toast = useToast();
 	const pathname = usePathname();
 	const params = useSearchParams();
@@ -69,7 +70,18 @@ export function StepsView({ id }: { id: string }) {
 				</div>
 				<ol aria-label="Phases" className="m-0 flex list-none flex-col gap-0.5 p-0">
 					{views.map((p) => (
-						<PhaseItem key={p.id} phase={p} active={p.id === open.id} onOpen={() => setOpen(p.id)} onRemove={p.addedBy ? () => remove(p) : undefined} />
+						<PhaseItem
+							key={p.id}
+							phase={p}
+							active={p.id === open.id}
+							onOpen={() => setOpen(p.id)}
+							onRemove={p.addedBy ? () => remove(p) : undefined}
+							places={p.addedBy ? views.filter((v) => !v.addedBy) : undefined}
+							onPlace={(after) => {
+								placeAddedStep(study.id, p.id, after);
+								toast(after === "start" ? `“${p.name}” moved to the start` : `“${p.name}” placed after ${views.find((v) => v.id === after)?.name}`);
+							}}
+						/>
 					))}
 				</ol>
 				<AddRow label="Add a step" placeholder="Name of the step, for this study only" onAdd={(v) => addStep(study.id, v)} />
@@ -80,8 +92,23 @@ export function StepsView({ id }: { id: string }) {
 }
 
 // A phase in the column: its state and name. A step added for this study
-// shows a cross on hover (or keyboard focus) to remove it.
-function PhaseItem({ phase: p, active, onOpen, onRemove }: { phase: PhaseView; active: boolean; onOpen: () => void; onRemove?: () => void }) {
+// shows, on hover (or keyboard focus), Move (place it at the start or after a
+// method phase) and a cross to remove it.
+function PhaseItem({
+	phase: p,
+	active,
+	onOpen,
+	onRemove,
+	places,
+	onPlace,
+}: {
+	phase: PhaseView;
+	active: boolean;
+	onOpen: () => void;
+	onRemove?: () => void;
+	places?: PhaseView[]; // the method phases it can be placed after
+	onPlace: (after: string) => void;
+}) {
 	return (
 		<li className={cn("group flex items-center rounded-[var(--radius-sm)]", active ? "bg-[var(--color-accent-dim)]" : "hover:bg-[var(--color-hover)]")}>
 			<button
@@ -109,7 +136,45 @@ function PhaseItem({ phase: p, active, onOpen, onRemove }: { phase: PhaseView; a
 				<span className="min-w-0 flex-1 leading-snug">{p.name}</span>
 			</button>
 			{onRemove && (
-				<span className="flex w-0 shrink-0 overflow-hidden focus-within:w-auto group-hover:w-auto">
+				<span className="flex w-0 shrink-0 overflow-hidden focus-within:w-auto group-hover:w-auto has-[[aria-expanded=true]]:w-auto has-[[aria-expanded=true]]:overflow-visible">
+					{places && (
+						<Popover
+							align="start"
+							width={280}
+							trigger={({ open, toggle }) => (
+								<button
+									onClick={toggle}
+									aria-expanded={open}
+									aria-label={`Move the step “${p.name}”`}
+									title="Move"
+									className="flex h-7 w-7 items-center justify-center rounded-[var(--radius-sm)] text-[var(--color-ink-muted)] hover:bg-[var(--color-hover)] hover:text-[var(--color-ink)]"
+								>
+									<ArrowUpDown size={13} aria-hidden />
+								</button>
+							)}
+						>
+							{(close) => (
+								<ul role="listbox" aria-label={`Place “${p.name}”`} className="m-0 max-h-[320px] list-none overflow-y-auto p-0 text-sm">
+									<li className="px-2 pb-1 pt-0.5 text-[12px] font-semibold text-[var(--color-ink-muted)]">Place this step</li>
+									{[{ id: "start", label: "At the start" }, ...places.map((x) => ({ id: x.id, label: `After ${x.label}` }))].map((o) => (
+										<li key={o.id}>
+											<button
+												role="option"
+												aria-selected={false}
+												onClick={() => {
+													onPlace(o.id);
+													close();
+												}}
+												className="w-full rounded-[var(--radius-sm)] px-2 py-1.5 text-left hover:bg-[var(--color-hover)]"
+											>
+												{o.label}
+											</button>
+										</li>
+									))}
+								</ul>
+							)}
+						</Popover>
+					)}
 					<RemoveButton label={`Remove the step “${p.name}”`} onClick={onRemove} />
 				</span>
 			)}
