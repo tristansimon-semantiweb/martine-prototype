@@ -102,14 +102,15 @@ function From({ study, file }: { study: Study; file: StudyFile }) {
 	);
 }
 
-// The study's document space, read like a drive, in three sections: scope
-// and brief, production documents, deliverables. Each document shows its
+// The study's document space, read like a drive, in three tabs: scope and
+// brief, production documents, deliverables. Each document shows its
 // type, where it comes from and the phases that work in it (a document can
 // serve several phases, so it is not filed under one). The last edition's
 // documents sit below.
 export function FilesView({ id }: { id: string }) {
 	const { studies } = useMartine();
 	const [adding, setAdding] = useState<FileCategory | null>(null);
+	const [tab, setTab] = useState<FileCategory>("brief");
 	const [query, setQuery] = useState("");
 	const study = studies.find((s) => s.id === id);
 	if (!study) return null;
@@ -117,6 +118,8 @@ export function FilesView({ id }: { id: string }) {
 	const views = phaseViews(study);
 	const q = query.trim().toLowerCase();
 	const shown = study.files.filter((f) => !q || f.name.toLowerCase().includes(q)).reverse();
+	const current = SECTIONS.find((x) => x.id === tab)!;
+	const files = shown.filter((f) => categoryOf(f) === tab);
 	const usedIn = (fileId: string) => views.filter((p) => study.state.phaseDocs?.[p.id] === fileId);
 	// The last edition: this client's latest delivered study of the same type,
 	// whose documents can be reused here.
@@ -142,57 +145,66 @@ export function FilesView({ id }: { id: string }) {
 				{adding && <AttachForm study={study} phase="0" defaultName="" category={adding} onDone={() => setAdding(null)} />}
 			</Modal>
 
-			{SECTIONS.map((sec) => {
-				const files = shown.filter((f) => categoryOf(f) === sec.id);
-				return (
-					<section key={sec.id} aria-labelledby={`sec-${sec.id}`} className={card}>
-						<div className="flex flex-wrap items-center gap-x-3 gap-y-1 border-b border-[var(--color-border)] px-5 py-3.5">
-							<div className="flex-1">
-								<h2 id={`sec-${sec.id}`} className="m-0 font-[family-name:var(--font-body)] text-[16px] font-semibold">
-									{sec.title} <span className="text-sm font-normal text-[var(--color-ink-muted)]">{files.length}</span>
-								</h2>
-								<p className="m-0 text-[13px] text-[var(--color-ink-muted)]">{sec.hint}</p>
-							</div>
+			{/* The three kinds of documents as tabs, with their counts; one list at a time. */}
+			<section aria-label="Documents" className={card}>
+				<div className="flex flex-wrap items-center gap-2 border-b border-[var(--color-border)] px-3 py-2.5">
+					<div role="tablist" aria-label="Kind of document" className="flex flex-1 flex-wrap gap-1">
+						{SECTIONS.map((sec) => (
 							<button
-								onClick={() => setAdding(sec.id)}
-								aria-label={`Add to ${sec.title}`}
-								className="inline-flex items-center gap-1 rounded-[var(--radius)] border border-[var(--color-border-hover)] px-3 py-1.5 text-sm font-semibold hover:bg-[var(--color-hover)]"
+								key={sec.id}
+								role="tab"
+								aria-selected={tab === sec.id}
+								onClick={() => setTab(sec.id)}
+								className={cn(
+									"inline-flex items-center gap-1.5 rounded-[var(--radius-sm)] px-3 py-1.5 text-[15px] font-semibold",
+									tab === sec.id ? "bg-[var(--color-accent-dim)] text-[var(--color-accent)]" : "hover:bg-[var(--color-hover)]",
+								)}
 							>
-								<Plus size={14} aria-hidden /> Add
+								<Folder size={15} aria-hidden />
+								{sec.title}
+								<span className="font-normal text-[var(--color-ink-muted)]">{shown.filter((f) => categoryOf(f) === sec.id).length}</span>
 							</button>
-						</div>
-						{files.length === 0 ? (
-							<p className="m-0 px-5 py-4 text-sm text-[var(--color-ink-muted)]">{q ? "No document matches." : sec.empty}</p>
-						) : (
-							<ul className="m-0 list-none p-0">
-								{files.map((f) => {
-									const phases = usedIn(f.id);
-									return (
-										<li key={f.id} className={cn(cols, "border-b border-[var(--color-border)] px-5 py-3 text-sm last:border-b-0 hover:bg-[var(--color-hover)]")}>
-											<NameCell name={f.name} type={f.type} url={f.url} />
-											<span className="hidden sm:block">
-												<From study={study} file={f} />
-											</span>
-											<span className="flex flex-wrap justify-end gap-1.5 sm:justify-start">
-												{phases.map((p) => (
-													<Link
-														key={p.id}
-														href={`/studies/${study.id}/steps?phase=${p.id}`}
-														title="The phase works in this document"
-														className="rounded-[var(--radius-xl)] bg-[var(--color-accent-dim)] px-2.5 py-0.5 text-[13px] font-semibold text-[var(--color-accent)] no-underline"
-													>
-														{p.label}
-													</Link>
-												))}
-											</span>
-										</li>
-									);
-								})}
-							</ul>
-						)}
-					</section>
-				);
-			})}
+						))}
+					</div>
+					<button
+						onClick={() => setAdding(tab)}
+						aria-label={`Add to ${current.title}`}
+						className="inline-flex items-center gap-1 rounded-[var(--radius)] border border-[var(--color-border-hover)] px-3 py-1.5 text-sm font-semibold hover:bg-[var(--color-hover)]"
+					>
+						<Plus size={14} aria-hidden /> Add
+					</button>
+				</div>
+				<p className="m-0 border-b border-[var(--color-border)] px-5 py-2 text-[13px] text-[var(--color-ink-muted)]">{current.hint}</p>
+				{files.length === 0 ? (
+					<p className="m-0 px-5 py-5 text-sm text-[var(--color-ink-muted)]">{q ? "No document matches." : current.empty}</p>
+				) : (
+					<ul className="m-0 list-none p-0">
+						{files.map((f) => {
+							const phases = usedIn(f.id);
+							return (
+								<li key={f.id} className={cn(cols, "border-b border-[var(--color-border)] px-5 py-3 text-sm last:border-b-0 hover:bg-[var(--color-hover)]")}>
+									<NameCell name={f.name} type={f.type} url={f.url} />
+									<span className="hidden sm:block">
+										<From study={study} file={f} />
+									</span>
+									<span className="flex flex-wrap justify-end gap-1.5 sm:justify-start">
+										{phases.map((p) => (
+											<Link
+												key={p.id}
+												href={`/studies/${study.id}/steps?phase=${p.id}`}
+												title="The phase works in this document"
+												className="rounded-[var(--radius-xl)] bg-[var(--color-accent-dim)] px-2.5 py-0.5 text-[13px] font-semibold text-[var(--color-accent)] no-underline"
+											>
+												{p.label}
+											</Link>
+										))}
+									</span>
+								</li>
+							);
+						})}
+					</ul>
+				)}
+			</section>
 
 			{study.previousWave.length > 0 && (
 				<section aria-labelledby="prev" className={card}>
