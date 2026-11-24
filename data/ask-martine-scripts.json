@@ -31,17 +31,18 @@
       "id": "reuse-queries",
       "scope": "study",
       "study": "TR-2611-01",
-      "question": "Can I reuse the queries from the last wave?",
+      "question": "Can I reuse the queries from the last edition?",
       "keywords": [
         "reuse",
+        "last edition",
         "last wave",
         "previous wave",
         "queries"
       ],
-      "answer": "Partly. The previous wave’s queries cover France and the UK, not Japan. Several were rewritten mid-project, which forced a rerun: the method now says to lock them before measuring.",
+      "answer": "Partly. The last edition’s queries (Trend watch: scalp care) cover France and the UK, not Japan. Several were rewritten mid-project, which forced a rerun: the method now says to lock them before measuring.",
       "sources": [
         {
-          "label": "Queries, previous wave",
+          "label": "Queries, last edition",
           "href": "/studies/{study}/files"
         },
         {

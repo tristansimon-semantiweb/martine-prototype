@@ -80,7 +80,7 @@ export function knownToClaude(s: Study, views: PhaseView[]): ContextItem[] {
 		{ label: "Notes and added tasks", detail: `${notes} note${notes === 1 ? "" : "s"}, ${added} added task${added === 1 ? "" : "s"}` },
 		{
 			label: "Files",
-			detail: `${s.files.length} document${s.files.length === 1 ? "" : "s"}, ${Object.keys(s.state.phaseDocs ?? {}).length} used as a phase’s document${s.previousWave.length ? `, ${s.previousWave.length} from the previous wave` : ""}`,
+			detail: `${s.files.length} document${s.files.length === 1 ? "" : "s"}, ${Object.keys(s.state.phaseDocs ?? {}).length} used as a phase’s document${s.previousWave.length ? `, ${s.previousWave.length} from the last edition, same client` : ""}`,
 		},
 		{ label: "Data platform", detail: `study ${s.id}`, ref: `data-platform:${s.id}` },
 	];

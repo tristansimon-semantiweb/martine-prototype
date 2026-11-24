@@ -2,7 +2,7 @@
 
 import { createContext, useCallback, useContext, useMemo, useSyncExternalStore } from "react";
 import { methodEntry, registerDraftSkills, seedStudies, seedSuggestions } from "@/shared/lib/data";
-import type { AddedStep, AddedTask, BriefReading, CatalogSkill, MethodSuggestion, MethodTask, PhaseStatus, RoleId, Study, StudyState } from "@/shared/lib/types";
+import type { AddedStep, AddedTask, BriefReading, CatalogSkill, MethodSuggestion, MethodTask, FileCategory, PhaseStatus, RoleId, Study, StudyState } from "@/shared/lib/types";
 
 // The prototype's whole mutable state, persisted in localStorage like the R&R
 // prototype (useUserContent). Seeded from /data; "Reset the demo" restores it.
@@ -32,8 +32,8 @@ interface MartineData {
 // Bumped when the seed data changes shape (v2: the methods import), so a
 // browser that kept an older demo starts again from the new seed (v3: files
 // attached to tasks; v4: V1 scope, no ticking, validation or time; v5: one
-// document per phase; v6: skill requests; v7: phase status; v8: scope and past studies; v9, v10: outputs traced to tasks, then not: no task state in V1).
-const KEY = "martine_v10";
+// document per phase; v6: skill requests; v7: phase status; v8: scope and past studies; v9, v10: outputs traced to tasks, then not: no task state in V1; v11: a document used by two phases; v12: last edition, not previous wave; v13: documents by category).
+const KEY = "martine_v13";
 
 const ROLE_PERSON: Record<RoleId, string> = { analyst: "marie", consultant: "claire", method_owner: "bamby", skills_owner: "fabien" };
 
@@ -179,7 +179,7 @@ function useMartineState() {
 				})),
 			// Add a document to the study (a link, an upload, or a copy of a
 			// template). Returns its id, so a phase can use it right away.
-			attach: (studyId: string, f: { name: string; type: string; phase: string; url?: string; template?: string }): string => {
+			attach: (studyId: string, f: { name: string; type: string; phase: string; url?: string; template?: string; category?: FileCategory }): string => {
 				const id = `f${uid()}`;
 				patchStudy(studyId, (s) => ({
 					...s,
@@ -190,6 +190,7 @@ function useMartineState() {
 							name: f.name,
 							type: f.type,
 							phase: f.phase,
+							category: f.category ?? "production",
 							url: f.url,
 							from: f.template ? { kind: "template", template: f.template, by: me } : { kind: "person", by: me },
 						},
@@ -239,7 +240,7 @@ function useMartineState() {
 							{ kind: "drive", label: "Drive folder" },
 							...(reading.family === "Trends" ? [{ kind: "talkwalker" as const, label: "Talkwalker topic" }] : []),
 						],
-						files: [{ id: "f1", name: "Client brief", type: "PDF", phase: "0", from: { kind: "client" } }],
+						files: [{ id: "f1", name: "Client brief", type: "PDF", phase: "0", category: "brief", from: { kind: "client" } }],
 						previousWave: [],
 						state: { notes: {}, phaseDocs: {}, addedTasks: [], addedSteps: [] },
 					};

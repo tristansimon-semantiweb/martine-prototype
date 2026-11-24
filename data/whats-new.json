@@ -9,6 +9,12 @@
       "items": [
         {
           "kind": "changed",
+          "title": "Files: brief, production, deliverables",
+          "text": "A study’s Files now reads in three sections, in this order: Scope and brief (the client’s brief, the proposal, the scope), Production documents (what the team works in) and Deliverables (what goes to the client), each with its own Add. Every document shows its type, where it comes from (the client, someone on the team, Claude, checked or to check) and the phases that work in it: a document is not filed under a phase, the same one can serve several. Below, the documents of the last edition (this client’s previous study of the same type), with a link to it.",
+          "href": "/studies/TR-2611-01/files"
+        },
+        {
+          "kind": "changed",
           "title": "Steps opens on the phase in progress",
           "text": "Steps no longer starts with a list of phases: it opens on the phase in progress (or the first not done), with every phase in a column on the left to move between them, rename, remove or add one.",
           "href": "/studies/TR-2611-01/steps"

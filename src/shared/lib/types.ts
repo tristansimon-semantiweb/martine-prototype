@@ -150,11 +150,16 @@ export type FileOrigin =
 	| { kind: "claude"; checkedBy?: string }
 	| { kind: "template"; template: string; by: string }; // started from a catalog template
 
+// Where a document sits in Files, in this order: what frames the study (the
+// brief, the proposal, the scope), what the team works in, what goes to the client.
+export type FileCategory = "brief" | "production" | "deliverable";
+
 export interface StudyFile {
 	id: string;
 	name: string;
 	type: string;
 	phase: string;
+	category?: FileCategory; // absent: the client's documents are brief, the rest production
 	from: FileOrigin;
 	url?: string; // a link (Sheet, Doc, deck…) rather than an uploaded file
 }

@@ -8,7 +8,7 @@ import { useMartine } from "@/shared/hooks/useMartine";
 import { useToast } from "@/shared/components/ui/Toast";
 import { catalog, personById } from "@/shared/lib/data";
 import { cn } from "@/shared/lib/cn";
-import type { FileOrigin, MethodTask, Study, StudyFile } from "@/shared/lib/types";
+import type { FileCategory, FileOrigin, MethodTask, Study, StudyFile } from "@/shared/lib/types";
 
 // The study's documents, and how a phase uses one: each phase works in one
 // document of the study (a working sheet, a deck…), chosen among the study's
@@ -76,6 +76,7 @@ export function AttachForm({
 	phase,
 	defaultName,
 	template,
+	category,
 	onAttached,
 	onDone,
 }: {
@@ -83,6 +84,7 @@ export function AttachForm({
 	phase: string;
 	defaultName: string;
 	template?: string | null;
+	category?: FileCategory; // where it goes in Files (default: production)
 	onAttached?: (id: string) => void;
 	onDone: () => void;
 }) {
@@ -100,7 +102,7 @@ export function AttachForm({
 					e.preventDefault();
 					if (!name.trim() || !validUrl) return;
 					// Add first: an optional call skips its argument when there is no callback.
-					const id = attach(study.id, { name: name.trim(), type: "Link", phase, url: url.trim() });
+					const id = attach(study.id, { name: name.trim(), type: "Link", phase, url: url.trim(), category });
 					onAttached?.(id);
 					toast("Link added");
 					onDone();
@@ -121,7 +123,7 @@ export function AttachForm({
 					onChange={(e) => {
 						const f = e.target.files?.[0];
 						if (!f) return;
-						const id = attach(study.id, { name: f.name.replace(/\.[^.]+$/, ""), type: f.name.split(".").pop()?.toUpperCase() ?? "File", phase });
+						const id = attach(study.id, { name: f.name.replace(/\.[^.]+$/, ""), type: f.name.split(".").pop()?.toUpperCase() ?? "File", phase, category });
 						onAttached?.(id);
 						toast("File added");
 						onDone();
@@ -138,6 +140,7 @@ export function AttachForm({
 								type: /deck/i.test(template) ? "Slides" : "Sheet",
 								phase,
 								template,
+								category,
 							});
 							onAttached?.(id);
 							toast(`Started from the ${template}`);

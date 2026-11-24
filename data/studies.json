@@ -131,7 +131,8 @@
           "phase": "0",
           "from": {
             "kind": "client"
-          }
+          },
+          "category": "brief"
         },
         {
           "id": "f2",
@@ -141,7 +142,8 @@
           "from": {
             "kind": "person",
             "by": "claire"
-          }
+          },
+          "category": "brief"
         },
         {
           "id": "f3",
@@ -151,7 +153,8 @@
           "from": {
             "kind": "person",
             "by": "claire"
-          }
+          },
+          "category": "brief"
         },
         {
           "id": "f4",
@@ -161,7 +164,8 @@
           "from": {
             "kind": "claude",
             "checkedBy": "marie"
-          }
+          },
+          "category": "production"
         },
         {
           "id": "f5",
@@ -170,18 +174,19 @@
           "phase": "2",
           "from": {
             "kind": "claude"
-          }
+          },
+          "category": "production"
         }
       ],
       "previousWave": [
         {
           "id": "p1",
-          "name": "Queries, previous wave",
+          "name": "Queries, last edition",
           "type": "Sheet"
         },
         {
           "id": "p2",
-          "name": "Final report, previous wave",
+          "name": "Final report, last edition",
           "type": "PDF"
         }
       ],
@@ -203,7 +208,8 @@
         "addedSteps": [],
         "phaseDocs": {
           "0": "f3",
-          "2": "f4"
+          "2": "f4",
+          "3": "f4"
         },
         "phaseStatus": {
           "0": "done",
@@ -311,7 +317,8 @@
           "phase": "0",
           "from": {
             "kind": "client"
-          }
+          },
+          "category": "brief"
         }
       ],
       "previousWave": [],
