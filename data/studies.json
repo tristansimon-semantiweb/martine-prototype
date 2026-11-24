@@ -192,7 +192,8 @@
           "1": "done",
           "2": "in_progress"
         }
-      }
+      },
+      "scope": "Hair skinification in France, the UK and Japan: which skincare codes move into haircare, who carries them, and how big they are."
     },
     {
       "id": "MR-2611-04",
@@ -245,7 +246,8 @@
           "0": "done",
           "1": "in_progress"
         }
-      }
+      },
+      "scope": "The monthly report on the client’s categories: volumes, top topics and the month’s launches."
     },
     {
       "id": "BA-2611-02",
@@ -303,7 +305,8 @@
         "phaseStatus": {
           "0": "in_progress"
         }
-      }
+      },
+      "scope": "Brand perception against three premium competitors, in France and Spain, over the last 24 months."
     },
     {
       "id": "IT-2609-03",
@@ -338,6 +341,164 @@
         "addedTasks": [],
         "addedSteps": [],
         "phaseDocs": {}
+      },
+      "scope": "The second wave of the ingredients tracker: which ingredients rise or fall in the conversation, against wave 1."
+    },
+    {
+      "toClarify": [],
+      "decisions": [],
+      "links": [],
+      "files": [],
+      "previousWave": [],
+      "id": "TR-2604-02",
+      "title": "Trend watch: scalp care",
+      "short": "Scalp care",
+      "client": "Maison Arlette",
+      "family": "Trends",
+      "method": {
+        "id": "trend_report",
+        "version": "1.1"
+      },
+      "due": "2026-05-20",
+      "status": "delivered",
+      "daysSold": 24,
+      "scope": "Scalp care rituals in France and the UK: the routines, the ingredients and the creators who carry them.",
+      "summary": {
+        "headline": "Delivered on May 20.",
+        "body": "Five trends sized in France and the UK, presented to the client’s marketing team. The client asked for a Japan extension, which became the hair skinification study."
+      },
+      "team": [
+        {
+          "person": "claire",
+          "role": "consultant"
+        },
+        {
+          "person": "marie",
+          "role": "analyst"
+        }
+      ],
+      "state": {
+        "notes": {},
+        "addedTasks": [],
+        "addedSteps": [],
+        "phaseDocs": {},
+        "phaseStatus": {
+          "0": "done",
+          "1": "done",
+          "2": "done",
+          "3": "done",
+          "4": "done",
+          "5": "done",
+          "6": "done",
+          "7": "done",
+          "8": "done",
+          "9": "done"
+        }
+      }
+    },
+    {
+      "toClarify": [],
+      "decisions": [],
+      "links": [],
+      "files": [],
+      "previousWave": [],
+      "id": "TR-2602-05",
+      "title": "Trend watch: functional coffee",
+      "short": "Functional coffee",
+      "client": "Lumen Café",
+      "family": "Trends",
+      "method": {
+        "id": "trend_report",
+        "version": "1.1"
+      },
+      "due": "2026-03-12",
+      "status": "delivered",
+      "daysSold": 20,
+      "scope": "Functional coffee (mushrooms, adaptogens, protein) in France and Spain.",
+      "summary": {
+        "headline": "Delivered on March 12.",
+        "body": "Four trends sized in France and Spain. The TikTok sample was coded by two analysts to check agreement."
+      },
+      "team": [
+        {
+          "person": "claire",
+          "role": "consultant"
+        },
+        {
+          "person": "sam",
+          "role": "analyst"
+        }
+      ],
+      "state": {
+        "notes": {},
+        "addedTasks": [],
+        "addedSteps": [],
+        "phaseDocs": {},
+        "phaseStatus": {
+          "0": "done",
+          "1": "done",
+          "2": "done",
+          "3": "done",
+          "4": "done",
+          "5": "done",
+          "6": "done",
+          "7": "done",
+          "8": "done",
+          "9": "done"
+        }
+      }
+    },
+    {
+      "toClarify": [],
+      "decisions": [],
+      "links": [],
+      "files": [],
+      "previousWave": [],
+      "id": "BA-2605-03",
+      "title": "Maison Arlette brand audit",
+      "short": "Maison Arlette brand audit",
+      "client": "Maison Arlette",
+      "family": "SML",
+      "method": {
+        "id": "brand_audit",
+        "version": "1.0"
+      },
+      "due": "2026-06-30",
+      "status": "delivered",
+      "daysSold": 32,
+      "scope": "Maison Arlette’s perception against four prestige haircare brands, in France, over the last 24 months.",
+      "summary": {
+        "headline": "Delivered on June 30.",
+        "body": "Brand and competitor corpora built in the Corpus Manager, frequencies run in the ICC; perception and top topics presented to the brand team."
+      },
+      "team": [
+        {
+          "person": "claire",
+          "role": "consultant"
+        },
+        {
+          "person": "sam",
+          "role": "analyst"
+        }
+      ],
+      "state": {
+        "notes": {},
+        "addedTasks": [],
+        "addedSteps": [],
+        "phaseDocs": {},
+        "phaseStatus": {
+          "0": "done",
+          "1": "done",
+          "2": "done",
+          "3": "done",
+          "4": "done",
+          "5": "done",
+          "6": "done",
+          "7": "done",
+          "8": "done",
+          "9": "done",
+          "10": "done"
+        }
       }
     }
   ],

@@ -5,7 +5,7 @@ import Link from "next/link";
 import { TopBand } from "@/shared/components/layout/TopBand";
 import { FamilyPill } from "@/shared/components/ui/Family";
 import { useMartine } from "@/shared/hooks/useMartine";
-import { methodEntry, methodsIndex, people } from "@/shared/lib/data";
+import { methodEntry, methodsIndex, people, personById } from "@/shared/lib/data";
 import { dueDate, plural } from "@/shared/lib/format";
 import { cn } from "@/shared/lib/cn";
 import type { Family, Study } from "@/shared/lib/types";
@@ -27,6 +27,12 @@ function statusOf(s: Study): Status {
 // The home page: every study, in one plain table, so anyone can find how a
 // study of the same type (or for the same client) was run. Tags sit in their
 // own columns; filters narrow by family, type, status and person.
+// The study's lead: its consultant, who carries the client relationship.
+const lead = (s: Study) => {
+	const c = s.team.find((m) => m.role === "consultant");
+	return c ? personById(c.person)?.name : undefined;
+};
+
 export function StudiesView() {
 	const { studies } = useMartine();
 	const [family, setFamily] = useState<Family | "All">("All");
@@ -110,11 +116,12 @@ export function StudiesView() {
 				</div>
 
 				<div className="overflow-x-auto rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-surface)] shadow-[var(--shadow-xs)]">
-					<table className="w-full min-w-[760px] border-collapse text-[15px]">
+					<table className="w-full min-w-[860px] border-collapse text-[15px]">
 						<thead>
 							<tr className="border-b border-[var(--color-border)] text-left text-[13px] text-[var(--color-ink-muted)]">
 								<th className="px-5 py-3 font-semibold">Study</th>
 								<th className={th}>Client</th>
+								<th className={th}>Lead</th>
 								<th className={th}>Study type</th>
 								<th className={th}>Family</th>
 								<th className={th}>Status</th>
@@ -132,6 +139,7 @@ export function StudiesView() {
 											</Link>
 										</td>
 										<td className={td}>{s.client}</td>
+										<td className={cn(td, "whitespace-nowrap")}>{lead(s) ?? <span className="text-[var(--color-ink-muted)]">[to name]</span>}</td>
 										<td className={td}>{methodEntry(s.method.id)?.name ?? s.method.id}</td>
 										<td className={td}>
 											<FamilyPill family={s.family} />
@@ -145,7 +153,7 @@ export function StudiesView() {
 							})}
 							{rows.length === 0 && (
 								<tr>
-									<td colSpan={6} className="px-5 py-6 text-[var(--color-ink-muted)]">
+									<td colSpan={7} className="px-5 py-6 text-[var(--color-ink-muted)]">
 										No study matches these filters.
 									</td>
 								</tr>

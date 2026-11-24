@@ -35,6 +35,17 @@ export function dueDate(iso: string): string {
 	return new Date(`${iso}T12:00:00`).toLocaleDateString("en-US", { month: "long", day: "numeric" });
 }
 
+// "in 52 days", "tomorrow", "3 days ago": how far a date is from today.
+export function fromToday(iso: string): string {
+	const today = new Date();
+	today.setHours(12, 0, 0, 0);
+	const n = Math.round((new Date(`${iso}T12:00:00`).getTime() - today.getTime()) / 86_400_000);
+	if (n === 0) return "today";
+	if (n === 1) return "tomorrow";
+	if (n === -1) return "yesterday";
+	return n > 0 ? `in ${n} days` : `${-n} days ago`;
+}
+
 export function plural(n: number, one: string, many = `${one}s`): string {
 	return `${n} ${n === 1 ? one : many}`;
 }

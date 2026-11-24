@@ -30,8 +30,8 @@ interface MartineData {
 // Bumped when the seed data changes shape (v2: the methods import), so a
 // browser that kept an older demo starts again from the new seed (v3: files
 // attached to tasks; v4: V1 scope, no ticking, validation or time; v5: one
-// document per phase; v6: skill requests; v7: phase status).
-const KEY = "martine_v7";
+// document per phase; v6: skill requests; v7: phase status; v8: scope and past studies).
+const KEY = "martine_v8";
 
 const ROLE_PERSON: Record<RoleId, string> = { analyst: "marie", consultant: "claire", method_owner: "bamby", skills_owner: "fabien" };
 
@@ -205,6 +205,7 @@ function useMartineState() {
 						title: reading.title,
 						short: reading.short,
 						client: reading.client,
+						scope: reading.scope,
 						family: reading.family,
 						// A new study starts on the published version and keeps it.
 						method: { id: reading.method, version: methodEntry(reading.method)?.version ?? null },

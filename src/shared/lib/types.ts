@@ -203,6 +203,7 @@ export interface Study {
 	status: "not_started" | "in_progress" | "delivered";
 	daysSold: number | null;
 	brief?: string; // key in data/briefs-exemples.json
+	scope?: string; // what the study covers, in a sentence: the recap's second line
 	summary?: { headline: string; body: string };
 	// The method phases this study runs, when it runs only some of them (a
 	// method file can hold several report cycles). Absent: all but the optional ones.
