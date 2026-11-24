@@ -12,8 +12,8 @@ import { RequestSkill } from "@/features/skills/RequestSkill";
 import { nextVersion } from "./MethodPhaseDrawer";
 import type { MethodPhaseView } from "./methodModel";
 
-type Tab = "Skills" | "Tools" | "Documents" | "Guides";
-const TABS: Tab[] = ["Skills", "Tools", "Documents", "Guides"];
+export type Tab = "Skills" | "Tools" | "Documents";
+const TABS: Tab[] = ["Skills", "Tools", "Documents"];
 
 
 const STOP = new Set(["with", "from", "each", "that", "this", "their", "until", "then", "into", "when", "same", "above", "study", "studies", "task"]);
@@ -37,16 +37,18 @@ export function CatalogDrawer({
 	methodId,
 	phase,
 	taskKey,
+	initialTab = "Skills",
 	onClose,
 }: {
 	methodId: string;
 	phase: MethodPhaseView | null;
 	taskKey: string | null;
+	initialTab?: Tab;
 	onClose: () => void;
 }) {
 	const { drafts, addSkillToTask, editMethodTask, linkTool } = useMartine();
 	const toast = useToast();
-	const [tab, setTab] = useState<Tab>("Skills");
+	const [tab, setTab] = useState<Tab>(initialTab);
 	const [query, setQuery] = useState("");
 	const m = methodEntry(methodId);
 	const view = phase?.tasks.find((t) => t.key === taskKey);
@@ -215,8 +217,9 @@ export function CatalogDrawer({
 							})}
 					</ul>
 				)}
-				{tab === "Documents" && <ul className="m-0 list-none p-0">{catalog.documents.filter(matches).map((d) => simpleRow(d, "Documents"))}</ul>}
-				{tab === "Guides" && <ul className="m-0 list-none p-0">{catalog.guides.filter(matches).map((g) => simpleRow(g, "Guides"))}</ul>}
+				{tab === "Documents" && (
+					<ul className="m-0 list-none p-0">{[...catalog.documents, ...catalog.guides].filter(matches).map((d) => simpleRow(d, "Documents"))}</ul>
+				)}
 			</div>
 		</Sheet>
 	);

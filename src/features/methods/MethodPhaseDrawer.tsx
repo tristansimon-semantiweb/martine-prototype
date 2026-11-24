@@ -8,6 +8,8 @@ import { costedDays } from "@/shared/lib/format";
 import { Lines, PhaseSheet, TaskFields, ToolList, formatOf, taskMeta, taskRows } from "@/features/phase/PhaseParts";
 import { AddRow, CanDo, InlineEdit, RemoveButton } from "@/shared/components/ui/Editing";
 import { RequestSkill } from "@/features/skills/RequestSkill";
+import { otherToolItems } from "@/shared/lib/tools";
+import type { Tab } from "./CatalogDrawer";
 import type { MethodPhaseView, MethodTaskView } from "./methodModel";
 
 // The study's phase drawer in edit mode, for the method owner: accept or
@@ -22,7 +24,7 @@ export function MethodPhaseDrawer({
 	methodId: string;
 	phase: MethodPhaseView | null;
 	onClose: () => void;
-	onAdd: (taskKey: string) => void;
+	onAdd: (taskKey: string, tab: Tab) => void;
 }) {
 	const { drafts, role, saveDraft } = useMartine();
 	const toast = useToast();
@@ -67,7 +69,7 @@ export function nextVersion(v: string | null) {
 	return `${a}.${b + 1}`;
 }
 
-function Body({ methodId, phase, isOwner, onAdd }: { methodId: string; phase: MethodPhaseView; isOwner: boolean; onAdd: (k: string) => void }) {
+function Body({ methodId, phase, isOwner, onAdd }: { methodId: string; phase: MethodPhaseView; isOwner: boolean; onAdd: (k: string, tab: Tab) => void }) {
 	const { resolveSuggestion, addMethodTask, drafts } = useMartine();
 	const toast = useToast();
 	const m = methodEntry(methodId);
@@ -114,7 +116,7 @@ function Body({ methodId, phase, isOwner, onAdd }: { methodId: string; phase: Me
 			})}
 
 			{phase.tasks.map((t, i) => (
-				<EditableTask key={t.key} methodId={methodId} index={i} view={t} isOwner={isOwner} onAdd={() => onAdd(t.key)} />
+				<EditableTask key={t.key} methodId={methodId} index={i} view={t} isOwner={isOwner} onAdd={(tab) => onAdd(t.key, tab)} />
 			))}
 			{phase.tasks.length === 0 && <p className="m-0 text-[var(--color-ink-muted)]">No task in this phase yet.</p>}
 
@@ -138,7 +140,7 @@ const FIELDS: Record<"tasks" | "steps", { key: Field; label: string }[]> = {
 	],
 };
 
-function EditableTask({ methodId, index, view, isOwner, onAdd }: { methodId: string; index: number; view: MethodTaskView; isOwner: boolean; onAdd: () => void }) {
+function EditableTask({ methodId, index, view, isOwner, onAdd }: { methodId: string; index: number; view: MethodTaskView; isOwner: boolean; onAdd: (tab: Tab) => void }) {
 	const { editMethodTask, unlinkTool, linkTool, confirmTool, removeMethodTask, restoreMethodTask, drafts } = useMartine();
 	const toast = useToast();
 	const m = methodEntry(methodId);
@@ -189,23 +191,29 @@ function EditableTask({ methodId, index, view, isOwner, onAdd }: { methodId: str
 					: undefined
 			}
 		>
+			{isOwner && <AddChip label="Add a tool" onClick={() => onAdd("Tools")} />}
+		</ToolList>
+	);
+	// Skills and documents have their own rows, each with its own Add.
+	const skills = (
+		<span className="flex flex-wrap items-center gap-1.5">
 			{task.skills.map((s) => (
 				<span key={s} className="rounded-[var(--radius-xl)] bg-[var(--color-accent-dim)] px-2.5 py-0.5 text-[13px] font-semibold text-[var(--color-accent)]">
-					Skill: {skillById(s)?.label ?? s}
+					{skillById(s)?.label ?? s}
 					{view.addedSkills.includes(s) && <span className="font-normal"> (new)</span>}
 				</span>
 			))}
-			{isOwner && (
-				<button
-					onClick={onAdd}
-					className="inline-flex items-center gap-0.5 rounded-[var(--radius-xl)] border border-dashed border-[var(--color-border-active)] px-2.5 py-0.5 text-[13px] font-semibold"
-				>
-					<Plus size={12} aria-hidden /> Add
-				</button>
-			)}
-			{!isOwner && !task.tool_ids.length && !task.skills.length && !task.tools && <span className="text-[var(--color-ink-muted)]">None named</span>}
+			{!isOwner && !task.skills.length && <span className="text-[var(--color-ink-muted)]">No skill</span>}
+			{isOwner && <AddChip label="Add a skill" onClick={() => onAdd("Skills")} />}
 			{!(view.original?.skills.length ?? 0) && <RequestSkill methodId={methodId} version={m?.version ?? null} taskKey={view.key} task={task} />}
-		</ToolList>
+		</span>
+	);
+	const docs = otherToolItems(task).documents;
+	const documents = (
+		<span className="flex flex-wrap items-center gap-1.5">
+			{docs.length ? <span>{docs.join(", ")}</span> : !isOwner && <span className="text-[var(--color-ink-muted)]">None named</span>}
+			{isOwner && <AddChip label="Add a document" onClick={() => onAdd("Documents")} />}
+		</span>
 	);
 
 
@@ -228,7 +236,20 @@ function EditableTask({ methodId, index, view, isOwner, onAdd }: { methodId: str
 					/>
 				)}
 			</div>
-			<TaskFields rows={taskRows(task, format, { tools, ...editors })} />
+			<TaskFields rows={taskRows(task, format, { skills, tools, documents, ...editors })} />
 		</article>
+	);
+}
+
+// "+ Add a tool": opens the catalog on the matching tab.
+function AddChip({ label, onClick }: { label: string; onClick: () => void }) {
+	return (
+		<button
+			onClick={onClick}
+			aria-label={label}
+			className="inline-flex items-center gap-0.5 rounded-[var(--radius-xl)] border border-dashed border-[var(--color-border-active)] px-2.5 py-0.5 text-[13px] font-semibold hover:bg-[var(--color-hover)]"
+		>
+			<Plus size={12} aria-hidden /> Add
+		</button>
 	);
 }

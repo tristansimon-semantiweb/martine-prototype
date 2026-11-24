@@ -9,8 +9,8 @@
       "items": [
         {
           "kind": "changed",
-          "title": "Documents and guides added to a task show on it",
-          "text": "In a study type, a document or a guide added to a task from the catalog now shows on the task, under Documents or Guides, in both method formats; the catalog says where it goes and the draft it goes into. Studies see it once the draft is published.",
+          "title": "Skills, tools and documents: one row each",
+          "text": "In a study type, a task now shows Skills, Tools and Documents on separate rows, each with its own Add, which opens the catalog on the right tab. A guide is a document: guides are listed with the documents, there is no separate Guides tab or row. What is added goes into the next draft; studies see it once the draft is published.",
           "href": "/study-types/archetype?phase=0"
         },
         {

@@ -13,7 +13,7 @@ import { costed, costedDays, plannedLabel, plural } from "@/shared/lib/format";
 import { cn } from "@/shared/lib/cn";
 import { methodDays, methodPhases, removedPhases, type MethodPhaseView } from "./methodModel";
 import { MethodPhaseDrawer } from "./MethodPhaseDrawer";
-import { CatalogDrawer } from "./CatalogDrawer";
+import { CatalogDrawer, type Tab } from "./CatalogDrawer";
 
 // A method: landmarks, the pending suggestion, then its phases, laid out like
 // a study's Steps tab. ?phase= opens a phase, &add= the catalog for a task.
@@ -48,10 +48,13 @@ export function MethodDetailView({ id }: { id: string }) {
 	const openId = params.get("phase");
 	const addKey = params.get("add");
 	const open = phases.find((p) => p.id === openId) ?? null;
-	const go = (phase: string | null, add?: string | null) => {
+	const tabParam = params.get("tab");
+	const tab: Tab = tabParam === "Tools" || tabParam === "Documents" ? tabParam : "Skills";
+	const go = (phase: string | null, add?: string | null, onTab?: Tab) => {
 		const q = new URLSearchParams();
 		if (phase) q.set("phase", phase);
 		if (phase && add) q.set("add", add);
+		if (phase && add && onTab) q.set("tab", onTab);
 		// Native History API: no server round trip (see StepsView).
 		window.history.replaceState(null, "", q.size ? `${pathname}?${q}` : pathname);
 	};
@@ -203,8 +206,8 @@ export function MethodDetailView({ id }: { id: string }) {
 				)}
 			</div>
 
-			<MethodPhaseDrawer methodId={id} phase={open} onClose={() => go(null)} onAdd={(key) => go(openId, key)} />
-			<CatalogDrawer methodId={id} phase={open} taskKey={open ? addKey : null} onClose={() => go(openId)} />
+			<MethodPhaseDrawer methodId={id} phase={open} onClose={() => go(null)} onAdd={(key, onTab) => go(openId, key, onTab)} />
+			<CatalogDrawer key={`${addKey}-${tab}`} methodId={id} phase={open} taskKey={open ? addKey : null} initialTab={tab} onClose={() => go(openId)} />
 		</>
 	);
 }

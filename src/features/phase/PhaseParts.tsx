@@ -189,18 +189,17 @@ const toolLabels = (task: MethodTask) => task.tool_ids.map((id) => toolById(id)?
 
 // What the Tools column names besides tools: documents, then sources and
 // channels. Absent when there is none.
-function otherRows(task: MethodTask) {
-	const { documents, guides, other } = otherToolItems(task);
+function otherRows(task: MethodTask, slots: Partial<Record<Slot, React.ReactNode>> = {}) {
+	const { documents, other } = otherToolItems(task);
 	return [
-		...(documents.length ? [{ label: "Documents", value: documents.join(", ") }] : []),
-		...(guides.length ? [{ label: "Guides", value: guides.join(", ") }] : []),
+		...("documents" in slots ? [{ label: "Documents", value: slots.documents }] : documents.length ? [{ label: "Documents", value: documents.join(", ") }] : []),
 		...(other.length ? [{ label: "Also used", value: other.join(", ") }] : []),
 	];
 }
 
 // The rows a task shows, by format. Each row's value can be replaced (an
 // editor, the tools with their skills) through `slots`.
-type Slot = "how" | "tools" | "check" | "output" | "what" | "watch_out";
+type Slot = "how" | "skills" | "tools" | "documents" | "check" | "output" | "what" | "watch_out";
 export function taskRows(task: MethodTask, format: MethodFormat, slots: Partial<Record<Slot, React.ReactNode>> = {}) {
 	const empty = <span className="text-[var(--color-ink-muted)]">[not in the method file]</span>;
 	const v = (k: Slot, node: React.ReactNode, has: boolean) => (k in slots ? slots[k] : has ? node : empty);
@@ -210,15 +209,17 @@ export function taskRows(task: MethodTask, format: MethodFormat, slots: Partial<
 			{ label: "How", value: v("how", <Lines text={task.how} />, Boolean(task.how)) },
 			{ label: "Watch out", value: v("watch_out", <Lines text={task.watch_out ?? ""} tone="attention" />, Boolean(task.watch_out)) },
 			// Tools are read from the step's text (the SML file has no Tools column).
+			...("skills" in slots ? [{ label: "Skills", value: slots.skills }] : []),
 			...("tools" in slots ? [{ label: "Tools", value: slots.tools }] : task.tool_ids.length ? [{ label: "Tools", value: toolLabels(task) }] : []),
-			...otherRows(task),
+			...otherRows(task, slots),
 			{ label: "Deliverable", value: v("output", task.output, Boolean(task.output)) },
 		].filter((r) => !(r.label === "Watch out" && !task.watch_out && !("watch_out" in slots)));
 	}
 	return [
 		{ label: "How to do it", value: v("how", task.how, Boolean(task.how)) },
+		...("skills" in slots ? [{ label: "Skills", value: slots.skills }] : []),
 		{ label: "Tools", value: v("tools", toolLabels(task), task.tool_ids.length > 0) },
-		...otherRows(task),
+		...otherRows(task, slots),
 		{ label: "Check before moving on", value: v("check", task.check, Boolean(task.check)) },
 		{ label: "Output", value: v("output", task.output, Boolean(task.output)) },
 	];
