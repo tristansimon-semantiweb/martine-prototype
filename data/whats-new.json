@@ -9,6 +9,12 @@
       "items": [
         {
           "kind": "changed",
+          "title": "Clicks answer at once",
+          "text": "Studies, study types, tools and skills are now built ahead instead of on each click, and pages no longer fade in: moving between tabs and pages takes about 70 ms instead of 300 ms to a second.",
+          "href": "/"
+        },
+        {
+          "kind": "changed",
           "title": "Study types read like studies",
           "text": "A study type now has two tabs, as a study has its own: Overview (the question it answers, its owner, version, studies using it, planned days, the suggestions to review, its phases, terms and notes) and Method. Method is laid out like Steps: the phases in a column on the left (the method owner renames, removes or adds one), the open phase on the page with its properties, Save to draft and its suggestions, its tasks as rows; a task opens beside it, in edit mode for the method owner, with the catalog over it to add a skill, a tool or a document.",
           "href": "/study-types/trend_report/method?phase=2"

@@ -44,7 +44,7 @@ function ShellBody({ children }: { children: React.ReactNode }) {
 		<div className="flex h-screen overflow-hidden bg-[var(--color-canvas)]">
 			<Sidebar />
 			<main className="min-w-0 flex-1 overflow-y-auto [scrollbar-gutter:stable]">
-				<div key={pathname} className="animate-page-in min-h-full pb-32">
+				<div key={pathname} className="min-h-full pb-32">
 					{children}
 				</div>
 			</main>
