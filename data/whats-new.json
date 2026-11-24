@@ -16,7 +16,7 @@
         {
           "kind": "changed",
           "title": "Open the tools from the phase and the task",
-          "text": "A task now reads top to bottom: what to do in a line, then where to do it (Open in Claude with its skill, Open Talkwalker, Open ICC…), then its deliverable. The top of a phase gathers its tools, and the phase list names them under each phase. Each phase in the list shows its skills and its tools.",
+          "text": "A task now reads top to bottom: what to do in a line, then where to do it (Open in Claude with its skill, Open Talkwalker, Open ICC…), then its deliverable. The top of a phase gathers its tools. The phase list counts each phase’s tools and skills (hover for their names).",
           "href": "/studies/TR-2611-01/steps?phase=2"
         },
         {

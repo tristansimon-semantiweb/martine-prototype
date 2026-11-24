@@ -104,7 +104,7 @@ function PhaseRow({
 		<li className="flex items-center border-b border-[var(--color-border)] last:border-b-0">
 			<button
 				onClick={onOpen}
-				className="grid min-w-0 flex-1 grid-cols-[30px_minmax(0,1fr)_auto_16px] items-center gap-3 px-5 py-3.5 text-left hover:bg-[var(--color-hover)] sm:grid-cols-[30px_minmax(0,1fr)_90px_120px_16px]"
+				className="grid min-w-0 flex-1 grid-cols-[30px_minmax(0,1fr)_auto_16px] items-center gap-3 px-5 py-3.5 text-left hover:bg-[var(--color-hover)] sm:grid-cols-[30px_minmax(0,1fr)_64px_64px_64px_110px_16px]"
 			>
 				<span
 					aria-hidden
@@ -124,18 +124,14 @@ function PhaseRow({
 						{p.label}
 						{p.addedBy && <span className="ml-2 text-[13px] font-normal text-[var(--color-attention)]">added for this study</span>}
 					</span>
-					{(skills.length > 0 || tools.length > 0) && (
-						<span className="mt-0.5 flex flex-wrap items-center gap-x-1.5 gap-y-0.5 text-[13px] text-[var(--color-ink-muted)]">
-							{skills.map((s) => (
-								<span key={s} className="rounded-[var(--radius-xs)] bg-[var(--color-accent-dim)] px-1.5 font-semibold text-[var(--color-accent)]">
-									{s}
-								</span>
-							))}
-							{tools.length > 0 && <span>{tools.join(", ")}</span>}
-						</span>
-					)}
 				</span>
 				<span className="hidden text-sm text-[var(--color-ink-muted)] sm:block">{plural(p.total, "task")}</span>
+				<span title={tools.join(", ")} className="hidden text-sm text-[var(--color-ink-muted)] sm:block">
+					{tools.length ? plural(tools.length, "tool") : "no tool"}
+				</span>
+				<span title={skills.join(", ")} className={cn("hidden text-sm sm:block", skills.length ? "font-semibold text-[var(--color-accent)]" : "text-[var(--color-ink-muted)]")}>
+					{skills.length ? plural(skills.length, "skill") : "no skill"}
+				</span>
 				<span className="text-sm text-[var(--color-ink-muted)]">{p.addedBy ? "" : costed(p.days)}</span>
 				<ChevronRight size={16} aria-hidden className="text-[var(--color-ink-muted)]" />
 			</button>
