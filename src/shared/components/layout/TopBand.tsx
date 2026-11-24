@@ -25,7 +25,7 @@ const ROLES: { role: RoleId; person: string }[] = [
 
 // The white 88 px band at the top of every page, lined up with the sidebar's
 // logo band (same height token as R&R's banner). The page puts its title in
-// it; What's new, Ask Martine and the account menu sit on the right.
+// it; What's new and the account menu sit on the right.
 export function TopBand({ children }: { children?: React.ReactNode }) {
 	const { setMobileOpen } = useSidebar();
 	return (

@@ -7,12 +7,9 @@ import { useAskMartine } from "@/features/ask-martine/AskMartineProvider";
 import { useHasNews } from "@/features/whats-new/seen";
 import { cn } from "@/shared/lib/cn";
 
-// What's new and Ask Martine, in the top band next to the account menu, on
-// every page. Ask Martine opens the drawer (⌘K does too); it is hidden on the
-// full Ask Martine page.
+// What's new, in the top band next to the account menu, on every page.
 export function HeaderActions() {
 	const pathname = usePathname();
-	const { openChat, scope } = useAskMartine();
 	const hasNews = useHasNews();
 	const onNews = pathname === "/whats-new";
 
@@ -30,17 +27,31 @@ export function HeaderActions() {
 				<span className="hidden sm:inline">What’s new</span>
 				{hasNews && !onNews && <span aria-label="new" className="h-2 w-2 rounded-full bg-[var(--color-accent)]" />}
 			</Link>
-			{!pathname.startsWith("/ask") && (
-				<button
-					onClick={openChat}
-					title={scope ? "Ask Martine about this study" : "Ask Martine about your studies"}
-					className="inline-flex h-9 items-center gap-1.5 rounded-[var(--radius)] border border-[var(--color-border-hover)] px-3 text-sm font-semibold hover:bg-[var(--color-hover)]"
-				>
-					<MessageCircle size={15} aria-hidden className="text-[var(--color-accent)]" />
-					<span className="hidden sm:inline">Ask Martine</span>
-					<kbd className="hidden rounded-[var(--radius-sm)] border border-[var(--color-border)] px-1.5 py-px text-[10px] font-medium text-[var(--color-ink-muted)] md:inline">⌘K</kbd>
-				</button>
-			)}
 		</div>
+	);
+}
+
+// Ported from R&R's GlobalAiBar: one launcher, bottom right, that opens the
+// drawer directly. Hidden on the full Ask Martine page and while the drawer is
+// open; sits under the phase and catalog drawers (z 40 < 50).
+export function AskMartineButton() {
+	const pathname = usePathname();
+	const { openChat, open, scope } = useAskMartine();
+
+	if (pathname.startsWith("/ask")) return null;
+	if (open) return null;
+
+	return (
+		<button
+			onClick={openChat}
+			className="fixed bottom-6 right-6 z-40 flex items-center gap-2 rounded-full bg-[var(--color-accent)] px-5 py-3.5 text-sm font-semibold text-white shadow-[var(--shadow-lg)] transition-opacity hover:opacity-90"
+			title={scope ? "Ask Martine about this study" : "Ask Martine about your studies"}
+		>
+			<MessageCircle size={17} aria-hidden />
+			<span className="hidden sm:inline">Ask Martine</span>
+			<kbd className="hidden items-center rounded-[var(--radius-sm)] border border-white/30 bg-white/15 px-1.5 py-0.5 text-[10px] font-medium text-white/90 md:flex">
+				⌘K
+			</kbd>
+		</button>
 	);
 }
