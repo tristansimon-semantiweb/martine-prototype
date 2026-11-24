@@ -243,9 +243,10 @@
 					"what": "Make non-English data readable and reliable for analysis.",
 					"how": "If a native speaker is available: they translate and check the data (slang, irony, cultural references).\nOtherwise: translate via the Files tool (see Corpus Manager methodology), then have a native speaker check the verbatims selected for the deck.",
 					"watch_out": "",
-					"tools": "Corpus Manager",
+					"tools": "Corpus Manager, Files tool",
 					"tool_ids": [
-						"corpus_manager"
+						"corpus_manager",
+						"files_tool"
 					],
 					"check": "",
 					"output": "",
@@ -326,14 +327,19 @@
 					"how": "Run frequencies per platform and per year.",
 					"watch_out": "",
 					"tools": "",
-					"tool_ids": [],
+					"tool_ids": [
+						"icc"
+					],
 					"check": "",
 					"output": "Frequency tables",
 					"time": null,
 					"days_min": null,
 					"days_max": null,
 					"owner": "Analyst",
-					"skills": []
+					"skills": [],
+					"tool_ids_to_confirm": [
+						"icc"
+					]
 				},
 				{
 					"task": "Analyze the audience",

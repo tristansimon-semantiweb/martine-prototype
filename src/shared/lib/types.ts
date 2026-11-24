@@ -21,6 +21,9 @@ export interface MethodTask {
 	owner: string;
 	skills: string[];
 	tool_ids: string[]; // tools of the repository this task uses
+	// Links read in the task's text but not named in its Tools column: proposed,
+	// for the method owner to confirm or remove (a subset of tool_ids).
+	tool_ids_to_confirm?: string[];
 	what?: string; // steps format
 	watch_out?: string; // steps format, one point per line
 	time?: string | null; // steps format, as written ("2 to 4 days", "Ongoing")
@@ -122,6 +125,8 @@ export interface CatalogTool {
 	claude_connector: boolean | null; // null: not checked yet
 	aliases?: string[]; // patterns that find the tool in the method files' text
 	url: string | null; // where to open it (null: internal, not in the prototype)
+	part_of?: string; // the platform it is a module of (the ICC)
+	note?: string; // what it is, when the method files say more than its name
 }
 
 export interface Catalog {

@@ -139,7 +139,7 @@ const FIELDS: Record<"tasks" | "steps", { key: Field; label: string }[]> = {
 };
 
 function EditableTask({ methodId, index, view, isOwner, onAdd }: { methodId: string; index: number; view: MethodTaskView; isOwner: boolean; onAdd: () => void }) {
-	const { editMethodTask, unlinkTool, linkTool, removeMethodTask, restoreMethodTask, drafts } = useMartine();
+	const { editMethodTask, unlinkTool, linkTool, confirmTool, removeMethodTask, restoreMethodTask, drafts } = useMartine();
 	const toast = useToast();
 	const m = methodEntry(methodId);
 	const version = m?.version ?? null;
@@ -171,6 +171,15 @@ function EditableTask({ methodId, index, view, isOwner, onAdd }: { methodId: str
 		<ToolList
 			task={task}
 			newIds={view.addedTools}
+			toConfirm={view.toConfirm}
+			onConfirm={
+				isOwner
+					? (t) => {
+							confirmTool(methodId, version, view.key, t);
+							toast("Link confirmed in the draft");
+						}
+					: undefined
+			}
 			onUnlink={
 				isOwner
 					? (t) => {

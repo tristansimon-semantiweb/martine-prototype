@@ -9,6 +9,12 @@
       "items": [
         {
           "kind": "changed",
+          "title": "The ICC and its modules",
+          "text": "The Corpus Manager and the Files tool are modules of the ICC: the ICC’s page lists the steps that work in it directly and through them. 17 steps that run frequencies, use the concordancer or work on the corpus facets now show the tool their text describes, marked “to confirm”: the method files describe the work without naming the tool. The method owner confirms each link in one click, or removes it.",
+          "href": "/tools/icc"
+        },
+        {
+          "kind": "changed",
           "title": "Edit where you read",
           "text": "No more forms opening inside a panel. What you can change shows a pencil on hover: click the text, type, Enter saves, Escape cancels. To add, a dashed “+” row turns into a field in place. To remove, a small cross, with Undo for a few seconds. Choosing (a phase document, a teammate) opens a short list next to the button. Each panel says at the top what your role can change and what stays locked.",
           "href": "/studies/TR-2611-01/steps?phase=2"

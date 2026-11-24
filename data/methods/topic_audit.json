@@ -285,10 +285,11 @@
 					"what": "Load the data into Corpus Manager.",
 					"how": "Load extracts, crawls and reviews into Corpus Manager.\nPrefer one single corpus mixing reviews and social listening, to better understand what drives expectations, positivity and negativity. This implies clean facets.\nLoading and deduplication (see Corpus Manager methodology): first run each file through the Files tool on ICC (it handles deduplication, translation and format), then add all sources to your Corpus Manager project, and only then create the corpus with its facets and SOB.",
 					"watch_out": "Brand Audit 4.1 recommends a separate reviews corpus: rule to harmonise.; A single corpus with SML and R&R macro-source categories makes it faster to identify top products by SML facet and gives a more exhaustive sentiment analysis, but it requires clean facets.",
-					"tools": "ICC, Corpus Manager",
+					"tools": "ICC, Corpus Manager, Files tool",
 					"tool_ids": [
 						"icc",
-						"corpus_manager"
+						"corpus_manager",
+						"files_tool"
 					],
 					"check": "",
 					"output": "Deduplicated corpus",
@@ -316,14 +317,19 @@
 					"how": "Start from the standard facet list (see Generic Facets sheet) and keep only what fits the topic.\nBasic indicators, normally already there: time frame (L12M vs P12M and months), platforms, countries, language.\nAdd: sentiments, emotions, targets, gender, ages / audiences (generations, life stages, gender cues).\nCategory & sub-category (to be validated by the client).\nBrands and brand segments, with brand names and variants (to be validated by the client).\nExpected benefits / results, positive attributes, negative attributes, drivers (reasons behind sentiment and mentions), if the category is already followed by Semantiweb in R&R.\nDepending on the topic, add from Generic Facets: concerns, skin / hair types, body zones, ingredients, textures, scents, formats, routines & gestures, occasions, seasons, weather, price, packaging.\nOptional modules if the brief needs them: territories, purchase destinations, personas (one facet per persona), brand values.\nDone when: the corpus carries the basic facets and the list of facets used is logged in the working sheet.",
 					"watch_out": "If the category is unknown and the client gave no information, brands, brand segments, categories / sub-categories, expected benefits and attributes are created later, after the frequency analysis (5.3).",
 					"tools": "",
-					"tool_ids": [],
+					"tool_ids": [
+						"corpus_manager"
+					],
 					"check": "",
 					"output": "Corpus with basic facets",
 					"time": null,
 					"days_min": null,
 					"days_max": null,
 					"owner": "Analyst",
-					"skills": []
+					"skills": [],
+					"tool_ids_to_confirm": [
+						"corpus_manager"
+					]
 				},
 				{
 					"task": "Complete with AI tagging",
@@ -379,7 +385,8 @@
 					"watch_out": "Claude can propose 3 to 4 clusterings, on a deeper analysis than 200 words; the analyst validates (ODP-07).",
 					"tools": "Claude",
 					"tool_ids": [
-						"claude"
+						"claude",
+						"icc"
 					],
 					"check": "",
 					"output": "Topic categories in the working sheet",
@@ -387,7 +394,10 @@
 					"days_min": null,
 					"days_max": null,
 					"owner": "Analyst",
-					"skills": []
+					"skills": [],
+					"tool_ids_to_confirm": [
+						"icc"
+					]
 				},
 				{
 					"task": "Label with AI and complete the facets",
@@ -395,14 +405,19 @@
 					"how": "Ask AI to label: all brands, products and brand segments (and check whether the facets are exhaustive); formats, ingredients, benefits (if relevant); target (gender, age).\nCheck against the identified keywords whether some existing facets must be enriched.\nAsk AI to identify patterns in facet correlations (e.g. one sub-category and positivity).",
 					"watch_out": "Gender / age labels from AI are estimates: state it in the method slide. Correlations on small segments can be spurious: tag them LOW SIGNAL.",
 					"tools": "",
-					"tool_ids": [],
+					"tool_ids": [
+						"corpus_manager"
+					],
 					"check": "",
 					"output": "Completed facets, correlation leads",
 					"time": null,
 					"days_min": null,
 					"days_max": null,
 					"owner": "Analyst",
-					"skills": []
+					"skills": [],
+					"tool_ids_to_confirm": [
+						"corpus_manager"
+					]
 				},
 				{
 					"task": "Generate the classic tops by country",
@@ -513,7 +528,8 @@
 					"watch_out": "",
 					"tools": "Claude",
 					"tool_ids": [
-						"claude"
+						"claude",
+						"corpus_manager"
 					],
 					"check": "",
 					"output": "Dedicated facets",
@@ -521,7 +537,10 @@
 					"days_min": null,
 					"days_max": null,
 					"owner": "Analyst",
-					"skills": []
+					"skills": [],
+					"tool_ids_to_confirm": [
+						"corpus_manager"
+					]
 				},
 				{
 					"task": "Produce the ID cards (innovation)",

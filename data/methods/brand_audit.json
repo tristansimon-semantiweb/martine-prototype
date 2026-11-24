@@ -371,14 +371,19 @@
 					"how": "In your corpus, select the facets (country, timeline, fashion, etc.).\nRun the frequencies in \"Lexical & Hashtags\".",
 					"watch_out": "",
 					"tools": "",
-					"tool_ids": [],
+					"tool_ids": [
+						"icc"
+					],
 					"check": "",
 					"output": "Frequency exports L12M and P12M",
 					"time": null,
 					"days_min": null,
 					"days_max": null,
 					"owner": "Analyst",
-					"skills": []
+					"skills": [],
+					"tool_ids_to_confirm": [
+						"icc"
+					]
 				}
 			]
 		},
@@ -441,14 +446,19 @@
 					"how": "From the corpus, pull the top frequencies on L24M and L12M.\nIdentify the top brands and those rising fastest.",
 					"watch_out": "Rule: if Semantiweb ran this audit last year, report evolutions against last year's audit, not against the current corpus.",
 					"tools": "",
-					"tool_ids": [],
+					"tool_ids": [
+						"icc"
+					],
 					"check": "",
 					"output": "Brand association slide",
 					"time": null,
 					"days_min": null,
 					"days_max": null,
 					"owner": "Analyst",
-					"skills": []
+					"skills": [],
+					"tool_ids_to_confirm": [
+						"icc"
+					]
 				},
 				{
 					"task": "Build the sentiment slides",
@@ -456,14 +466,19 @@
 					"how": "Give the share of negative, neutral and positive sentiment.\nAdd the consolidated sentiment benchmark for each competitor.\nIdentify the drivers of positive and negative sentiment with visuals and top words (pull frequencies and read the verbatims).",
 					"watch_out": "Rule: if Semantiweb ran this audit last year, report evolutions against last year's audit, not against the current corpus.",
 					"tools": "",
-					"tool_ids": [],
+					"tool_ids": [
+						"icc"
+					],
 					"check": "",
 					"output": "Sentiment slides",
 					"time": null,
 					"days_min": null,
 					"days_max": null,
 					"owner": "Analyst",
-					"skills": []
+					"skills": [],
+					"tool_ids_to_confirm": [
+						"icc"
+					]
 				}
 			]
 		},
@@ -481,14 +496,19 @@
 					"how": "a/ Corpus frequencies (megabrand, beauty, fashion): pull frequencies on L24M and on L12M vs P12M (L12M over-index) to identify top words and top rising words.; b/ TikTok desk research (megabrand, beauty, fashion): mainly edit posts (aesthetics, fanbase). Identify key visuals and recurring keywords in comments. Collect about 30 key verbatims (usually fan comments).; c/ Values in the corpus (megabrand, beauty, fashion): look at the L12M vs P12M evolution of key values and log them in the working sheet. Which values matter most in brand equity? Which grow fastest? Where do fashion and beauty connect or disconnect (perceptions, aesthetics, brand universes)?",
 					"watch_out": "",
 					"tools": "",
-					"tool_ids": [],
+					"tool_ids": [
+						"icc"
+					],
 					"check": "",
 					"output": "Image perception inputs in the working sheet",
 					"time": null,
 					"days_min": null,
 					"days_max": null,
 					"owner": "Analyst",
-					"skills": []
+					"skills": [],
+					"tool_ids_to_confirm": [
+						"icc"
+					]
 				},
 				{
 					"task": "Validate with the project lead",
@@ -551,14 +571,19 @@
 					"how": "Use the corpus facets and read the verbatims.\nCompare with last year's brand audit.",
 					"watch_out": "",
 					"tools": "",
-					"tool_ids": [],
+					"tool_ids": [
+						"corpus_manager"
+					],
 					"check": "",
 					"output": "Top topics slides",
 					"time": null,
 					"days_min": null,
 					"days_max": null,
 					"owner": "Analyst",
-					"skills": []
+					"skills": [],
+					"tool_ids_to_confirm": [
+						"corpus_manager"
+					]
 				},
 				{
 					"task": "Fashion: deep dive on emblematic features",
@@ -566,14 +591,19 @@
 					"how": "Use the corpus facets and desk research.\nCompare with last year's brand audit.",
 					"watch_out": "",
 					"tools": "",
-					"tool_ids": [],
+					"tool_ids": [
+						"corpus_manager"
+					],
 					"check": "",
 					"output": "Emblematic features slides",
 					"time": null,
 					"days_min": null,
 					"days_max": null,
 					"owner": "Analyst",
-					"skills": []
+					"skills": [],
+					"tool_ids_to_confirm": [
+						"corpus_manager"
+					]
 				},
 				{
 					"task": "Fashion: deep dive on the creative director",

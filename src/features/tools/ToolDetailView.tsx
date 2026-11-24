@@ -5,7 +5,7 @@ import Link from "next/link";
 import { TopBand } from "@/shared/components/layout/TopBand";
 import { useToast } from "@/shared/components/ui/Toast";
 import { useMartine } from "@/shared/hooks/useMartine";
-import { methodEntry, methodFile, methodsIndex } from "@/shared/lib/data";
+import { catalog, methodEntry, methodFile, methodsIndex } from "@/shared/lib/data";
 import { plural } from "@/shared/lib/format";
 import { toolById } from "@/shared/lib/tools";
 import { methodPhases } from "@/features/methods/methodModel";
@@ -36,6 +36,11 @@ export function ToolDetailView({ id }: { id: string }) {
 
 	const isOwner = role === "method_owner";
 	const uses = toolUsage(id, drafts);
+	// A platform (the ICC) and its modules: the steps that work in a module
+	// work in the platform too.
+	const parent = tool.part_of ? toolById(tool.part_of) : undefined;
+	const modules = catalog.tools.filter((t) => t.part_of === id);
+	const viaModules = modules.map((mod) => ({ mod, uses: toolUsage(mod.id, drafts) })).filter((x) => x.uses.length);
 	const byType = [...new Set(uses.map((u) => u.methodId))].map((m) => ({ m, rows: uses.filter((u) => u.methodId === m) }));
 	const typesWithFile = methodsIndex.filter((m) => methodFile(m.id));
 	const phases = type ? methodPhases(type, drafts[type], suggestions) : [];
@@ -55,11 +60,13 @@ export function ToolDetailView({ id }: { id: string }) {
 			</TopBand>
 
 			<div className="mx-auto flex max-w-[820px] flex-col gap-[18px] px-6 py-8">
-				<dl className="m-0 grid grid-cols-2 gap-3.5 sm:grid-cols-3">
+				<dl className="m-0 grid grid-cols-2 gap-3.5 sm:grid-cols-4">
 					{[
 						["Kind", tool.kind],
 						["Claude connector", tool.claude_connector === null ? "[to check]" : tool.claude_connector ? "Yes: Claude can read it" : "No"],
 						["Used in", uses.length ? `${plural(uses.length, "step")}, ${plural(byType.length, "study type")}` : "No step yet"],
+						...(parent ? [["Part of", parent.label]] : []),
+						...(viaModules.length ? [["Through its modules", plural(viaModules.reduce((n, x) => n + x.uses.length, 0), "step")]] : []),
 					].map(([k, v]) => (
 						<div key={k} className="rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-surface)] px-4 py-3">
 							<dt className="text-[13px] text-[var(--color-ink-muted)]">{k}</dt>
@@ -67,6 +74,32 @@ export function ToolDetailView({ id }: { id: string }) {
 						</div>
 					))}
 				</dl>
+
+				{(tool.note || parent || modules.length > 0) && (
+					<section aria-label="What it is" className="flex flex-col gap-2 rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-surface)] px-5 py-4 text-[15px]">
+						{tool.note && <p className="m-0 text-[var(--color-ink-secondary)]">{tool.note}</p>}
+						{parent && (
+							<p className="m-0 text-[var(--color-ink-secondary)]">
+								A module of the <Link href={`/tools/${parent.id}`}>{parent.label}</Link>: the steps below work in the {parent.label} too.
+							</p>
+						)}
+						{modules.length > 0 && (
+							<p className="m-0 flex flex-wrap items-center gap-1.5">
+								<span className="text-[var(--color-ink-muted)]">Modules:</span>
+								{modules.map((mod) => (
+									<Link key={mod.id} href={`/tools/${mod.id}`} className="rounded-[var(--radius-xl)] bg-[var(--color-accent-dim)] px-2.5 py-0.5 text-[13px] font-semibold text-[var(--color-accent)] no-underline">
+										{mod.label}
+									</Link>
+								))}
+							</p>
+						)}
+						{[...uses, ...viaModules.flatMap((x) => x.uses)].some((u) => u.toConfirm) && (
+							<p className="m-0 text-sm text-[var(--color-attention)]">
+								Links marked “to confirm” were read in the step’s text, not in its Tools column: the study type’s method owner confirms or removes them.
+							</p>
+						)}
+					</section>
+				)}
 
 				{byType.map(({ m, rows }) => (
 					<section key={m} aria-labelledby={`t-${m}`} className="flex flex-col gap-2">
@@ -83,6 +116,7 @@ export function ToolDetailView({ id }: { id: string }) {
 										<span className="block font-semibold">{u.taskName}</span>
 									</Link>
 									{u.inDraft && <span className="text-[13px] text-[var(--color-attention)]">linked in draft</span>}
+									{u.toConfirm && <span className="text-[13px] text-[var(--color-attention)]">to confirm</span>}
 									{isOwner && (
 										<button
 											onClick={() => {
@@ -94,6 +128,30 @@ export function ToolDetailView({ id }: { id: string }) {
 											Unlink
 										</button>
 									)}
+								</li>
+							))}
+						</ul>
+					</section>
+				))}
+
+				{viaModules.map(({ mod, uses: rows }) => (
+					<section key={mod.id} aria-labelledby={`via-${mod.id}`} className="flex flex-col gap-2">
+						<h2 id={`via-${mod.id}`} className="m-0 font-[family-name:var(--font-body)] text-lg font-semibold">
+							Through the <Link href={`/tools/${mod.id}`}>{mod.label}</Link>
+							<span className="ml-2 text-sm font-normal text-[var(--color-ink-muted)]">
+								{plural(rows.length, "step")}, {plural(new Set(rows.map((u) => u.methodId)).size, "study type")}
+							</span>
+						</h2>
+						<ul className="m-0 list-none overflow-hidden rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-surface)] p-0">
+							{rows.map((u) => (
+								<li key={u.methodId + u.taskKey} className="flex flex-wrap items-center gap-3 border-b border-[var(--color-border)] px-5 py-2.5 last:border-b-0">
+									<Link href={`/study-types/${u.methodId}?phase=${u.phaseId}`} className="flex-1 text-[var(--color-ink)] no-underline hover:text-[var(--color-accent)]">
+										<span className="text-sm text-[var(--color-ink-muted)]">
+											{u.methodName}, {u.phaseLabel}
+										</span>
+										<span className="block font-semibold">{u.taskName}</span>
+									</Link>
+									{u.toConfirm && <span className="text-[13px] text-[var(--color-attention)]">to confirm</span>}
 								</li>
 							))}
 						</ul>

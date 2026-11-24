@@ -14,6 +14,7 @@ export interface MethodDraft {
 	addedSkills: Record<string, string[]>; // key: task key
 	addedTools?: Record<string, string[]>; // key: task key; tool ids
 	removedTools?: Record<string, string[]>;
+	confirmedTools?: Record<string, string[]>; // links to confirm, confirmed by the owner
 	addedTasks: { id: string; phase: string; task: string; by: string }[];
 	addedPhases: { id: string; name: string; by: string }[];
 }
@@ -323,6 +324,12 @@ function useMartineState() {
 						removedTools: { ...dr.removedTools, [key]: removed },
 						addedTools: { ...dr.addedTools, [key]: added.includes(toolId) ? added : [...added, toolId] },
 					};
+				}),
+			// A proposed link (read in the task's text): the owner confirms it.
+			confirmTool: (methodId: string, version: string | null, key: string, toolId: string) =>
+				patchDraft(methodId, version, (dr) => {
+					const list = dr.confirmedTools?.[key] ?? [];
+					return list.includes(toolId) ? dr : { ...dr, confirmedTools: { ...dr.confirmedTools, [key]: [...list, toolId] } };
 				}),
 			unlinkTool: (methodId: string, version: string | null, key: string, toolId: string) =>
 				patchDraft(methodId, version, (dr) => {

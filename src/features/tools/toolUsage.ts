@@ -12,6 +12,7 @@ export interface ToolUse {
 	taskKey: string;
 	taskName: string;
 	inDraft: boolean; // linked in the method's draft, not published yet
+	toConfirm: boolean; // read in the task's text, for the method owner to confirm
 }
 
 export function toolUsage(toolId: string, drafts: Record<string, MethodDraft>): ToolUse[] {
@@ -27,6 +28,7 @@ export function toolUsage(toolId: string, drafts: Record<string, MethodDraft>): 
 					taskKey: t.key,
 					taskName: t.task.task,
 					inDraft: t.addedTools.includes(toolId),
+					toConfirm: t.toConfirm.includes(toolId),
 				})),
 		),
 	);
@@ -46,6 +48,7 @@ export function skillUsage(skillId: string, drafts: Record<string, MethodDraft>)
 					taskKey: t.key,
 					taskName: t.task.task,
 					inDraft: t.addedSkills.includes(skillId),
+					toConfirm: false,
 				})),
 		),
 	);

@@ -11,6 +11,7 @@ export interface MethodTaskView {
 	original?: MethodTask; // as published (absent for a task added in the draft)
 	addedSkills: string[];
 	addedTools: string[]; // linked in the draft
+	toConfirm: string[]; // proposed links the owner has not confirmed yet
 	edited: boolean;
 	isNew: boolean;
 	draftId?: string; // a task added in the draft: its id, to remove it
@@ -59,12 +60,14 @@ export function methodPhases(methodId: string, draft: MethodDraft | undefined, s
 			const edits = draft?.edits[key];
 			const added = draft?.addedSkills[key] ?? [];
 			const tools = draftTools(t.tool_ids ?? [], draft, key);
+			const confirmed = draft?.confirmedTools?.[key] ?? [];
 			return {
 				key,
 				task: { ...t, ...edits, skills: [...t.skills, ...added], tool_ids: tools.tool_ids },
 				original: t,
 				addedSkills: added,
 				addedTools: tools.added,
+				toConfirm: (t.tool_ids_to_confirm ?? []).filter((id) => tools.tool_ids.includes(id) && !confirmed.includes(id)),
 				edited: Boolean(edits && Object.keys(edits).length),
 				isNew: false,
 			};
@@ -80,6 +83,7 @@ export function methodPhases(methodId: string, draft: MethodDraft | undefined, s
 					task: { ...blankTask(t.task), ...draft?.edits[key], skills: added, tool_ids: tools.tool_ids },
 					addedSkills: added,
 					addedTools: tools.added,
+					toConfirm: [],
 					edited: false,
 					isNew: true,
 					draftId: t.id,

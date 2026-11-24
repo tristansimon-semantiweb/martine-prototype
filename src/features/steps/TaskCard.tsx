@@ -59,7 +59,7 @@ export function TaskCard({ study, phase, view }: { study: Study; phase: PhaseVie
 								</span>
 							))}
 							{task.tool_ids.map((t) => (
-								<ToolChip key={t} id={t} />
+								<ToolChip key={t} id={t} toConfirm={task.tool_ids_to_confirm?.includes(t)} />
 							))}
 							{task.skills.length === 0 && <RequestSkill methodId={study.method.id} version={study.method.version} taskKey={key} task={task} />}
 						</div>

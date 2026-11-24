@@ -10,7 +10,7 @@
 // were left in it. SCRUB below removes the ones found so far; check the output
 // (and extend SCRUB) each time a new export comes in. The markdown itself is
 // never committed.
-import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
+import { existsSync, readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -311,7 +311,24 @@ for (const x of methods) {
 		...(x.glossary.length ? { glossary: x.glossary } : {}),
 		...(x.notes.length ? { notes: x.notes } : {}),
 	};
-	writeFileSync(join(ROOT, `data/methods/${x.id}.json`), JSON.stringify(file, null, "\t") + "\n");
+	// Links to confirm live in the method data, not in the export: a new
+	// import keeps them on the task of the same phase and name.
+	const path = join(ROOT, `data/methods/${x.id}.json`);
+	if (existsSync(path)) {
+		const before = JSON.parse(readFileSync(path, "utf8"));
+		for (const p of before.phases)
+			for (const t of p.tasks) {
+				if (!t.tool_ids_to_confirm?.length) continue;
+				const now = x.phases.find((q) => q.phase === p.phase)?.tasks.find((u) => u.task === t.task);
+				if (!now) {
+					console.log(`  Link to confirm lost (task gone): ${x.id} ${p.phase} “${t.task}”`);
+					continue;
+				}
+				const keep = t.tool_ids_to_confirm.filter((id) => !now.tool_ids.includes(id));
+				if (keep.length) Object.assign(now, { tool_ids: [...now.tool_ids, ...keep], tool_ids_to_confirm: keep });
+			}
+	}
+	writeFileSync(path, JSON.stringify(file, null, "\t") + "\n");
 	const tasks = x.phases.flatMap((p) => p.tasks);
 	index.push({
 		id: x.id,

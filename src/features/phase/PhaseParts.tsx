@@ -2,7 +2,7 @@
 
 import { Sheet } from "@/shared/components/ui/Sheet";
 import Link from "next/link";
-import { ExternalLink, X } from "lucide-react";
+import { Check, ExternalLink, X } from "lucide-react";
 import { methodFile } from "@/shared/lib/data";
 import { otherToolItems, toolById } from "@/shared/lib/tools";
 import { dayRange } from "@/shared/lib/format";
@@ -47,18 +47,40 @@ export function PhaseSheet({
 
 // One tool of a task, as a button that opens the tool (its public address,
 // in a new tab), or its page in the repository for internal tools.
-export function ToolChip({ id, isNew, onUnlink }: { id: string; isNew?: boolean; onUnlink?: (id: string) => void }) {
+// A link to confirm (read in the task's text, not named in its Tools column)
+// shows dashed, with "to confirm"; the method owner confirms it in one click.
+export function ToolChip({
+	id,
+	isNew,
+	toConfirm,
+	onUnlink,
+	onConfirm,
+}: {
+	id: string;
+	isNew?: boolean;
+	toConfirm?: boolean;
+	onUnlink?: (id: string) => void;
+	onConfirm?: (id: string) => void;
+}) {
 	const t = toolById(id);
+	const parent = t?.part_of ? toolById(t.part_of) : undefined;
 	const label = (
 		<>
-			{t?.label ?? id}
+			<span>
+				{t?.label ?? id}
+				{parent && <span className="font-normal text-[var(--color-ink-muted)]">, {parent.label}</span>}
+			</span>
 			{isNew && <span className="font-normal text-[var(--color-ink-muted)]"> (new)</span>}
+			{toConfirm && <span className="font-normal text-[var(--color-attention)]"> to confirm</span>}
 			{t?.url && <ExternalLink size={12} aria-hidden className="text-[var(--color-ink-muted)]" />}
 		</>
 	);
 	const cls = "inline-flex items-center gap-1 px-2.5 py-1 font-medium text-[var(--color-ink)] no-underline hover:text-[var(--color-accent)]";
 	return (
-		<span className="inline-flex items-center rounded-[var(--radius-sm)] border border-[var(--color-border-hover)] bg-[var(--color-surface)] text-[13px] shadow-[var(--shadow-xs)] hover:border-[var(--color-accent)]">
+		<span
+			title={toConfirm ? "Read in the task’s text, not in its Tools column: the method owner confirms it" : undefined}
+			className={`inline-flex items-center rounded-[var(--radius-sm)] border bg-[var(--color-surface)] text-[13px] hover:border-[var(--color-accent)] ${toConfirm ? "border-dashed border-[var(--color-border-active)]" : "border-[var(--color-border-hover)] shadow-[var(--shadow-xs)]"}`}
+		>
 			{t?.url ? (
 				<a href={t.url} target="_blank" rel="noopener noreferrer" title={`Open ${t.label}`} className={cls}>
 					{label}
@@ -67,6 +89,16 @@ export function ToolChip({ id, isNew, onUnlink }: { id: string; isNew?: boolean;
 				<Link href={`/tools/${id}`} title={`${t?.label ?? id}: internal tool`} className={cls}>
 					{label}
 				</Link>
+			)}
+			{toConfirm && onConfirm && (
+				<button
+					onClick={() => onConfirm(id)}
+					aria-label={`Confirm ${t?.label ?? id}`}
+					title="Confirm this link"
+					className="-ml-1 px-1.5 text-[var(--color-ink-muted)] hover:text-[var(--color-positive)]"
+				>
+					<Check size={12} aria-hidden />
+				</button>
 			)}
 			{onUnlink && (
 				<button onClick={() => onUnlink(id)} aria-label={`Unlink ${t?.label ?? id}`} className="-ml-1 px-1.5 text-[var(--color-ink-muted)] hover:text-[var(--color-negative)]">
@@ -83,19 +115,23 @@ export function ToolChip({ id, isNew, onUnlink }: { id: string; isNew?: boolean;
 export function ToolList({
 	task,
 	onUnlink,
+	onConfirm,
 	newIds = [],
+	toConfirm = [],
 	children,
 }: {
 	task: MethodTask;
 	onUnlink?: (toolId: string) => void;
+	onConfirm?: (toolId: string) => void;
 	newIds?: string[];
+	toConfirm?: string[];
 	children?: React.ReactNode;
 }) {
 	const others = otherToolItems(task);
 	return (
 		<span className="flex flex-wrap items-center gap-1.5">
 			{task.tool_ids.map((id) => (
-				<ToolChip key={id} id={id} isNew={newIds.includes(id)} onUnlink={onUnlink} />
+				<ToolChip key={id} id={id} isNew={newIds.includes(id)} toConfirm={toConfirm.includes(id)} onUnlink={onUnlink} onConfirm={onConfirm} />
 			))}
 			{others.map((o) => (
 				<span key={o} title="Named in the method file, not a tool of the repository" className="px-1 text-[13px] text-[var(--color-ink-secondary)]">

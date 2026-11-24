@@ -445,14 +445,19 @@
 					"how": "Load the reviews of the products listed in 2.4 into a separate corpus.\nFacets: product, brand, rating, sentiment, advantages, disadvantages, recommendation, repurchase intention, sampling (incentivized / free product), period.\nDone when: reviews corpus is ready and the category averages can be computed.",
 					"watch_out": "Do not mix reviews with social posts in the same corpus.",
 					"tools": "",
-					"tool_ids": [],
+					"tool_ids": [
+						"corpus_manager"
+					],
 					"check": "",
 					"output": "Reviews corpus",
 					"time": null,
 					"days_min": null,
 					"days_max": null,
 					"owner": "Analyst",
-					"skills": []
+					"skills": [],
+					"tool_ids_to_confirm": [
+						"corpus_manager"
+					]
 				},
 				{
 					"task": "Validate the corpus and the facets",
@@ -460,14 +465,19 @@
 					"how": "Read posts on the random display, per platform and per market; depollute (add exclusions, remove noise sources).\nFor each facet: check the distribution (empty values, one value taking almost everything) and read a sample of posts tagged with each main value to check precision.\nFix the facet vocabulary where needed and re-apply.\nDone when: the project lead validates the corpus and the facet distributions.",
 					"watch_out": "Generic words (e.g. \"dry\" for hair and skin, \"oil\" as ingredient and as product) cause most false tags: check them first.",
 					"tools": "",
-					"tool_ids": [],
+					"tool_ids": [
+						"corpus_manager"
+					],
 					"check": "",
 					"output": "Clean corpus, validated facets",
 					"time": null,
 					"days_min": null,
 					"days_max": null,
 					"owner": "Analyst + project lead",
-					"skills": []
+					"skills": [],
+					"tool_ids_to_confirm": [
+						"corpus_manager"
+					]
 				},
 				{
 					"task": "Run frequencies",
@@ -476,7 +486,8 @@
 					"watch_out": "",
 					"tools": "Google Drive",
 					"tool_ids": [
-						"google_drive"
+						"google_drive",
+						"icc"
 					],
 					"check": "",
 					"output": "Frequency exports L12M and P12M",
@@ -484,7 +495,10 @@
 					"days_min": null,
 					"days_max": null,
 					"owner": "Analyst",
-					"skills": []
+					"skills": [],
+					"tool_ids_to_confirm": [
+						"icc"
+					]
 				}
 			]
 		},
@@ -632,14 +646,19 @@
 					"how": "Per topic: one intro slide (topic name + share, 3 insight bullets, one long typical verbatim with translation), then 1 to 2 data slides.\nData slides use the facets of the topic. Examples: Final results: expected results on functionality vs on appearance (base 100), top concerns with a zoom on the most mentioned and fastest growing concern (its causes and top associated brands). Hair / skin type: split by type, semantics and sentiment word clouds, deep dive on the most vocal type. Formula & ingredients: top ingredients by family (actives, proteins, oils, harsh chemicals), trend focus (e.g. skinification actives with what they are used for), chemicals driving negativity, share of naturality / clean claims. Scent, price, packaging: drivers, products mentioned, positive vs negative.\nEach data slide: an insight headline, 2 to 3 bullets, charts with base, 2 verbatims (original + translation), source line.\nDone when: every topic has its intro and data slides and each insight is traceable to the corpus.",
 					"watch_out": "Mark small sub-blocks as \"LOW SIGNAL\" and marke any cultural specificities in \"good to know\" boxes in the slide. Do not deep dive a topic with too little volume: fold it into another one.",
 					"tools": "",
-					"tool_ids": [],
+					"tool_ids": [
+						"corpus_manager"
+					],
 					"check": "",
 					"output": "Topic deep-dive slides",
 					"time": null,
 					"days_min": null,
 					"days_max": null,
 					"owner": "Analyst",
-					"skills": []
+					"skills": [],
+					"tool_ids_to_confirm": [
+						"corpus_manager"
+					]
 				}
 			]
 		},

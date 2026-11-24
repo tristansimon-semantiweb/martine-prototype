@@ -193,13 +193,26 @@
       "label": "ICC",
       "kind": "Semantiweb",
       "claude_connector": null,
-      "url": null
+      "url": null,
+      "note": "Semantiweb’s platform. The Corpus Manager and the Files tool are part of it, and so are the frequencies (ICC TOOLS 1.1), the Difference between two periods (1.2) and the concordancer (4), as the method files describe them."
     },
     {
       "id": "corpus_manager",
       "label": "Corpus Manager",
       "kind": "Semantiweb",
       "claude_connector": null,
+      "url": null,
+      "part_of": "icc"
+    },
+    {
+      "id": "files_tool",
+      "label": "Files tool",
+      "kind": "Semantiweb",
+      "part_of": "icc",
+      "claude_connector": null,
+      "aliases": [
+        "\\bFiles [Tt]ools?\\b"
+      ],
       "url": null
     },
     {

@@ -278,9 +278,10 @@
 					"what": "Make non-English data readable and reliable for analysis.",
 					"how": "If a native speaker is available: they translate and check the data (slang, irony, cultural references).\nOtherwise: translate via the Files tool (see Corpus Manager methodology), then have a native speaker check the verbatims selected for the deck.",
 					"watch_out": "Keep the original verbatim next to its translation, and label translations clearly in the deck.",
-					"tools": "Corpus Manager",
+					"tools": "Corpus Manager, Files tool",
 					"tool_ids": [
-						"corpus_manager"
+						"corpus_manager",
+						"files_tool"
 					],
 					"check": "",
 					"output": "Translated data",
@@ -361,14 +362,19 @@
 					"how": "Run frequencies per platform and per year.",
 					"watch_out": "",
 					"tools": "",
-					"tool_ids": [],
+					"tool_ids": [
+						"icc"
+					],
 					"check": "",
 					"output": "Frequency files",
 					"time": null,
 					"days_min": null,
 					"days_max": null,
 					"owner": "Analyst",
-					"skills": []
+					"skills": [],
+					"tool_ids_to_confirm": [
+						"icc"
+					]
 				},
 				{
 					"task": "Read top commenter profiles on Instagram",
@@ -465,14 +471,19 @@
 					"how": "Run frequencies per community, previously quantified with semantic queries.\nWho are they, centers of interest.\nKey temples.\nPillars: qualitative, perception of the community and of the brand.",
 					"watch_out": "Tip: identify a content creator who embodies the community and browse their profile to see what they do, where they go, etc.",
 					"tools": "",
-					"tool_ids": [],
+					"tool_ids": [
+						"icc"
+					],
 					"check": "",
 					"output": "One ID card per community",
 					"time": null,
 					"days_min": null,
 					"days_max": null,
 					"owner": "Analyst",
-					"skills": []
+					"skills": [],
+					"tool_ids_to_confirm": [
+						"icc"
+					]
 				},
 				{
 					"task": "Moodboard",
