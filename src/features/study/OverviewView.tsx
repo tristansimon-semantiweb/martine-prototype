@@ -142,7 +142,7 @@ export function OverviewView({ id }: { id: string }) {
 				)}
 			</div>
 
-			<aside className="flex flex-col gap-[18px] lg:sticky lg:top-6">
+			<aside className="flex flex-col gap-[18px]">
 				<SimilarStudies study={study} similar={similar} type={type} />
 
 				<section aria-labelledby="known" className={tile}>

@@ -8,6 +8,7 @@ import { useMartine } from "@/shared/hooks/useMartine";
 import { methodEntry } from "@/shared/lib/data";
 import { dueDate } from "@/shared/lib/format";
 import { methodLabel } from "@/shared/lib/martineContext";
+import { useScrollFold } from "@/shared/hooks/useScrollFold";
 
 // The study header and its tabs, shared by Overview, Steps, Team and Files.
 // The header shows the study's identifier and method version: what the
@@ -15,6 +16,7 @@ import { methodLabel } from "@/shared/lib/martineContext";
 export function StudyFrame({ id, children }: { id: string; children: React.ReactNode }) {
 	const pathname = usePathname();
 	const { studies } = useMartine();
+	const folded = useScrollFold();
 	const study = studies.find((s) => s.id === id);
 
 	if (!study) {
@@ -34,42 +36,45 @@ export function StudyFrame({ id, children }: { id: string; children: React.React
 	const base = `/studies/${study.id}`;
 	const onSteps = pathname === `${base}/steps`;
 
+	// The band folds on scroll down; the tabs stay at the top.
 	return (
 		<>
-			<TopBand>
-				<div className="font-[family-name:var(--font-heading)] text-[23px] font-medium">{study.title}</div>
-				<div className="flex flex-wrap items-center gap-x-2 text-sm text-[var(--color-ink-muted)]">
-					<span>
-						{method?.name ?? "Study"} for {study.client}, due {dueDate(study.due)}
-					</span>
-					<span
-						className="rounded-[var(--radius-xs)] bg-[var(--color-elevated)] px-1.5 py-px font-mono text-[12px] text-[var(--color-ink-secondary)]"
-						title="The study’s identifier: Martine, Claude and the data platform know it by this code"
-					>
-						{study.id} · {methodLabel(study)}
-					</span>
-				</div>
-			</TopBand>
-			<PillTabs
-				label="Study tabs"
-				items={[
-					{ href: base, label: "Overview" },
-					{ href: `${base}/steps`, label: "Steps" },
-					{ href: `${base}/team`, label: "Team" },
-					{ href: `${base}/files`, label: "Files" },
-				]}
-				aside={
-					onSteps && method?.version ? (
-						<Link href={`/study-types/${method.id}`} className="text-[var(--color-ink-muted)]">
-							Method: {method.name.toLowerCase()} sheet, v{study.method.version}, owned by {method.owner ?? "[to name]"}
-						</Link>
-					) : (
-						<Link href="/" className="text-[var(--color-ink-muted)]">
-							All studies
-						</Link>
-					)
-				}
-			/>
+			<div className="sticky top-0" style={{ zIndex: 10 }}>
+				<TopBand folded={folded}>
+					<div className="font-[family-name:var(--font-heading)] text-[23px] font-medium">{study.title}</div>
+					<div className="flex flex-wrap items-center gap-x-2 text-sm text-[var(--color-ink-muted)]">
+						<span>
+							{method?.name ?? "Study"} for {study.client}, due {dueDate(study.due)}
+						</span>
+						<span
+							className="rounded-[var(--radius-xs)] bg-[var(--color-elevated)] px-1.5 py-px font-mono text-[12px] text-[var(--color-ink-secondary)]"
+							title="The study’s identifier: Martine, Claude and the data platform know it by this code"
+						>
+							{study.id} · {methodLabel(study)}
+						</span>
+					</div>
+				</TopBand>
+				<PillTabs
+					label="Study tabs"
+					items={[
+						{ href: base, label: "Overview" },
+						{ href: `${base}/steps`, label: "Steps" },
+						{ href: `${base}/team`, label: "Team" },
+						{ href: `${base}/files`, label: "Files" },
+					]}
+					aside={
+						onSteps && method?.version ? (
+							<Link href={`/study-types/${method.id}`} className="text-[var(--color-ink-muted)]">
+								Method: {method.name.toLowerCase()} sheet, v{study.method.version}, owned by {method.owner ?? "[to name]"}
+							</Link>
+						) : (
+							<Link href="/" className="text-[var(--color-ink-muted)]">
+								All studies
+							</Link>
+						)
+					}
+				/>
+			</div>
 			{children}
 		</>
 	);
