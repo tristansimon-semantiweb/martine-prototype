@@ -27,6 +27,7 @@ export function PhasePage({ study, phase }: { study: Study; phase: PhaseView }) 
 	const note = study.state.notes[phase.id];
 	const first = (id: string) => personById(id)?.name.split(" ")[0];
 	const total = phase.tasks.length + phase.added.length;
+	const prop = "text-[11px] font-semibold uppercase tracking-wide text-[var(--color-ink-muted)]";
 
 	return (
 		<article aria-labelledby="phase-title" className="flex min-w-0 flex-col gap-4">
@@ -54,22 +55,29 @@ export function PhasePage({ study, phase }: { study: Study; phase: PhaseView }) 
 						</a>
 					)}
 				</header>
-				<div className="flex flex-wrap items-center gap-x-6 gap-y-2.5 text-sm">
-					<span className="flex items-center gap-2">
-						<span className="text-[var(--color-ink-muted)]">Assigned to</span>
-						<Assignee study={study} phase={phase.id} phaseName={phase.name} withName />
-					</span>
-					<span className="flex items-center gap-2">
-						<span className="text-[var(--color-ink-muted)]">Status</span>
-						<PhaseStatusPicker status={phase.status} canEdit onChange={(s) => setPhaseStatus(study.id, phase.id, s)} label={`Status of phase ${phase.id}`} />
-					</span>
+				{/* Three properties, each in its own cell: a small label over its value. */}
+				<dl className="m-0 grid overflow-hidden rounded-[var(--radius-md)] border border-[var(--color-border)] text-sm sm:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_minmax(0,1.6fr)] sm:divide-x sm:divide-[var(--color-border)] max-sm:divide-y max-sm:divide-[var(--color-border)]">
+					<div className="flex flex-col gap-1.5 px-4 py-3">
+						<dt className={prop}>Assigned to</dt>
+						<dd className="m-0">
+							<Assignee study={study} phase={phase.id} phaseName={phase.name} withName />
+						</dd>
+					</div>
+					<div className="flex flex-col gap-1.5 px-4 py-3">
+						<dt className={prop}>Status</dt>
+						<dd className="m-0">
+							<PhaseStatusPicker status={phase.status} canEdit onChange={(s) => setPhaseStatus(study.id, phase.id, s)} label={`Status of phase ${phase.id}`} />
+						</dd>
+					</div>
 					{!phase.addedBy && (
-						<span className="flex items-center gap-2">
-							<span className="text-[var(--color-ink-muted)]">Document</span>
-							<PhaseDocument study={study} phase={phase.id} tasks={phase.tasks.map((t) => t.task)} inline />
-						</span>
+						<div className="flex flex-col gap-1.5 px-4 py-3">
+							<dt className={prop}>Document</dt>
+							<dd className="m-0">
+								<PhaseDocument study={study} phase={phase.id} tasks={phase.tasks.map((t) => t.task)} inline />
+							</dd>
+						</div>
 					)}
-				</div>
+				</dl>
 				{note ? (
 					<div className="border-l-[3px] border-[var(--color-attention)] py-0.5 pl-3.5 text-[15px] leading-normal">
 						<div className="mb-0.5 text-[13px] font-bold text-[var(--color-attention)]">Note from {first(note.by)}</div>
