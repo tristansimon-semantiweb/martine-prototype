@@ -1,6 +1,8 @@
 "use client";
 
+import { useState } from "react";
 import { Plus } from "lucide-react";
+import { RemoveButton } from "@/shared/components/ui/Editing";
 import { Popover } from "@/shared/components/ui/Popover";
 import { useToast } from "@/shared/components/ui/Toast";
 import { useMartine } from "@/shared/hooks/useMartine";
@@ -19,21 +21,24 @@ const row = "flex items-center gap-3.5 border-b border-[var(--color-border)] px-
 const avatar = "flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-xs font-bold";
 
 export function TeamView({ id }: { id: string }) {
-	const { studies, role, addTeamMember } = useMartine();
+	const { studies, addTeamMember, removeTeamMember } = useMartine();
 	const toast = useToast();
+	const [q, setQ] = useState("");
 	const study = studies.find((s) => s.id === id);
 	if (!study) return null;
 
 	const method = methodEntry(study.method.id);
 	const claudeFiles = study.files.filter((f) => f.from.kind === "claude");
 	const toCheck = claudeFiles.filter((f) => f.from.kind === "claude" && !f.from.checkedBy).length;
-	const candidates = people.filter((p) => !study.team.some((m) => m.person === p.id));
+	const candidates = people
+		.filter((p) => !study.team.some((m) => m.person === p.id))
+		.filter((p) => !q.trim() || `${p.name} ${p.role}`.toLowerCase().includes(q.trim().toLowerCase()));
 
 	return (
 		<div className="mx-auto flex max-w-[760px] flex-col gap-4 px-6 py-8">
 			<div className="flex flex-wrap items-center gap-3">
 				<h1 className="m-0 flex-1 font-[family-name:var(--font-heading)] text-[26px] font-medium">Team</h1>
-				{role === "consultant" && candidates.length > 0 && (
+				{
 					<Popover
 						align="end"
 						width={280}
@@ -48,29 +53,44 @@ export function TeamView({ id }: { id: string }) {
 						)}
 					>
 						{(close) => (
-							<ul className="m-0 list-none p-0">
-								{candidates.map((p) => (
-									<li key={p.id}>
-										<button
-											onClick={() => {
-												addTeamMember(study.id, p.id, p.role);
-												toast(`${p.name} added to the team`);
-												close();
-											}}
-											className="flex w-full items-center gap-2 rounded-[var(--radius-sm)] px-2 py-2 text-left text-sm hover:bg-[var(--color-hover)]"
-										>
-											<span className="flex h-7 w-7 items-center justify-center rounded-full bg-[var(--color-elevated)] text-[11px] font-bold">{p.initials}</span>
-											{p.name}, {p.role.replace("_", " ")}
-										</button>
-									</li>
-								))}
-							</ul>
+							<div className="flex flex-col gap-1.5">
+								<input
+									autoFocus
+									value={q}
+									onChange={(e) => setQ(e.target.value)}
+									aria-label="Search people"
+									placeholder="Search a name or a role"
+									className="rr-input py-1.5 text-sm"
+								/>
+								<ul className="m-0 max-h-[260px] list-none overflow-y-auto p-0">
+									{candidates.length === 0 && <li className="px-2 py-2 text-sm text-[var(--color-ink-muted)]">Nobody else matches.</li>}
+									{candidates.map((p) => (
+										<li key={p.id}>
+											<button
+												onClick={() => {
+													addTeamMember(study.id, p.id, p.role);
+													toast(`${p.name} added to the team`);
+													setQ("");
+													close();
+												}}
+												className="flex w-full items-center gap-2 rounded-[var(--radius-sm)] px-2 py-2 text-left text-sm hover:bg-[var(--color-hover)]"
+											>
+												<span className="flex h-7 w-7 items-center justify-center rounded-full bg-[var(--color-elevated)] text-[11px] font-bold">{p.initials}</span>
+												{p.name}, {p.role.replace("_", " ")}
+											</button>
+										</li>
+									))}
+								</ul>
+							</div>
 						)}
 					</Popover>
-				)}
+				}
 			</div>
 
-			<ul aria-label="Team" className="m-0 list-none overflow-hidden rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-surface)] p-0 shadow-[var(--shadow-xs)]">
+			<ul
+				aria-label="Team"
+				className="m-0 list-none overflow-hidden rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-surface)] p-0 shadow-[var(--shadow-xs)]"
+			>
 				{study.team.map((m) => {
 					const p = personById(m.person);
 					return (
@@ -82,7 +102,14 @@ export function TeamView({ id }: { id: string }) {
 									{m.role === "method_owner" ? `Method owner, ${method?.name.toLowerCase() ?? "this method"}s` : ROLE_LINE[m.role]}
 								</span>
 							</span>
-							<span className="text-sm text-[var(--color-ink-muted)]">{m.role === "method_owner" ? "advisor" : m.role}</span>
+							<span className="text-sm text-[var(--color-ink-muted)]">{m.role === "method_owner" ? "advisor" : m.role.replace("_", " ")}</span>
+							<RemoveButton
+								label={`Remove ${p?.name} from the team`}
+								onClick={() => {
+									removeTeamMember(study.id, m.person);
+									toast(`${p?.name} removed from the team`, { label: "Undo", onClick: () => addTeamMember(study.id, m.person, m.role) });
+								}}
+							/>
 						</li>
 					);
 				})}

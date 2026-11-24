@@ -32,6 +32,24 @@
       "name": "Fabien",
       "initials": "FA",
       "role": "skills_owner"
+    },
+    {
+      "id": "lea",
+      "name": "Léa M.",
+      "initials": "LM",
+      "role": "analyst"
+    },
+    {
+      "id": "hugo",
+      "name": "Hugo P.",
+      "initials": "HP",
+      "role": "analyst"
+    },
+    {
+      "id": "ines",
+      "name": "Inès B.",
+      "initials": "IB",
+      "role": "consultant"
     }
   ],
   "studies": [

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { ChevronRight } from "lucide-react";
 import { usePathname, useSearchParams } from "next/navigation";
 import { TopBand } from "@/shared/components/layout/TopBand";
 import { AddRow } from "@/shared/components/ui/Editing";
@@ -74,12 +75,13 @@ export function MethodDetailView({ id }: { id: string }) {
 			</TopBand>
 
 			<div className="mx-auto flex max-w-[820px] flex-col gap-[18px] px-6 py-8">
-				<section aria-label="What this study type is" className="rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-surface)] px-[26px] py-5 shadow-[var(--shadow-xs)]">
+				<section
+					aria-label="What this study type is"
+					className="rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-surface)] px-[26px] py-5 shadow-[var(--shadow-xs)]"
+				>
 					{def ? (
 						<>
-							{def.question && (
-								<p className="m-0 font-[family-name:var(--font-heading)] text-[22px] font-medium leading-snug">{def.question}</p>
-							)}
+							{def.question && <p className="m-0 font-[family-name:var(--font-heading)] text-[22px] font-medium leading-snug">{def.question}</p>}
 							<p className="m-0 mt-2 text-[16px] leading-relaxed text-[var(--color-ink-secondary)]">{def.definition}</p>
 							{def.source === "draft" && (
 								<p className="m-0 mt-2.5 inline-block rounded-[var(--radius-sm)] bg-[var(--color-attention-bg)] px-2.5 py-1 text-[13px] text-[var(--color-attention)]">
@@ -133,24 +135,30 @@ export function MethodDetailView({ id }: { id: string }) {
 								Every {m.name.toLowerCase()} starts from these phases. Open one to see{isOwner ? " and edit" : ""} its tasks.
 							</p>
 						</div>
-						<ol aria-label="Phases" className="m-0 list-none overflow-hidden rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-surface)] p-0 shadow-[var(--shadow-xs)]">
+						<ol
+							aria-label="Phases"
+							className="m-0 list-none overflow-hidden rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-surface)] p-0 shadow-[var(--shadow-xs)]"
+						>
 							{phases.map((p) => (
-								<li key={p.id} className="flex flex-wrap items-center gap-x-4 gap-y-1 border-b border-[var(--color-border)] px-5 py-3.5 last:border-b-0">
-									<button onClick={() => go(p.id)} className="min-w-[220px] flex-1 text-left hover:text-[var(--color-accent)]">
-										{p.label}
-										{p.optional && <span className="ml-2 text-[13px] text-[var(--color-ink-muted)]">optional</span>}
-										{p.isNew && <span className="ml-2 text-[13px] text-[var(--color-attention)]">new in draft</span>}
-									</button>
-									{p.suggestions.length > 0 && (
-										<span className="rounded-[var(--radius-xl)] bg-[var(--color-accent-dim)] px-2 py-0.5 text-xs font-semibold text-[var(--color-accent)]">
-											{plural(p.suggestions.length, "suggestion")}
+								<li key={p.id} className="border-b border-[var(--color-border)] last:border-b-0">
+									<button onClick={() => go(p.id)} className="flex w-full flex-wrap items-center gap-x-4 gap-y-1 px-5 py-3.5 text-left hover:bg-[var(--color-hover)]">
+										<span className="min-w-[220px] flex-1">
+											{p.label}
+											{p.optional && <span className="ml-2 text-[13px] text-[var(--color-ink-muted)]">optional</span>}
+											{p.isNew && <span className="ml-2 text-[13px] text-[var(--color-attention)]">new in draft</span>}
 										</span>
-									)}
-									<span className="w-16 text-sm">{plural(p.tasks.length, "task")}</span>
-									<span className={cn("w-28 text-sm", !p.days && "text-[var(--color-ink-muted)]")}>{costed(p.days)}</span>
-									<span className={cn("w-16 text-sm", p.skillCount === 0 && "text-[var(--color-ink-muted)]")}>
-										{p.skillCount === 0 ? "no skill" : plural(p.skillCount, "skill")}
-									</span>
+										{p.suggestions.length > 0 && (
+											<span className="rounded-[var(--radius-xl)] bg-[var(--color-accent-dim)] px-2 py-0.5 text-xs font-semibold text-[var(--color-accent)]">
+												{plural(p.suggestions.length, "suggestion")}
+											</span>
+										)}
+										<span className="w-16 text-sm">{plural(p.tasks.length, "task")}</span>
+										<span className={cn("w-28 text-sm", !p.days && "text-[var(--color-ink-muted)]")}>{costed(p.days)}</span>
+										<span className={cn("w-16 text-sm", p.skillCount === 0 && "text-[var(--color-ink-muted)]")}>
+											{p.skillCount === 0 ? "no skill" : plural(p.skillCount, "skill")}
+										</span>
+										<ChevronRight size={16} aria-hidden className="text-[var(--color-ink-muted)]" />
+									</button>
 								</li>
 							))}
 						</ol>

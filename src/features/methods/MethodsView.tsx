@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { TopBand } from "@/shared/components/layout/TopBand";
 import { FamilyPill } from "@/shared/components/ui/Family";
 import { useToast } from "@/shared/components/ui/Toast";
@@ -18,12 +19,11 @@ const FAMILIES: (Family | "All")[] = ["All", "SML", "Monitoring", "Trends"];
 export function MethodsView() {
 	const { suggestions, drafts } = useMartine();
 	const toast = useToast();
+	const router = useRouter();
 	const [family, setFamily] = useState<Family | "All">("All");
 	const [query, setQuery] = useState("");
 
-	const rows = methodsIndex
-		.filter((m) => family === "All" || m.family === family)
-		.filter((m) => !query.trim() || m.name.toLowerCase().includes(query.trim().toLowerCase()));
+	const rows = methodsIndex.filter((m) => family === "All" || m.family === family).filter((m) => !query.trim() || m.name.toLowerCase().includes(query.trim().toLowerCase()));
 
 	return (
 		<>
@@ -82,7 +82,11 @@ export function MethodsView() {
 								const draft = drafts[m.id];
 								const imported = m.status === "published";
 								return (
-									<tr key={m.id} className="border-b border-[var(--color-border)] last:border-b-0 hover:bg-[var(--color-hover)]">
+									<tr
+										key={m.id}
+										onClick={() => router.push(`/study-types/${m.id}`)}
+										className="cursor-pointer border-b border-[var(--color-border)] last:border-b-0 hover:bg-[var(--color-hover)]"
+									>
 										<td className="px-5 py-3.5">
 											<div className="flex flex-wrap items-center gap-2">
 												<Link href={`/study-types/${m.id}`} className="font-semibold text-[var(--color-ink)] no-underline hover:text-[var(--color-accent)]">

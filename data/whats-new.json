@@ -9,6 +9,18 @@
       "items": [
         {
           "kind": "changed",
+          "title": "Add someone to a study’s team",
+          "text": "Anyone on a study can add a colleague from Team: Add someone opens a list you can search by name or role. A small cross removes someone, with Undo.",
+          "href": "/studies/TR-2611-01/team"
+        },
+        {
+          "kind": "changed",
+          "title": "Whole rows open",
+          "text": "In Study types, the whole row opens the study type; in a study type, the whole phase row opens the phase.",
+          "href": "/study-types"
+        },
+        {
+          "kind": "changed",
           "title": "The study header folds as you scroll",
           "text": "In a study, the title band folds away as you scroll down and comes back as soon as you scroll up, as in R&R; the Overview, Steps, Team and Files tabs stay at the top.",
           "href": "/studies/TR-2611-01/steps"
