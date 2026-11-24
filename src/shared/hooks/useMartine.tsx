@@ -26,8 +26,9 @@ interface MartineData {
 }
 
 // Bumped when the seed data changes shape (v2: the methods import), so a
-// browser that kept an older demo starts again from the new seed.
-const KEY = "martine_v2";
+// browser that kept an older demo starts again from the new seed (v3: files
+// attached to tasks).
+const KEY = "martine_v3";
 
 const ROLE_PERSON: Record<RoleId, string> = { analyst: "marie", consultant: "claire", method_owner: "bamby" };
 
@@ -171,16 +172,25 @@ function useMartineState() {
 					...s,
 					files: s.files.map((f) => (f.id === fileId && f.from.kind === "claude" ? { ...f, from: { kind: "claude", checkedBy: me } } : f)),
 				})),
-			addFile: (studyId: string, name: string, type: string, phase: string) =>
+			// A file or a link, attached to a task as its deliverable, or to the
+			// study when `task` is absent. `template`: started from a catalog template.
+			attach: (studyId: string, f: { name: string; type: string; phase: string; task?: string; url?: string; template?: string }) =>
 				patchStudy(studyId, (s) => ({
 					...s,
-					files: [...s.files, { id: `f${uid()}`, name, type, phase, from: { kind: "person", by: me } }],
+					files: [
+						...s.files,
+						{
+							id: `f${uid()}`,
+							name: f.name,
+							type: f.type,
+							phase: f.phase,
+							task: f.task,
+							url: f.url,
+							from: f.template ? { kind: "template", template: f.template, by: me } : { kind: "person", by: me },
+						},
+					],
 				})),
-			addLink: (studyId: string, name: string, url: string, phase: string) =>
-				patchStudy(studyId, (s) => ({
-					...s,
-					files: [...s.files, { id: `f${uid()}`, name, type: "Link", phase, url, from: { kind: "person", by: me } }],
-				})),
+			removeFile: (studyId: string, fileId: string) => patchStudy(studyId, (s) => ({ ...s, files: s.files.filter((f) => f.id !== fileId) })),
 			addTeamMember: (studyId: string, person: string, role: RoleId) =>
 				patchStudy(studyId, (s) => ({ ...s, team: [...s.team, { person, role, steps: 0 }] })),
 

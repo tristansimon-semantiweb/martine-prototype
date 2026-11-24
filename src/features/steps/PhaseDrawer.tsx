@@ -158,6 +158,8 @@ function Footer({ study, phase, onDone }: { study: Study; phase: PhaseView; onDo
 	const toast = useToast();
 	const isConsultant = role === "consultant";
 	const left = phase.total - phase.doneCount;
+	// Not blocking: a phase can close without every deliverable attached, but it says so.
+	const missing = phase.tasks.filter((t) => t.task.output && !study.files.some((f) => f.task === t.key)).length;
 	const consultant = consultantOf(study);
 	const btn = "rounded-[var(--radius)] bg-[var(--color-accent)] px-5 py-3 font-semibold text-white hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40";
 
@@ -194,7 +196,9 @@ function Footer({ study, phase, onDone }: { study: Study; phase: PhaseView; onDo
 					? `${plural(left, "task")} left before the phase can close`
 					: phase.milestone && !isConsultant
 						? `${consultant} approves this phase next`
-						: "Every task has passed its check"}
+						: missing
+							? `Every task has passed its check; ${plural(missing, "deliverable")} not attached`
+							: "Every task has passed its check"}
 			</span>
 		</div>
 	);

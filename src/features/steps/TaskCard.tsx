@@ -10,6 +10,7 @@ import type { PhaseView, TaskView } from "@/shared/lib/studyModel";
 import type { Study } from "@/shared/lib/types";
 import { TaskFields, ToolChip, formatOf, taskMeta, taskRows } from "@/features/phase/PhaseParts";
 import { otherToolItems } from "@/shared/lib/tools";
+import { FileChip, TaskDeliverable } from "@/features/files/Deliverables";
 import { openInClaudeUrl } from "@/shared/lib/martineContext";
 import { SkillBlock } from "./SkillBlock";
 
@@ -58,14 +59,22 @@ export function TaskCard({ study, phase, view, highlight }: { study: Study; phas
 		return (
 			<article className="flex items-center gap-3 rounded-[12px] border border-[var(--color-border)] px-4 py-2.5 text-[var(--color-ink-muted)]">
 				{checkbox}
-				<span className="flex-1 line-through">{task.task}</span>
+				<span className="flex flex-1 flex-wrap items-center gap-2">
+					<span className="line-through">{task.task}</span>
+					{study.files
+						.filter((f) => f.task === key)
+						.map((f) => (
+							<FileChip key={f.id} study={study} file={f} />
+						))}
+				</span>
 				<DaysInput value={state.days ?? task.days_min ?? 0} onChange={(v) => setTaskDays(study.id, key, v)} label={`Days spent on ${task.task}`} />
 			</article>
 		);
 	}
 
 	const format = formatOf(study.method.id);
-	const summary = task.what || task.output;
+	// What the step is for (SML file); the output shows on the deliverable line.
+	const summary = task.what;
 	const others = otherToolItems(task);
 	const hasTools = task.tool_ids.length > 0 || task.skills.length > 0;
 
@@ -106,12 +115,14 @@ export function TaskCard({ study, phase, view, highlight }: { study: Study; phas
 						</div>
 					)}
 
+					<TaskDeliverable study={study} phase={phase.id} taskKey={key} task={task} />
+
 					<button
 						onClick={() => setOpen((v) => !v)}
 						aria-expanded={open}
 						className="mt-2.5 inline-flex items-center gap-1 text-[13px] font-semibold text-[var(--color-accent)] hover:underline"
 					>
-						{open ? "Hide the details" : format === "steps" ? "How to do it, what to watch" : "How to do it, the check, the output"}
+						{open ? "Hide the details" : format === "steps" ? "How to do it, what to watch" : "How to do it, the check"}
 						<ChevronDown size={14} aria-hidden className={cn("transition-transform", open && "rotate-180")} />
 					</button>
 				</div>
@@ -121,7 +132,7 @@ export function TaskCard({ study, phase, view, highlight }: { study: Study; phas
 				<div className="mt-3 flex flex-col gap-3 border-t border-[var(--color-border)] pt-3 pl-8">
 					<TaskFields
 						rows={[
-							...taskRows(task, format).filter((r) => r.label !== "What" && r.label !== "Tools"),
+							...taskRows(task, format).filter((r) => !["What", "Tools", "Output", "Deliverable"].includes(r.label)),
 							...(others.length ? [{ label: "Also named", value: others.join(", ") }] : []),
 							...task.skills.map((sk) => ({
 								label: "Skill",

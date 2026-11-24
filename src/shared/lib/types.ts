@@ -128,7 +128,8 @@ export interface Person {
 export type FileOrigin =
 	| { kind: "client" }
 	| { kind: "person"; by: string }
-	| { kind: "claude"; checkedBy?: string };
+	| { kind: "claude"; checkedBy?: string }
+	| { kind: "template"; template: string; by: string }; // started from a catalog template
 
 export interface StudyFile {
 	id: string;
@@ -137,6 +138,7 @@ export interface StudyFile {
 	phase: string;
 	from: FileOrigin;
 	url?: string; // a link (Sheet, Doc, deck…) rather than an uploaded file
+	task?: string; // the task whose deliverable it is ("2.2"); none: another file of the study
 }
 
 export interface StudyLink {

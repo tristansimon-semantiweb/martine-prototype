@@ -47,9 +47,9 @@
       "files": [
         { "id": "f1", "name": "Client brief", "type": "PDF", "phase": "0", "from": { "kind": "client" } },
         { "id": "f2", "name": "Proposal and SOW", "type": "PDF", "phase": "0", "from": { "kind": "person", "by": "claire" } },
-        { "id": "f3", "name": "Scope and points to clarify", "type": "Doc", "phase": "0", "from": { "kind": "person", "by": "claire" } },
-        { "id": "f4", "name": "Queries tab, FR, UK, JP", "type": "Sheet", "phase": "2", "from": { "kind": "claude", "checkedBy": "marie" } },
-        { "id": "f5", "name": "Noise audit and exclusions", "type": "Excel", "phase": "2", "from": { "kind": "claude" } }
+        { "id": "f3", "name": "Scope and points to clarify", "type": "Doc", "phase": "0", "task": "0.1", "from": { "kind": "person", "by": "claire" } },
+        { "id": "f4", "name": "Queries tab, FR, UK, JP", "type": "Sheet", "phase": "2", "task": "2.2", "from": { "kind": "claude", "checkedBy": "marie" } },
+        { "id": "f5", "name": "Noise audit and exclusions", "type": "Excel", "phase": "2", "task": "2.3", "from": { "kind": "claude" } }
       ],
       "previousWave": [
         { "id": "p1", "name": "Queries, previous wave", "type": "Sheet" },

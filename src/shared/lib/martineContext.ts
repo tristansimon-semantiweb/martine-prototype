@@ -51,6 +51,8 @@ export function whatClaudeReads(s: Study, phase: PhaseView, key: string): Contex
 		const check = task.task.check || task.task.watch_out?.replace(/\n/g, " ") || task.task.what || "";
 		items.push({ label: task.task.check ? "This task and its check" : "This step and its points of attention", detail: check, ref: refs.task(s, key) });
 	}
+	const delivered = s.files.filter((f) => f.task === key);
+	if (delivered.length) items.push({ label: "This task’s deliverable", detail: delivered.map((f) => f.name).join(", "), ref: `${refs.task(s, key)}/deliverable` });
 	if (note) items.push({ label: `${personById(note.by)?.name ?? "Consultant"}’s note`, detail: note.text });
 	items.push({ label: "The study’s data", detail: "through the data platform connector", ref: `data-platform:${s.id}` });
 	return items;
@@ -66,7 +68,10 @@ export function knownToClaude(s: Study, views: PhaseView[]): ContextItem[] {
 		{ label: "Steps", detail: views.length ? `${views.length} phases, ${views.filter((p) => p.status === "done").length} done` : "none yet" },
 		{ label: "Decisions", detail: s.decisions.length ? s.decisions.map((d) => `${d.date}: ${d.text}`).join(" ") : "none yet" },
 		{ label: "Notes and added tasks", detail: `${notes} note${notes === 1 ? "" : "s"}, ${added} added task${added === 1 ? "" : "s"}` },
-		{ label: "Files", detail: `${s.files.length} in this study${s.previousWave.length ? `, ${s.previousWave.length} from the previous wave` : ""}` },
+		{
+			label: "Files",
+			detail: `${s.files.filter((f) => f.task).length} tied to the task they deliver, ${s.files.filter((f) => !f.task).length} other${s.previousWave.length ? `, ${s.previousWave.length} from the previous wave` : ""}`,
+		},
 		{ label: "Data platform", detail: `study ${s.id}`, ref: `data-platform:${s.id}` },
 	];
 }
