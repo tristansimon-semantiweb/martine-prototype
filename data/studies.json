@@ -215,6 +215,10 @@
           "0": "done",
           "1": "done",
           "2": "in_progress"
+        },
+        "assignees": {
+          "2.1": "marie",
+          "2.2": "marie"
         }
       },
       "scope": "Hair skinification in France, the UK and Japan: which skincare codes move into haircare, who carries them, and how big they are."

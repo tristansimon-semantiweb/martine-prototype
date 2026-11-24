@@ -32,8 +32,8 @@ interface MartineData {
 // Bumped when the seed data changes shape (v2: the methods import), so a
 // browser that kept an older demo starts again from the new seed (v3: files
 // attached to tasks; v4: V1 scope, no ticking, validation or time; v5: one
-// document per phase; v6: skill requests; v7: phase status; v8: scope and past studies; v9, v10: outputs traced to tasks, then not: no task state in V1; v11: a document used by two phases; v12: last edition, not previous wave; v13: documents by category; v14: no renaming or removing a method phase in a study).
-const KEY = "martine_v14";
+// document per phase; v6: skill requests; v7: phase status; v8: scope and past studies; v9, v10: outputs traced to tasks, then not: no task state in V1; v11: a document used by two phases; v12: last edition, not previous wave; v13: documents by category; v14: no renaming or removing a method phase in a study; v15: task assignees).
+const KEY = "martine_v15";
 
 const ROLE_PERSON: Record<RoleId, string> = { analyst: "marie", consultant: "claire", method_owner: "bamby", skills_owner: "fabien" };
 
@@ -127,6 +127,14 @@ function useMartineState() {
 			reset: () => write(null),
 
 			// ── Study notes, added tasks and steps (consultant) ──
+			// Assign a task to someone on the study, or leave it unassigned (null).
+			assignTask: (studyId: string, task: string, person: string | null) =>
+				patchState(studyId, (st) => {
+					const assignees = { ...st.assignees };
+					if (person) assignees[task] = person;
+					else delete assignees[task];
+					return { ...st, assignees };
+				}),
 			setPhaseStatus: (studyId: string, phase: string, status: PhaseStatus) =>
 				patchState(studyId, (st) => ({ ...st, phaseStatus: { ...st.phaseStatus, [phase]: status } })),
 			setNote: (studyId: string, phase: string, text: string) =>

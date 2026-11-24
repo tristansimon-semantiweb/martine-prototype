@@ -194,6 +194,7 @@ export interface StudyState {
 	// documents (one per phase; a document can serve several phases).
 	phaseDocs: Record<string, string>; // phase id → file id
 	phaseStatus?: Record<string, PhaseStatus>; // phase id → status (absent: to start)
+	assignees?: Record<string, string>; // task key ("2.2") or added task id → person id
 	addedTasks: AddedTask[];
 	addedSteps: AddedStep[];
 }

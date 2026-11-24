@@ -14,6 +14,7 @@ import type { Study } from "@/shared/lib/types";
 import { TaskFields, ToolOpenButton, formatOf, taskMeta, taskRows } from "@/features/phase/PhaseParts";
 import { RequestSkill } from "@/features/skills/RequestSkill";
 import { SkillBlock } from "./SkillBlock";
+import { Assignee } from "./Assignee";
 
 // A task's detail, over its phase: where to run it, what it delivers, then
 // the method's text (how to do it, the check, what to watch), what Claude
@@ -57,6 +58,10 @@ function Body({ study, phase, taskKey }: { study: Study; phase: PhaseView; taskK
 	return (
 		<div className="flex flex-col gap-5">
 			<section aria-label="Where to run it" className="flex flex-col gap-3 rounded-[var(--radius-md)] border border-[var(--color-border)] px-4 py-3.5">
+				<div className="flex items-center gap-2 text-sm">
+					<span className="w-[86px] text-[var(--color-ink-muted)]">Assigned to</span>
+					<Assignee study={study} task={key} taskName={task.task} withName />
+				</div>
 				<div className="flex flex-wrap items-center gap-1.5">
 					{task.skills.map((sk) =>
 						skillById(sk)?.request?.kind === "automation" ? (
