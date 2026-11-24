@@ -157,6 +157,9 @@ function useMartineState() {
 				})),
 			removeFile: (studyId: string, fileId: string) => patchStudy(studyId, (s) => ({ ...s, files: s.files.filter((f) => f.id !== fileId) })),
 
+			addTeamMember: (studyId: string, person: string, role: RoleId) =>
+				patchStudy(studyId, (s) => ({ ...s, team: [...s.team, { person, role }] })),
+
 			// ── New study: what Martine creates with it (simulated) ──
 			createStudy: (reading: BriefReading, briefKey: string): string => {
 				const id = nextStudyId(read().studies, reading.method);
