@@ -102,8 +102,9 @@ function From({ study, file }: { study: Study; file: StudyFile }) {
 	);
 }
 
-// The study's document space, read like a drive, in three tabs: scope and
-// brief, production documents, deliverables. Each document shows its
+// The study's document space, laid out like Steps: the folders on the left
+// (scope and brief, production documents, deliverables), the open folder's
+// list on the right. Each document shows its
 // type, where it comes from and the phases that work in it (a document can
 // serve several phases, so it is not filed under one). Earlier studies of
 // the same type are in the Overview's Similar studies.
@@ -125,51 +126,63 @@ export function FilesView({ id }: { id: string }) {
 	const card = "overflow-hidden rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-surface)] shadow-[var(--shadow-xs)]";
 
 	return (
-		<div className="mx-auto flex max-w-[1080px] flex-col gap-5 px-6 py-8">
-			<div className="flex flex-wrap items-end gap-3">
-				<div className="flex-1">
-					<h1 className="m-0 font-[family-name:var(--font-heading)] text-[26px] font-medium">Files</h1>
-					<p className="m-0 text-sm text-[var(--color-ink-muted)]">
-						{plural(study.files.length, "document")} in this study. Claude can read them; nothing from another client shows here.
-					</p>
-				</div>
-				<input type="search" value={query} onChange={(e) => setQuery(e.target.value)} aria-label="Search the documents" placeholder="Search the documents" className="rr-input w-[260px]" />
-			</div>
+		<div className="mx-auto grid max-w-[1240px] items-start gap-7 px-6 py-7 lg:grid-cols-[260px_minmax(0,1fr)]">
 			<Modal open={Boolean(adding)} onClose={() => setAdding(null)} title={`Add to ${SECTIONS.find((x) => x.id === adding)?.title ?? "Files"}`}>
 				<p className="m-0 mb-3 text-sm text-[var(--color-ink-muted)]">A link to a Sheet, Doc or deck, or a file. Any phase can then pick it as its document.</p>
 				{adding && <AttachForm study={study} phase="0" defaultName="" category={adding} onDone={() => setAdding(null)} />}
 			</Modal>
 
-			{/* The three kinds of documents as tabs, with their counts; one list at a time. */}
-			<section aria-label="Documents" className={card}>
-				<div className="flex flex-wrap items-center gap-2 border-b border-[var(--color-border)] px-3 py-2.5">
-					<div role="tablist" aria-label="Kind of document" className="flex flex-1 flex-wrap gap-1">
-						{SECTIONS.map((sec) => (
+			{/* The folders on the left, as Steps lists its phases. */}
+			<nav aria-label="Folders" className="flex flex-col gap-2 rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-surface)] p-2.5 shadow-[var(--shadow-xs)] lg:sticky lg:top-[64px]">
+				<div className="px-2 pt-1">
+					<div className="text-sm font-semibold">Files</div>
+					<div className="text-[13px] text-[var(--color-ink-muted)]">{plural(study.files.length, "document")}</div>
+				</div>
+				<ul role="tablist" aria-label="Kind of document" aria-orientation="vertical" className="m-0 flex list-none flex-col gap-0.5 p-0">
+					{SECTIONS.map((sec) => (
+						<li key={sec.id}>
 							<button
-								key={sec.id}
 								role="tab"
 								aria-selected={tab === sec.id}
 								onClick={() => setTab(sec.id)}
 								className={cn(
-									"inline-flex items-center gap-1.5 rounded-[var(--radius-sm)] px-3 py-1.5 text-[15px] font-semibold",
-									tab === sec.id ? "bg-[var(--color-accent-dim)] text-[var(--color-accent)]" : "hover:bg-[var(--color-hover)]",
+									"flex w-full items-center gap-2 rounded-[var(--radius-sm)] px-2 py-1.5 text-left text-sm",
+									tab === sec.id ? "bg-[var(--color-accent-dim)] font-semibold text-[var(--color-accent)]" : "hover:bg-[var(--color-hover)]",
 								)}
 							>
-								<Folder size={15} aria-hidden />
-								{sec.title}
-								<span className="font-normal text-[var(--color-ink-muted)]">{shown.filter((f) => categoryOf(f) === sec.id).length}</span>
+								<Folder size={16} aria-hidden className={tab === sec.id ? undefined : "text-[var(--color-ink-muted)]"} />
+								<span className="flex-1">{sec.title}</span>
+								<span className="text-[13px] font-normal text-[var(--color-ink-muted)]">{shown.filter((f) => categoryOf(f) === sec.id).length}</span>
 							</button>
-						))}
+						</li>
+					))}
+				</ul>
+				<p className="m-0 px-2 pb-1 text-[12px] leading-snug text-[var(--color-ink-muted)]">Claude can read them; nothing from another client shows here.</p>
+			</nav>
+
+			{/* The open folder's documents. */}
+			<section aria-labelledby="folder-title" className={card}>
+				<div className="flex flex-wrap items-center gap-3 border-b border-[var(--color-border)] px-5 py-4">
+					<div className="min-w-[200px] flex-1">
+						<h2 id="folder-title" className="m-0 font-[family-name:var(--font-heading)] text-[22px] font-medium">
+							{current.title}
+						</h2>
+						<p className="m-0 text-[13px] text-[var(--color-ink-muted)]">{current.hint}</p>
 					</div>
+					<input type="search" value={query} onChange={(e) => setQuery(e.target.value)} aria-label="Search the documents" placeholder="Search all documents" className="rr-input w-[220px] py-1.5" />
 					<button
 						onClick={() => setAdding(tab)}
 						aria-label={`Add to ${current.title}`}
-						className="inline-flex items-center gap-1 rounded-[var(--radius)] border border-[var(--color-border-hover)] px-3 py-1.5 text-sm font-semibold hover:bg-[var(--color-hover)]"
+						className="inline-flex items-center gap-1 rounded-[var(--radius)] bg-[var(--color-accent)] px-3.5 py-2 text-sm font-semibold text-white hover:opacity-90"
 					>
 						<Plus size={14} aria-hidden /> Add
 					</button>
 				</div>
-				<p className="m-0 border-b border-[var(--color-border)] px-5 py-2 text-[13px] text-[var(--color-ink-muted)]">{current.hint}</p>
+				<div className={cn(cols, "border-b border-[var(--color-border)] px-5 py-2 text-[12px] font-semibold text-[var(--color-ink-muted)]")}>
+					<span>Name</span>
+					<span className="hidden sm:block">From</span>
+					<span className="text-right sm:text-left">Used in</span>
+				</div>
 				{files.length === 0 ? (
 					<p className="m-0 px-5 py-5 text-sm text-[var(--color-ink-muted)]">{q ? "No document matches." : current.empty}</p>
 				) : (
