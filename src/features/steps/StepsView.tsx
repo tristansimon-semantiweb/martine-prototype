@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { ChevronRight } from "lucide-react";
 import { useMartine } from "@/shared/hooks/useMartine";
 import { methodEntry } from "@/shared/lib/data";
@@ -14,7 +14,6 @@ import { PhaseDrawer } from "./PhaseDrawer";
 // (?phase=2) so Ask Martine's sources and Overview's Continue can link to it.
 export function StepsView({ id }: { id: string }) {
 	const { studies, role, addStep } = useMartine();
-	const router = useRouter();
 	const pathname = usePathname();
 	const params = useSearchParams();
 	const [newStep, setNewStep] = useState<string | null>(null);
@@ -24,7 +23,9 @@ export function StepsView({ id }: { id: string }) {
 	const views = phaseViews(study);
 	const openId = params.get("phase");
 	const open = views.find((p) => p.id === openId) ?? null;
-	const setOpen = (p: string | null) => router.replace(p ? `${pathname}?phase=${p}` : pathname, { scroll: false });
+	// The native History API keeps the URL (and useSearchParams) in sync
+	// without a round trip to the server, so a phase opens on the click.
+	const setOpen = (p: string | null) => window.history.replaceState(null, "", p ? `${pathname}?phase=${p}` : pathname);
 	const method = methodEntry(study.method.id);
 
 	if (!hasMethodFile(study)) {

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { TopBand } from "@/shared/components/layout/TopBand";
 import { useToast } from "@/shared/components/ui/Toast";
 import { useMartine } from "@/shared/hooks/useMartine";
@@ -18,7 +18,6 @@ import { CatalogDrawer } from "./CatalogDrawer";
 export function MethodDetailView({ id }: { id: string }) {
 	const { studies, suggestions, drafts, role, addMethodPhase } = useMartine();
 	const toast = useToast();
-	const router = useRouter();
 	const pathname = usePathname();
 	const params = useSearchParams();
 	const [newPhase, setNewPhase] = useState<string | null>(null);
@@ -52,7 +51,8 @@ export function MethodDetailView({ id }: { id: string }) {
 		const q = new URLSearchParams();
 		if (phase) q.set("phase", phase);
 		if (phase && add) q.set("add", add);
-		router.replace(q.size ? `${pathname}?${q}` : pathname, { scroll: false });
+		// Native History API: no server round trip (see StepsView).
+		window.history.replaceState(null, "", q.size ? `${pathname}?${q}` : pathname);
 	};
 
 	return (
