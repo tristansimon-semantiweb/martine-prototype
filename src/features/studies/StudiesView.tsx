@@ -39,6 +39,7 @@ export function StudiesView() {
 	const [type, setType] = useState("all");
 	const [status, setStatus] = useState<Status | "all">("all");
 	const [person, setPerson] = useState("all");
+	const [client, setClient] = useState("all");
 	const [query, setQuery] = useState("");
 
 	const q = query.trim().toLowerCase();
@@ -47,11 +48,13 @@ export function StudiesView() {
 		.filter((s) => type === "all" || s.method.id === type)
 		.filter((s) => status === "all" || statusOf(s) === status)
 		.filter((s) => person === "all" || s.team.some((m) => m.person === person))
+		.filter((s) => client === "all" || s.client === client)
 		.filter((s) => !q || `${s.title} ${s.client} ${s.id}`.toLowerCase().includes(q))
 		.sort((a, b) => b.due.localeCompare(a.due));
 
+	const clients = [...new Set(studies.map((s) => s.client))].sort((a, b) => a.localeCompare(b));
 	const types = methodsIndex.filter((m) => family === "All" || m.family === family);
-	const select = "rr-input w-auto min-w-[140px] py-2";
+	const select = "rr-input w-auto min-w-[130px] py-2";
 	const th = "px-3 py-3 font-semibold";
 	const td = "px-3 py-3";
 
@@ -81,7 +84,25 @@ export function StudiesView() {
 							</button>
 						))}
 					</div>
-					<select value={type} onChange={(e) => setType(e.target.value)} aria-label="Study type" className={cn(select, "w-[200px]")}>
+					<input
+						type="search"
+						value={query}
+						onChange={(e) => setQuery(e.target.value)}
+						aria-label="Search studies"
+						placeholder="Study or client"
+						className="rr-input ml-auto w-[240px]"
+					/>
+				</div>
+				<div className="flex flex-wrap items-center gap-3">
+					<select value={client} onChange={(e) => setClient(e.target.value)} aria-label="Client" className={select}>
+						<option value="all">All clients</option>
+						{clients.map((c) => (
+							<option key={c} value={c}>
+								{c}
+							</option>
+						))}
+					</select>
+					<select value={type} onChange={(e) => setType(e.target.value)} aria-label="Study type" className={cn(select, "max-w-[220px]")}>
 						<option value="all">All study types</option>
 						{types.map((m) => (
 							<option key={m.id} value={m.id}>
@@ -105,14 +126,6 @@ export function StudiesView() {
 							</option>
 						))}
 					</select>
-					<input
-						type="search"
-						value={query}
-						onChange={(e) => setQuery(e.target.value)}
-						aria-label="Search studies"
-						placeholder="Study or client"
-						className="rr-input w-[160px]"
-					/>
 				</div>
 
 				<div className="overflow-x-auto rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-surface)] shadow-[var(--shadow-xs)]">

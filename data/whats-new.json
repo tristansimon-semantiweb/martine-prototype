@@ -15,8 +15,8 @@
         },
         {
           "kind": "changed",
-          "title": "Studies: a Lead column",
-          "text": "The studies table names each study’s lead, its consultant, next to the client.",
+          "title": "Studies: a Lead column and a client filter",
+          "text": "The studies table names each study’s lead, its consultant, next to the client. A filter shows one client’s studies.",
           "href": "/"
         },
         {
