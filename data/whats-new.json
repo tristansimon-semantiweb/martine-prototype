@@ -9,6 +9,12 @@
       "items": [
         {
           "kind": "changed",
+          "title": "Steps opens on the phase in progress",
+          "text": "Steps no longer starts with a list of phases: it opens on the phase in progress (or the first not done), with every phase in a column on the left to move between them, rename, remove or add one.",
+          "href": "/studies/TR-2611-01/steps"
+        },
+        {
+          "kind": "changed",
           "title": "A phase is a page, its tasks a run",
           "text": "An open phase now takes the page, with the phases in a column on the left to move between them. Its tasks read top to bottom in one card, one row each: its name, then who runs it, how long and what it delivers, and its one action (Run in Claude, Open Talkwalker). A click on the card opens the task’s method text and what Claude reads, beside the phase. Walk me through in Claude takes the whole phase in Claude, task by task. No done state on tasks in V1: the phase’s status says where the work stands. The phase’s title, status, document and note sit in a card above them.",
           "href": "/studies/TR-2611-01/steps?phase=2"
@@ -28,7 +34,7 @@
         {
           "kind": "new",
           "title": "Rename or remove a step",
-          "text": "In a study’s Steps, each step has a pencil to rename it and a cross to remove it, for this study only: the method keeps it, and a removed step can be restored. In a study type, the method owner renames or removes a phase in the draft; studies in progress keep the published version.",
+          "text": "In a study’s Steps, hover a phase in the column: a pencil renames it, a cross takes it out of this study (the method keeps it, and a removed step can be restored below the column). Add a step at the bottom of the column. In a study type, the method owner renames or removes a phase in the draft; studies in progress keep the published version.",
           "href": "/studies/TR-2611-01/steps"
         },
         {
@@ -70,7 +76,7 @@
         {
           "kind": "new",
           "title": "A status for each phase",
-          "text": "Each phase of a study is To start, In progress, Done or Not needed. Anyone on the study changes it from the phase list or at the top of the phase; Steps says where the study stands (2 done, 1 in progress…), and Claude reads it with the phase.",
+          "text": "Each phase of a study is To start, In progress, Done or Not needed. Anyone on the study changes it at the top of the phase; the phases column shows where each one stands (2 of 10 done), and Claude reads it with the phase.",
           "href": "/studies/TR-2611-01/steps"
         },
         {
