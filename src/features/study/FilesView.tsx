@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { Building2, ExternalLink, File, FileSpreadsheet, FileText, Folder, Plus, Presentation } from "lucide-react";
 import { useMartine } from "@/shared/hooks/useMartine";
 import { personById } from "@/shared/lib/data";
@@ -111,7 +112,11 @@ function From({ study, file }: { study: Study; file: StudyFile }) {
 export function FilesView({ id }: { id: string }) {
 	const { studies } = useMartine();
 	const [adding, setAdding] = useState<FileCategory | null>(null);
-	const [tab, setTab] = useState<FileCategory>("brief");
+	// ?folder=production&file=f4 opens a folder and points at a document (from a task).
+	const params = useSearchParams();
+	const folderParam = params.get("folder");
+	const pointed = params.get("file");
+	const [tab, setTab] = useState<FileCategory>(folderParam === "production" || folderParam === "deliverable" ? folderParam : "brief");
 	const [query, setQuery] = useState("");
 	const study = studies.find((s) => s.id === id);
 	if (!study) return null;
@@ -190,7 +195,7 @@ export function FilesView({ id }: { id: string }) {
 						{files.map((f) => {
 							const phases = usedIn(f.id);
 							return (
-								<li key={f.id} className={cn(cols, "border-b border-[var(--color-border)] px-5 py-3 text-sm last:border-b-0 hover:bg-[var(--color-hover)]")}>
+								<li key={f.id} className={cn(cols, "border-b border-[var(--color-border)] px-5 py-3 text-sm last:border-b-0 hover:bg-[var(--color-hover)]", f.id === pointed && "bg-[var(--color-accent-dim)]")}>
 									<NameCell name={f.name} type={f.type} url={f.url} />
 									<span className="hidden sm:block">
 										<From study={study} file={f} />

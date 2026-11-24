@@ -14,6 +14,8 @@ import type { Study } from "@/shared/lib/types";
 import { TaskFields, ToolOpenButton, formatOf, taskMeta, taskRows } from "@/features/phase/PhaseParts";
 import { RequestSkill } from "@/features/skills/RequestSkill";
 import { SkillBlock } from "./SkillBlock";
+import { TaskDocuments } from "./TaskDocuments";
+import { otherToolItems } from "@/shared/lib/tools";
 
 // A task's detail, over its phase: where to run it, what it delivers, then
 // the method's text (how to do it, the check, what to watch), what Claude
@@ -97,7 +99,7 @@ function Body({ study, phase, taskKey }: { study: Study; phase: PhaseView; taskK
 
 			<TaskFields
 				rows={[
-					...taskRows(task, format).filter((r) => !["Tools", "Output", "Deliverable"].includes(r.label)),
+					...taskRows(task, format, { documents: <TaskDocuments study={study} phase={phase.id} task={task} /> }).filter((r) => !["Tools", "Output", "Deliverable"].includes(r.label) && !(r.label === "Documents" && !otherToolItems(task).documents.length)),
 					...task.skills
 						.filter((sk) => skillById(sk)?.request?.kind !== "automation")
 						.map((sk) => ({ label: "What Claude reads", value: <SkillBlock study={study} phase={phase} taskKey={key} skillId={sk} /> })),

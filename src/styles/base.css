@@ -309,3 +309,10 @@ mark {
 		animation: none;
 	}
 }
+
+/* Tailwind v4 gives buttons the arrow cursor: anything that acts shows the hand. */
+button:not(:disabled),
+[role="button"]:not([aria-disabled="true"]),
+summary {
+	cursor: pointer;
+}

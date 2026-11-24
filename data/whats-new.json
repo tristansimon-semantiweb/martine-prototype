@@ -8,6 +8,12 @@
       "summary": "Documents work by phase, tasks put their tools and skills up front, and the first version narrows its scope.",
       "items": [
         {
+          "kind": "changed",
+          "title": "A task’s documents open",
+          "text": "In a task’s detail, each document the method names is a link: to the study’s document when it has one (it opens, or Files shows it in its folder), or + Add to add it there and then (a link, a file, or a copy of the catalog template). Anything you can click shows the hand cursor, and a whole row of the Studies table opens the study.",
+          "href": "/studies/TR-2611-01/steps?phase=2"
+        },
+        {
           "kind": "new",
           "title": "Assign a phase",
           "text": "Each phase has someone in charge: Assigned to, next to its status and document, shows an avatar or a dashed Assign. A click lists the study’s team; Unassigned takes it off. The phases column shows who is in charge of each. Anyone on the study can assign.",

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { TopBand } from "@/shared/components/layout/TopBand";
 import { FamilyPill } from "@/shared/components/ui/Family";
 import { useMartine } from "@/shared/hooks/useMartine";
@@ -35,6 +36,7 @@ const lead = (s: Study) => {
 
 export function StudiesView() {
 	const { studies } = useMartine();
+	const router = useRouter();
 	const [family, setFamily] = useState<Family | "All">("All");
 	const [type, setType] = useState("all");
 	const [status, setStatus] = useState<Status | "all">("all");
@@ -152,7 +154,7 @@ export function StudiesView() {
 							{rows.map((s) => {
 								const st = statusOf(s);
 								return (
-									<tr key={s.id} className="border-b border-[var(--color-border)] last:border-b-0 hover:bg-[var(--color-hover)]">
+									<tr key={s.id} onClick={() => router.push(`/studies/${s.id}`)} className="cursor-pointer border-b border-[var(--color-border)] last:border-b-0 hover:bg-[var(--color-hover)]">
 										<td className="px-5 py-3">
 											<Link href={`/studies/${s.id}`} className="font-semibold text-[var(--color-ink)] no-underline hover:text-[var(--color-accent)]">
 												{s.title}
