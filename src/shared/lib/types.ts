@@ -88,7 +88,7 @@ export interface MethodSuggestion {
 }
 
 // ── Catalog ──
-export type SkillStatus = "validated" | "experimental" | "deprecated";
+export type SkillStatus = "draft" | "validated" | "experimental" | "deprecated";
 
 export interface CatalogSkill {
 	id: string;
@@ -97,6 +97,8 @@ export interface CatalogSkill {
 	needs?: string;
 	produces?: string;
 	status: SkillStatus | null; // null: not set yet
+	// A skill drafted from a method step in Martine (Draft a skill with Claude).
+	origin?: { method: string; version: string | null; task: string; taskName: string; by: string; date: string };
 }
 
 // A tool: an application people work in. The catalog's tools are the tool

@@ -1,8 +1,9 @@
 "use client";
 
 import { createContext, useCallback, useContext, useMemo, useSyncExternalStore } from "react";
-import { methodEntry, seedStudies, seedSuggestions } from "@/shared/lib/data";
-import type { BriefReading, MethodSuggestion, MethodTask, RoleId, Study, StudyState } from "@/shared/lib/types";
+import { methodEntry, registerDraftSkills, seedStudies, seedSuggestions } from "@/shared/lib/data";
+import { toolById } from "@/shared/lib/tools";
+import type { BriefReading, CatalogSkill, MethodSuggestion, MethodTask, RoleId, Study, StudyState } from "@/shared/lib/types";
 
 // The prototype's whole mutable state, persisted in localStorage like the R&R
 // prototype (useUserContent). Seeded from /data; "Reset the demo" restores it.
@@ -23,6 +24,7 @@ interface MartineData {
 	studies: Study[];
 	suggestions: MethodSuggestion[];
 	drafts: Record<string, MethodDraft>; // key: method id
+	skillDrafts?: CatalogSkill[]; // skills drafted from method steps, to review
 }
 
 // Bumped when the seed data changes shape (v2: the methods import), so a
@@ -39,6 +41,7 @@ function seed(): MartineData {
 		studies: structuredClone(seedStudies),
 		suggestions: structuredClone(seedSuggestions),
 		drafts: {},
+		skillDrafts: [],
 	};
 }
 
@@ -69,6 +72,7 @@ function read(): MartineData {
 	try {
 		const saved = localStorage.getItem(KEY);
 		current = saved ? (JSON.parse(saved) as MartineData) : SEED;
+		registerDraftSkills(current.skillDrafts ?? []);
 	} catch {
 		current = SEED;
 	}
@@ -77,6 +81,7 @@ function read(): MartineData {
 
 function write(next: MartineData | null) {
 	current = next;
+	registerDraftSkills(next?.skillDrafts ?? []);
 	try {
 		if (next) localStorage.setItem(KEY, JSON.stringify(next));
 		else localStorage.removeItem(KEY);
@@ -206,6 +211,51 @@ function useMartineState() {
 				});
 				return id;
 			},
+
+			// ── Skills drafted from a method step ──
+			// In the real product Claude drafts the skill with skill-creator from
+			// the step it reads through the Martine connector; the prototype
+			// writes a draft from the step's own columns. It is linked to the step
+			// in the method's draft and waits for the method owner's review.
+			draftSkill: (methodId: string, version: string | null, key: string, task: MethodTask): string => {
+				const id = `draft-${methodId}-${key}`.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+				const firstSentence = (t: string) => t.split(/\n|(?<=\.)\s/)[0]?.trim() ?? "";
+				const tools = task.tool_ids.map((t) => toolById(t)?.label ?? t);
+				const skill: CatalogSkill = {
+					id,
+					label: task.task,
+					does: firstSentence(task.what || task.how) || "[to describe]",
+					needs: tools.length ? `The study context from Martine; works with ${tools.join(", ")}` : "The study context from Martine",
+					produces: task.output || "[to define]",
+					status: "draft",
+					origin: { method: methodId, version, task: key, taskName: task.task, by: me, date: new Date().toISOString().slice(0, 10) },
+				};
+				update((d) => {
+					const list = d.skillDrafts ?? [];
+					if (list.some((x) => x.id === id)) return d;
+					const draft = d.drafts[methodId] ?? emptyDraft(version);
+					const added = draft.addedSkills[key] ?? [];
+					return {
+						...d,
+						skillDrafts: [...list, skill],
+						drafts: { ...d.drafts, [methodId]: { ...draft, saved: false, addedSkills: { ...draft.addedSkills, [key]: [...added, id] } } },
+					};
+				});
+				return id;
+			},
+			validateSkill: (id: string) =>
+				update((d) => ({ ...d, skillDrafts: (d.skillDrafts ?? []).map((x) => (x.id === id ? { ...x, status: "validated" as const } : x)) })),
+			discardSkill: (id: string) =>
+				update((d) => ({
+					...d,
+					skillDrafts: (d.skillDrafts ?? []).filter((x) => x.id !== id),
+					drafts: Object.fromEntries(
+						Object.entries(d.drafts).map(([m, dr]) => [
+							m,
+							{ ...dr, addedSkills: Object.fromEntries(Object.entries(dr.addedSkills).map(([k, v]) => [k, v.filter((x) => x !== id)])) },
+						]),
+					),
+				})),
 
 			// ── Methods ──
 			suggestChange: (methodId: string, phase: string, task: string, text: string) =>

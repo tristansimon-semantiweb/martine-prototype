@@ -9,6 +9,12 @@
       "items": [
         {
           "kind": "new",
+          "title": "Draft a skill with Claude",
+          "text": "A step with no skill offers “Draft a skill with Claude”. Claude drafts it from the step, which it reads through Martine. The draft appears in Skills, linked to its step; the method owner tests it on a study and validates it, then an admin publishes it in Claude.",
+          "href": "/skills"
+        },
+        {
+          "kind": "new",
           "title": "One document per phase",
           "text": "Each phase works in one document of the study: a working sheet, a deck, a queries tab. Open a phase and choose it among the study’s documents, or add it there and then (a link, an upload, or a copy of the template the phase uses). Claude reads it with the phase.",
           "href": "/studies/TR-2611-01/steps?phase=2"

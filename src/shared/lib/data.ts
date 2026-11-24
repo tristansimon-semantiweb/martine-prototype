@@ -13,6 +13,7 @@ import type {
 	AskScript,
 	BriefReading,
 	Catalog,
+	CatalogSkill,
 	MethodFile,
 	MethodIndexEntry,
 	MethodPhase,
@@ -54,8 +55,19 @@ export function personById(id: string): Person | undefined {
 	return people.find((p) => p.id === id);
 }
 
+// Skills drafted in Martine live in the local store; the store registers them
+// here so every skill lookup sees them next to the catalog's.
+let draftSkills: CatalogSkill[] = [];
+export function registerDraftSkills(list: CatalogSkill[]) {
+	draftSkills = list;
+}
+
+export function allSkills(): CatalogSkill[] {
+	return [...catalog.skills, ...draftSkills];
+}
+
 export function skillById(id: string) {
-	return catalog.skills.find((s) => s.id === id);
+	return allSkills().find((s) => s.id === id);
 }
 
 // ── Phase and task identifiers ──

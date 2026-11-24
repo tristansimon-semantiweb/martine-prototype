@@ -12,6 +12,7 @@ import { TaskFields, ToolChip, formatOf, taskMeta, taskRows } from "@/features/p
 import { otherToolItems } from "@/shared/lib/tools";
 import { openInClaudeUrl } from "@/shared/lib/martineContext";
 import { SkillBlock } from "./SkillBlock";
+import { DraftSkill } from "@/features/skills/DraftSkill";
 
 // One row of the method file as a task of this study: the task, what it is
 // for, its skill (Open in Claude), its tools and its deliverable at a glance.
@@ -41,7 +42,7 @@ export function TaskCard({ study, phase, view }: { study: Study; phase: PhaseVie
 					</div>
 					{summary && <p className={cn("m-0 mt-0.5 text-sm text-[var(--color-ink-secondary)]", !open && "line-clamp-2")}>{summary}</p>}
 
-					{hasTools && (
+					{(hasTools || task.skills.length === 0) && (
 						<div className="mt-2.5 flex flex-wrap items-center gap-1.5">
 							{task.skills.map((sk) => (
 								<span key={sk} className="inline-flex items-center gap-1 rounded-[var(--radius-sm)] bg-[var(--color-accent-dim)] py-0.5 pl-2.5 pr-1 text-[13px] font-semibold text-[var(--color-accent)]">
@@ -59,6 +60,7 @@ export function TaskCard({ study, phase, view }: { study: Study; phase: PhaseVie
 							{task.tool_ids.map((t) => (
 								<ToolChip key={t} id={t} />
 							))}
+							{task.skills.length === 0 && <DraftSkill methodId={study.method.id} version={study.method.version} taskKey={key} task={task} />}
 						</div>
 					)}
 

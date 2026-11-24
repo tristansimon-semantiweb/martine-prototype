@@ -4,12 +4,16 @@ import Link from "next/link";
 import { TopBand } from "@/shared/components/layout/TopBand";
 import { SkillStatusBadge } from "@/shared/components/ui/SkillStatus";
 import { useMartine } from "@/shared/hooks/useMartine";
-import { methodEntry, skillById } from "@/shared/lib/data";
+import { methodEntry, personById, skillById } from "@/shared/lib/data";
+import { useRouter } from "next/navigation";
+import { useToast } from "@/shared/components/ui/Toast";
 import { skillUsage } from "@/features/tools/toolUsage";
 
 // One skill: what it does, needs and produces, and every step that uses it.
 export function SkillDetailView({ id }: { id: string }) {
-	const { drafts } = useMartine();
+	const { drafts, role, validateSkill, discardSkill } = useMartine();
+	const router = useRouter();
+	const toast = useToast();
 	const skill = skillById(id);
 
 	if (!skill) {
@@ -43,6 +47,50 @@ export function SkillDetailView({ id }: { id: string }) {
 				</div>
 			</TopBand>
 			<div className="mx-auto flex max-w-[820px] flex-col gap-[18px] px-6 py-8">
+				{skill.origin && (
+					<section aria-label="Review" className="flex flex-col gap-2 rounded-[var(--radius-lg)] bg-[var(--color-accent-dim)] px-5 py-4 text-[15px]">
+						<p className="m-0">
+							Drafted by Claude from the step{" "}
+							<Link href={`/study-types/${skill.origin.method}`}>
+								“{skill.origin.taskName}” of the {methodEntry(skill.origin.method)?.name.toLowerCase()} method
+							</Link>
+							, at {personById(skill.origin.by)?.name.split(" ")[0]}’s request, on {new Date(`${skill.origin.date}T12:00:00`).toLocaleDateString("en-US", { month: "long", day: "numeric" })}. It is linked to that step in the method’s draft.
+						</p>
+						{skill.status === "draft" ? (
+							role === "method_owner" ? (
+								<div className="flex flex-wrap items-center gap-2">
+									<button
+										onClick={() => {
+											validateSkill(skill.id);
+											toast("Skill validated");
+										}}
+										className="rounded-[var(--radius)] bg-[var(--color-accent)] px-3.5 py-2 text-sm font-semibold text-white"
+									>
+										Mark as validated
+									</button>
+									<button
+										onClick={() => {
+											discardSkill(skill.id);
+											toast("Draft discarded");
+											router.push("/skills");
+										}}
+										className="rounded-[var(--radius)] border border-[var(--color-border-hover)] bg-[var(--color-surface)] px-3.5 py-2 text-sm"
+									>
+										Discard
+									</button>
+									<span className="text-sm text-[var(--color-ink-muted)]">Test it on a real study before validating.</span>
+								</div>
+							) : (
+								<p className="m-0 text-sm text-[var(--color-ink-muted)]">
+									The method owner reviews it, tests it on a study, then validates it. (In the prototype, view as Bamby from the account menu.)
+								</p>
+							)
+						) : (
+							<p className="m-0 text-sm">Validated. Next: an admin publishes it in the organisation’s Claude skills, then every analyst can open it from the step.</p>
+						)}
+					</section>
+				)}
+
 				<dl className="m-0 grid grid-cols-[130px_minmax(0,1fr)] gap-x-3.5 gap-y-2.5 rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-surface)] px-5 py-4 text-[15px]">
 					{[
 						["What it does", skill.does],

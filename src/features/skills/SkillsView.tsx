@@ -4,7 +4,7 @@ import Link from "next/link";
 import { TopBand } from "@/shared/components/layout/TopBand";
 import { SkillStatusBadge } from "@/shared/components/ui/SkillStatus";
 import { useMartine } from "@/shared/hooks/useMartine";
-import { catalog } from "@/shared/lib/data";
+import { allSkills } from "@/shared/lib/data";
 import { plural } from "@/shared/lib/format";
 import { cn } from "@/shared/lib/cn";
 import { skillUsage } from "@/features/tools/toolUsage";
@@ -13,7 +13,7 @@ import { skillUsage } from "@/features/tools/toolUsage";
 // study type that name them. Same source as the catalog drawer.
 export function SkillsView() {
 	const { drafts } = useMartine();
-	const rows = catalog.skills
+	const rows = allSkills()
 		.map((s) => {
 			const uses = skillUsage(s.id, drafts);
 			return { s, steps: uses.length, types: new Set(uses.map((u) => u.methodId)).size };
@@ -45,6 +45,7 @@ export function SkillsView() {
 											{s.label}
 										</Link>
 										<div className="font-mono text-[12px] text-[var(--color-ink-muted)]">{s.id}</div>
+										{s.origin && <div className="text-[12px] text-[var(--color-ink-muted)]">drafted from “{s.origin.taskName}”</div>}
 									</td>
 									<td className={cn("max-w-[420px] px-3 py-3 text-sm", s.does.startsWith("[") ? "text-[var(--color-ink-muted)]" : "text-[var(--color-ink-secondary)]")}>{s.does}</td>
 									<td className="px-3 py-3">

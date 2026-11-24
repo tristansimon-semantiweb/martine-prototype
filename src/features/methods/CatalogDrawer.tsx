@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Sheet } from "@/shared/components/ui/Sheet";
 import { useToast } from "@/shared/components/ui/Toast";
 import { useMartine } from "@/shared/hooks/useMartine";
-import { catalog, methodEntry } from "@/shared/lib/data";
+import { allSkills, catalog, methodEntry } from "@/shared/lib/data";
 import { cn } from "@/shared/lib/cn";
 import type { CatalogSkill, MethodTask } from "@/shared/lib/types";
 import { SkillStatusBadge } from "@/shared/components/ui/SkillStatus";
@@ -21,7 +21,7 @@ const words = (s: string) => new Set(s.toLowerCase().match(/[a-z]{4,}/g)?.filter
 // (brief, §5): the words they share, and what the skill needs and produces.
 function suggest(task: MethodTask): { skill: CatalogSkill; shared: string[] }[] {
 	const t = words(`${task.task} ${task.how} ${task.tools} ${task.output}`);
-	return catalog.skills
+	return allSkills()
 		.filter((s) => s.status !== "deprecated")
 		.map((skill) => ({ skill, shared: [...words(`${skill.label} ${skill.does} ${skill.produces ?? ""}`)].filter((w) => t.has(w)) }))
 		.filter((x) => x.shared.length > 0)
@@ -166,7 +166,7 @@ export function CatalogDrawer({
 								All skills in the catalog
 							</h3>
 							<ul className="m-0 list-none p-0">
-								{catalog.skills
+								{allSkills()
 									.filter((s) => q || !suggested.some((x) => x.skill.id === s.id))
 									.filter((s) => matches(`${s.label} ${s.does}`))
 									.map((s) => skillRow(s))}
