@@ -53,7 +53,7 @@ export function StepsView({ id }: { id: string }) {
 	if (open) {
 		return (
 			<div className="mx-auto grid max-w-[1240px] items-start gap-7 px-6 py-7 lg:grid-cols-[240px_minmax(0,1fr)]">
-				<nav aria-label="Phases of the study" className="flex flex-col gap-1 lg:sticky lg:top-[64px]">
+				<nav aria-label="Phases of the study" className="flex flex-col gap-1 rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-surface)] p-2.5 shadow-[var(--shadow-xs)] lg:sticky lg:top-[64px]">
 					<button onClick={() => setOpen(null)} className="mb-1 self-start rounded-[var(--radius-sm)] px-2 py-1 text-sm font-semibold text-[var(--color-accent)] hover:bg-[var(--color-accent-dim)]">
 						← All phases
 					</button>

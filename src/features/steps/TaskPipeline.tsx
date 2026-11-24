@@ -41,7 +41,7 @@ export function TaskPipeline({ study, phase, onOpen }: { study: Study; phase: Ph
 	const first = (id: string) => personById(id)?.name.split(" ")[0];
 
 	return (
-		<ol aria-label="Tasks" className="m-0 list-none p-0">
+		<ol aria-label="Tasks" className="m-0 list-none p-0 [&>li:last-child>div]:border-b-0">
 			{phase.tasks.map((t) => {
 				const e = executorOf(t);
 				const meta = [executorLine(e), taskTime(t.task)].filter(Boolean).join(" · ");
@@ -50,7 +50,7 @@ export function TaskPipeline({ study, phase, onOpen }: { study: Study; phase: Ph
 						{/* The whole card opens the task's detail; its one action runs it. */}
 						<div
 							onClick={() => onOpen(t.key)}
-							className="mb-2.5 flex cursor-pointer flex-wrap items-center gap-x-4 gap-y-2 rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-surface)] px-5 py-4 shadow-[var(--shadow-xs)] transition-shadow hover:shadow-[var(--shadow-sm)]"
+							className="flex cursor-pointer flex-wrap items-center gap-x-4 gap-y-2 border-b border-[var(--color-border)] px-6 py-4 transition-colors hover:bg-[var(--color-hover)]"
 						>
 							<button onClick={() => onOpen(t.key)} aria-label={`${t.task.task}: details`} className="min-w-[260px] flex-1 text-left">
 								<span className="flex items-baseline gap-2">
@@ -81,7 +81,7 @@ export function TaskPipeline({ study, phase, onOpen }: { study: Study; phase: Ph
 			})}
 			{phase.added.map((t, i) => (
 				<li key={t.id}>
-					<div className="mb-2.5 flex min-w-0 items-center gap-3 rounded-[var(--radius-lg)] border border-dashed border-[var(--color-border-active)] bg-[var(--color-surface)] px-5 py-3.5">
+					<div className="flex min-w-0 items-center gap-3 border-b border-[var(--color-border)] px-6 py-3.5">
 						<span className="text-[13px] text-[var(--color-ink-muted)]">{`${phase.id}.${phase.tasks.length + i + 1}`}</span>
 						<span className="min-w-0 flex-1 font-semibold">
 							<InlineEdit value={t.title} onSave={(v) => v && renameAddedTask(study.id, t.id, v)} canEdit={isConsultant} label="the task" placeholder="Name the task" />

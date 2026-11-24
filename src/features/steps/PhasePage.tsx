@@ -28,64 +28,78 @@ export function PhasePage({ study, phase }: { study: Study; phase: PhaseView }) 
 	const total = phase.tasks.length + phase.added.length;
 
 	return (
-		<article aria-labelledby="phase-title" className="flex min-w-0 flex-col gap-5">
-			<header className="flex flex-wrap items-start gap-x-4 gap-y-3">
-				<div className="min-w-0 flex-1">
-					<div className="text-sm text-[var(--color-ink-muted)]">{kicker(phase)}</div>
-					<h2 id="phase-title" className="m-0 mt-0.5 font-[family-name:var(--font-heading)] text-[30px] font-medium leading-tight">
-						{phase.name}
-					</h2>
-				</div>
-				{phase.tasks.length > 0 && (
-					<a
-						href={walkthroughUrl(study, phase)}
-						target="_blank"
-						rel="noopener noreferrer"
-						title="Claude takes the phase task by task: what to do, the skill to run, the tool to open, the check before the next one"
-						className="inline-flex items-center gap-2 rounded-[var(--radius)] bg-[var(--color-accent)] px-4 py-2.5 text-sm font-semibold text-white no-underline hover:opacity-90"
-					>
-						<Play size={14} aria-hidden className="fill-current" /> Walk me through in Claude <ExternalLink size={13} aria-hidden />
-					</a>
-				)}
-			</header>
-
-			{/* Where the phase stands and the document it works in: one quiet line
-			    under the title, so the tasks below carry the page. */}
-			<section aria-label="This phase" className="-mt-2 flex flex-wrap items-center gap-x-6 gap-y-2.5 text-sm">
-				<span className="flex items-center gap-2">
-					<span className="text-[var(--color-ink-muted)]">Status</span>
-					<PhaseStatusPicker status={phase.status} canEdit onChange={(s) => setPhaseStatus(study.id, phase.id, s)} label={`Status of phase ${phase.id}`} />
-				</span>
-				{!phase.addedBy && (
+		<article aria-labelledby="phase-title" className="flex min-w-0 flex-col gap-4">
+			{/* The phase: what it is, where it stands, the document it works in, the team's note. */}
+			<section
+				aria-label="This phase"
+				className="flex flex-col gap-3.5 rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-surface)] shadow-[var(--shadow-xs)] px-6 py-5"
+			>
+				<header className="flex flex-wrap items-start gap-x-4 gap-y-3">
+					<div className="min-w-0 flex-1">
+						<div className="text-sm text-[var(--color-ink-muted)]">{kicker(phase)}</div>
+						<h2 id="phase-title" className="m-0 mt-0.5 font-[family-name:var(--font-heading)] text-[28px] font-medium leading-tight">
+							{phase.name}
+						</h2>
+					</div>
+					{phase.tasks.length > 0 && (
+						<a
+							href={walkthroughUrl(study, phase)}
+							target="_blank"
+							rel="noopener noreferrer"
+							title="Claude takes the phase task by task: what to do, the skill to run, the tool to open, the check before the next one"
+							className="inline-flex items-center gap-2 rounded-[var(--radius)] bg-[var(--color-accent)] px-4 py-2.5 text-sm font-semibold text-white no-underline hover:opacity-90"
+						>
+							<Play size={14} aria-hidden className="fill-current" /> Walk me through in Claude <ExternalLink size={13} aria-hidden />
+						</a>
+					)}
+				</header>
+				<div className="flex flex-wrap items-center gap-x-6 gap-y-2.5 text-sm">
 					<span className="flex items-center gap-2">
-						<span className="text-[var(--color-ink-muted)]">Document</span>
-						<PhaseDocument study={study} phase={phase.id} tasks={phase.tasks.map((t) => t.task)} inline />
+						<span className="text-[var(--color-ink-muted)]">Status</span>
+						<PhaseStatusPicker status={phase.status} canEdit onChange={(s) => setPhaseStatus(study.id, phase.id, s)} label={`Status of phase ${phase.id}`} />
 					</span>
+					{!phase.addedBy && (
+						<span className="flex items-center gap-2">
+							<span className="text-[var(--color-ink-muted)]">Document</span>
+							<PhaseDocument study={study} phase={phase.id} tasks={phase.tasks.map((t) => t.task)} inline />
+						</span>
+					)}
+				</div>
+				{note ? (
+					<div className="border-l-[3px] border-[var(--color-attention)] py-0.5 pl-3.5 text-[15px] leading-normal">
+						<div className="mb-0.5 text-[13px] font-bold text-[var(--color-attention)]">Note from {first(note.by)}</div>
+						<InlineEdit
+							value={note.text}
+							onSave={(t) => setNote(study.id, phase.id, t)}
+							canEdit={isConsultant}
+							label="the note"
+							placeholder="Add a note for the team on this phase"
+							multiline
+						/>
+					</div>
+				) : (
+					isConsultant && (
+						<div className="text-sm">
+							<InlineEdit value="" onSave={(t) => setNote(study.id, phase.id, t)} canEdit label="the note" placeholder="Add a note for the team on this phase" multiline />
+						</div>
+					)
 				)}
 			</section>
 
-			{note ? (
-				<div className="border-l-[3px] border-[var(--color-attention)] py-0.5 pl-3.5 text-[15px] leading-normal">
-					<div className="mb-0.5 text-[13px] font-bold text-[var(--color-attention)]">Note from {first(note.by)}</div>
-					<InlineEdit value={note.text} onSave={(t) => setNote(study.id, phase.id, t)} canEdit={isConsultant} label="the note" placeholder="Add a note for the team on this phase" multiline />
-				</div>
-			) : (
-				isConsultant && (
-					<div className="px-1 text-sm">
-						<InlineEdit value="" onSave={(t) => setNote(study.id, phase.id, t)} canEdit label="the note" placeholder="Add a note for the team on this phase" multiline />
-					</div>
-				)
-			)}
-
-			<section aria-labelledby="tasks-h" className="flex flex-col gap-2">
-				<h3 id="tasks-h" className="m-0 flex items-baseline gap-2 font-[family-name:var(--font-body)] text-lg font-semibold">
+			{/* Its tasks, in one card, one row each; adding and what your role can change close it. */}
+			<section
+				aria-labelledby="tasks-h"
+				className="overflow-hidden rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-surface)] shadow-[var(--shadow-xs)]"
+			>
+				<h3 id="tasks-h" className="m-0 flex items-baseline gap-2 border-b border-[var(--color-border)] px-6 py-3.5 font-[family-name:var(--font-body)] text-lg font-semibold">
 					Tasks <span className="text-sm font-normal text-[var(--color-ink-muted)]">{total}, in order</span>
 				</h3>
-				{total === 0 ? <p className="m-0 text-sm text-[var(--color-ink-muted)]">No task yet.</p> : <TaskPipeline study={study} phase={phase} onOpen={setOpenTask} />}
-				{isConsultant && <AddRow label="Add a task for this study" placeholder="What needs doing, for this study only" onAdd={(v) => addTask(study.id, phase.id, v)} />}
+				{total === 0 ? <p className="m-0 px-6 py-4 text-sm text-[var(--color-ink-muted)]">No task yet.</p> : <TaskPipeline study={study} phase={phase} onOpen={setOpenTask} />}
+				<div className="flex flex-col gap-3 border-t border-[var(--color-border)] bg-[var(--color-canvas)]/50 px-6 py-3.5">
+					{isConsultant && <AddRow label="Add a task for this study" placeholder="What needs doing, for this study only" onAdd={(v) => addTask(study.id, phase.id, v)} />}
+					<CanDo can={CAN[role].can} locked={CAN[role].locked} />
+				</div>
 			</section>
-
-			<CanDo can={CAN[role].can} locked={CAN[role].locked} />
 
 			<TaskDetail study={study} phase={phase} taskKey={openTask} onClose={() => setOpenTask(null)} />
 		</article>
@@ -119,4 +133,3 @@ const CAN: Record<RoleId, { can: string; locked: string }> = {
 		locked: "The note and the tasks added for this study are the consultant’s.",
 	},
 };
-
