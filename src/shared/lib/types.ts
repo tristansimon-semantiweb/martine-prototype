@@ -212,8 +212,7 @@ export interface Study {
 	daysSold: number | null;
 	brief?: string; // key in data/briefs-exemples.json
 	scope?: string; // what the study covers, in a sentence: the recap's second line
-	// Where it stands, in words. Absent: Martine writes a line from the phases' status.
-	summary?: { headline: string; body: string; by?: string; date?: string };
+	summary?: { headline: string; body: string; by?: string; date?: string }; // not shown in the MVP
 	// The method phases this study runs, when it runs only some of them (a
 	// method file can hold several report cycles). Absent: all but the optional ones.
 	phases?: string[];

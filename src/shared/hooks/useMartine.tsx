@@ -32,7 +32,7 @@ interface MartineData {
 // Bumped when the seed data changes shape (v2: the methods import), so a
 // browser that kept an older demo starts again from the new seed (v3: files
 // attached to tasks; v4: V1 scope, no ticking, validation or time; v5: one
-// document per phase; v6: skill requests; v7: phase status; v8: scope and past studies; v9, v10: outputs traced to tasks, then not: no task state in V1; v11: a document used by two phases; v12: last edition, not previous wave; v13: documents by category; v14: no renaming or removing a method phase in a study; v15, v16: assignees, on tasks then on phases; v17: upload dates; v18: editable standing).
+// document per phase; v6: skill requests; v7: phase status; v8: scope and past studies; v9, v10: outputs traced to tasks, then not: no task state in V1; v11: a document used by two phases; v12: last edition, not previous wave; v13: documents by category; v14: no renaming or removing a method phase in a study; v15, v16: assignees, on tasks then on phases; v17: upload dates; v18: editable standing, then removed).
 const KEY = "martine_v18";
 
 const ROLE_PERSON: Record<RoleId, string> = { analyst: "marie", consultant: "claire", method_owner: "bamby", skills_owner: "fabien" };
@@ -53,7 +53,6 @@ function emptyDraft(version: string | null): MethodDraft {
 }
 
 const uid = () => Math.random().toString(36).slice(2, 8);
-const today = () => new Date().toISOString().slice(0, 10);
 
 // "TR-2611-02": method prefix, year and month of creation, then a counter.
 function nextStudyId(studies: Study[], methodId: string): string {
@@ -213,9 +212,6 @@ function useMartineState() {
 				}),
 			removeFile: (studyId: string, fileId: string) => patchStudy(studyId, (s) => ({ ...s, files: s.files.filter((f) => f.id !== fileId) })),
 
-			// ── Where it stands ──
-			setSummary: (studyId: string, text: string) =>
-				patchStudy(studyId, (s) => ({ ...s, summary: text.trim() ? { headline: "", body: text.trim(), by: me, date: today() } : undefined })),
 			addTeamMember: (studyId: string, person: string, role: RoleId) =>
 				patchStudy(studyId, (s) => (s.team.some((m) => m.person === person) ? s : { ...s, team: [...s.team, { person, role }] })),
 			removeTeamMember: (studyId: string, person: string) => patchStudy(studyId, (s) => ({ ...s, team: s.team.filter((m) => m.person !== person) })),

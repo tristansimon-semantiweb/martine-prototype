@@ -3,9 +3,8 @@
 import Link from "next/link";
 import { ChevronDown, FileText, Lock } from "lucide-react";
 import { useMartine } from "@/shared/hooks/useMartine";
-import { InlineEdit } from "@/shared/components/ui/Editing";
 import { days, dueDate, fromToday, plural } from "@/shared/lib/format";
-import { knownToClaude, statusLine } from "@/shared/lib/martineContext";
+import { knownToClaude } from "@/shared/lib/martineContext";
 import { methodEntry, personById } from "@/shared/lib/data";
 import { hasMethodFile, phaseViews, type PhaseView } from "@/shared/lib/studyModel";
 import { cn } from "@/shared/lib/cn";
@@ -47,10 +46,6 @@ export function OverviewView({ id }: { id: string }) {
 	const nowPerson = now ? personById(study.state.assignees?.[now.id] ?? "") : undefined;
 	const recentFiles = [...study.files].sort((a, b) => (b.added ?? "").localeCompare(a.added ?? "")).slice(0, 4);
 
-	// Until someone writes where it stands, Martine writes a line from the phases' status.
-	const autoSummary = hasMethodFile(study)
-		? `${study.status === "delivered" ? "Delivered." : views.some((v) => v.status === "in_progress" || v.status === "done") ? "Under way." : "Not started yet."} The ${type.toLowerCase()} method: ${views.length} phases, ${statusLine(views)}.`
-		: "The method file for this study type is not imported in Martine yet.";
 
 	return (
 		<div className="mx-auto grid max-w-[1240px] items-start gap-6 px-6 py-7 lg:grid-cols-[minmax(0,1fr)_320px]">
@@ -123,8 +118,7 @@ export function OverviewView({ id }: { id: string }) {
 					</section>
 				)}
 
-				<div className="grid gap-5 md:grid-cols-2">
-					<Standing study={study} auto={autoSummary} />
+				<div>
 					<section aria-labelledby="docs" className={tile}>
 						<div className="flex items-baseline gap-2">
 							<h2 id="docs" className={h2}>
@@ -303,34 +297,6 @@ function SimilarStudies({ study, similar, type }: { study: Study; similar: Study
 					})}
 				</ul>
 			)}
-		</section>
-	);
-}
-
-const firstName = (id?: string) => (id ? personById(id)?.name.split(" ")[0] : undefined);
-
-// Where it stands, in words: anyone on the study rewrites it in place. Until
-// then, Martine's line from the phases' status, said as such.
-function Standing({ study, auto }: { study: Study; auto: string }) {
-	const { setSummary } = useMartine();
-	const written = study.summary ? [study.summary.headline, study.summary.body].filter(Boolean).join(" ") : "";
-	return (
-		<section aria-labelledby="stands" className={tile}>
-			<h2 id="stands" className={h2}>
-				Where it stands
-			</h2>
-			<div className="mt-2 text-[15px] leading-relaxed text-[var(--color-ink-secondary)]">
-				<InlineEdit value={written} onSave={(t) => setSummary(study.id, t)} canEdit multiline label="where it stands" placeholder={auto}>
-					{written || undefined}
-				</InlineEdit>
-			</div>
-			<p className="m-0 mt-2 text-[12px] text-[var(--color-ink-muted)]">
-				{study.summary?.by
-					? `Updated by ${firstName(study.summary.by)}${study.summary.date ? `, ${shortDate(study.summary.date)}` : ""}. Claude reads it.`
-					: written
-						? "Claude reads it."
-						: "Written by Martine from the phases’ status. Click to write your own; Claude reads it."}
-			</p>
 		</section>
 	);
 }
