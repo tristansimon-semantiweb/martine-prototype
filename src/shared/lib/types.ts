@@ -138,7 +138,6 @@ export interface StudyFile {
 	phase: string;
 	from: FileOrigin;
 	url?: string; // a link (Sheet, Doc, deck…) rather than an uploaded file
-	task?: string; // the task whose deliverable it is ("2.2"); none: another file of the study
 }
 
 export interface StudyLink {
@@ -162,6 +161,9 @@ export interface AddedStep {
 // Everything that changes while the study runs. Persisted locally.
 export interface StudyState {
 	notes: Record<string, { by: string; text: string }>; // key: phase id
+	// The study document each phase works in, chosen among the study's
+	// documents (one per phase; a document can serve several phases).
+	phaseDocs: Record<string, string>; // phase id → file id
 	addedTasks: AddedTask[];
 	addedSteps: AddedStep[];
 }

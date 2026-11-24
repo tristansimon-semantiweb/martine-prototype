@@ -30,7 +30,12 @@ export const seedSuggestions = studiesRaw.methodSuggestions as MethodSuggestion[
 export const briefs = briefsRaw as unknown as Record<string, string>;
 export const briefReadings = readingsRaw.readings as Record<string, BriefReading>;
 export const askScripts = askScriptsRaw.scripts as AskScript[];
-export const whatsNew = whatsNewRaw.entries as { date: string; items: string[] }[];
+export type WhatsNewKind = "new" | "changed" | "removed";
+export const whatsNew = whatsNewRaw.entries as {
+	date: string;
+	summary?: string;
+	items: { kind: WhatsNewKind; title: string; text: string; href?: string }[];
+}[];
 const studyTypes = studyTypesRaw.types as unknown as Record<string, StudyTypeDefinition | null>;
 
 export function studyTypeDefinition(id: string): StudyTypeDefinition | null {

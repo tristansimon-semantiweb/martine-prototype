@@ -1,16 +1,16 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { ExternalLink, FileText, Link2, Paperclip } from "lucide-react";
+import { ExternalLink, FileText, Link2 } from "lucide-react";
 import { useMartine } from "@/shared/hooks/useMartine";
 import { useToast } from "@/shared/components/ui/Toast";
 import { catalog, personById } from "@/shared/lib/data";
 import { cn } from "@/shared/lib/cn";
 import type { FileOrigin, MethodTask, Study, StudyFile } from "@/shared/lib/types";
 
-// What links a task to the study's documents: the method says what the task
-// produces (its Output / Deliverable); the study attaches the real file or
-// link to that task. Files lists the same thing, phase by phase.
+// The study's documents, and how a phase uses one: each phase works in one
+// document of the study (a working sheet, a deck…), chosen among the study's
+// documents or added for it. Files lists them all.
 
 const first = (id: string) => personById(id)?.name.split(" ")[0] ?? "";
 
@@ -30,8 +30,8 @@ const TEMPLATE_RULES: [RegExp, string][] = [
 	[/codebook|code the sample/i, "Codebook"],
 	[/\bdeck\b/i, "Deck template"],
 ];
-export function templateFor(task: MethodTask): string | null {
-	const text = `${task.task} ${task.output} ${task.tools}`;
+export function templateFor(tasks: MethodTask[]): string | null {
+	const text = tasks.map((t) => `${t.task} ${t.output} ${t.tools}`).join(" ");
 	const hit = TEMPLATE_RULES.find(([re, doc]) => re.test(text) && catalog.documents.includes(doc));
 	return hit?.[1] ?? null;
 }
@@ -67,20 +67,21 @@ export function FileChip({ study, file }: { study: Study; file: StudyFile }) {
 	);
 }
 
-// Attach a link, a file, or start from the template, to a task or to the study.
+// Add a document to the study: a link, an upload, or a copy of a template.
+// `onAttached` receives the new document's id (a phase then uses it).
 export function AttachForm({
 	study,
 	phase,
-	task,
 	defaultName,
 	template,
+	onAttached,
 	onDone,
 }: {
 	study: Study;
 	phase: string;
-	task?: string;
 	defaultName: string;
 	template?: string | null;
+	onAttached?: (id: string) => void;
 	onDone: () => void;
 }) {
 	const { attach } = useMartine();
@@ -96,8 +97,10 @@ export function AttachForm({
 				onSubmit={(e) => {
 					e.preventDefault();
 					if (!name.trim() || !validUrl) return;
-					attach(study.id, { name: name.trim(), type: "Link", phase, task, url: url.trim() });
-					toast("Link attached");
+					// Add first: an optional call skips its argument when there is no callback.
+					const id = attach(study.id, { name: name.trim(), type: "Link", phase, url: url.trim() });
+					onAttached?.(id);
+					toast("Link added");
 					onDone();
 				}}
 				className="flex flex-wrap gap-2"
@@ -105,7 +108,7 @@ export function AttachForm({
 				<input value={name} onChange={(e) => setName(e.target.value)} aria-label="Name" placeholder="Name" className="rr-input min-w-[180px] flex-1" />
 				<input type="url" value={url} onChange={(e) => setUrl(e.target.value)} aria-label="Address" placeholder="https:// (Sheet, Doc, deck…)" className="rr-input min-w-[220px] flex-[2]" />
 				<button type="submit" disabled={!name.trim() || !validUrl} className="rounded-[var(--radius)] bg-[var(--color-accent)] px-3.5 text-sm font-semibold text-white disabled:opacity-40">
-					Attach the link
+					Add the link
 				</button>
 			</form>
 			<div className="flex flex-wrap items-center gap-3 text-sm">
@@ -116,8 +119,9 @@ export function AttachForm({
 					onChange={(e) => {
 						const f = e.target.files?.[0];
 						if (!f) return;
-						attach(study.id, { name: f.name.replace(/\.[^.]+$/, ""), type: f.name.split(".").pop()?.toUpperCase() ?? "File", phase, task });
-						toast("File attached");
+						const id = attach(study.id, { name: f.name.replace(/\.[^.]+$/, ""), type: f.name.split(".").pop()?.toUpperCase() ?? "File", phase });
+						onAttached?.(id);
+						toast("File added");
 						onDone();
 					}}
 				/>
@@ -127,13 +131,13 @@ export function AttachForm({
 				{template && (
 					<button
 						onClick={() => {
-							attach(study.id, {
+							const id = attach(study.id, {
 								name: `${study.id} ${template.replace(/ template$/i, "")}`,
 								type: /deck/i.test(template) ? "Slides" : "Sheet",
 								phase,
-								task,
 								template,
 							});
+							onAttached?.(id);
 							toast(`Started from the ${template}`);
 							onDone();
 						}}
@@ -150,30 +154,75 @@ export function AttachForm({
 	);
 }
 
-// The deliverable line of a task: what the method expects, what is attached.
-export function TaskDeliverable({ study, phase, taskKey, task }: { study: Study; phase: string; taskKey: string; task: MethodTask }) {
-	const [adding, setAdding] = useState(false);
-	const files = study.files.filter((f) => f.task === taskKey);
-	if (!task.output && !files.length) return null;
+// The document a phase works in: shown at the top of the phase, chosen among
+// the study's documents, or added for it (link, upload, template).
+export function PhaseDocument({ study, phase, tasks }: { study: Study; phase: string; tasks: MethodTask[] }) {
+	const { setPhaseDoc } = useMartine();
+	const toast = useToast();
+	const [mode, setMode] = useState<"idle" | "choose" | "add">("idle");
+	const docId = study.state.phaseDocs?.[phase];
+	const doc = study.files.find((f) => f.id === docId);
+
 	return (
-		<div className="mt-2.5 flex flex-col gap-1.5">
-			<div className="flex flex-wrap items-center gap-2 text-sm">
-				<span className="text-[var(--color-ink-muted)]">Deliverable:</span>
-				<span className="text-[var(--color-ink-secondary)]">{task.output || "[not in the method file]"}</span>
-				{!adding && (
-					<button onClick={() => setAdding(true)} className="inline-flex items-center gap-1 text-[13px] font-semibold text-[var(--color-accent)]">
-						<Paperclip size={13} aria-hidden /> {files.length ? "Attach another" : "Attach"}
+		<section aria-label="Phase document" className="flex flex-col gap-2 rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-canvas)] px-4 py-3">
+			<div className="flex flex-wrap items-center gap-2">
+				<span className="text-sm font-semibold">Phase document</span>
+				{doc ? <FileChip study={study} file={doc} /> : <span className="text-sm text-[var(--color-ink-muted)]">none yet</span>}
+				{mode === "idle" && (
+					<button onClick={() => setMode("choose")} className="ml-auto text-[13px] font-semibold text-[var(--color-accent)]">
+						{doc ? "Change" : "Choose a document"}
 					</button>
 				)}
 			</div>
-			{files.length > 0 && (
-				<div className="flex flex-wrap gap-1.5">
-					{files.map((f) => (
-						<FileChip key={f.id} study={study} file={f} />
-					))}
+			{mode === "choose" && (
+				<div className="flex flex-wrap items-center gap-2">
+					<select
+						defaultValue={docId ?? ""}
+						onChange={(e) => {
+							if (!e.target.value) return;
+							setPhaseDoc(study.id, phase, e.target.value);
+							toast("Document set for this phase");
+							setMode("idle");
+						}}
+						aria-label="The study's documents"
+						className="rr-input w-auto min-w-[240px] max-w-full py-2"
+					>
+						<option value="">Choose among the study’s documents</option>
+						{study.files.map((f) => (
+							<option key={f.id} value={f.id}>
+								{f.name} ({f.type})
+							</option>
+						))}
+					</select>
+					<button onClick={() => setMode("add")} className="text-[13px] font-semibold text-[var(--color-accent)]">
+						or add a new one
+					</button>
+					{doc && (
+						<button
+							onClick={() => {
+								setPhaseDoc(study.id, phase, null);
+								setMode("idle");
+							}}
+							className="text-[13px] text-[var(--color-ink-muted)]"
+						>
+							Remove from this phase
+						</button>
+					)}
+					<button onClick={() => setMode("idle")} className="ml-auto text-[13px] text-[var(--color-ink-muted)]">
+						Cancel
+					</button>
 				</div>
 			)}
-			{adding && <AttachForm study={study} phase={phase} task={taskKey} defaultName={task.output} template={templateFor(task)} onDone={() => setAdding(false)} />}
-		</div>
+			{mode === "add" && (
+				<AttachForm
+					study={study}
+					phase={phase}
+					defaultName=""
+					template={templateFor(tasks)}
+					onAttached={(id) => setPhaseDoc(study.id, phase, id)}
+					onDone={() => setMode("idle")}
+				/>
+			)}
+		</section>
 	);
 }

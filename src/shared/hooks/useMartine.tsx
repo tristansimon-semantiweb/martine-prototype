@@ -27,8 +27,9 @@ interface MartineData {
 
 // Bumped when the seed data changes shape (v2: the methods import), so a
 // browser that kept an older demo starts again from the new seed (v3: files
-// attached to tasks; v4: V1 scope, no ticking, validation or time).
-const KEY = "martine_v4";
+// attached to tasks; v4: V1 scope, no ticking, validation or time; v5: one
+// document per phase).
+const KEY = "martine_v5";
 
 const ROLE_PERSON: Record<RoleId, string> = { analyst: "marie", consultant: "claire", method_owner: "bamby" };
 
@@ -137,24 +138,33 @@ function useMartineState() {
 					...s,
 					files: s.files.map((f) => (f.id === fileId && f.from.kind === "claude" ? { ...f, from: { kind: "claude", checkedBy: me } } : f)),
 				})),
-			// A file or a link, attached to a task as its deliverable, or to the
-			// study when `task` is absent. `template`: started from a catalog template.
-			attach: (studyId: string, f: { name: string; type: string; phase: string; task?: string; url?: string; template?: string }) =>
+			// Add a document to the study (a link, an upload, or a copy of a
+			// template). Returns its id, so a phase can use it right away.
+			attach: (studyId: string, f: { name: string; type: string; phase: string; url?: string; template?: string }): string => {
+				const id = `f${uid()}`;
 				patchStudy(studyId, (s) => ({
 					...s,
 					files: [
 						...s.files,
 						{
-							id: `f${uid()}`,
+							id,
 							name: f.name,
 							type: f.type,
 							phase: f.phase,
-							task: f.task,
 							url: f.url,
 							from: f.template ? { kind: "template", template: f.template, by: me } : { kind: "person", by: me },
 						},
 					],
-				})),
+				}));
+				return id;
+			},
+			setPhaseDoc: (studyId: string, phase: string, fileId: string | null) =>
+				patchState(studyId, (st) => {
+					const phaseDocs = { ...(st.phaseDocs ?? {}) };
+					if (fileId) phaseDocs[phase] = fileId;
+					else delete phaseDocs[phase];
+					return { ...st, phaseDocs };
+				}),
 			removeFile: (studyId: string, fileId: string) => patchStudy(studyId, (s) => ({ ...s, files: s.files.filter((f) => f.id !== fileId) })),
 
 			addTeamMember: (studyId: string, person: string, role: RoleId) =>
@@ -190,7 +200,7 @@ function useMartineState() {
 						],
 						files: [{ id: "f1", name: "Client brief", type: "PDF", phase: "0", from: { kind: "client" } }],
 						previousWave: [],
-						state: { notes: {}, addedTasks: [], addedSteps: [] },
+						state: { notes: {}, phaseDocs: {}, addedTasks: [], addedSteps: [] },
 					};
 					return { ...d, studies: [study, ...d.studies] };
 				});

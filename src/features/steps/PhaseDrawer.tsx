@@ -8,6 +8,7 @@ import type { PhaseView } from "@/shared/lib/studyModel";
 import type { Study } from "@/shared/lib/types";
 import { PhaseSheet, ownerLabel } from "@/features/phase/PhaseParts";
 import { TaskCard } from "./TaskCard";
+import { PhaseDocument } from "@/features/files/Documents";
 
 // A phase of a study, opened from Steps: the consultant's note, the method's
 // tasks as written in the method file, and the tasks added for this study.
@@ -81,6 +82,8 @@ function Body({ study, phase }: { study: Study; phase: PhaseView }) {
 					</button>
 				)
 			)}
+
+			{!phase.addedBy && <PhaseDocument study={study} phase={phase.id} tasks={phase.tasks.map((t) => t.task)} />}
 
 			{phase.tasks.map((t) => (
 				<TaskCard key={t.key} study={study} phase={phase} view={t} />

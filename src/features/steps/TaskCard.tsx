@@ -10,7 +10,6 @@ import type { PhaseView, TaskView } from "@/shared/lib/studyModel";
 import type { Study } from "@/shared/lib/types";
 import { TaskFields, ToolChip, formatOf, taskMeta, taskRows } from "@/features/phase/PhaseParts";
 import { otherToolItems } from "@/shared/lib/tools";
-import { TaskDeliverable } from "@/features/files/Deliverables";
 import { openInClaudeUrl } from "@/shared/lib/martineContext";
 import { SkillBlock } from "./SkillBlock";
 
@@ -63,7 +62,12 @@ export function TaskCard({ study, phase, view }: { study: Study; phase: PhaseVie
 						</div>
 					)}
 
-					<TaskDeliverable study={study} phase={phase.id} taskKey={key} task={task} />
+					{task.output && (
+						<p className="m-0 mt-2 text-sm">
+							<span className="text-[var(--color-ink-muted)]">Output: </span>
+							<span className="text-[var(--color-ink-secondary)]">{task.output}</span>
+						</p>
+					)}
 
 					<button
 						onClick={() => setOpen((v) => !v)}

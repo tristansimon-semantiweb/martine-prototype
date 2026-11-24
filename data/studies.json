@@ -124,7 +124,6 @@
           "name": "Scope and points to clarify",
           "type": "Doc",
           "phase": "0",
-          "task": "0.1",
           "from": {
             "kind": "person",
             "by": "claire"
@@ -135,7 +134,6 @@
           "name": "Queries tab, FR, UK, JP",
           "type": "Sheet",
           "phase": "2",
-          "task": "2.2",
           "from": {
             "kind": "claude",
             "checkedBy": "marie"
@@ -146,7 +144,6 @@
           "name": "Noise audit and exclusions",
           "type": "Excel",
           "phase": "2",
-          "task": "2.3",
           "from": {
             "kind": "claude"
           }
@@ -179,7 +176,11 @@
             "by": "claire"
           }
         ],
-        "addedSteps": []
+        "addedSteps": [],
+        "phaseDocs": {
+          "0": "f3",
+          "2": "f4"
+        }
       }
     },
     {
@@ -227,7 +228,8 @@
       "state": {
         "notes": {},
         "addedTasks": [],
-        "addedSteps": []
+        "addedSteps": [],
+        "phaseDocs": {}
       }
     },
     {
@@ -281,7 +283,8 @@
       "state": {
         "notes": {},
         "addedTasks": [],
-        "addedSteps": []
+        "addedSteps": [],
+        "phaseDocs": {}
       }
     },
     {
@@ -315,7 +318,8 @@
       "state": {
         "notes": {},
         "addedTasks": [],
-        "addedSteps": []
+        "addedSteps": [],
+        "phaseDocs": {}
       }
     }
   ],

@@ -1,25 +1,81 @@
 {
   "_meta": {
-    "note": "What changed in the prototype, newest first. Shown in the sidebar's What's new. Add an entry with each change people will notice."
+    "note": "What changed in the prototype, newest first, shown in the sidebar's What's new. Each item: kind (new, changed, removed), a short title, what it does and why, and where to see it. Add items with each change people will notice."
   },
   "entries": [
     {
       "date": "2026-11-24",
+      "summary": "Documents work by phase, tasks put their tools and skills up front, and the first version narrows its scope.",
       "items": [
-        "Files is the study’s document space: its documents by phase, each saying which task it delivers. Add a document from Files, or from the task itself.",
-        "Each task shows its deliverable and attaches a link, a file, or a copy of the template it starts from.",
-        "Each task shows its skill with Open in Claude, and its tools as buttons that open the tool.",
-        "Skills: the skills we have, and the steps of each study type that use them. Files to the Corpus Manager now sits on the corpus steps.",
-        "Set aside for the first version: ticking tasks, validating phases, time tracking, Oversight, the automatic Slack channel."
+        {
+          "kind": "new",
+          "title": "One document per phase",
+          "text": "Each phase works in one document of the study: a working sheet, a deck, a queries tab. Open a phase and choose it among the study’s documents, or add it there and then (a link, an upload, or a copy of the template the phase uses). Claude reads it with the phase.",
+          "href": "/studies/TR-2611-01/steps?phase=2"
+        },
+        {
+          "kind": "changed",
+          "title": "Files is the study’s document space",
+          "text": "Files lists every document of the study and the phases that work in it. Add a document here and pick it in any phase; one document can serve several phases.",
+          "href": "/studies/TR-2611-01/files"
+        },
+        {
+          "kind": "changed",
+          "title": "Tools and skills on each task, at a glance",
+          "text": "A task shows its skill with an Open in Claude button and its tools as buttons that open the tool. Its output reads under it. “How to do it, the check” opens the rest of the method’s columns.",
+          "href": "/studies/TR-2611-01/steps?phase=2"
+        },
+        {
+          "kind": "new",
+          "title": "Skills",
+          "text": "The skills we have in Claude, what each does, its status, and the steps of each study type that use it. Files to the Corpus Manager now sits on the steps that load or build a corpus.",
+          "href": "/skills"
+        },
+        {
+          "kind": "new",
+          "title": "What’s new",
+          "text": "This page. A New badge in the sidebar shows until you have read the latest changes.",
+          "href": "/whats-new"
+        },
+        {
+          "kind": "removed",
+          "title": "Set aside for the first version",
+          "text": "Ticking tasks, validating phases, time tracking, Oversight and the automatic Slack channel. Studies still carry their notes, added tasks, documents and team."
+        }
       ]
     },
     {
       "date": "2026-11-23",
+      "summary": "The 18 methods are in, and studies, study types and tools each have their page.",
       "items": [
-        "Studies: one table of every study, filtered by family, study type, status and person. It replaces My studies.",
-        "Tools: the tools we work in, each linked to the steps that use it.",
-        "Study types (formerly Methods): the 18 methods from the method files, each with what it is and the question it answers.",
-        "The prototype now asks for an access code."
+        {
+          "kind": "new",
+          "title": "Studies",
+          "text": "One table of every study, not only yours: study, client, study type, family, status, due date. Filter by family, study type, status or person to see how a study of the same type was run.",
+          "href": "/"
+        },
+        {
+          "kind": "changed",
+          "title": "Study types (formerly Methods)",
+          "text": "The 18 methods of the M&T and SML method files, with their phases and tasks as written. Each study type says what it is and the question it answers; drafts are marked as such.",
+          "href": "/study-types"
+        },
+        {
+          "kind": "new",
+          "title": "Tools",
+          "text": "The tools we work in, by kind, each with the steps of each study type that use it. A study type’s owner links or unlinks a tool from a step.",
+          "href": "/tools"
+        },
+        {
+          "kind": "changed",
+          "title": "Tasks fold to one line",
+          "text": "A phase lists its tasks in short; open one to read how to do it, the check and the points to watch."
+        },
+        {
+          "kind": "new",
+          "title": "Access code",
+          "text": "The prototype asks for an access code before any page. Ask the Semantiweb team for it."
+        }
       ]
     }
   ]
