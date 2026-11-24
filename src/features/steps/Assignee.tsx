@@ -8,12 +8,12 @@ import { personById } from "@/shared/lib/data";
 import { cn } from "@/shared/lib/cn";
 import type { Study } from "@/shared/lib/types";
 
-// Who does a task: an avatar, or a dashed "Assign"; the list is the study's
-// team. Anyone on the study can assign.
-export function Assignee({ study, task, taskName, withName }: { study: Study; task: string; taskName: string; withName?: boolean }) {
-	const { assignTask } = useMartine();
+// Who is in charge of a phase: an avatar, or a dashed "Assign"; the list is
+// the study's team. Anyone on the study can assign.
+export function Assignee({ study, phase, phaseName, withName }: { study: Study; phase: string; phaseName: string; withName?: boolean }) {
+	const { assignPhase } = useMartine();
 	const toast = useToast();
-	const current = study.state.assignees?.[task];
+	const current = study.state.assignees?.[phase];
 	const person = current ? personById(current) : undefined;
 
 	return (
@@ -27,7 +27,7 @@ export function Assignee({ study, task, taskName, withName }: { study: Study; ta
 						toggle();
 					}}
 					aria-expanded={open}
-					aria-label={person ? `${taskName}: assigned to ${person.name}. Change` : `Assign ${taskName}`}
+					aria-label={person ? `${phaseName}: assigned to ${person.name}. Change` : `Assign ${phaseName}`}
 					title={person ? `Assigned to ${person.name}` : "Assign"}
 					className="inline-flex items-center gap-2 rounded-full text-sm hover:opacity-80"
 				>
@@ -45,7 +45,7 @@ export function Assignee({ study, task, taskName, withName }: { study: Study; ta
 			)}
 		>
 			{(close) => (
-				<ul role="listbox" aria-label={`Assign ${taskName}`} className="m-0 list-none p-0 text-sm" onClick={(e) => e.stopPropagation()}>
+				<ul role="listbox" aria-label={`Assign ${phaseName}`} className="m-0 list-none p-0 text-sm" onClick={(e) => e.stopPropagation()}>
 					{study.team.map((m) => {
 						const p = personById(m.person);
 						if (!p) return null;
@@ -55,8 +55,8 @@ export function Assignee({ study, task, taskName, withName }: { study: Study; ta
 									role="option"
 									aria-selected={current === m.person}
 									onClick={() => {
-										assignTask(study.id, task, m.person);
-										toast(`${p.name} assigned to “${taskName}”`);
+										assignPhase(study.id, phase, m.person);
+										toast(`${p.name} assigned to “${phaseName}”`);
 										close();
 									}}
 									className="flex w-full items-center gap-2 rounded-[var(--radius-sm)] px-2 py-1.5 text-left hover:bg-[var(--color-hover)]"
@@ -72,7 +72,7 @@ export function Assignee({ study, task, taskName, withName }: { study: Study; ta
 						<li className="mt-1 border-t border-[var(--color-border)] pt-1">
 							<button
 								onClick={() => {
-									assignTask(study.id, task, null);
+									assignPhase(study.id, phase, null);
 									close();
 								}}
 								className="w-full rounded-[var(--radius-sm)] px-2 py-1.5 text-left text-[var(--color-ink-muted)] hover:bg-[var(--color-hover)]"

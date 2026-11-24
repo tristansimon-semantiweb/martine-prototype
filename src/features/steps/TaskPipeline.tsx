@@ -9,7 +9,6 @@ import { openInClaudeUrl } from "@/shared/lib/martineContext";
 import type { PhaseView, TaskView } from "@/shared/lib/studyModel";
 import type { Study } from "@/shared/lib/types";
 import { ToolOpenButton } from "@/features/phase/PhaseParts";
-import { Assignee } from "./Assignee";
 
 // Where a task runs: in Claude with its skill, in a tool, or by hand.
 type Executor = { kind: "claude"; skill: string } | { kind: "automation"; skill: string } | { kind: "tool"; tool: string } | { kind: "person" };
@@ -53,8 +52,7 @@ export function TaskPipeline({ study, phase, onOpen }: { study: Study; phase: Ph
 								</span>
 								{summary && <span className="mt-0.5 line-clamp-2 block text-sm text-[var(--color-ink-secondary)]">{summary}</span>}
 							</button>
-							<span onClick={(ev) => ev.stopPropagation()} className="flex shrink-0 items-center gap-3">
-								<Assignee study={study} task={t.key} taskName={t.task.task} />
+							<span onClick={(ev) => ev.stopPropagation()} className="shrink-0">
 								{e.kind === "claude" && (
 									<a
 										href={openInClaudeUrl(study, phase, t.key, e.skill)}
@@ -79,7 +77,6 @@ export function TaskPipeline({ study, phase, onOpen }: { study: Study; phase: Ph
 							<InlineEdit value={t.title} onSave={(v) => v && renameAddedTask(study.id, t.id, v)} canEdit={isConsultant} label="the task" placeholder="Name the task" />
 						</span>
 						<span className="shrink-0 text-[13px] text-[var(--color-attention)]">By hand, added for this study by {first(t.by)}</span>
-						<Assignee study={study} task={t.id} taskName={t.title} />
 						{isConsultant && (
 							<RemoveButton
 								label={`Remove “${t.title}”`}

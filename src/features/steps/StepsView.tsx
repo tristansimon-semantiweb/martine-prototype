@@ -7,7 +7,8 @@ import { Popover } from "@/shared/components/ui/Popover";
 import { useMartine } from "@/shared/hooks/useMartine";
 import { useToast } from "@/shared/components/ui/Toast";
 import { AddRow, RemoveButton } from "@/shared/components/ui/Editing";
-import { methodEntry } from "@/shared/lib/data";
+import { methodEntry, personById } from "@/shared/lib/data";
+import type { Person } from "@/shared/lib/types";
 import { hasMethodFile, phaseViews, type PhaseView } from "@/shared/lib/studyModel";
 import { cn } from "@/shared/lib/cn";
 import { PhasePage } from "./PhasePage";
@@ -76,6 +77,7 @@ export function StepsView({ id }: { id: string }) {
 							active={p.id === open.id}
 							onOpen={() => setOpen(p.id)}
 							onRemove={p.addedBy ? () => remove(p) : undefined}
+							assignee={personById(study.state.assignees?.[p.id] ?? "")}
 							places={p.addedBy ? views.filter((v) => !v.addedBy) : undefined}
 							onPlace={(after) => {
 								placeAddedStep(study.id, p.id, after);
@@ -101,6 +103,7 @@ function PhaseItem({
 	onRemove,
 	places,
 	onPlace,
+	assignee,
 }: {
 	phase: PhaseView;
 	active: boolean;
@@ -108,6 +111,7 @@ function PhaseItem({
 	onRemove?: () => void;
 	places?: PhaseView[]; // the method phases it can be placed after
 	onPlace: (after: string) => void;
+	assignee?: Person; // who is in charge of the phase
 }) {
 	return (
 		<li className={cn("group flex items-center rounded-[var(--radius-sm)]", active ? "bg-[var(--color-accent-dim)]" : "hover:bg-[var(--color-hover)]")}>
@@ -134,6 +138,11 @@ function PhaseItem({
 					{p.status === "done" ? <Check size={11} /> : p.addedBy ? "+" : p.id.replace(/bis$/, "b")}
 				</span>
 				<span className="min-w-0 flex-1 leading-snug">{p.name}</span>
+				{assignee && (
+					<span aria-hidden title={`Assigned to ${assignee.name}`} className="mt-px flex h-[18px] min-w-[18px] shrink-0 items-center justify-center rounded-full bg-[var(--color-elevated)] px-1 text-[9px] font-bold text-[var(--color-ink-secondary)] no-underline">
+						{assignee.initials}
+					</span>
+				)}
 			</button>
 			{onRemove && (
 				<span className="flex w-0 shrink-0 overflow-hidden focus-within:w-auto group-hover:w-auto has-[[aria-expanded=true]]:w-auto has-[[aria-expanded=true]]:overflow-visible">

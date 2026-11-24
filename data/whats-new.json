@@ -9,8 +9,8 @@
       "items": [
         {
           "kind": "new",
-          "title": "Assign a task",
-          "text": "Each task of a phase shows who does it: an avatar, or a dashed Assign. A click lists the study’s team; Unassigned takes it off. The task’s detail says who it is assigned to. Anyone on the study can assign.",
+          "title": "Assign a phase",
+          "text": "Each phase has someone in charge: Assigned to, next to its status and document, shows an avatar or a dashed Assign. A click lists the study’s team; Unassigned takes it off. The phases column shows who is in charge of each. Anyone on the study can assign.",
           "href": "/studies/TR-2611-01/steps?phase=2"
         },
         {

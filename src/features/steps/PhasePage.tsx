@@ -14,6 +14,7 @@ import { PhaseDocument } from "@/features/files/Documents";
 import { PhaseStatusPicker } from "./PhaseStatus";
 import { TaskPipeline } from "./TaskPipeline";
 import { TaskDetail } from "./TaskDetail";
+import { Assignee } from "./Assignee";
 
 // A phase of a study, on the full width of the page: where it stands and what
 // it works in, the team's note, then its tasks as a run, top to bottom. A
@@ -54,6 +55,10 @@ export function PhasePage({ study, phase }: { study: Study; phase: PhaseView }) 
 					)}
 				</header>
 				<div className="flex flex-wrap items-center gap-x-6 gap-y-2.5 text-sm">
+					<span className="flex items-center gap-2">
+						<span className="text-[var(--color-ink-muted)]">Assigned to</span>
+						<Assignee study={study} phase={phase.id} phaseName={phase.name} withName />
+					</span>
 					<span className="flex items-center gap-2">
 						<span className="text-[var(--color-ink-muted)]">Status</span>
 						<PhaseStatusPicker status={phase.status} canEdit onChange={(s) => setPhaseStatus(study.id, phase.id, s)} label={`Status of phase ${phase.id}`} />
