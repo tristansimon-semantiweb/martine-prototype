@@ -9,7 +9,7 @@ import { Modal } from "@/shared/components/ui/Modal";
 import { Sheet } from "@/shared/components/ui/Sheet";
 import { methodEntry, skillById } from "@/shared/lib/data";
 import { openInClaudeUrl } from "@/shared/lib/martineContext";
-import { taskTrace, type PhaseView } from "@/shared/lib/studyModel";
+import type { PhaseView } from "@/shared/lib/studyModel";
 import type { Study } from "@/shared/lib/types";
 import { TaskFields, ToolOpenButton, formatOf, taskMeta, taskRows } from "@/features/phase/PhaseParts";
 import { RequestSkill } from "@/features/skills/RequestSkill";
@@ -53,7 +53,6 @@ function Body({ study, phase, taskKey }: { study: Study; phase: PhaseView; taskK
 	const { task, key } = view;
 	const method = methodEntry(study.method.id);
 	const format = formatOf(study.method.id);
-	const trace = taskTrace(study, phase, key);
 
 	return (
 		<div className="flex flex-col gap-5">
@@ -92,11 +91,6 @@ function Body({ study, phase, taskKey }: { study: Study; phase: PhaseView; taskK
 					<p className="m-0 text-sm">
 						<span className="text-[var(--color-ink-muted)]">Delivers: </span>
 						{task.output}
-					</p>
-				)}
-				{trace?.file && (
-					<p className={`m-0 text-sm font-semibold ${trace.state === "done" ? "text-[var(--color-positive)]" : "text-[var(--color-attention)]"}`}>
-						{trace.state === "done" ? "Done" : "To check"}: {trace.file.name}
 					</p>
 				)}
 			</section>

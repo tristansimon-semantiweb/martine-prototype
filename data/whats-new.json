@@ -10,7 +10,7 @@
         {
           "kind": "changed",
           "title": "A phase is a page, its tasks a run",
-          "text": "An open phase now takes the page, with the phases in a column on the left to move between them. Its tasks read as a run, top to bottom: who runs each one (Claude, a tool, by hand), its one action (Run in Claude, Open Talkwalker), what it delivers and what its last run left (done, or to check). The first task not done is Next up. Details opens a task’s method text and what Claude reads, beside the phase. Walk me through in Claude takes the whole phase in Claude, task by task. A task is done when its output is there and checked: no ticking. The tasks are white cards on the page; the phase’s status, document and tools sit in one quiet line under its title.",
+          "text": "An open phase now takes the page, with the phases in a column on the left to move between them. Its tasks read as a run, top to bottom, one white card each: who runs it (Claude, a tool, by hand), its one action (Run in Claude, Open Talkwalker) and what it delivers. Details opens a task’s method text and what Claude reads, beside the phase. Walk me through in Claude takes the whole phase in Claude, task by task. No done state on tasks in V1: the phase’s status says where the work stands. The phase’s status, document and tools sit in one quiet line under its title.",
           "href": "/studies/TR-2611-01/steps?phase=2"
         },
         {

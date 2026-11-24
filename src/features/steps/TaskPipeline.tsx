@@ -1,12 +1,12 @@
 "use client";
 
-import { Check, ExternalLink, Play, User, Zap } from "lucide-react";
+import { ExternalLink, Play, User, Zap } from "lucide-react";
 import { useMartine } from "@/shared/hooks/useMartine";
 import { useToast } from "@/shared/components/ui/Toast";
 import { InlineEdit, RemoveButton } from "@/shared/components/ui/Editing";
 import { personById, skillById } from "@/shared/lib/data";
 import { openInClaudeUrl } from "@/shared/lib/martineContext";
-import { taskTrace, type PhaseView, type TaskTrace, type TaskView } from "@/shared/lib/studyModel";
+import type { PhaseView, TaskView } from "@/shared/lib/studyModel";
 import { toolById } from "@/shared/lib/tools";
 import { cn } from "@/shared/lib/cn";
 import type { Study } from "@/shared/lib/types";
@@ -32,9 +32,10 @@ function executorLine(e: Executor): string {
 	return "By hand";
 }
 
-// The node on the rail: who runs the task, ringed by where it stands.
-function Node({ e, trace, next }: { e: Executor; trace: TaskTrace | null; next: boolean }) {
-	const ring = trace?.state === "done" ? "ring-[var(--color-positive)]" : next ? "ring-[var(--color-accent)]" : "ring-[var(--color-border-active)]";
+// The node on the rail: who runs the task. No done state on a task in V1:
+// the phase's status says where the work stands.
+function Node({ e }: { e: Executor }) {
+	const ring = "ring-[var(--color-border-active)]";
 	const face =
 		e.kind === "claude" || e.kind === "automation"
 			? "bg-[var(--color-accent)] text-white"
@@ -52,65 +53,46 @@ function Node({ e, trace, next }: { e: Executor; trace: TaskTrace | null; next: 
 			) : (
 				<User size={15} aria-hidden />
 			)}
-			{trace?.state === "done" && (
-				<span className="absolute -bottom-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-[var(--color-positive)] text-white ring-2 ring-[var(--color-surface)]">
-					<Check size={10} aria-hidden />
-				</span>
-			)}
 		</span>
 	);
 }
 
-// The phase as a run: one line per task, from top to bottom, each with who
-// runs it, its one action, what it delivers and what its last run left. The
-// first task not done yet is "Next up". A click opens the task's detail.
+// The phase as a run: one card per task, from top to bottom, each with who
+// runs it, its one action and what it delivers. No ticking or done state on
+// tasks in V1. A click opens the task's detail.
 export function TaskPipeline({ study, phase, onOpen }: { study: Study; phase: PhaseView; onOpen: (key: string) => void }) {
 	const { role, renameAddedTask, removeAddedTask, restoreAddedTask } = useMartine();
 	const toast = useToast();
 	const isConsultant = role === "consultant";
-	const traces = phase.tasks.map((t) => taskTrace(study, phase, t.key));
-	const nextIndex = phase.status === "done" || phase.status === "not_needed" ? -1 : traces.findIndex((t) => t?.state !== "done");
 	const first = (id: string) => personById(id)?.name.split(" ")[0];
 
 	return (
 		<ol aria-label="Tasks" className="m-0 list-none p-0">
 			{phase.tasks.map((t, i) => {
 				const e = executorOf(t);
-				const trace = traces[i];
-				const next = i === nextIndex;
 				const last = i === phase.tasks.length - 1 && phase.added.length === 0;
 				return (
 					<li key={t.key} className="relative flex gap-4">
 						{!last && <span aria-hidden className="absolute bottom-0 left-[18px] top-11 w-px bg-[var(--color-border-active)]" />}
 						<div className="pt-4">
-							<Node e={e} trace={trace} next={next} />
+							<Node e={e} />
 						</div>
 						<div
 							className={cn(
 								"mb-3 flex min-w-0 flex-1 flex-wrap items-start gap-x-4 gap-y-2 rounded-[var(--radius-lg)] border bg-[var(--color-surface)] px-5 py-4 shadow-[var(--shadow-xs)] transition-shadow hover:shadow-[var(--shadow-sm)]",
-								next ? "border-[var(--color-accent)] ring-1 ring-[var(--color-accent)]" : "border-[var(--color-border)]",
+								"border-[var(--color-border)]",
 							)}
 						>
 							<button onClick={() => onOpen(t.key)} className="min-w-[260px] flex-1 text-left">
 								<span className="flex flex-wrap items-baseline gap-x-2">
 									<span className="text-[13px] font-semibold text-[var(--color-ink-muted)]">{t.key}</span>
 									<span className="text-[16px] font-semibold">{t.task.task}</span>
-									{next && <span className="rounded-[var(--radius-xl)] bg-[var(--color-accent)] px-2 py-px text-[11px] font-bold uppercase tracking-wide text-white">Next up</span>}
 								</span>
 								<span className="mt-0.5 block text-sm text-[var(--color-ink-secondary)]">
 									{executorLine(e)}
 									{taskTime(t.task) && <span className="text-[var(--color-ink-muted)]">, {taskTime(t.task)}</span>}
 								</span>
 								{t.task.output && <span className="mt-1 block text-sm text-[var(--color-ink-muted)]">→ {t.task.output}</span>}
-								{trace && (
-									<span className={cn("mt-1 block text-[13px] font-semibold", trace.state === "done" ? "text-[var(--color-positive)]" : "text-[var(--color-attention)]")}>
-										{trace.state === "done"
-											? trace.file
-												? `Done: ${trace.file.name}${trace.file.from.kind === "claude" ? `, made by Claude, checked by ${first(trace.file.from.checkedBy ?? "")}` : trace.file.from.kind === "person" ? `, by ${first(trace.file.from.by)}` : ""}`
-												: "Done with the phase"
-											: `To check: ${trace.file?.name}, made by Claude`}
-									</span>
-								)}
 							</button>
 							<span className="flex shrink-0 items-center gap-2 pt-0.5">
 								{e.kind === "claude" && (
@@ -136,7 +118,7 @@ export function TaskPipeline({ study, phase, onOpen }: { study: Study; phase: Ph
 				<li key={t.id} className="relative flex gap-4">
 					{i < phase.added.length - 1 && <span aria-hidden className="absolute bottom-0 left-[18px] top-11 w-px bg-[var(--color-border-active)]" />}
 					<div className="pt-4">
-						<Node e={{ kind: "person" }} trace={null} next={false} />
+						<Node e={{ kind: "person" }} />
 					</div>
 					<div className="mb-3 flex min-w-0 flex-1 items-center gap-3 rounded-[var(--radius-lg)] border border-dashed border-[var(--color-border-active)] bg-[var(--color-surface)] px-5 py-3.5">
 						<span className="text-[13px] font-semibold text-[var(--color-ink-muted)]">{`${phase.id}.${phase.tasks.length + i + 1}`}</span>

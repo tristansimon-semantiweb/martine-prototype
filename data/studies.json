@@ -161,8 +161,7 @@
           "from": {
             "kind": "claude",
             "checkedBy": "marie"
-          },
-          "task": "2.2"
+          }
         },
         {
           "id": "f5",
@@ -171,18 +170,6 @@
           "phase": "2",
           "from": {
             "kind": "claude"
-          },
-          "task": "2.3"
-        },
-        {
-          "id": "f6",
-          "name": "Talkwalker topic audit notes",
-          "type": "Doc",
-          "phase": "2",
-          "task": "2.1",
-          "from": {
-            "kind": "person",
-            "by": "marie"
           }
         }
       ],

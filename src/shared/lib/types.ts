@@ -155,7 +155,6 @@ export interface StudyFile {
 	name: string;
 	type: string;
 	phase: string;
-	task?: string; // the task it came out of ("2.2"): its trace of execution
 	from: FileOrigin;
 	url?: string; // a link (Sheet, Doc, deck…) rather than an uploaded file
 }

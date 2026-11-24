@@ -3,7 +3,7 @@
 // V1 leaves out ticking tasks, validating phases and tracking time; a phase
 // carries a status the team sets (to start, in progress, done, not needed).
 import { methodFile, phaseDays, phaseId, studyPhases, taskKey, type DayRange } from "./data";
-import type { AddedTask, MethodTask, PhaseStatus, Study, StudyFile } from "./types";
+import type { AddedTask, MethodTask, PhaseStatus, Study } from "./types";
 
 export interface TaskView {
 	key: string; // "2.2"
@@ -65,19 +65,4 @@ export function removedSteps(study: Study): { id: string; label: string }[] {
 	return studyPhases(study.method.id, study.phases)
 		.filter((p) => removed.includes(phaseId(p)))
 		.map((p) => ({ id: phaseId(p), label: `${p.phase}. ${study.state.stepNames?.[phaseId(p)] ?? p.name}` }));
-}
-
-// What an execution left behind: the output a task produced. A person's
-// output, or Claude's once someone checked it, means the task is done; Claude's
-// unchecked output is still to check. A phase marked done carries its tasks.
-// No ticking: the state comes from the traces (V1).
-export interface TaskTrace {
-	state: "done" | "to_check";
-	file?: StudyFile;
-}
-
-export function taskTrace(study: Study, phase: PhaseView, key: string): TaskTrace | null {
-	const file = study.files.find((f) => f.task === key);
-	if (file) return { state: file.from.kind === "claude" && !file.from.checkedBy ? "to_check" : "done", file };
-	return phase.status === "done" ? { state: "done" } : null;
 }
