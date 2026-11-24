@@ -69,7 +69,9 @@
       "brief": "trend_report",
       "summary": {
         "headline": "Queries written; the Japanese needs a native review.",
-        "body": "The France, UK and Japan queries are written. A native review of the Japanese is still needed before they go into the tool. One point is still open with the client: the delivery date."
+        "body": "The France, UK and Japan queries are written. A native review of the Japanese is still needed before they go into the tool. One point is still open with the client: the delivery date.",
+        "by": "claire",
+        "date": "2026-11-21"
       },
       "team": [
         {
@@ -99,14 +101,16 @@
           "id": "c2",
           "label": "Period",
           "open": false,
-          "decision": "d1"
+          "decision": "the last 12 months against the previous 12, confirmed by the client."
         }
       ],
       "decisions": [
         {
           "id": "d1",
-          "date": "December 2",
-          "text": "Period: the last 12 months against the previous 12, confirmed by the client."
+          "date": "November 19",
+          "text": "the last 12 months against the previous 12, confirmed by the client.",
+          "answers": "Period",
+          "by": "claire"
         }
       ],
       "links": [

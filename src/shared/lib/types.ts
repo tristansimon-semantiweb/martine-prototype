@@ -212,13 +212,16 @@ export interface Study {
 	daysSold: number | null;
 	brief?: string; // key in data/briefs-exemples.json
 	scope?: string; // what the study covers, in a sentence: the recap's second line
-	summary?: { headline: string; body: string };
+	// Where it stands, in words. Absent: Martine writes a line from the phases' status.
+	summary?: { headline: string; body: string; by?: string; date?: string };
 	// The method phases this study runs, when it runs only some of them (a
 	// method file can hold several report cycles). Absent: all but the optional ones.
 	phases?: string[];
 	team: { person: string; role: RoleId }[];
-	toClarify: { id: string; label: string; open: boolean; decision?: string }[];
-	decisions: { id: string; date: string; text: string }[];
+	// Points to clarify with the client: read in the brief when the study was
+	// created, or added since (by). Resolving one records a decision.
+	toClarify: { id: string; label: string; open: boolean; decision?: string; by?: string }[];
+	decisions: { id: string; date: string; text: string; answers?: string; by?: string }[]; // answers: the point it resolves
 	links: StudyLink[];
 	files: StudyFile[];
 	previousWave: { id: string; name: string; type: string }[];

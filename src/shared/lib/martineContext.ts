@@ -76,7 +76,8 @@ export function knownToClaude(s: Study, views: PhaseView[]): ContextItem[] {
 		...(s.scope ? [{ label: "Scope", detail: s.scope }] : []),
 		{ label: "Method", detail: methodLabel(s), ref: refs.method(s) },
 		{ label: "Steps", detail: views.length ? `${views.length} phases: ${statusLine(views)}` : "none yet" },
-		{ label: "Decisions", detail: s.decisions.length ? s.decisions.map((d) => `${d.date}: ${d.text}`).join(" ") : "none yet" },
+		{ label: "Decisions", detail: s.decisions.length ? s.decisions.map((d) => `${d.date}: ${d.answers ? `${d.answers}, ` : ""}${d.text}`).join(" ") : "none yet" },
+		{ label: "Open with the client", detail: s.toClarify.some((c) => c.open) ? s.toClarify.filter((c) => c.open).map((c) => c.label).join(", ") : "nothing" },
 		{ label: "Notes and added tasks", detail: `${notes} note${notes === 1 ? "" : "s"}, ${added} added task${added === 1 ? "" : "s"}` },
 		{
 			label: "Files",

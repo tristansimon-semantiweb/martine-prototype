@@ -15,10 +15,10 @@
         "months",
         "timeframe"
       ],
-      "answer": "The last 12 months against the previous 12. The client confirmed it on December 2; the brief mentioned 24 months on one page, which Claire flagged at kick-off.",
+      "answer": "The last 12 months against the previous 12. The client confirmed it on November 19; the brief mentioned 24 months on one page, which Claire flagged at kick-off.",
       "sources": [
         {
-          "label": "Decision, Dec 2",
+          "label": "Decision, Nov 19",
           "href": "/studies/{study}"
         },
         {
@@ -86,14 +86,14 @@
         "clarify",
         "mail"
       ],
-      "answer": "Here is a draft for Claire to send:\n\n*Hello, thank you for the brief. Before we start measuring, one point to confirm: the delivery date. The presentation is set for January 15; when would you like to receive the deck to review it? Best regards, Claire*\n\nThe period is already settled (December 2), so it is not in the email.",
+      "answer": "Here is a draft for Claire to send:\n\n*Hello, thank you for the brief. Before we start measuring, one point to confirm: the delivery date. The presentation is set for January 15; when would you like to receive the deck to review it? Best regards, Claire*\n\nThe period is already settled (November 19), so it is not in the email.",
       "sources": [
         {
           "label": "Scope and points to clarify",
           "href": "/studies/{study}/files"
         },
         {
-          "label": "Decision, Dec 2",
+          "label": "Decision, Nov 19",
           "href": "/studies/{study}"
         }
       ]

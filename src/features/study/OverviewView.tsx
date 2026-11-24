@@ -1,8 +1,11 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { ChevronDown, FileText } from "lucide-react";
 import { useMartine } from "@/shared/hooks/useMartine";
+import { useToast } from "@/shared/components/ui/Toast";
+import { AddRow, InlineEdit, RemoveButton } from "@/shared/components/ui/Editing";
 import { days, dueDate, fromToday, plural } from "@/shared/lib/format";
 import { knownToClaude, statusLine } from "@/shared/lib/martineContext";
 import { methodEntry, personById } from "@/shared/lib/data";
@@ -33,7 +36,6 @@ export function OverviewView({ id }: { id: string }) {
 	if (!study) return null;
 
 	const views = phaseViews(study);
-	const open = study.toClarify.filter((c) => c.open);
 	const method = methodEntry(study.method.id);
 	const type = method?.name ?? study.method.id;
 	const counted = views.filter((v) => v.status !== "not_needed");
@@ -47,11 +49,10 @@ export function OverviewView({ id }: { id: string }) {
 	const nowPerson = now ? personById(study.state.assignees?.[now.id] ?? "") : undefined;
 	const recentFiles = [...study.files].sort((a, b) => (b.added ?? "").localeCompare(a.added ?? "")).slice(0, 4);
 
-	// Seeded studies carry a written summary; a new study gets a plain one.
-	const summary = study.summary ?? {
-		headline: study.status === "delivered" ? "Delivered." : views.some((v) => v.status === "in_progress" || v.status === "done") ? "Under way." : "Not started yet.",
-		body: hasMethodFile(study) ? `The ${type.toLowerCase()} method: ${views.length} phases, ${statusLine(views)}.` : "The method file for this study type is not imported in Martine yet.",
-	};
+	// Until someone writes where it stands, Martine writes a line from the phases' status.
+	const autoSummary = hasMethodFile(study)
+		? `${study.status === "delivered" ? "Delivered." : views.some((v) => v.status === "in_progress" || v.status === "done") ? "Under way." : "Not started yet."} The ${type.toLowerCase()} method: ${views.length} phases, ${statusLine(views)}.`
+		: "The method file for this study type is not imported in Martine yet.";
 
 	return (
 		<div className="mx-auto grid max-w-[1240px] items-start gap-6 px-6 py-7 lg:grid-cols-[minmax(0,1fr)_320px]">
@@ -125,51 +126,12 @@ export function OverviewView({ id }: { id: string }) {
 				)}
 
 				<div className="grid gap-5 md:grid-cols-2">
-					<section aria-labelledby="stands" className={tile}>
-						<h2 id="stands" className={h2}>
-							Where it stands
-						</h2>
-						<p className="m-0 mt-2 text-[15px] leading-relaxed">
-							<span className="font-semibold">{summary.headline}</span> <span className="text-[var(--color-ink-secondary)]">{summary.body}</span>
-						</p>
-					</section>
-					<section aria-labelledby="clarify" className={tile}>
-						<h2 id="clarify" className={h2}>
-							To clarify with the client <span className="font-normal text-[var(--color-ink-muted)]">{open.length}</span>
-						</h2>
-						{open.length ? (
-							<ul className="m-0 mt-2 flex list-none flex-col gap-1.5 p-0 text-[15px]">
-								{open.map((c) => (
-									<li key={c.id} className="flex items-start gap-2">
-										<span aria-hidden className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--color-attention)]" />
-										{c.label}
-									</li>
-								))}
-							</ul>
-						) : (
-							<p className="m-0 mt-2 text-sm text-[var(--color-ink-muted)]">Nothing open.</p>
-						)}
-					</section>
+					<Standing study={study} auto={autoSummary} />
+					<ToClarify study={study} />
 				</div>
 
 				<div className="grid gap-5 md:grid-cols-2">
-					<section aria-labelledby="dec" className={tile}>
-						<h2 id="dec" className={h2}>
-							Decisions <span className="font-normal text-[var(--color-ink-muted)]">{study.decisions.length}</span>
-						</h2>
-						{study.decisions.length ? (
-							<ol className="m-0 mt-2 flex list-none flex-col gap-2.5 p-0 text-[15px]">
-								{study.decisions.map((d) => (
-									<li key={d.id} className="flex gap-3">
-										<span className="w-[92px] shrink-0 text-[13px] font-semibold text-[var(--color-ink-muted)]">{d.date}</span>
-										<span className="text-[var(--color-ink-secondary)]">{d.text}</span>
-									</li>
-								))}
-							</ol>
-						) : (
-							<p className="m-0 mt-2 text-sm text-[var(--color-ink-muted)]">No decision yet.</p>
-						)}
-					</section>
+					<Decisions study={study} />
 					<section aria-labelledby="docs" className={tile}>
 						<div className="flex items-baseline gap-2">
 							<h2 id="docs" className={h2}>
@@ -335,6 +297,150 @@ function SimilarStudies({ study, similar, type }: { study: Study; similar: Study
 					Another client’s study is there to see how the team ran it: reuse the approach, not its material. Claude does not read it from this study.
 				</p>
 			)}
+		</section>
+	);
+}
+
+const firstName = (id?: string) => (id ? personById(id)?.name.split(" ")[0] : undefined);
+
+// Where it stands, in words: anyone on the study rewrites it in place. Until
+// then, Martine's line from the phases' status, said as such.
+function Standing({ study, auto }: { study: Study; auto: string }) {
+	const { setSummary } = useMartine();
+	const written = study.summary ? [study.summary.headline, study.summary.body].filter(Boolean).join(" ") : "";
+	return (
+		<section aria-labelledby="stands" className={tile}>
+			<h2 id="stands" className={h2}>
+				Where it stands
+			</h2>
+			<div className="mt-2 text-[15px] leading-relaxed text-[var(--color-ink-secondary)]">
+				<InlineEdit value={written} onSave={(t) => setSummary(study.id, t)} canEdit multiline label="where it stands" placeholder={auto}>
+					{written || undefined}
+				</InlineEdit>
+			</div>
+			<p className="m-0 mt-2 text-[12px] text-[var(--color-ink-muted)]">
+				{study.summary?.by
+					? `Updated by ${firstName(study.summary.by)}${study.summary.date ? `, ${shortDate(study.summary.date)}` : ""}. Claude reads it.`
+					: written
+						? "Claude reads it."
+						: "Written by Martine from the phases’ status. Click to write your own; Claude reads it."}
+			</p>
+		</section>
+	);
+}
+
+// What is open with the client. A point is added, removed, or resolved: the
+// client's answer closes it and becomes a dated decision.
+function ToClarify({ study }: { study: Study }) {
+	const { addClarify, removeClarify, restoreClarify, resolveClarify } = useMartine();
+	const toast = useToast();
+	const [resolving, setResolving] = useState<string | null>(null);
+	const [answer, setAnswer] = useState("");
+	const open = study.toClarify.filter((c) => c.open);
+	return (
+		<section aria-labelledby="clarify" className={tile}>
+			<h2 id="clarify" className={h2}>
+				To clarify with the client <span className="font-normal text-[var(--color-ink-muted)]">{open.length}</span>
+			</h2>
+			<ul className="m-0 mt-2 flex list-none flex-col gap-1 p-0 text-[15px]">
+				{open.map((c) => (
+					<li key={c.id} className="group rounded-[var(--radius-sm)] py-1">
+						<div className="flex items-start gap-2">
+							<span aria-hidden className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--color-attention)]" />
+							<span className="min-w-0 flex-1">
+								{c.label}
+								<span className="ml-1.5 text-[12px] text-[var(--color-ink-muted)]">{c.by ? `added by ${firstName(c.by)}` : "from the brief"}</span>
+							</span>
+							{resolving !== c.id && (
+								<button
+									onClick={() => {
+										setResolving(c.id);
+										setAnswer("");
+									}}
+									className="shrink-0 rounded-[var(--radius-sm)] px-2 py-0.5 text-[13px] font-semibold text-[var(--color-accent)] hover:bg-[var(--color-accent-dim)]"
+								>
+									Resolve
+								</button>
+							)}
+							<RemoveButton
+								label={`Remove “${c.label}”`}
+								onClick={() => {
+									const r = removeClarify(study.id, c.id);
+									toast("Point removed", r && { label: "Undo", onClick: () => restoreClarify(study.id, r) });
+								}}
+							/>
+						</div>
+						{resolving === c.id && (
+							<form
+								onSubmit={(e) => {
+									e.preventDefault();
+									if (!answer.trim()) return;
+									resolveClarify(study.id, c.id, answer.trim());
+									toast("Resolved: the answer is now a decision");
+									setResolving(null);
+								}}
+								className="ml-3.5 mt-1.5 flex gap-2"
+							>
+								<input
+									autoFocus
+									value={answer}
+									onChange={(e) => setAnswer(e.target.value)}
+									onKeyDown={(e) => e.key === "Escape" && setResolving(null)}
+									aria-label={`What did the client decide on “${c.label}”?`}
+									placeholder="What did the client decide?"
+									className="rr-input min-w-0 flex-1 py-1.5 text-sm"
+								/>
+								<button type="submit" disabled={!answer.trim()} className="rounded-[var(--radius)] bg-[var(--color-accent)] px-3 text-sm font-semibold text-white disabled:opacity-40">
+									Record
+								</button>
+							</form>
+						)}
+					</li>
+				))}
+				{open.length === 0 && <li className="text-sm text-[var(--color-ink-muted)]">Nothing open.</li>}
+			</ul>
+			<div className="mt-2.5">
+				<AddRow label="Add a point" placeholder="What to clarify with the client" onAdd={(v) => addClarify(study.id, v)} />
+			</div>
+		</section>
+	);
+}
+
+// What was decided, dated: from a resolved point (it says which) or added directly.
+function Decisions({ study }: { study: Study }) {
+	const { addDecision, removeDecision, restoreDecision } = useMartine();
+	const toast = useToast();
+	return (
+		<section aria-labelledby="dec" className={tile}>
+			<h2 id="dec" className={h2}>
+				Decisions <span className="font-normal text-[var(--color-ink-muted)]">{study.decisions.length}</span>
+			</h2>
+			{study.decisions.length ? (
+				<ol className="m-0 mt-2 flex list-none flex-col gap-2.5 p-0 text-[15px]">
+					{study.decisions.map((d) => (
+						<li key={d.id} className="flex gap-3">
+							<span className="w-[92px] shrink-0 text-[13px] font-semibold text-[var(--color-ink-muted)]">{d.date}</span>
+							<span className="min-w-0 flex-1 text-[var(--color-ink-secondary)]">
+								{d.answers && <span className="font-semibold text-[var(--color-ink)]">{d.answers}: </span>}
+								{d.text}
+								{d.by && <span className="ml-1.5 text-[12px] text-[var(--color-ink-muted)]">by {firstName(d.by)}</span>}
+							</span>
+							<RemoveButton
+								label="Remove this decision"
+								onClick={() => {
+									const r = removeDecision(study.id, d.id);
+									toast("Decision removed", r && { label: "Undo", onClick: () => restoreDecision(study.id, r) });
+								}}
+							/>
+						</li>
+					))}
+				</ol>
+			) : (
+				<p className="m-0 mt-2 text-sm text-[var(--color-ink-muted)]">No decision yet. Resolving a point to clarify records one.</p>
+			)}
+			<div className="mt-2.5">
+				<AddRow label="Add a decision" placeholder="What was decided" onAdd={(v) => addDecision(study.id, v)} />
+			</div>
 		</section>
 	);
 }
