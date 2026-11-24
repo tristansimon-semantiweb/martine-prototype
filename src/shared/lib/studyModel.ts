@@ -1,8 +1,9 @@
 // What a study looks like once its method and its local state are put
 // together: the method's phases and tasks, plus what was added for this study.
-// V1 leaves out ticking tasks, validating phases and tracking time.
+// V1 leaves out ticking tasks, validating phases and tracking time; a phase
+// carries a status the team sets (to start, in progress, done, not needed).
 import { methodFile, phaseDays, phaseId, studyPhases, taskKey, type DayRange } from "./data";
-import type { AddedTask, MethodTask, Study } from "./types";
+import type { AddedTask, MethodTask, PhaseStatus, Study } from "./types";
 
 export interface TaskView {
 	key: string; // "2.2"
@@ -19,7 +20,15 @@ export interface PhaseView {
 	time?: string | null; // the phase's time as the method file writes it ("3 hours")
 	total: number;
 	addedBy?: string; // a step the consultant added for this study only
+	status: PhaseStatus;
 }
+
+export const PHASE_STATUS: Record<PhaseStatus, string> = {
+	to_start: "To start",
+	in_progress: "In progress",
+	done: "Done",
+	not_needed: "Not needed",
+};
 
 export function hasMethodFile(study: Study): boolean {
 	return Boolean(methodFile(study.method.id));
@@ -42,6 +51,6 @@ export function phaseViews(study: Study): PhaseView[] {
 	}));
 	return [...base, ...extra].map((p) => {
 		const added = st.addedTasks.filter((t) => t.phase === p.id);
-		return { ...p, added, total: p.tasks.length + added.length };
+		return { ...p, added, total: p.tasks.length + added.length, status: st.phaseStatus?.[p.id] ?? "to_start" };
 	});
 }

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useMartine } from "@/shared/hooks/useMartine";
 import { days, plural } from "@/shared/lib/format";
-import { knownToClaude, methodLabel } from "@/shared/lib/martineContext";
+import { knownToClaude, methodLabel, statusLine } from "@/shared/lib/martineContext";
 import { methodEntry } from "@/shared/lib/data";
 import { hasMethodFile, phaseViews } from "@/shared/lib/studyModel";
 
@@ -22,7 +22,7 @@ export function OverviewView({ id }: { id: string }) {
 	const summary = study.summary ?? {
 		headline: study.status === "not_started" ? "Not started yet." : "Under way.",
 		body: [
-			hasMethodFile(study) ? `The ${method?.name.toLowerCase() ?? "study"} method: ${views.length} phases.` : "The method file for this study type is not imported in Martine yet.",
+			hasMethodFile(study) ? `The ${method?.name.toLowerCase() ?? "study"} method: ${views.length} phases, ${statusLine(views)}.` : "The method file for this study type is not imported in Martine yet.",
 			open.length ? `${plural(open.length, "point")} to clarify with the client.` : "",
 		]
 			.filter(Boolean)

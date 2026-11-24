@@ -36,13 +36,14 @@ export function SkillsView() {
 				{requests.length > 0 && (
 					<section aria-labelledby="requests" className="flex flex-col gap-2">
 						<h2 id="requests" className="m-0 font-[family-name:var(--font-body)] text-lg font-semibold">
-							{role === "skills_owner" ? "Requests waiting for the tech team" : "Skill requests"}
+							{role === "skills_owner" ? "Requests waiting for the tech team" : "Requests: skills and automations"}
 						</h2>
 						<ul className="m-0 list-none overflow-hidden rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-surface)] p-0 shadow-[var(--shadow-xs)]">
 							{requests.map((r) => (
 								<li key={r.id} className="flex flex-wrap items-center gap-x-4 gap-y-1 border-b border-[var(--color-border)] px-5 py-3 last:border-b-0">
 									<Link href={`/skills/${r.id}`} className="min-w-[220px] flex-1 font-semibold text-[var(--color-ink)] no-underline hover:text-[var(--color-accent)]">
 										{r.label}
+										<span className="ml-2 text-[13px] font-normal text-[var(--color-ink-muted)]">{r.request!.kind === "automation" ? "automation" : "skill"}</span>
 										<span className="block text-[13px] font-normal text-[var(--color-ink-muted)]">
 											{methodEntry(r.request!.method)?.name}, requested by {personById(r.request!.by)?.name.split(" ")[0]}
 										</span>

@@ -186,6 +186,11 @@
         "phaseDocs": {
           "0": "f3",
           "2": "f4"
+        },
+        "phaseStatus": {
+          "0": "done",
+          "1": "done",
+          "2": "in_progress"
         }
       }
     },
@@ -235,7 +240,11 @@
         "notes": {},
         "addedTasks": [],
         "addedSteps": [],
-        "phaseDocs": {}
+        "phaseDocs": {},
+        "phaseStatus": {
+          "0": "done",
+          "1": "in_progress"
+        }
       }
     },
     {
@@ -290,7 +299,10 @@
         "notes": {},
         "addedTasks": [],
         "addedSteps": [],
-        "phaseDocs": {}
+        "phaseDocs": {},
+        "phaseStatus": {
+          "0": "in_progress"
+        }
       }
     },
     {

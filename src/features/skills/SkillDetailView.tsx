@@ -51,7 +51,7 @@ export function SkillDetailView({ id }: { id: string }) {
 				{skill.request && (
 					<section aria-label="Request" className="flex flex-col gap-2.5 rounded-[var(--radius-lg)] bg-[var(--color-accent-dim)] px-5 py-4 text-[15px]">
 						<p className="m-0">
-							Requested by {personById(skill.request.by)?.name.split(" ")[0]} on{" "}
+							{skill.request.kind === "automation" ? "Automation" : "Skill"} requested by {personById(skill.request.by)?.name.split(" ")[0]} on{" "}
 							{new Date(`${skill.request.date}T12:00:00`).toLocaleDateString("en-US", { month: "long", day: "numeric" })}, for the step{" "}
 							<Link href={`/study-types/${skill.request.method}`}>
 								“{skill.request.taskName}” of the {methodEntry(skill.request.method)?.name.toLowerCase()} method
@@ -65,7 +65,7 @@ export function SkillDetailView({ id }: { id: string }) {
 						<ol className="m-0 flex flex-wrap gap-x-5 gap-y-1 pl-5 text-sm">
 							{(["requested", "in_development", "validated"] as const).map((st) => (
 								<li key={st} className={skill.status === st ? "font-semibold" : "text-[var(--color-ink-muted)]"}>
-									{st === "requested" ? "Requested" : st === "in_development" ? "The tech team builds the connectors and the skill" : "Fabien validates it: available to everyone"}
+									{st === "requested" ? "Requested" : st === "in_development" ? `The tech team builds the connectors and the ${skill.request?.kind ?? "skill"}` : "Fabien validates it: available to everyone"}
 								</li>
 							))}
 						</ol>

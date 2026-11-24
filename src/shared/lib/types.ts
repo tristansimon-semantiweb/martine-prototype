@@ -105,6 +105,7 @@ export interface CatalogSkill {
 	// A skill requested from a method step: what Claude should do there, and
 	// the tools Claude needs a connector for (the tech team builds both).
 	request?: {
+		kind?: "skill" | "automation"; // a skill: Claude does it with you; an automation: it runs on its own
 		method: string;
 		version: string | null;
 		task: string;
@@ -177,11 +178,16 @@ export interface AddedStep {
 }
 
 // Everything that changes while the study runs. Persisted locally.
+// Where a phase of a study stands. Set by the team; "not needed" for a
+// phase this study skips (an optional phase, a step already covered).
+export type PhaseStatus = "to_start" | "in_progress" | "done" | "not_needed";
+
 export interface StudyState {
 	notes: Record<string, { by: string; text: string }>; // key: phase id
 	// The study document each phase works in, chosen among the study's
 	// documents (one per phase; a document can serve several phases).
 	phaseDocs: Record<string, string>; // phase id → file id
+	phaseStatus?: Record<string, PhaseStatus>; // phase id → status (absent: to start)
 	addedTasks: AddedTask[];
 	addedSteps: AddedStep[];
 }

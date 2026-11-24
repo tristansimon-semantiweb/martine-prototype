@@ -8,6 +8,24 @@
       "summary": "Documents work by phase, tasks put their tools and skills up front, and the first version narrows its scope.",
       "items": [
         {
+          "kind": "new",
+          "title": "A status for each phase",
+          "text": "Each phase of a study is To start, In progress, Done or Not needed. The analyst or the consultant changes it from the phase list or at the top of the phase; Steps says where the study stands (2 done, 1 in progress…), and Claude reads it with the phase.",
+          "href": "/studies/TR-2611-01/steps"
+        },
+        {
+          "kind": "changed",
+          "title": "Open the tools from the phase and the task",
+          "text": "A task now reads top to bottom: what to do in a line, then where to do it (Open in Claude with its skill, Open Talkwalker, Open ICC…), then its deliverable. The top of a phase gathers its tools, and the phase list names them under each phase. Each phase in the list shows its skills and its tools.",
+          "href": "/studies/TR-2611-01/steps?phase=2"
+        },
+        {
+          "kind": "changed",
+          "title": "Request a skill or automation: Claude checks first",
+          "text": "From a step with no skill, say whether you need a skill (Claude does it with you) or an automation (it runs on its own). Claude first looks through the skills, the automations and the requests in progress: if something close exists, it shows it, with Open in Claude; if nothing does, the request goes straight to the tech team. In the prototype the check is scripted; the Claude skill that does it is still to build.",
+          "href": "/studies/TR-2611-01/steps?phase=2"
+        },
+        {
           "kind": "changed",
           "title": "Tools read in the steps’ text",
           "text": "Steps that run frequencies, use the concordancer or work on the corpus facets now show the tool their text describes, marked “to confirm”: the method files describe the work without naming the tool. Facets are created in the Corpus Manager and read in the ICC. The method owner confirms each link in one click, or removes it. The Files tool joins the tool repository.",

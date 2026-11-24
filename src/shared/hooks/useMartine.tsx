@@ -2,7 +2,7 @@
 
 import { createContext, useCallback, useContext, useMemo, useSyncExternalStore } from "react";
 import { methodEntry, registerDraftSkills, seedStudies, seedSuggestions } from "@/shared/lib/data";
-import type { AddedStep, AddedTask, BriefReading, CatalogSkill, MethodSuggestion, MethodTask, RoleId, Study, StudyState } from "@/shared/lib/types";
+import type { AddedStep, AddedTask, BriefReading, CatalogSkill, MethodSuggestion, MethodTask, PhaseStatus, RoleId, Study, StudyState } from "@/shared/lib/types";
 
 // The prototype's whole mutable state, persisted in localStorage like the R&R
 // prototype (useUserContent). Seeded from /data; "Reset the demo" restores it.
@@ -30,8 +30,8 @@ interface MartineData {
 // Bumped when the seed data changes shape (v2: the methods import), so a
 // browser that kept an older demo starts again from the new seed (v3: files
 // attached to tasks; v4: V1 scope, no ticking, validation or time; v5: one
-// document per phase; v6: skill requests).
-const KEY = "martine_v6";
+// document per phase; v6: skill requests; v7: phase status).
+const KEY = "martine_v7";
 
 const ROLE_PERSON: Record<RoleId, string> = { analyst: "marie", consultant: "claire", method_owner: "bamby", skills_owner: "fabien" };
 
@@ -125,6 +125,8 @@ function useMartineState() {
 			reset: () => write(null),
 
 			// ── Study notes, added tasks and steps (consultant) ──
+			setPhaseStatus: (studyId: string, phase: string, status: PhaseStatus) =>
+				patchState(studyId, (st) => ({ ...st, phaseStatus: { ...st.phaseStatus, [phase]: status } })),
 			setNote: (studyId: string, phase: string, text: string) =>
 				patchState(studyId, (st) => {
 					const notes = { ...st.notes };
@@ -235,7 +237,7 @@ function useMartineState() {
 			// The request goes to the tech team (Fabien), who builds the connectors
 			// and the skill. Once available, the skill is linked to its step in the
 			// method's draft.
-			requestSkill: (methodId: string, version: string | null, key: string, task: MethodTask, need: string, connectors: string[]): string => {
+			requestSkill: (methodId: string, version: string | null, key: string, task: MethodTask, need: string, connectors: string[], kind: "skill" | "automation" = "skill"): string => {
 				const id = `request-${methodId}-${key}`.toLowerCase().replace(/[^a-z0-9]+/g, "-");
 				const skill: CatalogSkill = {
 					id,
@@ -243,7 +245,7 @@ function useMartineState() {
 					does: need,
 					produces: task.output || undefined,
 					status: "requested",
-					request: { method: methodId, version, task: key, taskName: task.task, by: me, date: new Date().toISOString().slice(0, 10), need, connectors },
+					request: { kind, method: methodId, version, task: key, taskName: task.task, by: me, date: new Date().toISOString().slice(0, 10), need, connectors },
 				};
 				update((d) => {
 					const list = d.skillDrafts ?? [];

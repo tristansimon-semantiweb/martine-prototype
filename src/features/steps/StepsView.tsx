@@ -2,19 +2,24 @@
 
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
-import { ChevronRight } from "lucide-react";
+import { Check, ChevronRight } from "lucide-react";
 import { useMartine } from "@/shared/hooks/useMartine";
 import { useToast } from "@/shared/components/ui/Toast";
 import { AddRow, RemoveButton } from "@/shared/components/ui/Editing";
-import { methodEntry } from "@/shared/lib/data";
+import { methodEntry, skillById } from "@/shared/lib/data";
 import { costed, plural } from "@/shared/lib/format";
 import { hasMethodFile, phaseViews, type PhaseView } from "@/shared/lib/studyModel";
+import { statusLine } from "@/shared/lib/martineContext";
+import { toolById } from "@/shared/lib/tools";
+import { cn } from "@/shared/lib/cn";
+import type { PhaseStatus } from "@/shared/lib/types";
+import { PhaseStatusPicker } from "./PhaseStatus";
 import { PhaseDrawer } from "./PhaseDrawer";
 
 // The phases of the study's method, in order. The open phase is in the URL
 // (?phase=2) so Ask Martine's sources and Overview's Continue can link to it.
 export function StepsView({ id }: { id: string }) {
-	const { studies, role, addStep, removeAddedStep, restoreAddedStep } = useMartine();
+	const { studies, role, addStep, removeAddedStep, restoreAddedStep, setPhaseStatus } = useMartine();
 	const toast = useToast();
 	const pathname = usePathname();
 	const params = useSearchParams();
@@ -47,6 +52,7 @@ export function StepsView({ id }: { id: string }) {
 		<div className="mx-auto flex max-w-[820px] flex-col gap-4 px-6 py-8">
 			<p className="m-0 text-[15px] text-[var(--color-ink-secondary)]">
 				The phases of the {method?.name.toLowerCase()} method, in order. Open one to see its tasks, their tools and their deliverables.
+				<span className="mt-1 block text-sm text-[var(--color-ink-muted)]">Where it stands: {statusLine(views)}.</span>
 			</p>
 
 			<ol aria-label="Phases" className="m-0 list-none overflow-hidden rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-surface)] p-0 shadow-[var(--shadow-xs)]">
@@ -55,6 +61,8 @@ export function StepsView({ id }: { id: string }) {
 						key={p.id}
 						phase={p}
 						onOpen={() => setOpen(p.id)}
+						canSetStatus={role === "analyst" || role === "consultant"}
+						onStatus={(s) => setPhaseStatus(study.id, p.id, s)}
 						onRemove={
 							p.addedBy && role === "consultant"
 								? () => {
@@ -76,7 +84,22 @@ export function StepsView({ id }: { id: string }) {
 
 // A phase: its number and name, its tasks and planned days. The whole row
 // opens it.
-function PhaseRow({ phase: p, onOpen, onRemove }: { phase: PhaseView; onOpen: () => void; onRemove?: () => void }) {
+function PhaseRow({
+	phase: p,
+	onOpen,
+	onRemove,
+	canSetStatus,
+	onStatus,
+}: {
+	phase: PhaseView;
+	onOpen: () => void;
+	onRemove?: () => void;
+	canSetStatus: boolean;
+	onStatus: (s: PhaseStatus) => void;
+}) {
+	const tools = [...new Set(p.tasks.flatMap((t) => t.task.tool_ids))].map((id) => toolById(id)?.label ?? id);
+	const skills = [...new Set(p.tasks.flatMap((t) => t.task.skills))].map((id) => skillById(id)?.label ?? id);
+	const off = p.status === "not_needed";
 	return (
 		<li className="flex items-center border-b border-[var(--color-border)] last:border-b-0">
 			<button
@@ -85,18 +108,40 @@ function PhaseRow({ phase: p, onOpen, onRemove }: { phase: PhaseView; onOpen: ()
 			>
 				<span
 					aria-hidden
-					className="box-border flex h-[26px] w-[26px] items-center justify-center rounded-full border-[1.5px] border-[var(--color-border-active)] text-[13px] text-[var(--color-ink-secondary)]"
+					className={cn(
+						"box-border flex h-[26px] w-[26px] items-center justify-center rounded-full border-[1.5px] text-[13px]",
+						p.status === "done"
+							? "border-[var(--color-positive)] bg-[var(--color-positive)] text-white"
+							: p.status === "in_progress"
+								? "border-[var(--color-accent)] text-[var(--color-accent)]"
+								: "border-[var(--color-border-active)] text-[var(--color-ink-secondary)]",
+					)}
 				>
-					{p.addedBy ? "+" : p.id.replace(/bis$/, "b")}
+					{p.status === "done" ? <Check size={14} /> : p.addedBy ? "+" : p.id.replace(/bis$/, "b")}
 				</span>
-				<span className="font-semibold">
-					{p.label}
-					{p.addedBy && <span className="ml-2 text-[13px] font-normal text-[var(--color-attention)]">added for this study</span>}
+				<span className={cn("min-w-0", off && "text-[var(--color-ink-muted)]")}>
+					<span className="font-semibold">
+						{p.label}
+						{p.addedBy && <span className="ml-2 text-[13px] font-normal text-[var(--color-attention)]">added for this study</span>}
+					</span>
+					{(skills.length > 0 || tools.length > 0) && (
+						<span className="mt-0.5 flex flex-wrap items-center gap-x-1.5 gap-y-0.5 text-[13px] text-[var(--color-ink-muted)]">
+							{skills.map((s) => (
+								<span key={s} className="rounded-[var(--radius-xs)] bg-[var(--color-accent-dim)] px-1.5 font-semibold text-[var(--color-accent)]">
+									{s}
+								</span>
+							))}
+							{tools.length > 0 && <span>{tools.join(", ")}</span>}
+						</span>
+					)}
 				</span>
 				<span className="hidden text-sm text-[var(--color-ink-muted)] sm:block">{plural(p.total, "task")}</span>
 				<span className="text-sm text-[var(--color-ink-muted)]">{p.addedBy ? "" : costed(p.days)}</span>
 				<ChevronRight size={16} aria-hidden className="text-[var(--color-ink-muted)]" />
 			</button>
+			<span className="flex w-[132px] shrink-0 justify-end pr-3">
+				<PhaseStatusPicker status={p.status} canEdit={canSetStatus} onChange={onStatus} label={`Status of phase ${p.id}`} />
+			</span>
 			{onRemove && <RemoveButton label={`Remove the step “${p.name}”`} onClick={onRemove} className="mr-3" />}
 		</li>
 	);

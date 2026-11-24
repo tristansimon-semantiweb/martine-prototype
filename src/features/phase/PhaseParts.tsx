@@ -2,6 +2,9 @@
 
 import { Sheet } from "@/shared/components/ui/Sheet";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useToast } from "@/shared/components/ui/Toast";
+import { cn } from "@/shared/lib/cn";
 import { Check, ExternalLink, X } from "lucide-react";
 import { methodFile } from "@/shared/lib/data";
 import { otherToolItems, toolById } from "@/shared/lib/tools";
@@ -208,4 +211,39 @@ export function taskRows(task: MethodTask, format: MethodFormat, slots: Partial<
 		{ label: "Check before moving on", value: v("check", task.check, Boolean(task.check)) },
 		{ label: "Output", value: v("output", task.output, Boolean(task.output)) },
 	];
+}
+
+// A tool as an action in a study: "Open Talkwalker" opens it in a new tab.
+// Semantiweb's internal tools have no address in the prototype: the button
+// says so and leads to the tool's page in Tools.
+export function ToolOpenButton({ id, toConfirm }: { id: string; toConfirm?: boolean }) {
+	const t = toolById(id);
+	const toast = useToast();
+	const router = useRouter();
+	const label = t?.label ?? id;
+	const cls = cn(
+		"inline-flex items-center gap-1.5 rounded-[var(--radius)] border bg-[var(--color-surface)] px-3 py-1.5 text-[13px] font-semibold text-[var(--color-ink)] no-underline hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]",
+		toConfirm ? "border-dashed border-[var(--color-border-active)]" : "border-[var(--color-border-hover)] shadow-[var(--shadow-xs)]",
+	);
+	const inner = (
+		<>
+			Open {label}
+			<ExternalLink size={12} aria-hidden className="text-[var(--color-ink-muted)]" />
+			{toConfirm && <span className="font-normal text-[var(--color-attention)]">to confirm</span>}
+		</>
+	);
+	const title = toConfirm ? `${label}: read in the task’s text, the method owner confirms it` : `Open ${label}`;
+	return t?.url ? (
+		<a href={t.url} target="_blank" rel="noopener noreferrer" title={title} className={cls}>
+			{inner}
+		</a>
+	) : (
+		<button
+			title={title}
+			onClick={() => toast(`Opens the ${label} in the real product: its internal address stays out of the prototype.`, { label: "See in Tools", onClick: () => router.push(`/tools/${id}`) })}
+			className={cls}
+		>
+			{inner}
+		</button>
+	);
 }

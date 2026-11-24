@@ -8,7 +8,7 @@
 // prototype nothing is sent anywhere: this module only describes it.
 import { methodEntry, personById, skillById } from "./data";
 import { dueDate } from "./format";
-import type { PhaseView } from "./studyModel";
+import { PHASE_STATUS, type PhaseView } from "./studyModel";
 import type { Study } from "./types";
 
 // ── Identifiers ──
@@ -44,7 +44,7 @@ export function whatClaudeReads(s: Study, phase: PhaseView, key: string): Contex
 	const items: ContextItem[] = [
 		{ label: "The study", detail: `${s.title}, ${s.client}, due ${dueDate(s.due)}`, ref: refs.study(s) },
 		{ label: "The brief", detail: "the client brief, and the decisions taken since", ref: `${s.id}/brief` },
-		{ label: "The method", detail: `${methodLabel(s)}, phase ${phase.id}`, ref: refs.method(s) },
+		{ label: "The method", detail: `${methodLabel(s)}, phase ${phase.id} (${PHASE_STATUS[phase.status].toLowerCase()})`, ref: refs.method(s) },
 	];
 	if (task) {
 		// Steps-format methods have no check column: their points of attention play that part.
@@ -58,6 +58,15 @@ export function whatClaudeReads(s: Study, phase: PhaseView, key: string): Contex
 	return items;
 }
 
+// "2 done, 1 in progress, 7 to start": where the study's phases stand.
+export function statusLine(views: PhaseView[]): string {
+	return (["done", "in_progress", "to_start", "not_needed"] as const)
+		.map((k) => [k, views.filter((v) => v.status === k).length] as const)
+		.filter(([, n]) => n > 0)
+		.map(([k, n]) => `${n} ${PHASE_STATUS[k].toLowerCase()}`)
+		.join(", ");
+}
+
 // What the connector holds for a study, as the Overview lists it.
 export function knownToClaude(s: Study, views: PhaseView[]): ContextItem[] {
 	const notes = Object.keys(s.state.notes).length;
@@ -65,7 +74,7 @@ export function knownToClaude(s: Study, views: PhaseView[]): ContextItem[] {
 	return [
 		{ label: "Study", detail: `${s.title}, ${s.client}`, ref: refs.study(s) },
 		{ label: "Method", detail: methodLabel(s), ref: refs.method(s) },
-		{ label: "Steps", detail: views.length ? `${views.length} phases` : "none yet" },
+		{ label: "Steps", detail: views.length ? `${views.length} phases: ${statusLine(views)}` : "none yet" },
 		{ label: "Decisions", detail: s.decisions.length ? s.decisions.map((d) => `${d.date}: ${d.text}`).join(" ") : "none yet" },
 		{ label: "Notes and added tasks", detail: `${notes} note${notes === 1 ? "" : "s"}, ${added} added task${added === 1 ? "" : "s"}` },
 		{

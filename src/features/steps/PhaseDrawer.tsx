@@ -7,7 +7,8 @@ import type { PhaseView } from "@/shared/lib/studyModel";
 import type { RoleId, Study } from "@/shared/lib/types";
 import { useToast } from "@/shared/components/ui/Toast";
 import { AddRow, CanDo, InlineEdit, RemoveButton } from "@/shared/components/ui/Editing";
-import { PhaseSheet, ownerLabel } from "@/features/phase/PhaseParts";
+import { PhaseSheet, ToolOpenButton, ownerLabel } from "@/features/phase/PhaseParts";
+import { PhaseStatusPicker } from "./PhaseStatus";
 import { TaskCard } from "./TaskCard";
 import { PhaseDocument } from "@/features/files/Documents";
 
@@ -37,11 +38,11 @@ function kicker(p: PhaseView) {
 // guess and nothing silently disappears.
 const CAN: Record<RoleId, { can: string; locked: string }> = {
 	consultant: {
-		can: "You can write the note, add, rename or remove tasks for this study, and choose the phase document.",
+		can: "You can set the phase’s status, write the note, add, rename or remove tasks for this study, and choose the phase document.",
 		locked: "The method’s tasks come from the method file: suggest a change from a task.",
 	},
 	analyst: {
-		can: "You can choose the phase document, open skills in Claude, suggest a change to a task or request a skill.",
+		can: "You can set the phase’s status, choose the phase document, open skills in Claude, suggest a change to a task or request a skill.",
 		locked: "The note and the tasks added for this study are the consultant’s.",
 	},
 	method_owner: {
@@ -55,14 +56,39 @@ const CAN: Record<RoleId, { can: string; locked: string }> = {
 };
 
 function Body({ study, phase }: { study: Study; phase: PhaseView }) {
-	const { role, setNote, addTask, renameAddedTask, removeAddedTask, restoreAddedTask } = useMartine();
+	const { role, setNote, setPhaseStatus, addTask, renameAddedTask, removeAddedTask, restoreAddedTask } = useMartine();
 	const toast = useToast();
 	const isConsultant = role === "consultant";
 	const note = study.state.notes[phase.id];
 	const first = (id: string) => personById(id)?.name.split(" ")[0];
+	// Every tool the phase's tasks work in, once each: open them from here.
+	const tools = [...new Set(phase.tasks.flatMap((t) => t.task.tool_ids))];
+	const toConfirm = (id: string) => phase.tasks.every((t) => !t.task.tool_ids.includes(id) || t.task.tool_ids_to_confirm?.includes(id));
 
 	return (
 		<>
+			<section aria-label="This phase" className="flex flex-col gap-2.5 rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-surface)] px-4 py-3">
+				<div className="flex items-center gap-3">
+					<span className="w-16 shrink-0 text-sm text-[var(--color-ink-muted)]">Status</span>
+					<PhaseStatusPicker
+						status={phase.status}
+						canEdit={role === "analyst" || role === "consultant"}
+						onChange={(s) => setPhaseStatus(study.id, phase.id, s)}
+						label={`Status of phase ${phase.id}`}
+					/>
+				</div>
+				{tools.length > 0 && (
+					<div className="flex items-start gap-3">
+						<span className="w-16 shrink-0 pt-1.5 text-sm text-[var(--color-ink-muted)]">Tools</span>
+						<span className="flex flex-wrap gap-1.5">
+							{tools.map((id) => (
+								<ToolOpenButton key={id} id={id} toConfirm={toConfirm(id)} />
+							))}
+						</span>
+					</div>
+				)}
+			</section>
+
 			<CanDo can={CAN[role].can} locked={CAN[role].locked} />
 
 			{(note || isConsultant) && (
