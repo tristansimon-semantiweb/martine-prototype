@@ -49,7 +49,7 @@ export function StepsView({ id }: { id: string }) {
 	}
 
 	return (
-		<div className="mx-auto flex max-w-[820px] flex-col gap-4 px-6 py-8">
+		<div className="mx-auto flex max-w-[980px] flex-col gap-4 px-6 py-8">
 			<p className="m-0 text-[15px] text-[var(--color-ink-secondary)]">
 				The phases of the {method?.name.toLowerCase()} method, in order. Open one to see its tasks, their tools and their deliverables.
 				<span className="mt-1 block text-sm text-[var(--color-ink-muted)]">Where it stands: {statusLine(views)}.</span>
@@ -61,7 +61,7 @@ export function StepsView({ id }: { id: string }) {
 						key={p.id}
 						phase={p}
 						onOpen={() => setOpen(p.id)}
-						canSetStatus={role === "analyst" || role === "consultant"}
+						canSetStatus
 						onStatus={(s) => setPhaseStatus(study.id, p.id, s)}
 						onRemove={
 							p.addedBy && role === "consultant"
@@ -101,10 +101,10 @@ function PhaseRow({
 	const skills = [...new Set(p.tasks.flatMap((t) => t.task.skills))].map((id) => skillById(id)?.label ?? id);
 	const off = p.status === "not_needed";
 	return (
-		<li className="flex items-center border-b border-[var(--color-border)] last:border-b-0">
+		<li className="flex items-center border-b border-[var(--color-border)] transition-colors last:border-b-0 hover:bg-[var(--color-hover)]">
 			<button
 				onClick={onOpen}
-				className="grid min-w-0 flex-1 grid-cols-[30px_minmax(0,1fr)_auto_16px] items-center gap-3 px-5 py-3.5 text-left hover:bg-[var(--color-hover)] sm:grid-cols-[30px_minmax(0,1fr)_64px_64px_64px_110px_16px]"
+				className="grid min-w-0 flex-1 grid-cols-[30px_minmax(0,1fr)_auto] items-center gap-3 py-3.5 pl-5 pr-2 text-left sm:grid-cols-[30px_minmax(0,1fr)_64px_64px_64px_110px]"
 			>
 				<span
 					aria-hidden
@@ -133,12 +133,14 @@ function PhaseRow({
 					{skills.length ? plural(skills.length, "skill") : "no skill"}
 				</span>
 				<span className="text-sm text-[var(--color-ink-muted)]">{p.addedBy ? "" : costed(p.days)}</span>
-				<ChevronRight size={16} aria-hidden className="text-[var(--color-ink-muted)]" />
 			</button>
-			<span className="flex w-[132px] shrink-0 justify-end pr-3">
+			<span className="flex w-[124px] shrink-0">
 				<PhaseStatusPicker status={p.status} canEdit={canSetStatus} onChange={onStatus} label={`Status of phase ${p.id}`} />
 			</span>
-			{onRemove && <RemoveButton label={`Remove the step “${p.name}”`} onClick={onRemove} className="mr-3" />}
+			{onRemove && <RemoveButton label={`Remove the step “${p.name}”`} onClick={onRemove} />}
+			<span aria-hidden onClick={onOpen} className="flex cursor-pointer self-stretch items-center pl-1 pr-5 text-[var(--color-ink-muted)]">
+				<ChevronRight size={16} />
+			</span>
 		</li>
 	);
 }

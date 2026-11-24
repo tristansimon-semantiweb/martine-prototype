@@ -28,7 +28,7 @@
         {
           "kind": "new",
           "title": "A status for each phase",
-          "text": "Each phase of a study is To start, In progress, Done or Not needed. The analyst or the consultant changes it from the phase list or at the top of the phase; Steps says where the study stands (2 done, 1 in progress…), and Claude reads it with the phase.",
+          "text": "Each phase of a study is To start, In progress, Done or Not needed. Anyone on the study changes it from the phase list or at the top of the phase; Steps says where the study stands (2 done, 1 in progress…), and Claude reads it with the phase.",
           "href": "/studies/TR-2611-01/steps"
         },
         {

@@ -46,11 +46,11 @@ const CAN: Record<RoleId, { can: string; locked: string }> = {
 		locked: "The note and the tasks added for this study are the consultant’s.",
 	},
 	method_owner: {
-		can: "You can choose the phase document. The method itself is edited in Study types.",
+		can: "You can set the phase’s status and choose the phase document. The method itself is edited in Study types.",
 		locked: "The note and the tasks added for this study are the consultant’s.",
 	},
 	skills_owner: {
-		can: "You can choose the phase document and follow skill requests in Skills.",
+		can: "You can set the phase’s status, choose the phase document and follow skill requests in Skills.",
 		locked: "The note and the tasks added for this study are the consultant’s.",
 	},
 };
@@ -72,7 +72,7 @@ function Body({ study, phase }: { study: Study; phase: PhaseView }) {
 					<span className="w-16 shrink-0 text-sm text-[var(--color-ink-muted)]">Status</span>
 					<PhaseStatusPicker
 						status={phase.status}
-						canEdit={role === "analyst" || role === "consultant"}
+						canEdit
 						onChange={(s) => setPhaseStatus(study.id, phase.id, s)}
 						label={`Status of phase ${phase.id}`}
 					/>
