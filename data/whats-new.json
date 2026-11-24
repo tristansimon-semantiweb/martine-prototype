@@ -8,6 +8,12 @@
       "summary": "Documents work by phase, tasks put their tools and skills up front, and the first version narrows its scope.",
       "items": [
         {
+          "kind": "changed",
+          "title": "Studies first, the library below",
+          "text": "The sidebar now separates the work from what serves it. On top, Studies with the studies in progress under it. Below, under Library and quieter: Study types, Tools, Skills and Documentation.",
+          "href": "/"
+        },
+        {
           "kind": "new",
           "title": "Documentation: add your guides and their links",
           "text": "Documentation joins the sidebar: the library of guides, methodologies and references for the analysts, each with what it applies to and its link. Add a guide there (a title, a link to Notion, Drive or the intranet, its kind), or paste the link of one that has none. On a task, the Documentation section has + Add: attach a guide of the library or paste a new link; a click on a guide opens it.",
