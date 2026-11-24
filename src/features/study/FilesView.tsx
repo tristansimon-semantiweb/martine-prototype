@@ -3,7 +3,8 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { Building2, ExternalLink, File, FileSpreadsheet, FileText, Folder, Plus, Presentation } from "lucide-react";
+import { Building2, ChevronDown, ExternalLink, File, FileSpreadsheet, FileText, Folder, Plus, Presentation } from "lucide-react";
+import { Popover } from "@/shared/components/ui/Popover";
 import { useMartine } from "@/shared/hooks/useMartine";
 import { personById } from "@/shared/lib/data";
 import { phaseViews } from "@/shared/lib/studyModel";
@@ -134,7 +135,7 @@ export function FilesView({ id }: { id: string }) {
 	const current = SECTIONS.find((x) => x.id === tab)!;
 	const files = shown.filter((f) => categoryOf(f) === tab);
 	const usedIn = (fileId: string) => views.filter((p) => study.state.phaseDocs?.[p.id] === fileId);
-	const cols = "grid grid-cols-[minmax(0,1fr)_auto] items-center gap-x-4 sm:grid-cols-[minmax(0,2fr)_72px_minmax(0,1fr)_minmax(0,1.2fr)]";
+	const cols = "grid grid-cols-[minmax(0,1fr)_auto] items-center gap-x-4 sm:grid-cols-[minmax(0,1.7fr)_64px_minmax(0,1.6fr)_104px]";
 	const card = "overflow-hidden rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-surface)] shadow-[var(--shadow-xs)]";
 
 	return (
@@ -173,7 +174,7 @@ export function FilesView({ id }: { id: string }) {
 			</nav>
 
 			{/* The open folder's documents. */}
-			<section aria-labelledby="folder-title" className={card}>
+			<section aria-labelledby="folder-title" className={card.replace("overflow-hidden ", "")}>
 				<div className="flex flex-wrap items-center gap-3 border-b border-[var(--color-border)] px-5 py-4">
 					<div className="min-w-[200px] flex-1">
 						<h2 id="folder-title" className="m-0 font-[family-name:var(--font-heading)] text-[22px] font-medium">
@@ -209,17 +210,8 @@ export function FilesView({ id }: { id: string }) {
 									<span className="hidden sm:block">
 										<From study={study} file={f} />
 									</span>
-									<span className="flex flex-wrap justify-end gap-1.5 sm:justify-start">
-										{phases.map((p) => (
-											<Link
-												key={p.id}
-												href={`/studies/${study.id}/steps?phase=${p.id}`}
-												title="The phase works in this document"
-												className="rounded-[var(--radius-xl)] bg-[var(--color-accent-dim)] px-2.5 py-0.5 text-[13px] font-semibold text-[var(--color-accent)] no-underline"
-											>
-												{p.label}
-											</Link>
-										))}
+									<span className="flex justify-end sm:justify-start">
+										<UsedIn study={study} phases={phases} />
 									</span>
 								</li>
 							);
@@ -228,5 +220,39 @@ export function FilesView({ id }: { id: string }) {
 				)}
 			</section>
 		</div>
+	);
+}
+
+// The steps that work in a document, as a count ("2 steps"): a click lists
+// them, each a link to its phase. A document can serve many phases.
+function UsedIn({ study, phases }: { study: Study; phases: { id: string; label: string }[] }) {
+	if (!phases.length) return <span className="text-[var(--color-ink-muted)]">not used yet</span>;
+	return (
+		<Popover
+			align="end"
+			width={280}
+			trigger={({ open, toggle }) => (
+				<button
+					onClick={toggle}
+					aria-expanded={open}
+					className="inline-flex items-center gap-1 rounded-[var(--radius-xl)] bg-[var(--color-accent-dim)] px-2.5 py-0.5 text-[13px] font-semibold text-[var(--color-accent)]"
+				>
+					{plural(phases.length, "step")} <ChevronDown size={12} aria-hidden />
+				</button>
+			)}
+		>
+			{() => (
+				<ul className="m-0 list-none p-0 text-sm">
+					<li className="px-2 pb-1 pt-0.5 text-[12px] font-semibold text-[var(--color-ink-muted)]">Steps that work in this document</li>
+					{phases.map((p) => (
+						<li key={p.id}>
+							<Link href={`/studies/${study.id}/steps?phase=${p.id}`} className="block rounded-[var(--radius-sm)] px-2 py-1.5 text-[var(--color-ink)] no-underline hover:bg-[var(--color-hover)]">
+								{p.label}
+							</Link>
+						</li>
+					))}
+				</ul>
+			)}
+		</Popover>
 	);
 }

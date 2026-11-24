@@ -1,11 +1,9 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
-import { ChevronDown, FileText } from "lucide-react";
+import { ChevronDown, FileText, Lock } from "lucide-react";
 import { useMartine } from "@/shared/hooks/useMartine";
-import { useToast } from "@/shared/components/ui/Toast";
-import { AddRow, InlineEdit, RemoveButton } from "@/shared/components/ui/Editing";
+import { InlineEdit } from "@/shared/components/ui/Editing";
 import { days, dueDate, fromToday, plural } from "@/shared/lib/format";
 import { knownToClaude, statusLine } from "@/shared/lib/martineContext";
 import { methodEntry, personById } from "@/shared/lib/data";
@@ -127,11 +125,6 @@ export function OverviewView({ id }: { id: string }) {
 
 				<div className="grid gap-5 md:grid-cols-2">
 					<Standing study={study} auto={autoSummary} />
-					<ToClarify study={study} />
-				</div>
-
-				<div className="grid gap-5 md:grid-cols-2">
-					<Decisions study={study} />
 					<section aria-labelledby="docs" className={tile}>
 						<div className="flex items-baseline gap-2">
 							<h2 id="docs" className={h2}>
@@ -258,44 +251,57 @@ function Now({ study, phase, person, next }: { study: Study; phase: PhaseView; p
 	);
 }
 
+// The other studies of the same type, newest first: one row each, to open and
+// see how the team ran it. Another client's study is flagged: the approach can
+// be reused, not its material, and Claude does not read it from this study.
 function SimilarStudies({ study, similar, type }: { study: Study; similar: Study[]; type: string }) {
-	const others = similar.some((s) => s.client !== study.client);
 	return (
 		<section aria-labelledby="similar" className={tile}>
-			<h2 id="similar" className="font-[family-name:var(--font-body)] text-[15px] font-semibold">
-				Similar studies
+			<h2 id="similar" className={h2}>
+				Similar studies <span className="font-normal text-[var(--color-ink-muted)]">{similar.length}</span>
 			</h2>
-			<p className="mt-0.5 text-sm text-[var(--color-ink-muted)]">
-				{similar.length ? `Other ${type.toLowerCase()}s: see how the team ran them.` : `No other ${type.toLowerCase()} in Martine yet.`}
-			</p>
-			{similar.length > 0 && (
+			<p className="m-0 mt-0.5 text-[13px] text-[var(--color-ink-muted)]">Other {type.toLowerCase()}s, newest first</p>
+			{similar.length === 0 ? (
+				<p className="m-0 mt-2 text-sm text-[var(--color-ink-muted)]">None in Martine yet.</p>
+			) : (
 				<ul className="m-0 mt-2 flex list-none flex-col p-0">
 					{similar.map((s) => {
-						const people = s.team.filter((m) => m.role === "consultant" || m.role === "analyst").map((m) => personById(m.person)?.name.split(" ")[0]);
+						const same = s.client === study.client;
 						return (
 							<li key={s.id} className="border-b border-[var(--color-border)] last:border-b-0">
-								<Link
-									href={`/studies/${s.id}/steps`}
-									className="-mx-2 block rounded-[var(--radius-sm)] px-2 py-2.5 text-[var(--color-ink)] no-underline hover:bg-[var(--color-hover)]"
-								>
+								<Link href={`/studies/${s.id}`} className="-mx-2 block rounded-[var(--radius-sm)] px-2 py-2.5 text-[var(--color-ink)] no-underline hover:bg-[var(--color-hover)]">
 									<span className="block font-semibold leading-snug">{s.title}</span>
-									<span className="block text-[13px] text-[var(--color-ink-muted)]">
-										{s.client}
-										{s.client === study.client && <span className="font-semibold text-[var(--color-accent)]"> (same client)</span>}
-										{", "}
-										{s.status === "delivered" ? `delivered ${dueDate(s.due)}` : `due ${dueDate(s.due)}`}
+									<span className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-[12px] text-[var(--color-ink-muted)]">
+										{same ? (
+											<span className="rounded-[var(--radius-xl)] bg-[var(--color-accent-dim)] px-2 py-px font-semibold text-[var(--color-accent)]">Same client</span>
+										) : (
+											<span
+												title="Another client: reuse the approach, not the material. Claude does not read it from this study."
+												className="inline-flex items-center gap-1 rounded-[var(--radius-xl)] bg-[var(--color-elevated)] px-2 py-px font-semibold text-[var(--color-ink-secondary)]"
+											>
+												<Lock size={10} aria-hidden /> Other client
+											</span>
+										)}
+										<span>{s.status === "delivered" ? `Delivered ${shortDate(s.due)}` : `Due ${shortDate(s.due)}`}</span>
+										<span className="ml-auto flex -space-x-1.5">
+											{s.team
+												.filter((m) => m.role === "consultant" || m.role === "analyst")
+												.map((m) => (
+													<span
+														key={m.person}
+														title={personById(m.person)?.name}
+														className="flex h-5 w-5 items-center justify-center rounded-full bg-[var(--color-elevated)] text-[8px] font-bold text-[var(--color-ink-secondary)] ring-2 ring-[var(--color-surface)]"
+													>
+														{personById(m.person)?.initials}
+													</span>
+												))}
+										</span>
 									</span>
-									{people.length > 0 && <span className="block text-[13px] text-[var(--color-ink-muted)]">{people.join(", ")}</span>}
 								</Link>
 							</li>
 						);
 					})}
 				</ul>
-			)}
-			{others && (
-				<p className="m-0 mt-2.5 text-[13px] text-[var(--color-ink-muted)]">
-					Another client’s study is there to see how the team ran it: reuse the approach, not its material. Claude does not read it from this study.
-				</p>
 			)}
 		</section>
 	);
@@ -325,122 +331,6 @@ function Standing({ study, auto }: { study: Study; auto: string }) {
 						? "Claude reads it."
 						: "Written by Martine from the phases’ status. Click to write your own; Claude reads it."}
 			</p>
-		</section>
-	);
-}
-
-// What is open with the client. A point is added, removed, or resolved: the
-// client's answer closes it and becomes a dated decision.
-function ToClarify({ study }: { study: Study }) {
-	const { addClarify, removeClarify, restoreClarify, resolveClarify } = useMartine();
-	const toast = useToast();
-	const [resolving, setResolving] = useState<string | null>(null);
-	const [answer, setAnswer] = useState("");
-	const open = study.toClarify.filter((c) => c.open);
-	return (
-		<section aria-labelledby="clarify" className={tile}>
-			<h2 id="clarify" className={h2}>
-				To clarify with the client <span className="font-normal text-[var(--color-ink-muted)]">{open.length}</span>
-			</h2>
-			<ul className="m-0 mt-2 flex list-none flex-col gap-1 p-0 text-[15px]">
-				{open.map((c) => (
-					<li key={c.id} className="group rounded-[var(--radius-sm)] py-1">
-						<div className="flex items-start gap-2">
-							<span aria-hidden className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--color-attention)]" />
-							<span className="min-w-0 flex-1">
-								{c.label}
-								<span className="ml-1.5 text-[12px] text-[var(--color-ink-muted)]">{c.by ? `added by ${firstName(c.by)}` : "from the brief"}</span>
-							</span>
-							{resolving !== c.id && (
-								<button
-									onClick={() => {
-										setResolving(c.id);
-										setAnswer("");
-									}}
-									className="shrink-0 rounded-[var(--radius-sm)] px-2 py-0.5 text-[13px] font-semibold text-[var(--color-accent)] hover:bg-[var(--color-accent-dim)]"
-								>
-									Resolve
-								</button>
-							)}
-							<RemoveButton
-								label={`Remove “${c.label}”`}
-								onClick={() => {
-									const r = removeClarify(study.id, c.id);
-									toast("Point removed", r && { label: "Undo", onClick: () => restoreClarify(study.id, r) });
-								}}
-							/>
-						</div>
-						{resolving === c.id && (
-							<form
-								onSubmit={(e) => {
-									e.preventDefault();
-									if (!answer.trim()) return;
-									resolveClarify(study.id, c.id, answer.trim());
-									toast("Resolved: the answer is now a decision");
-									setResolving(null);
-								}}
-								className="ml-3.5 mt-1.5 flex gap-2"
-							>
-								<input
-									autoFocus
-									value={answer}
-									onChange={(e) => setAnswer(e.target.value)}
-									onKeyDown={(e) => e.key === "Escape" && setResolving(null)}
-									aria-label={`What did the client decide on “${c.label}”?`}
-									placeholder="What did the client decide?"
-									className="rr-input min-w-0 flex-1 py-1.5 text-sm"
-								/>
-								<button type="submit" disabled={!answer.trim()} className="rounded-[var(--radius)] bg-[var(--color-accent)] px-3 text-sm font-semibold text-white disabled:opacity-40">
-									Record
-								</button>
-							</form>
-						)}
-					</li>
-				))}
-				{open.length === 0 && <li className="text-sm text-[var(--color-ink-muted)]">Nothing open.</li>}
-			</ul>
-			<div className="mt-2.5">
-				<AddRow label="Add a point" placeholder="What to clarify with the client" onAdd={(v) => addClarify(study.id, v)} />
-			</div>
-		</section>
-	);
-}
-
-// What was decided, dated: from a resolved point (it says which) or added directly.
-function Decisions({ study }: { study: Study }) {
-	const { addDecision, removeDecision, restoreDecision } = useMartine();
-	const toast = useToast();
-	return (
-		<section aria-labelledby="dec" className={tile}>
-			<h2 id="dec" className={h2}>
-				Decisions <span className="font-normal text-[var(--color-ink-muted)]">{study.decisions.length}</span>
-			</h2>
-			{study.decisions.length ? (
-				<ol className="m-0 mt-2 flex list-none flex-col gap-2.5 p-0 text-[15px]">
-					{study.decisions.map((d) => (
-						<li key={d.id} className="flex gap-3">
-							<span className="w-[92px] shrink-0 text-[13px] font-semibold text-[var(--color-ink-muted)]">{d.date}</span>
-							<span className="min-w-0 flex-1 text-[var(--color-ink-secondary)]">
-								{d.answers && <span className="font-semibold text-[var(--color-ink)]">{d.answers}: </span>}
-								{d.text}
-								{d.by && <span className="ml-1.5 text-[12px] text-[var(--color-ink-muted)]">by {firstName(d.by)}</span>}
-							</span>
-							<RemoveButton
-								label="Remove this decision"
-								onClick={() => {
-									const r = removeDecision(study.id, d.id);
-									toast("Decision removed", r && { label: "Undo", onClick: () => restoreDecision(study.id, r) });
-								}}
-							/>
-						</li>
-					))}
-				</ol>
-			) : (
-				<p className="m-0 mt-2 text-sm text-[var(--color-ink-muted)]">No decision yet. Resolving a point to clarify records one.</p>
-			)}
-			<div className="mt-2.5">
-				<AddRow label="Add a decision" placeholder="What was decided" onAdd={(v) => addDecision(study.id, v)} />
-			</div>
 		</section>
 	);
 }

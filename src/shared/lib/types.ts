@@ -218,10 +218,9 @@ export interface Study {
 	// method file can hold several report cycles). Absent: all but the optional ones.
 	phases?: string[];
 	team: { person: string; role: RoleId }[];
-	// Points to clarify with the client: read in the brief when the study was
-	// created, or added since (by). Resolving one records a decision.
-	toClarify: { id: string; label: string; open: boolean; decision?: string; by?: string }[];
-	decisions: { id: string; date: string; text: string; answers?: string; by?: string }[]; // answers: the point it resolves
+	// Points to clarify and decisions: kept in the data, not shown in the MVP.
+	toClarify: { id: string; label: string; open: boolean; decision?: string }[];
+	decisions: { id: string; date: string; text: string }[];
 	links: StudyLink[];
 	files: StudyFile[];
 	previousWave: { id: string; name: string; type: string }[];

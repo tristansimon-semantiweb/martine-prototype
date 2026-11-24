@@ -18,8 +18,8 @@
       "answer": "The last 12 months against the previous 12. The client confirmed it on November 19; the brief mentioned 24 months on one page, which Claire flagged at kick-off.",
       "sources": [
         {
-          "label": "Decision, Nov 19",
-          "href": "/studies/{study}"
+          "label": "Scope and points to clarify",
+          "href": "/studies/{study}/files?folder=brief&file=f3"
         },
         {
           "label": "Client brief, page 3",
@@ -70,8 +70,8 @@
           "href": "/studies/{study}/steps?phase=2"
         },
         {
-          "label": "Points to clarify",
-          "href": "/studies/{study}"
+          "label": "Scope and points to clarify",
+          "href": "/studies/{study}/files?folder=brief&file=f3"
         }
       ]
     },
@@ -91,10 +91,6 @@
         {
           "label": "Scope and points to clarify",
           "href": "/studies/{study}/files"
-        },
-        {
-          "label": "Decision, Nov 19",
-          "href": "/studies/{study}"
         }
       ]
     },
