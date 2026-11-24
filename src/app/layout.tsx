@@ -17,7 +17,7 @@ const sourceSans = Source_Sans_3({
 
 export const metadata: Metadata = {
 	title: "Martine",
-	description: "Martine, the living method file of Semantiweb studies (prototype).",
+	description: "Martine, where Semantiweb studies run on their methods (prototype).",
 };
 
 export default function RootLayout({

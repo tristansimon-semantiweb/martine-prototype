@@ -61,7 +61,7 @@ export function StudyFrame({ id, children }: { id: string; children: React.React
 				aside={
 					onSteps && method?.version ? (
 						<Link href={`/study-types/${method.id}`} className="text-[var(--color-ink-muted)]">
-							Method: {method.name.toLowerCase()} sheet, v{study.method.version}, owned by {method.owner ?? "[to name]"}
+							Method: {method.name.toLowerCase()} v{study.method.version}, owned by {method.owner ?? "[to name]"}
 						</Link>
 					) : (
 						<Link href="/" className="text-[var(--color-ink-muted)]">

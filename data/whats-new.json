@@ -8,6 +8,12 @@
       "summary": "Documents work by phase, tasks put their tools and skills up front, and the first version narrows its scope.",
       "items": [
         {
+          "kind": "removed",
+          "title": "No more method sheet",
+          "text": "The method lives in Martine: “Open the method sheet” is gone from study types, and a study shows its method as “trend report v1.2, owned by …”, with no sheet or file behind it.",
+          "href": "/study-types"
+        },
+        {
           "kind": "changed",
           "title": "Studies first, the library below",
           "text": "The sidebar now separates the work from what serves it. On top, Studies with the studies in progress under it. Below, under Library and quieter: Study types, Tools, Skills and Documentation.",

@@ -123,7 +123,7 @@ function kicker(p: PhaseView) {
 	const owners = [...new Set(p.tasks.map((t) => ownerLabel(t.task.owner)).filter(Boolean))];
 	const owner = owners.length === 1 ? `, ${owners[0]}` : "";
 	if (p.addedBy) return `Phase ${p.id}, added for this study by ${personById(p.addedBy)?.name}`;
-	return p.days ? `Phase ${p.id}, planned ${p.time ?? costedDays(p.days)}${owner}` : `Phase ${p.id}, not costed in the method file${owner}`;
+	return p.days ? `Phase ${p.id}, planned ${p.time ?? costedDays(p.days)}${owner}` : `Phase ${p.id}, not costed in the method${owner}`;
 }
 
 // What each role can do in a study's phase, said up front so nothing is a
@@ -131,7 +131,7 @@ function kicker(p: PhaseView) {
 const CAN: Record<RoleId, { can: string; locked: string }> = {
 	consultant: {
 		can: "You can set the phase’s status, write the note, add, rename or remove tasks for this study, and choose the phase document.",
-		locked: "The method’s tasks come from the method file: suggest a change from a task.",
+		locked: "The tasks come from the method: suggest a change from a task.",
 	},
 	analyst: {
 		can: "You can set the phase’s status, choose the phase document, open skills in Claude, suggest a change to a task or request a skill.",

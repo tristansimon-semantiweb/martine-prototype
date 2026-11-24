@@ -201,7 +201,7 @@ function otherRows(task: MethodTask, slots: Partial<Record<Slot, React.ReactNode
 // editor, the tools with their skills) through `slots`.
 type Slot = "how" | "skills" | "tools" | "documents" | "check" | "output" | "what" | "watch_out";
 export function taskRows(task: MethodTask, format: MethodFormat, slots: Partial<Record<Slot, React.ReactNode>> = {}) {
-	const empty = <span className="text-[var(--color-ink-muted)]">[not in the method file]</span>;
+	const empty = <span className="text-[var(--color-ink-muted)]">[not in the method]</span>;
 	const v = (k: Slot, node: React.ReactNode, has: boolean) => (k in slots ? slots[k] : has ? node : empty);
 	if (format === "steps") {
 		return [

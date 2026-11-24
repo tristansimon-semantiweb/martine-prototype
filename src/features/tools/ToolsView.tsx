@@ -104,7 +104,7 @@ export function ToolsView() {
 					</table>
 				</div>
 				<p className="m-0 text-sm text-[var(--color-ink-muted)]">
-					Steps are linked to tools from the method files; a study type’s owner links or unlinks them in the method.
+					Steps are linked to tools in each study type’s method; its owner links or unlinks them there.
 				</p>
 			</div>
 		</>

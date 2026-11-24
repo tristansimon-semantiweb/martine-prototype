@@ -57,7 +57,7 @@ export function MethodsView() {
 						className="rr-input max-w-[260px] flex-1"
 					/>
 					<button
-						onClick={() => toast("A new study type starts from its method file: importing is not in the prototype")}
+						onClick={() => toast("Creating a study type is not in the prototype")}
 						className="ml-auto rounded-[var(--radius)] bg-[var(--color-accent)] px-4 py-2.5 text-sm font-semibold text-white hover:opacity-90"
 					>
 						New study type
@@ -131,7 +131,7 @@ export function MethodsView() {
 					</table>
 				</div>
 				<p className="m-0 text-sm text-[var(--color-ink-muted)]">
-					Phases, tasks and skills come from the method files. A 0 in Skills shows where a skill would save the most time.
+					Phases, tasks and skills come from each study type’s method. A 0 in Skills shows where a skill would save the most time.
 				</p>
 			</div>
 		</>

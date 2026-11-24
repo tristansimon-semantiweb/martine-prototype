@@ -48,7 +48,7 @@ export function MethodOverview({ id }: { id: string }) {
 						<p className="m-0 mt-2 text-[16px] leading-relaxed text-[var(--color-ink-secondary)]">{def.definition}</p>
 						{def.source === "draft" && (
 							<p className="m-0 mt-2.5 inline-block rounded-[var(--radius-sm)] bg-[var(--color-attention-bg)] px-2.5 py-1 text-[13px] text-[var(--color-attention)]">
-								Draft written from the method file, to validate by the method owner
+								Draft, to validate by the method owner
 							</p>
 						)}
 					</div>
@@ -72,7 +72,7 @@ export function MethodOverview({ id }: { id: string }) {
 
 			{!m.version && (
 				<p className={`${card} m-0 border-dashed px-6 py-6 text-[var(--color-ink-secondary)]`}>
-					This method’s tab is empty in the method file. Its phases and tasks show here once it is written.
+					This method is not written yet. Its phases and tasks show here once it is.
 				</p>
 			)}
 
@@ -148,7 +148,7 @@ export function MethodOverview({ id }: { id: string }) {
 					{file?.notes && (
 						<section aria-labelledby="notes" className={`${card} px-6 py-5`}>
 							<h2 id="notes" className={h2}>
-								Notes from the method file
+								Notes on the method
 							</h2>
 							<ul className="m-0 mt-2.5 flex flex-col gap-1.5 pl-5 text-[15px] text-[var(--color-ink-secondary)]">
 								{file.notes.map((n, i) => (

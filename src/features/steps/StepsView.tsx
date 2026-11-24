@@ -41,7 +41,7 @@ export function StepsView({ id }: { id: string }) {
 				<div className="rounded-[var(--radius-lg)] border border-dashed border-[var(--color-border-active)] bg-[var(--color-surface)] px-6 py-8 text-[var(--color-ink-secondary)]">
 					<p className="m-0 font-semibold text-[var(--color-ink)]">The {method?.name.toLowerCase() ?? "study"} method is not in Martine yet.</p>
 					<p className="mb-0 mt-1.5 text-[15px]">
-						Its tab in the method file is still empty: its phases and tasks show here once it is written. <Link href="/study-types">See the study types</Link>
+						Its method is not written yet: its phases and tasks show here once it is. <Link href="/study-types">See the study types</Link>
 					</p>
 				</div>
 			</div>
