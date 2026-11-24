@@ -31,10 +31,15 @@ export function Sheet({
 }) {
 	useEffect(() => {
 		if (!open) return;
-		const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
+		// Escape closes the top sheet only (a task's detail over its phase).
+		const onKey = (e: KeyboardEvent) => {
+			if (e.key !== "Escape") return;
+			const open = [...document.querySelectorAll<HTMLElement>("aside[data-sheet-level][aria-hidden='false']")].map((el) => Number(el.dataset.sheetLevel));
+			if (level >= Math.max(level, ...open)) onClose();
+		};
 		window.addEventListener("keydown", onKey);
 		return () => window.removeEventListener("keydown", onKey);
-	}, [open, onClose]);
+	}, [open, onClose, level]);
 
 	const z = `calc(var(--z-drawer) + ${level * 2})`;
 
@@ -54,6 +59,7 @@ export function Sheet({
 				aria-modal="true"
 				aria-label={label}
 				aria-hidden={!open}
+				data-sheet-level={level}
 				inert={!open}
 				className={cn(
 					"fixed inset-y-0 right-0 flex max-w-full flex-col border-l border-[var(--color-border)] bg-[var(--color-surface)] shadow-[var(--shadow-xl)] transition-transform duration-300 [transition-timing-function:var(--ease-smooth)]",

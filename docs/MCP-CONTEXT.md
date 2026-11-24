@@ -35,6 +35,7 @@ Le code d'étude se lit : préfixe de la méthode (`TR` trend report, `BA` brand
 | Depuis | Claude reçoit | Il lit ensuite |
 | --- | --- | --- |
 | *Open in Claude* sur une tâche | étude, méthode et version, phase, tâche, skill | l'étude, le brief et les décisions, la tâche et son contrôle, la note du consultant, les données de l'étude sur la data platform |
+| *Walk me through in Claude* sur une phase | étude, méthode et version, phase | la même chose pour chaque tâche de la phase, dans l'ordre : Claude lance la skill quand il y en a une, dit quel outil ouvrir et passe le contrôle avant la tâche suivante |
 | Ask Martine sur une page d'étude | l'étude en cours | toute l'étude, ses fichiers, sa vague précédente du même client |
 | Ask Martine ailleurs | rien de particulier | toutes les études de l'utilisateur |
 
@@ -58,6 +59,6 @@ Claude ne valide jamais une phase à jalon : c'est le consultant.
 
 ## Annexe : dans ce dépôt
 
-- `src/shared/lib/martineContext.ts` construit ce contexte : identifiants (`refs`), « What Claude reads » (`whatClaudeReads`), « Known to Claude » (`knownToClaude`) et le lien *Open in Claude* (`openInClaudeUrl`, au format `https://claude.ai/new?q=<message>`).
+- `src/shared/lib/martineContext.ts` construit ce contexte : identifiants (`refs`), « What Claude reads » (`whatClaudeReads`), « Known to Claude » (`knownToClaude`) et les liens *Open in Claude* (`openInClaudeUrl`) et *Walk me through in Claude* (`walkthroughUrl`), au format `https://claude.ai/new?q=<message>`.
 - Les écrans et Ask Martine passent tous par ce module : ne pas reconstruire ce contexte ailleurs.
 - Dans le prototype, rien n'est envoyé : le message du lien porte un contexte minimal (identifiants seulement), et Ask Martine répond à partir de `data/ask-martine-scripts.json`.

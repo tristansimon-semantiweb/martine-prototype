@@ -86,6 +86,19 @@ export function knownToClaude(s: Study, views: PhaseView[]): ContextItem[] {
 	];
 }
 
+// "Walk me through in Claude": Claude takes the phase task by task. The same
+// rule as Open in Claude: identifiers only, Claude reads the rest through the
+// Martine connector.
+export function walkthroughUrl(s: Study, phase: PhaseView): string {
+	const message = [
+		`Martine study ${refs.study(s)} (${refs.method(s)}).`,
+		`Walk me through phase ${phase.id}: ${phase.name}, task by task.`,
+		"For each task: say what to do, run its skill when it has one, tell me which tool to open, and go through its check with me before the next one.",
+		"Read the study context through the Martine connector.",
+	].join(" ");
+	return `https://claude.ai/new?q=${encodeURIComponent(message)}`;
+}
+
 // "Open in Claude": a short message with identifiers only. Claude reads the
 // rest through the Martine connector; the brief's text never goes in the link.
 export function openInClaudeUrl(s: Study, phase: PhaseView, key: string, skillId: string): string {

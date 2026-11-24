@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { ExternalLink, Loader2, Sparkles, Wrench } from "lucide-react";
+import { ExternalLink, Loader2, Play, Search, Wrench } from "lucide-react";
 import { useMartine } from "@/shared/hooks/useMartine";
 import { Modal } from "@/shared/components/ui/Modal";
 import { useToast } from "@/shared/components/ui/Toast";
@@ -157,7 +157,7 @@ export function RequestSkill({
 								disabled={!need.trim()}
 								className="inline-flex items-center gap-1.5 rounded-[var(--radius)] bg-[var(--color-accent)] px-3.5 py-1.5 font-semibold text-white disabled:opacity-40"
 							>
-								<Sparkles size={14} aria-hidden /> Check with Claude
+								<Search size={14} aria-hidden /> Check with Claude
 							</button>
 							<button type="button" onClick={close} className="text-[var(--color-ink-muted)]">
 								Cancel
@@ -201,7 +201,7 @@ export function RequestSkill({
 													rel="noopener noreferrer"
 													className="inline-flex items-center gap-1.5 rounded-[var(--radius)] bg-[var(--color-accent)] px-3 py-1.5 text-[13px] font-semibold text-white no-underline hover:opacity-90"
 												>
-													<Sparkles size={13} aria-hidden /> Open in Claude with it <ExternalLink size={12} aria-hidden />
+													<Play size={12} aria-hidden className="fill-current" /> Open in Claude with it <ExternalLink size={12} aria-hidden />
 												</a>
 											)}
 											<Link href={`/skills/${s.id}`} className="inline-flex items-center rounded-[var(--radius)] border border-[var(--color-border-hover)] px-3 py-1.5 text-[13px] font-semibold no-underline">

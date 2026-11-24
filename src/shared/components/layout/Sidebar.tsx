@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Sparkles, X } from "lucide-react";
+import { Megaphone, X } from "lucide-react";
 import { useHasNews } from "@/features/whats-new/seen";
 import { cn } from "@/shared/lib/cn";
 import { useSidebar } from "@/shared/hooks/useSidebar";
@@ -110,7 +110,7 @@ export function Sidebar() {
 				</nav>
 				<div className="mt-auto border-t border-[var(--color-border)] p-3">
 					<Link href="/whats-new" className={item(pathname === "/whats-new")} aria-current={pathname === "/whats-new" ? "page" : undefined}>
-						<Sparkles size={15} aria-hidden className="text-[var(--color-accent)]" />
+						<Megaphone size={15} aria-hidden className="text-[var(--color-accent)]" />
 						<span className="flex-1">What’s new</span>
 						{hasNews && pathname !== "/whats-new" && (
 							<span className="rounded-[var(--radius-xl)] bg-[var(--color-accent)] px-2 py-px text-[11px] font-semibold text-white">New</span>

@@ -9,6 +9,12 @@
       "items": [
         {
           "kind": "changed",
+          "title": "A phase is a page, its tasks a run",
+          "text": "An open phase now takes the page, with the phases in a column on the left to move between them. Its tasks read as a run, top to bottom: who runs each one (Claude, a tool, by hand), its one action (Run in Claude, Open Talkwalker), what it delivers and what its last run left (done, or to check). The first task not done is Next up. Details opens a task’s method text and what Claude reads, beside the phase. Walk me through in Claude takes the whole phase in Claude, task by task. A task is done when its output is there and checked: no ticking.",
+          "href": "/studies/TR-2611-01/steps?phase=2"
+        },
+        {
+          "kind": "changed",
           "title": "Skills, tools and documents: one row each",
           "text": "In a study type, a task now shows Skills, Tools and Documents on separate rows, each with its own Add, which opens the catalog on the right tab. A guide is a document: guides are listed with the documents, there is no separate Guides tab or row. What is added goes into the next draft; studies see it once the draft is published.",
           "href": "/study-types/archetype?phase=0"

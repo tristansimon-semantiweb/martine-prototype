@@ -15,7 +15,7 @@ import { toolById } from "@/shared/lib/tools";
 import { cn } from "@/shared/lib/cn";
 import type { PhaseStatus } from "@/shared/lib/types";
 import { PhaseStatusPicker } from "./PhaseStatus";
-import { PhaseDrawer } from "./PhaseDrawer";
+import { PhasePage } from "./PhasePage";
 
 // The phases of the study's method, in order. The open phase is in the URL
 // (?phase=2) so Ask Martine's sources and Overview's Continue can link to it.
@@ -44,6 +44,51 @@ export function StepsView({ id }: { id: string }) {
 						Its tab in the method file is still empty: its phases and tasks show here once it is written. <Link href="/study-types">See the study types</Link>
 					</p>
 				</div>
+			</div>
+		);
+	}
+
+	// An open phase takes the page: the phases in a narrow column on the left
+	// to move between them, the phase on the rest of the width.
+	if (open) {
+		return (
+			<div className="mx-auto grid max-w-[1240px] items-start gap-7 px-6 py-7 lg:grid-cols-[240px_minmax(0,1fr)]">
+				<nav aria-label="Phases of the study" className="flex flex-col gap-1 lg:sticky lg:top-[64px]">
+					<button onClick={() => setOpen(null)} className="mb-1 self-start rounded-[var(--radius-sm)] px-2 py-1 text-sm font-semibold text-[var(--color-accent)] hover:bg-[var(--color-accent-dim)]">
+						← All phases
+					</button>
+					<ol className="m-0 flex list-none flex-col gap-0.5 p-0">
+						{views.map((p) => (
+							<li key={p.id}>
+								<button
+									onClick={() => setOpen(p.id)}
+									aria-current={p.id === open.id ? "step" : undefined}
+									className={cn(
+										"flex w-full items-center gap-2 rounded-[var(--radius-sm)] px-2 py-1.5 text-left text-sm",
+										p.id === open.id ? "bg-[var(--color-accent-dim)] font-semibold text-[var(--color-accent)]" : "hover:bg-[var(--color-hover)]",
+										p.status === "not_needed" && "text-[var(--color-ink-muted)]",
+									)}
+								>
+									<span
+										aria-hidden
+										className={cn(
+											"flex h-[18px] w-[18px] shrink-0 items-center justify-center rounded-full border text-[10px]",
+											p.status === "done"
+												? "border-[var(--color-positive)] bg-[var(--color-positive)] text-white"
+												: p.status === "in_progress"
+													? "border-[var(--color-accent)] text-[var(--color-accent)]"
+													: "border-[var(--color-border-active)] text-[var(--color-ink-muted)]",
+										)}
+									>
+										{p.status === "done" ? <Check size={11} /> : p.addedBy ? "+" : p.id.replace(/bis$/, "b")}
+									</span>
+									<span className="min-w-0 flex-1 truncate">{p.name}</span>
+								</button>
+							</li>
+						))}
+					</ol>
+				</nav>
+				<PhasePage key={open.id} study={study} phase={open} />
 			</div>
 		);
 	}
@@ -96,7 +141,6 @@ export function StepsView({ id }: { id: string }) {
 				</p>
 			)}
 
-			<PhaseDrawer study={study} phase={open} onClose={() => setOpen(null)} />
 		</div>
 	);
 }
