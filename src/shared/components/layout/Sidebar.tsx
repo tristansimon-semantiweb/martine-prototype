@@ -8,14 +8,20 @@ import { useSidebar } from "@/shared/hooks/useSidebar";
 
 // Adapted from R&R's FilterRail: same structure (an 88 px logo band lined up
 // with the page header, then the content), without the filters. The work
-// comes first (Studies, lit on any study); below, quieter under its own label,
-// the library the studies are run with. Search, Mine and New study are on the
-// Studies page; What's new is in the top band, Ask Martine bottom right.
-const LIBRARY = [
-	{ href: "/study-types", label: "Study types", icon: Layers, match: (p: string) => p.startsWith("/study-types") },
-	{ href: "/tools", label: "Tools", icon: Wrench, match: (p: string) => p.startsWith("/tools") },
-	{ href: "/skills", label: "Skills", icon: Puzzle, match: (p: string) => p.startsWith("/skills") },
-	{ href: "/documentation", label: "Documentation", icon: BookOpen, match: (p: string) => p.startsWith("/documentation") },
+// comes first (Studies, lit on any study); below, quieter, each under its
+// label: the methodology (the study types, how a study is run), then the
+// library it is run with. Search, Mine and New study are on the Studies page;
+// What's new is in the top band, Ask Martine bottom right.
+const GROUPS = [
+	{ label: "Methodology", items: [{ href: "/study-types", label: "Study types", icon: Layers }] },
+	{
+		label: "Library",
+		items: [
+			{ href: "/tools", label: "Tools", icon: Wrench },
+			{ href: "/skills", label: "Skills", icon: Puzzle },
+			{ href: "/documentation", label: "Documentation", icon: BookOpen },
+		],
+	},
 ];
 
 export function Sidebar() {
@@ -70,25 +76,31 @@ export function Sidebar() {
 						<FolderKanban size={17} aria-hidden className="text-[var(--color-accent)]" />
 						Studies
 					</Link>
-					<div className="mx-2.5 mb-1 mt-4 border-t border-[var(--color-border)] pt-3 text-[11px] font-semibold uppercase tracking-wide text-[var(--color-ink-muted)]">Library</div>
-					{LIBRARY.map((n) => {
-						const active = n.match(pathname);
-						const Icon = n.icon;
-						return (
-							<Link
-								key={n.href}
-								href={n.href}
-								aria-current={active ? "page" : undefined}
-								className={cn(
-									"flex items-center gap-2.5 rounded-[var(--radius-sm)] px-2.5 py-1.5 text-[13px] transition-colors",
-									active ? "bg-[var(--color-accent-dim)] font-semibold text-[var(--color-accent)]" : "text-[var(--color-ink-secondary)] hover:bg-[var(--color-hover)] hover:text-[var(--color-ink)]",
-								)}
-							>
-								<Icon size={15} aria-hidden className={active ? undefined : "text-[var(--color-ink-muted)]"} />
-								{n.label}
-							</Link>
-						);
-					})}
+					{GROUPS.map((g) => (
+						<div key={g.label} role="group" aria-labelledby={`nav-${g.label}`} className="flex flex-col gap-0.5">
+							<div id={`nav-${g.label}`} className="mx-2.5 mb-1 mt-4 border-t border-[var(--color-border)] pt-3 text-[11px] font-semibold uppercase tracking-wide text-[var(--color-ink-muted)]">
+								{g.label}
+							</div>
+							{g.items.map((n) => {
+								const active = pathname.startsWith(n.href);
+								const Icon = n.icon;
+								return (
+									<Link
+										key={n.href}
+										href={n.href}
+										aria-current={active ? "page" : undefined}
+										className={cn(
+											"flex items-center gap-2.5 rounded-[var(--radius-sm)] px-2.5 py-1.5 text-[13px] transition-colors",
+											active ? "bg-[var(--color-accent-dim)] font-semibold text-[var(--color-accent)]" : "text-[var(--color-ink-secondary)] hover:bg-[var(--color-hover)] hover:text-[var(--color-ink)]",
+										)}
+									>
+										<Icon size={15} aria-hidden className={active ? undefined : "text-[var(--color-ink-muted)]"} />
+										{n.label}
+									</Link>
+								);
+							})}
+						</div>
+					))}
 				</nav>
 			</aside>
 		</>
