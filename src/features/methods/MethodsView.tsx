@@ -3,11 +3,12 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { MineToggle } from "@/shared/components/ui/MineToggle";
 import { TopBand } from "@/shared/components/layout/TopBand";
 import { FamilyPill } from "@/shared/components/ui/Family";
 import { useToast } from "@/shared/components/ui/Toast";
 import { useMartine } from "@/shared/hooks/useMartine";
-import { methodsIndex, studyTypeDefinition } from "@/shared/lib/data";
+import { methodsIndex, personById, studyTypeDefinition } from "@/shared/lib/data";
 import { plural } from "@/shared/lib/format";
 import { cn } from "@/shared/lib/cn";
 import type { Family } from "@/shared/lib/types";
@@ -17,13 +18,18 @@ const FAMILIES: (Family | "All")[] = ["All", "SML", "Monitoring", "Trends"];
 // One row per method: counts come from the method files. A 0 in Skills is
 // highlighted: that is where a skill would save the most time.
 export function MethodsView() {
-	const { suggestions, drafts } = useMartine();
+	const { suggestions, drafts, studies, me } = useMartine();
 	const toast = useToast();
 	const router = useRouter();
 	const [family, setFamily] = useState<Family | "All">("All");
 	const [query, setQuery] = useState("");
+	const [mine, setMine] = useState(false);
+	// Mine: the study types you own, and those your studies are run with.
+	const myName = personById(me)?.name;
+	const usedByMe = new Set(studies.filter((s) => s.team.some((t) => t.person === me)).map((s) => s.method.id));
+	const isMine = (m: (typeof methodsIndex)[number]) => (myName !== undefined && m.owner === myName) || usedByMe.has(m.id);
 
-	const rows = methodsIndex.filter((m) => family === "All" || m.family === family).filter((m) => !query.trim() || m.name.toLowerCase().includes(query.trim().toLowerCase()));
+	const rows = methodsIndex.filter((m) => !mine || isMine(m)).filter((m) => family === "All" || m.family === family).filter((m) => !query.trim() || m.name.toLowerCase().includes(query.trim().toLowerCase()));
 
 	return (
 		<>
@@ -33,6 +39,7 @@ export function MethodsView() {
 			</TopBand>
 			<div className="mx-auto flex max-w-[1240px] flex-col gap-4 px-6 py-7">
 				<div className="flex flex-wrap items-center gap-3">
+					<MineToggle mine={mine} onChange={setMine} all={methodsIndex.length} minecount={methodsIndex.filter(isMine).length} allLabel="All study types" label="Whose study types" />
 					<div role="group" aria-label="Family" className="flex flex-wrap gap-1">
 						{FAMILIES.map((f) => (
 							<button
@@ -127,6 +134,13 @@ export function MethodsView() {
 									</tr>
 								);
 							})}
+							{rows.length === 0 && (
+								<tr>
+									<td colSpan={6} className="px-5 py-6 text-[var(--color-ink-muted)]">
+										{mine ? "None of your studies runs on a study type of this family, and you own none." : "No study type matches these filters."}
+									</td>
+								</tr>
+							)}
 						</tbody>
 					</table>
 				</div>

@@ -8,6 +8,12 @@
       "summary": "Documents work by phase, tasks put their tools and skills up front, and the first version narrows its scope.",
       "items": [
         {
+          "kind": "new",
+          "title": "Mine, on Study types too",
+          "text": "Study types gets the same “All / Mine” switch as Studies. Mine keeps the study types you own and those your studies are run with.",
+          "href": "/study-types"
+        },
+        {
           "kind": "changed",
           "title": "Assign and Status open in full",
           "text": "On a phase, the Assign and Status menus were cut off by their cell: they now open whole, under their button.",

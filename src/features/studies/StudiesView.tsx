@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { MineToggle } from "@/shared/components/ui/MineToggle";
 import { TopBand } from "@/shared/components/layout/TopBand";
 import { FamilyPill } from "@/shared/components/ui/Family";
 import { useMartine } from "@/shared/hooks/useMartine";
@@ -71,26 +72,8 @@ export function StudiesView() {
 			</TopBand>
 			<div className="mx-auto flex max-w-[1240px] flex-col gap-4 px-6 py-7">
 				<div className="flex flex-wrap items-center gap-3">
-					{/* Mine: the studies you are on, the way back to your own work. */}
-					<div role="group" aria-label="Whose studies" className="flex rounded-[var(--radius)] border border-[var(--color-border)] bg-[var(--color-surface)] p-0.5">
-						{[
-							{ on: false, label: "All studies", n: studies.length },
-							{ on: true, label: "Mine", n: studies.filter(isMine).length },
-						].map((o) => (
-							<button
-								key={o.label}
-								onClick={() => setMine(o.on)}
-								aria-pressed={mine === o.on}
-								className={cn(
-									"flex items-center gap-1.5 rounded-[var(--radius-sm)] px-3 py-1 text-[15px] font-semibold",
-									mine === o.on ? "bg-[var(--color-accent-dim)] text-[var(--color-accent)]" : "text-[var(--color-ink-secondary)] hover:bg-[var(--color-hover)]",
-								)}
-							>
-								{o.label}
-								<span className="text-[12px] font-normal text-[var(--color-ink-muted)]">{o.n}</span>
-							</button>
-						))}
-					</div>
+					{/* Mine: the studies you are on. */}
+					<MineToggle mine={mine} onChange={setMine} all={studies.length} minecount={studies.filter(isMine).length} allLabel="All studies" label="Whose studies" />
 					<div role="group" aria-label="Family" className="flex flex-wrap gap-1">
 						{FAMILIES.map((f) => (
 							<button
