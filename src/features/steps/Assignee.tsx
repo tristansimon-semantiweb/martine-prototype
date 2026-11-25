@@ -18,7 +18,7 @@ export function Assignee({ study, phase, phaseName, withName }: { study: Study; 
 
 	return (
 		<Popover
-			align="end"
+			align={withName ? "start" : "end"}
 			width={240}
 			trigger={({ open, toggle }) => (
 				<button

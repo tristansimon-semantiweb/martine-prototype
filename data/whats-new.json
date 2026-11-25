@@ -9,6 +9,12 @@
       "items": [
         {
           "kind": "changed",
+          "title": "Assign and Status open in full",
+          "text": "On a phase, the Assign and Status menus were cut off by their cell: they now open whole, under their button.",
+          "href": "/studies/TR-2611-01/steps"
+        },
+        {
+          "kind": "changed",
           "title": "Methodology apart from the library",
           "text": "In the sidebar, Study types sits under its own label, Methodology: how a study is run. Tools, Skills and Documentation stay below, under Library.",
           "href": "/study-types"

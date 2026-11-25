@@ -56,7 +56,7 @@ export function PhasePage({ study, phase }: { study: Study; phase: PhaseView }) 
 					)}
 				</header>
 				{/* Three properties, each in its own cell: a small label over its value. */}
-				<dl className="m-0 grid overflow-hidden rounded-[var(--radius-md)] border border-[var(--color-border)] text-sm sm:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_minmax(0,1.6fr)] sm:divide-x sm:divide-[var(--color-border)] max-sm:divide-y max-sm:divide-[var(--color-border)]">
+				<dl className="m-0 grid rounded-[var(--radius-md)] border border-[var(--color-border)] text-sm sm:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_minmax(0,1.6fr)] sm:divide-x sm:divide-[var(--color-border)] max-sm:divide-y max-sm:divide-[var(--color-border)]">
 					<div className="flex flex-col gap-1.5 px-4 py-3">
 						<dt className={prop}>Assigned to</dt>
 						<dd className="m-0">
