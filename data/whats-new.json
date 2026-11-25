@@ -9,6 +9,12 @@
       "items": [
         {
           "kind": "new",
+          "title": "Fold the sidebar",
+          "text": "As in Ratings & Reviews, the button at the top of the sidebar folds it to a rail of icons, for more room on a study; hover an icon for its name. Martine remembers the choice in this browser.",
+          "href": "/"
+        },
+        {
+          "kind": "new",
           "title": "Mine, on Study types too",
           "text": "Study types gets the same “All / Mine” switch as Studies. Mine keeps the study types you own and those your studies are run with.",
           "href": "/study-types"
