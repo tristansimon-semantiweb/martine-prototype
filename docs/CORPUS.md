@@ -24,16 +24,21 @@ Toute étude peut avoir un corpus, quel que soit son type. La méthode dit quell
 2. Depuis Claude : Claude obtient ce lien et le donne ; le fichier ne passe pas par Claude, donc pas de limite de poids. Claude suit ensuite ce que devient le fichier.
 3. Plus tard : branchement direct avec les outils sources, sans export.
 
-## 4. Questions ouvertes
+## 4. Prévu côté Explorer, pas encore développé
+
+1. Ouvrir l'Explorer sur une étude et une phase données depuis son adresse, avec un retour vers l'étape dans Martine.
+2. Faire revenir dans les documents de l'étude ce qu'on retient dans l'Explorer (un graphique, des verbatims).
+
+Le prototype montre déjà le bouton *Open in Explorer* sur l'étude et la phase ; le retour vers Martine viendra avec ce développement.
+
+## 5. Questions ouvertes
 
 1. Martine peut-elle utiliser le lien de dépôt de la data platform, et pas seulement Claude ?
 2. Comment Martine est-elle prévenue d'un changement d'état du corpus ?
-3. L'Explorer peut-il s'ouvrir sur une étude et une phase données depuis son adresse, et offrir un retour vers l'étape dans Martine ?
-4. Ce qu'on retient dans l'Explorer (un graphique, des verbatims) peut-il revenir dans les documents de l'étude ?
-5. Identifiant d'étude et connexion communs entre Martine et l'Explorer.
-6. Qui lance le traitement (coût, plafond, relecture), l'analyste ou le consultant ?
-7. Les études déjà lancées restent sur Files Tools, Corpus Manager et ICC : choix du circuit à la création, ou deuxième version de la méthode ?
-8. Les filtres des sujets de l'étude se définissent-ils dans Martine (méthode et périmètre) ou dans l'Explorer ?
+3. Identifiant d'étude et connexion communs entre Martine et l'Explorer.
+4. Qui lance le traitement (coût, plafond, relecture), l'analyste ou le consultant ?
+5. Les études déjà lancées restent sur Files Tools, Corpus Manager et ICC : choix du circuit à la création, ou deuxième version de la méthode ?
+6. Les filtres des sujets de l'étude se définissent-ils dans Martine (méthode et périmètre) ou dans l'Explorer ?
 
 ## Annexe : dans ce dépôt
 
