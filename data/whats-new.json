@@ -9,9 +9,9 @@
       "items": [
         {
           "kind": "new",
-          "title": "Corpora: deposit the exports, then open the Explorer",
-          "text": "A new study tab, Corpus, with one card per corpus (a study can have several: the brand and its competitors, social and reviews). Deposit the exports: each is accepted, or refused with its reason. The processing starts on its own; once ready, Open in Explorer opens the Explorer, its own application, on the study, and from a phase on that phase. The phases that build or read the corpora show where they stand; Files Tools and the Corpus Manager open the Corpus tab, the ICC the Explorer. Fictional files.",
-          "href": "/studies/TR-2611-01/corpus"
+          "title": "Today and Tomorrow: Martine as it is, and with the corpora and the Explorer",
+          "text": "A switch at the top of every page. Today: Martine as it is, with Files Tools, the Corpus Manager and the ICC. Tomorrow: a Corpus tab in each study, with one card per corpus (a study can have several: the brand and its competitors); deposit the exports, each accepted or refused with its reason; the processing starts on its own; once ready, Open in Explorer opens the Explorer, its own application. The phases that build or read the corpora show where they stand, and the tasks written for the Corpus Manager or the ICC say what replaces them. Fictional files.",
+          "href": "/studies/BA-2611-02/steps?phase=4"
         },
         {
           "kind": "new",

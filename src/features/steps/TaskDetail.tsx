@@ -17,6 +17,7 @@ import { SkillBlock } from "./SkillBlock";
 import { TaskDocuments } from "./TaskDocuments";
 import { TaskHelp } from "./TaskHelp";
 import { otherToolItems } from "@/shared/lib/tools";
+import { tomorrowNote } from "@/shared/lib/corpus";
 
 // A task's detail, over its phase: where to run it, what it delivers, then
 // the method's text (how to do it, the check, what to watch), what Claude
@@ -48,7 +49,7 @@ export function TaskDetail({ study, phase, taskKey, onClose }: { study: Study; p
 }
 
 function Body({ study, phase, taskKey }: { study: Study; phase: PhaseView; taskKey: string }) {
-	const { suggestChange } = useMartine();
+	const { suggestChange, tomorrow } = useMartine();
 	const toast = useToast();
 	const [suggesting, setSuggesting] = useState(false);
 	const [text, setText] = useState("");
@@ -90,6 +91,7 @@ function Body({ study, phase, taskKey }: { study: Study; phase: PhaseView; taskK
 						<RequestSkill methodId={study.method.id} version={study.method.version} taskKey={key} task={task} openInClaude={(sk) => openInClaudeUrl(study, phase, key, sk)} />
 					)}
 				</div>
+				{tomorrow && tomorrowNote(task) && <p className="m-0 text-[13px] font-semibold text-[var(--color-accent)]">{tomorrowNote(task)}</p>}
 				{task.output && (
 					<p className="m-0 text-sm">
 						<span className="text-[var(--color-ink-muted)]">Delivers: </span>

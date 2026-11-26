@@ -11,6 +11,7 @@ import { openInClaudeUrl } from "@/shared/lib/martineContext";
 import type { PhaseView, TaskView } from "@/shared/lib/studyModel";
 import type { Study } from "@/shared/lib/types";
 import { ToolOpenButton } from "@/features/phase/PhaseParts";
+import { tomorrowNote } from "@/shared/lib/corpus";
 
 // Where a task runs: in Claude with its skill, in a tool, or by hand.
 type Executor = { kind: "claude"; skill: string } | { kind: "automation"; skill: string } | { kind: "tool"; tool: string } | { kind: "person" };
@@ -29,7 +30,7 @@ function executorOf(view: TaskView): Executor {
 // what to do (the start of how to do it), and its one action. No ticking or
 // done state on tasks in V1. A click on the card opens the task's detail.
 export function TaskPipeline({ study, phase, onOpen }: { study: Study; phase: PhaseView; onOpen: (key: string) => void }) {
-	const { role, renameAddedTask, removeAddedTask, restoreAddedTask } = useMartine();
+	const { role, renameAddedTask, removeAddedTask, restoreAddedTask, tomorrow } = useMartine();
 	const toast = useToast();
 	const isConsultant = role === "consultant";
 	const first = (id: string) => personById(id)?.name.split(" ")[0];
@@ -55,6 +56,7 @@ export function TaskPipeline({ study, phase, onOpen }: { study: Study; phase: Ph
 									<span className="text-[16px] font-semibold">{t.task.task}</span>
 								</span>
 								{summary && <span className="mt-0.5 line-clamp-2 block text-sm text-[var(--color-ink-secondary)]">{summary}</span>}
+								{tomorrow && tomorrowNote(t.task) && <span className="mt-0.5 block text-[13px] font-semibold text-[var(--color-accent)]">{tomorrowNote(t.task)}</span>}
 								{help.length > 0 && (
 									<span className="mt-1 inline-flex items-center gap-1 text-[12px] font-semibold text-[var(--color-ink-muted)]" title={help.map((d) => d.title).join(", ")}>
 										<BookOpen size={12} aria-hidden /> {plural(help.length, "doc")} to help

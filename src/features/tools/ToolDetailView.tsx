@@ -14,20 +14,22 @@ import { toolUsage } from "./toolUsage";
 // One tool: what it is, and every step of every study type that uses it.
 // The method owner links it to a step, or unlinks it, from here too (draft).
 export function ToolDetailView({ id }: { id: string }) {
-	const { drafts, suggestions, role, linkTool, unlinkTool } = useMartine();
+	const { drafts, suggestions, role, linkTool, unlinkTool, tomorrow } = useMartine();
 	const toast = useToast();
 	const [type, setType] = useState("");
 	const [phase, setPhase] = useState("");
 	const [step, setStep] = useState("");
 	const tool = toolById(id);
 
-	if (!tool) {
+	// A tool of tomorrow's Martine (the Explorer) is not there today.
+	if (!tool || (tool.tomorrow && !tomorrow)) {
 		return (
 			<>
 				<TopBand>
-					<div className="font-[family-name:var(--font-heading)] text-[23px] font-medium">Tool not found</div>
+					<div className="font-[family-name:var(--font-heading)] text-[23px] font-medium">{tool ? `${tool.label}: tomorrow’s Martine` : "Tool not found"}</div>
 				</TopBand>
 				<div className="mx-auto max-w-[1240px] [&>*]:max-w-[820px] px-6 py-10">
+					{tool && <p className="m-0 mb-2 text-[var(--color-ink-secondary)]">Switch to Tomorrow, at the top of the page, to see it.</p>}
 					<Link href="/tools">Back to the tools</Link>
 				</div>
 			</>

@@ -23,13 +23,13 @@ import { corpusRole } from "@/shared/lib/corpus";
 // task's detail opens over it. "Walk me through in Claude" takes the whole
 // phase in Claude, task by task.
 export function PhasePage({ study, phase }: { study: Study; phase: PhaseView }) {
-	const { role, setNote, setPhaseStatus, addTask } = useMartine();
+	const { role, setNote, setPhaseStatus, addTask, tomorrow } = useMartine();
 	const [openTask, setOpenTask] = useState<string | null>(null);
 	const isConsultant = role === "consultant";
 	const note = study.state.notes[phase.id];
 	const first = (id: string) => personById(id)?.name.split(" ")[0];
 	const total = phase.tasks.length + phase.added.length;
-	const corpus = corpusRole(study, phase.id);
+	const corpus = tomorrow ? corpusRole(study, phase.id) : undefined;
 	const prop = "text-[11px] font-semibold uppercase tracking-wide text-[var(--color-ink-muted)]";
 
 	return (

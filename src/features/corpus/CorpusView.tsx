@@ -27,11 +27,30 @@ export const STAGE_TONE: Record<CorpusStage, string> = {
 // refused with its reason; the processing starts on its own; once ready, the
 // corpus opens in the Explorer, its own application.
 export function CorpusView({ id }: { id: string }) {
-	const { studies, corporaOf, addCorpus } = useMartine();
+	const { studies, corporaOf, addCorpus, tomorrow, setHorizon } = useMartine();
 	const study = studies.find((s) => s.id === id);
 	const corpora = corporaOf(id);
 	const now = useCorporaClock(corpora);
 	if (!study) return null;
+	if (!tomorrow) {
+		return (
+			<div className="mx-auto max-w-[1240px] px-6 py-7">
+				<div className={`${card} flex flex-col items-start gap-2 px-6 py-5`}>
+					<p className="m-0 text-[15px] text-[var(--color-ink-secondary)]">Today, the corpus is built with Files Tools and the Corpus Manager, and read in the ICC. The study’s corpora come with tomorrow’s Martine.</p>
+					<button onClick={() => setHorizon("tomorrow")} className="text-sm font-semibold text-[var(--color-accent)]">
+						See tomorrow
+					</button>
+				</div>
+			</div>
+		);
+	}
+	if (study.status === "delivered" && corpora.length === 0) {
+		return (
+			<div className="mx-auto max-w-[1240px] px-6 py-7">
+				<p className={`${card} m-0 px-6 py-5 text-[15px] text-[var(--color-ink-secondary)]`}>Delivered before Martine had corpora: this study’s corpus was built in the Corpus Manager and read in the ICC.</p>
+			</div>
+		);
+	}
 
 	return (
 		<div className="mx-auto flex max-w-[1240px] flex-col gap-4 px-6 py-7">

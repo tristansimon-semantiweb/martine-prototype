@@ -51,3 +51,11 @@ export function corpusRole(study: Study, phase: string): "build" | "analyse" | u
 }
 
 export const fmt = (n: number) => n.toLocaleString("en-GB");
+
+// Tomorrow, what changes for a task the method writes for today's chain: its
+// text still names the Corpus Manager or the ICC, this line says what replaces it.
+export function tomorrowNote(task: { tool_ids: string[] }): string | null {
+	if (task.tool_ids.some((t) => t === "corpus_manager" || t === "files_tool")) return "Tomorrow: deposit the exports in the study’s Corpus tab, no Files Tools or Corpus Manager.";
+	if (task.tool_ids.includes("icc")) return "Tomorrow: in the Explorer, in place of the ICC.";
+	return null;
+}

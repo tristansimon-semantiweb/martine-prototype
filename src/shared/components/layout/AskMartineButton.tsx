@@ -6,6 +6,7 @@ import { Megaphone, MessageCircle } from "lucide-react";
 import { useAskMartine } from "@/features/ask-martine/AskMartineProvider";
 import { useHasNews } from "@/features/whats-new/seen";
 import { cn } from "@/shared/lib/cn";
+import { useMartine } from "@/shared/hooks/useMartine";
 
 // What's new, in the top band next to the account menu, on every page.
 export function HeaderActions() {
@@ -15,6 +16,7 @@ export function HeaderActions() {
 
 	return (
 		<div className="flex shrink-0 items-center gap-1.5">
+			<HorizonSwitch />
 			<Link
 				href="/whats-new"
 				aria-current={onNews ? "page" : undefined}
@@ -54,5 +56,32 @@ export function AskMartineButton() {
 				⌘K
 			</kbd>
 		</button>
+	);
+}
+
+// Today: Martine as it is (Corpus Manager, ICC). Tomorrow: the corpora in
+// Martine and the Explorer. One switch for the whole prototype.
+function HorizonSwitch() {
+	const { tomorrow, setHorizon } = useMartine();
+	return (
+		<div role="group" aria-label="Show Martine" className="flex rounded-[var(--radius)] border border-[var(--color-border)] bg-[var(--color-surface)] p-0.5 text-[13px] font-semibold">
+			{([
+				["today", "Today"],
+				["tomorrow", "Tomorrow"],
+			] as const).map(([h, label]) => {
+				const on = (h === "tomorrow") === tomorrow;
+				return (
+					<button
+						key={h}
+						onClick={() => setHorizon(h)}
+						aria-pressed={on}
+						title={h === "today" ? "Martine as it is: Corpus Manager and ICC" : "Tomorrow: the corpora in Martine, the analysis in the Explorer"}
+						className={cn("rounded-[var(--radius-sm)] px-2.5 py-1", on ? (h === "tomorrow" ? "bg-[var(--color-accent)] text-white" : "bg-[var(--color-accent-dim)] text-[var(--color-accent)]") : "text-[var(--color-ink-secondary)] hover:bg-[var(--color-hover)]")}
+					>
+						{label}
+					</button>
+				);
+			})}
+		</div>
 	);
 }

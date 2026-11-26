@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "note": "The corpora of each study, as the data platform would hold them. Fictional files and figures, written for the prototype (AI-assisted). The processing is simulated: a few seconds after a deposit, the corpus is ready."
+    "note": "Tomorrow’s corpora, as the data platform would hold them. The studies in progress start with their corpora named and no files yet; the delivered ones were built in the Corpus Manager. Fictional files, written for the prototype (AI-assisted). The processing is simulated: a few seconds after a deposit, the corpus is ready."
   },
   "processing": {
     "does": "language, translation, duplicates, off topic, AI detections",
@@ -23,49 +23,6 @@
       {
         "id": "k1",
         "name": "Social listening, France, UK and Japan",
-        "files": [
-          {
-            "id": "c1",
-            "name": "Talkwalker_hair-skinification_FR.xlsx",
-            "source": "Talkwalker",
-            "rows": 18402,
-            "added": "2026-11-24",
-            "by": "marie",
-            "accepted": true
-          },
-          {
-            "id": "c2",
-            "name": "Talkwalker_hair-skinification_UK.xlsx",
-            "source": "Talkwalker",
-            "rows": 16958,
-            "added": "2026-11-24",
-            "by": "marie",
-            "accepted": true
-          },
-          {
-            "id": "c3",
-            "name": "Radarly_hair-skinification_JP.csv",
-            "source": "Radarly",
-            "rows": 12850,
-            "added": "2026-11-25",
-            "by": "marie",
-            "accepted": true
-          },
-          {
-            "id": "c4",
-            "name": "TikTok sample notes.docx",
-            "source": "Talkwalker",
-            "rows": 0,
-            "added": "2026-11-25",
-            "by": "marie",
-            "accepted": false,
-            "reason": "A Word document has no rows: export it from Talkwalker as Excel or CSV."
-          }
-        ]
-      },
-      {
-        "id": "k2",
-        "name": "TikTok video sample",
         "files": []
       }
     ],
@@ -79,89 +36,6 @@
         "id": "k2",
         "name": "Competitor corpus",
         "files": []
-      }
-    ],
-    "TR-2604-02": [
-      {
-        "id": "k1",
-        "name": "Social listening, France and UK",
-        "files": [
-          {
-            "id": "c1",
-            "name": "Talkwalker_scalp-care_FR-UK.xlsx",
-            "source": "Talkwalker",
-            "rows": 39120,
-            "added": "2026-03-02",
-            "by": "marie",
-            "accepted": true
-          }
-        ]
-      }
-    ],
-    "TR-2602-05": [
-      {
-        "id": "k1",
-        "name": "Social listening, UK and Germany",
-        "files": [
-          {
-            "id": "c1",
-            "name": "Talkwalker_functional-coffee.xlsx",
-            "source": "Talkwalker",
-            "rows": 22640,
-            "added": "2026-01-12",
-            "by": "sam",
-            "accepted": true
-          }
-        ]
-      }
-    ],
-    "BA-2605-03": [
-      {
-        "id": "k1",
-        "name": "Brand corpus",
-        "files": [
-          {
-            "id": "c1",
-            "name": "Radarly_brand_FR-ES.csv",
-            "source": "Radarly",
-            "rows": 38400,
-            "added": "2026-03-20",
-            "by": "marie",
-            "accepted": true
-          }
-        ]
-      },
-      {
-        "id": "k2",
-        "name": "Competitor corpus",
-        "files": [
-          {
-            "id": "c2",
-            "name": "Radarly_competitors_FR-ES.csv",
-            "source": "Radarly",
-            "rows": 22900,
-            "added": "2026-03-20",
-            "by": "marie",
-            "accepted": true
-          }
-        ]
-      }
-    ],
-    "IT-2609-03": [
-      {
-        "id": "k1",
-        "name": "Social listening, wave 2",
-        "files": [
-          {
-            "id": "c1",
-            "name": "Talkwalker_ingredients_w2.xlsx",
-            "source": "Talkwalker",
-            "rows": 28450,
-            "added": "2026-09-08",
-            "by": "sam",
-            "accepted": true
-          }
-        ]
       }
     ]
   }

@@ -32,12 +32,12 @@ const shortDate = (iso: string) => new Date(`${iso}T12:00:00`).toLocaleDateStrin
 // and what is open with the client; the decisions and the latest documents.
 // On the side: the team, similar studies, and what Claude knows (folded).
 export function OverviewView({ id }: { id: string }) {
-	const { studies, corporaOf } = useMartine();
+	const { studies, corporaOf, tomorrow } = useMartine();
 	const study = studies.find((s) => s.id === id);
 	const corpora = corporaOf(id);
 	const clock = useCorporaClock(corpora);
 	if (!study) return null;
-	const corpusLine = corporaLine(corpora, clock);
+	const corpusLine = tomorrow ? corporaLine(corpora, clock) : undefined;
 
 	const views = phaseViews(study);
 	const method = methodEntry(study.method.id);
@@ -125,7 +125,7 @@ export function OverviewView({ id }: { id: string }) {
 					</section>
 				)}
 
-				<CorpusSummary study={study} className={`${card} px-6 py-4`} />
+				{tomorrow && <CorpusSummary study={study} className={`${card} px-6 py-4`} />}
 
 				<div>
 					<section aria-labelledby="docs" className={tile}>

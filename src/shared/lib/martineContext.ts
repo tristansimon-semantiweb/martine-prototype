@@ -82,7 +82,7 @@ export function knownToClaude(s: Study, views: PhaseView[], corpus?: string): Co
 			label: "Files",
 			detail: `${s.files.length} document${s.files.length === 1 ? "" : "s"}, ${Object.keys(s.state.phaseDocs ?? {}).length} used as a phase’s document`,
 		},
-		{ label: "Corpora", detail: corpus ? `${corpus}, through the data platform connector` : "through the data platform connector", ref: `data-platform:${s.id}` },
+		corpus ? { label: "Corpora", detail: `${corpus}, through the data platform connector`, ref: `data-platform:${s.id}` } : { label: "Data platform", detail: `study ${s.id}`, ref: `data-platform:${s.id}` },
 	];
 }
 

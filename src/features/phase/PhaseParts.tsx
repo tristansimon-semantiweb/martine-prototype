@@ -11,6 +11,7 @@ import { otherToolItems, toolById } from "@/shared/lib/tools";
 import { dayRange } from "@/shared/lib/format";
 import type { MethodFormat, MethodTask, Study } from "@/shared/lib/types";
 import { OpenInExplorer } from "@/features/corpus/OpenInExplorer";
+import { useMartine } from "@/shared/hooks/useMartine";
 
 // The pieces a phase drawer is made of, shared by the study (read and tick)
 // and the method (edit): the brief asks for "the same drawer, in edit mode".
@@ -229,12 +230,14 @@ export function taskRows(task: MethodTask, format: MethodFormat, slots: Partial<
 // A tool as an action in a study: "Open Talkwalker" opens it in a new tab.
 // Semantiweb's internal tools have no address in the prototype: the button
 // says so and leads to the tool's page in Tools.
-// In a study, the chain the data platform replaces opens what takes over:
+// Tomorrow, in a study, the chain the data platform replaces opens what takes over:
 // Files Tools and the Corpus Manager the study's Corpus tab, the ICC the
 // Explorer (its own application). Elsewhere (a method), the tool itself.
 const TO_CORPUS = ["files_tool", "corpus_manager"];
 
 export function ToolOpenButton({ id, toConfirm, study, phase, phaseName }: { id: string; toConfirm?: boolean; study?: Study; phase?: string; phaseName?: string }) {
+	const { tomorrow } = useMartine();
+	if (!tomorrow) return <ExternalToolButton id={id} toConfirm={toConfirm} />;
 	if (study && id === "icc") return <OpenInExplorer study={study} phase={phase} phaseName={phaseName} variant="outline" />;
 	if (study && TO_CORPUS.includes(id)) {
 		return (

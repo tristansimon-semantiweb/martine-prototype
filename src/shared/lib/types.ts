@@ -130,6 +130,7 @@ export interface CatalogTool {
 	aliases?: string[]; // patterns that find the tool in the method files' text
 	url: string | null; // where to open it (null: internal, not in the prototype)
 	note?: string; // what it is, when the method files say more than its name
+	tomorrow?: boolean; // part of tomorrow's Martine only (the Explorer)
 }
 
 export interface Catalog {

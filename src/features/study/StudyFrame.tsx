@@ -9,13 +9,14 @@ import { methodEntry } from "@/shared/lib/data";
 import { dueDate } from "@/shared/lib/format";
 import { methodLabel } from "@/shared/lib/martineContext";
 
-// The study header and its tabs, shared by Overview, Steps, Corpus, Files and
-// Team. The analysis happens in the Explorer, its own application.
+// The study header and its tabs, shared by Overview, Steps, Files and Team;
+// tomorrow, Corpus too (the analysis then happens in the Explorer, its own
+// application).
 // The header shows the study's identifier and method version: what the
 // Martine connector knows it by.
 export function StudyFrame({ id, children }: { id: string; children: React.ReactNode }) {
 	const pathname = usePathname();
-	const { studies } = useMartine();
+	const { studies, tomorrow } = useMartine();
 	const study = studies.find((s) => s.id === id);
 
 	if (!study) {
@@ -56,7 +57,7 @@ export function StudyFrame({ id, children }: { id: string; children: React.React
 				items={[
 					{ href: base, label: "Overview" },
 					{ href: `${base}/steps`, label: "Steps" },
-					{ href: `${base}/corpus`, label: "Corpus" },
+					...(tomorrow ? [{ href: `${base}/corpus`, label: "Corpus" }] : []),
 					{ href: `${base}/files`, label: "Files" },
 					{ href: `${base}/team`, label: "Team" },
 				]}

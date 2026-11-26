@@ -13,12 +13,13 @@ import { toolUsage } from "./toolUsage";
 // The tool repository: the applications people work in, and how many study
 // types and steps use each. One source for the tools a step links to.
 export function ToolsView() {
-	const { drafts } = useMartine();
+	const { drafts, tomorrow } = useMartine();
 	const [kind, setKind] = useState("All");
 	const [query, setQuery] = useState("");
 	const q = query.trim().toLowerCase();
 
 	const rows = catalog.tools
+		.filter((t) => tomorrow || !t.tomorrow)
 		.filter((t) => kind === "All" || t.kind === kind)
 		.filter((t) => !q || `${t.label} ${t.kind}`.toLowerCase().includes(q))
 		.map((t) => {

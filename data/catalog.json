@@ -202,7 +202,8 @@
       "kind": "Semantiweb",
       "claude_connector": null,
       "url": null,
-      "note": "Semantiweb’s analysis interface, its own application. It reads the corpora the data platform processed, with filters from the metadata and from the AI. Takes over from the ICC for the studies whose corpus is built in Martine."
+      "note": "Semantiweb’s analysis interface, its own application. It reads the corpora deposited in Martine and processed by the data platform, with filters from the metadata and from the AI. Tomorrow’s, in place of the ICC.",
+      "tomorrow": true
     },
     {
       "id": "corpus_manager",

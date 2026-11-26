@@ -48,7 +48,7 @@ export function CatalogDrawer({
 	level?: number; // stacked over the task's detail in the Method tab
 	onClose: () => void;
 }) {
-	const { drafts, addSkillToTask, editMethodTask, linkTool } = useMartine();
+	const { drafts, addSkillToTask, editMethodTask, linkTool, tomorrow } = useMartine();
 	const toast = useToast();
 	const [tab, setTab] = useState<Tab>(initialTab);
 	const [query, setQuery] = useState("");
@@ -191,7 +191,7 @@ export function CatalogDrawer({
 				{tab === "Tools" && (
 					<ul className="m-0 list-none p-0">
 						{catalog.tools
-							.filter((t) => matches(`${t.label} ${t.kind}`))
+							.filter((t) => (tomorrow || !t.tomorrow) && matches(`${t.label} ${t.kind}`))
 							.map((t) => {
 								const linked = task?.tool_ids.includes(t.id);
 								return (

@@ -23,8 +23,13 @@ export interface MethodDraft {
 	removedPhases?: string[]; // published phases the draft removes
 }
 
+// Today: Martine as it is, with the Corpus Manager and the ICC. Tomorrow: the
+// study's corpora in Martine and the Explorer. A switch for the demo.
+export type Horizon = "today" | "tomorrow";
+
 interface MartineData {
 	role: RoleId;
+	horizon?: Horizon; // absent: today
 	studies: Study[];
 	suggestions: MethodSuggestion[];
 	drafts: Record<string, MethodDraft>; // key: method id
@@ -143,6 +148,7 @@ function useMartineState() {
 	const actions = useMemo(
 		() => ({
 			setRole: (role: RoleId) => update((d) => ({ ...d, role })),
+			setHorizon: (horizon: Horizon) => update((d) => ({ ...d, horizon })),
 			reset: () => write(null),
 
 			// ── Study notes, added tasks and steps (consultant) ──
@@ -454,7 +460,7 @@ function useMartineState() {
 		[update, patchState, patchStudy, patchDraft, patchCorpora, patchCorpus, me],
 	);
 
-	return { ...data, me, corporaOf, ...actions };
+	return { ...data, me, tomorrow: data.horizon === "tomorrow", corporaOf, ...actions };
 }
 
 // Accepting a suggestion adds a sentence to the field, never replaces it, so
