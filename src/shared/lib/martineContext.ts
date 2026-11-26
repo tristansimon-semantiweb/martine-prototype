@@ -68,7 +68,7 @@ export function statusLine(views: PhaseView[]): string {
 }
 
 // What the connector holds for a study, as the Overview lists it.
-// `corpus`: where the study's corpus stands, as the Corpus tab says it.
+// `corpus`: where the study's corpora stand, as the Corpus tab says it.
 export function knownToClaude(s: Study, views: PhaseView[], corpus?: string): ContextItem[] {
 	const notes = Object.keys(s.state.notes).length;
 	const added = s.state.addedTasks.length;
@@ -82,7 +82,7 @@ export function knownToClaude(s: Study, views: PhaseView[], corpus?: string): Co
 			label: "Files",
 			detail: `${s.files.length} document${s.files.length === 1 ? "" : "s"}, ${Object.keys(s.state.phaseDocs ?? {}).length} used as a phase’s document`,
 		},
-		{ label: "Corpus", detail: corpus ? `${corpus}, through the data platform connector` : "through the data platform connector", ref: `data-platform:${s.id}` },
+		{ label: "Corpora", detail: corpus ? `${corpus}, through the data platform connector` : "through the data platform connector", ref: `data-platform:${s.id}` },
 	];
 }
 
@@ -119,21 +119,8 @@ export function openInClaudeUrl(s: Study, phase: PhaseView, key: string, skillId
 export function depositUrl(s: Study): string {
 	const message = [
 		`Martine study ${refs.study(s)} (${refs.method(s)}).`,
-		"I want to deposit exports into the study's corpus. Give me an upload link from the data platform for each file,",
+		"I want to deposit exports into one of the study's corpora. Give me an upload link from the data platform for each file,",
 		"then tell me whether each file was accepted for its source, and why not if it was refused.",
 	].join(" ");
-	return `https://claude.ai/new?q=${encodeURIComponent(message)}`;
-}
-
-// Asking Claude about the corpus: every figure it gives comes from the data
-// platform connector, with the verbatims' ids.
-export function askCorpusUrl(s: Study, phaseName?: string): string {
-	const message = [
-		`Martine study ${refs.study(s)} (${refs.method(s)}).`,
-		phaseName ? `I am on the phase ${phaseName}.` : "",
-		"Read the study's corpus through the data platform connector and help me analyse it. Give every figure from the connector and quote verbatims with their id.",
-	]
-		.filter(Boolean)
-		.join(" ");
 	return `https://claude.ai/new?q=${encodeURIComponent(message)}`;
 }

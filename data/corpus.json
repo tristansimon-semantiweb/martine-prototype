@@ -1,21 +1,10 @@
 {
   "_meta": {
-    "note": "The corpus of each study, as the data platform would hold it, and what the analyst checks before reading it in the Explorer. Fictional figures and verbatims, written for the prototype (AI-assisted): illustrative only, to review before any client-facing use. Ratios, cost and durations are placeholders until the data platform gives real ones."
+    "note": "The corpora of each study, as the data platform would hold them. Fictional files and figures, written for the prototype (AI-assisted). The processing is simulated: a few seconds after a deposit, the corpus is ready."
   },
   "processing": {
-    "steps": [
-      "Language detection",
-      "Translation into English",
-      "Duplicates",
-      "Off topic, against the confirmed scope",
-      "AI detections: sentiment and the study’s topics"
-    ],
-    "demoSecondsPerStep": 3,
-    "duplicateRate": 0.14395,
-    "offTopicRate": 0.19322,
-    "costPerRecordUsd": 0.0003,
-    "ceilingUsd": 100,
-    "duration": "about 2 hours, from 6 comparable runs",
+    "does": "language, translation, duplicates, off topic, AI detections",
+    "demoSeconds": 6,
     "sources": [
       "Talkwalker",
       "Radarly",
@@ -30,163 +19,150 @@
     ]
   },
   "seed": {
-    "TR-2611-01": {
-      "target": {
-        "scope": "Hair skinification in France, the UK and Japan: which skincare codes move into haircare, who carries them, and how big they are.",
-        "exclusions": [
-          "Barber “skin fade” haircuts",
-          "Promotions and price posts",
-          "Skincare for the face only, with no hair or scalp"
+    "TR-2611-01": [
+      {
+        "id": "k1",
+        "name": "Social listening, France, UK and Japan",
+        "files": [
+          {
+            "id": "c1",
+            "name": "Talkwalker_hair-skinification_FR.xlsx",
+            "source": "Talkwalker",
+            "rows": 18402,
+            "added": "2026-11-24",
+            "by": "marie",
+            "accepted": true
+          },
+          {
+            "id": "c2",
+            "name": "Talkwalker_hair-skinification_UK.xlsx",
+            "source": "Talkwalker",
+            "rows": 16958,
+            "added": "2026-11-24",
+            "by": "marie",
+            "accepted": true
+          },
+          {
+            "id": "c3",
+            "name": "Radarly_hair-skinification_JP.csv",
+            "source": "Radarly",
+            "rows": 12850,
+            "added": "2026-11-25",
+            "by": "marie",
+            "accepted": true
+          },
+          {
+            "id": "c4",
+            "name": "TikTok sample notes.docx",
+            "source": "Talkwalker",
+            "rows": 0,
+            "added": "2026-11-25",
+            "by": "marie",
+            "accepted": false,
+            "reason": "A Word document has no rows: export it from Talkwalker as Excel or CSV."
+          }
         ]
       },
-      "files": [
-        {
-          "id": "c1",
-          "name": "Talkwalker_hair-skinification_FR.xlsx",
-          "source": "Talkwalker",
-          "rows": 18402,
-          "added": "2026-11-24",
-          "by": "marie",
-          "accepted": true
-        },
-        {
-          "id": "c2",
-          "name": "Talkwalker_hair-skinification_UK.xlsx",
-          "source": "Talkwalker",
-          "rows": 16958,
-          "added": "2026-11-24",
-          "by": "marie",
-          "accepted": true
-        },
-        {
-          "id": "c3",
-          "name": "Radarly_hair-skinification_JP.csv",
-          "source": "Radarly",
-          "rows": 12850,
-          "added": "2026-11-25",
-          "by": "marie",
-          "accepted": true
-        },
-        {
-          "id": "c4",
-          "name": "TikTok sample notes.docx",
-          "source": "Talkwalker",
-          "rows": 0,
-          "added": "2026-11-25",
-          "by": "marie",
-          "accepted": false,
-          "reason": "A Word document has no rows: export it from Talkwalker as Excel or CSV."
-        }
-      ]
-    },
-    "TR-2604-02": {
-      "files": [],
-      "ready": {
-        "received": 39120,
-        "duplicates": 5310,
-        "offTopic": 7480,
-        "kept": 26330,
-        "period": "May 2025 to April 2026",
-        "languages": [
-          "French",
-          "English"
+      {
+        "id": "k2",
+        "name": "TikTok video sample",
+        "files": []
+      }
+    ],
+    "BA-2611-02": [
+      {
+        "id": "k1",
+        "name": "Brand corpus",
+        "files": []
+      },
+      {
+        "id": "k2",
+        "name": "Competitor corpus",
+        "files": []
+      }
+    ],
+    "TR-2604-02": [
+      {
+        "id": "k1",
+        "name": "Social listening, France and UK",
+        "files": [
+          {
+            "id": "c1",
+            "name": "Talkwalker_scalp-care_FR-UK.xlsx",
+            "source": "Talkwalker",
+            "rows": 39120,
+            "added": "2026-03-02",
+            "by": "marie",
+            "accepted": true
+          }
         ]
       }
-    },
-    "TR-2602-05": {
-      "files": [],
-      "ready": {
-        "received": 22640,
-        "duplicates": 2980,
-        "offTopic": 4120,
-        "kept": 15540,
-        "period": "March 2025 to February 2026",
-        "languages": [
-          "English",
-          "German"
+    ],
+    "TR-2602-05": [
+      {
+        "id": "k1",
+        "name": "Social listening, UK and Germany",
+        "files": [
+          {
+            "id": "c1",
+            "name": "Talkwalker_functional-coffee.xlsx",
+            "source": "Talkwalker",
+            "rows": 22640,
+            "added": "2026-01-12",
+            "by": "sam",
+            "accepted": true
+          }
         ]
       }
-    },
-    "BA-2605-03": {
-      "files": [],
-      "ready": {
-        "received": 61300,
-        "duplicates": 9150,
-        "offTopic": 11870,
-        "kept": 40280,
-        "period": "May 2024 to April 2026",
-        "languages": [
-          "French",
-          "Spanish"
+    ],
+    "BA-2605-03": [
+      {
+        "id": "k1",
+        "name": "Brand corpus",
+        "files": [
+          {
+            "id": "c1",
+            "name": "Radarly_brand_FR-ES.csv",
+            "source": "Radarly",
+            "rows": 38400,
+            "added": "2026-03-20",
+            "by": "marie",
+            "accepted": true
+          }
+        ]
+      },
+      {
+        "id": "k2",
+        "name": "Competitor corpus",
+        "files": [
+          {
+            "id": "c2",
+            "name": "Radarly_competitors_FR-ES.csv",
+            "source": "Radarly",
+            "rows": 22900,
+            "added": "2026-03-20",
+            "by": "marie",
+            "accepted": true
+          }
         ]
       }
-    },
-    "IT-2609-03": {
-      "files": [],
-      "ready": {
-        "received": 28450,
-        "duplicates": 3770,
-        "offTopic": 5060,
-        "kept": 19620,
-        "period": "October 2025 to September 2026",
-        "languages": [
-          "English",
-          "French"
+    ],
+    "IT-2609-03": [
+      {
+        "id": "k1",
+        "name": "Social listening, wave 2",
+        "files": [
+          {
+            "id": "c1",
+            "name": "Talkwalker_ingredients_w2.xlsx",
+            "source": "Talkwalker",
+            "rows": 28450,
+            "added": "2026-09-08",
+            "by": "sam",
+            "accepted": true
+          }
         ]
       }
-    }
-  },
-  "toCheck": {
-    "TR-2611-01": {
-      "offTopic": [
-        {
-          "id": "TW-UK-20417",
-          "text": "Fresh skin fade and beard line-up, booked again for next Friday 💈",
-          "why": "A haircut, not skin care: matches the exclusion “skin fade”."
-        },
-        {
-          "id": "TW-FR-11893",
-          "text": "-40 % sur tout le rayon soin visage ce week-end, foncez",
-          "translation": "40% off the whole face care aisle this weekend, go",
-          "why": "A promotion, with no hair or scalp."
-        },
-        {
-          "id": "RD-JP-04211",
-          "text": "このセラミドクリーム、顔に塗ると翌朝しっとり。",
-          "translation": "This ceramide cream, on my face, leaves it soft the next morning.",
-          "why": "Face only: no hair or scalp."
-        }
-      ],
-      "detections": [
-        {
-          "filter": "Skincare code: Peptides",
-          "examples": [
-            {
-              "id": "TW-UK-08832",
-              "text": "Peptide serum on my lengths after every wash, the frizz is basically gone"
-            },
-            {
-              "id": "TW-FR-15520",
-              "text": "Le sérum peptides pour cils, je l’utilise aussi sur mes pointes",
-              "translation": "The peptide lash serum, I use it on my ends too"
-            }
-          ]
-        },
-        {
-          "filter": "Sentiment: Negative",
-          "examples": [
-            {
-              "id": "TW-UK-12904",
-              "text": "Spent £38 on a hair ‘serum’ that is literally just silicone with a skincare label"
-            },
-            {
-              "id": "RD-JP-09177",
-              "text": "頭皮用の美容液、べたついて二度と使わない。",
-              "translation": "The scalp serum is sticky, never using it again."
-            }
-          ]
-        }
-      ]
-    }
+    ]
   }
 }

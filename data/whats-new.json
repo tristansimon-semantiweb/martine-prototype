@@ -9,8 +9,8 @@
       "items": [
         {
           "kind": "new",
-          "title": "Corpus: the study’s data, from the exports to the Explorer",
-          "text": "A new study tab, Corpus: confirm the scope the off topic filter works from, deposit the exports (each accepted or refused with its reason), launch the processing (cost and duration shown first; the other phases go on meanwhile), then check what was removed and detected. Once ready, Open in Explorer opens the Explorer, its own application, on the study; from a phase that reads the corpus, on that phase. Files Tools and the Corpus Manager now open the Corpus tab, the ICC the Explorer. Fictional data, on Hair skinification.",
+          "title": "Corpora: deposit the exports, then open the Explorer",
+          "text": "A new study tab, Corpus, with one card per corpus (a study can have several: the brand and its competitors, social and reviews). Deposit the exports: each is accepted, or refused with its reason. The processing starts on its own; once ready, Open in Explorer opens the Explorer, its own application, on the study, and from a phase on that phase. The phases that build or read the corpora show where they stand; Files Tools and the Corpus Manager open the Corpus tab, the ICC the Explorer. Fictional files.",
           "href": "/studies/TR-2611-01/corpus"
         },
         {

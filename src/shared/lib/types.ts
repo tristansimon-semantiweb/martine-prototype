@@ -258,10 +258,11 @@ export interface AskScript {
 	sources: AskSource[];
 }
 
-// ── Corpus (the study's data, processed by the data platform) ──
-// Every study can have one. The analyst confirms the scope the relevance
-// filter works from, deposits the exports, launches the processing, checks
-// what it removed and detected, then reads the corpus in the Explorer.
+// ── Corpora (the study's data, processed by the data platform) ──
+// A study can have several (the brand and its competitors, social and
+// reviews). The analyst deposits the exports, each read against its source's
+// format; the processing starts on its own; the corpus is then read in the
+// Explorer, its own application.
 export interface CorpusFile {
 	id: string;
 	name: string;
@@ -271,14 +272,11 @@ export interface CorpusFile {
 	by: string;
 	accepted: boolean;
 	reason?: string; // why the format was not accepted
-	processed?: boolean; // part of the last run
 }
 
-export interface CorpusState {
-	target?: { scope: string; exclusions: string[]; confirmedBy?: string; confirmedOn?: string };
+export interface Corpus {
+	id: string;
+	name: string;
 	files: CorpusFile[];
-	run?: { startedAt: number; by: string }; // the processing, launched (ms timestamp)
-	checked?: { by: string; on: string }; // the analyst checked it: ready in the Explorer
-	// A study delivered before the prototype: its corpus as it was.
-	ready?: { received: number; duplicates: number; offTopic: number; kept: number; period: string; languages: string[] };
+	processingSince?: number; // ms timestamp of the last accepted deposit
 }

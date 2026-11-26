@@ -9,8 +9,8 @@ import { knownToClaude } from "@/shared/lib/martineContext";
 import { methodEntry, personById } from "@/shared/lib/data";
 import { hasMethodFile, phaseViews, type PhaseView } from "@/shared/lib/studyModel";
 import { CorpusSummary } from "@/features/corpus/CorpusStrip";
-import { useNow } from "@/features/corpus/useNow";
-import { STAGE_LABEL, corpusStage } from "@/shared/lib/corpus";
+import { corporaLine } from "@/shared/lib/corpus";
+import { useCorporaClock } from "@/features/corpus/useCorporaClock";
 import { cn } from "@/shared/lib/cn";
 import type { PhaseStatus, Study } from "@/shared/lib/types";
 
@@ -32,12 +32,12 @@ const shortDate = (iso: string) => new Date(`${iso}T12:00:00`).toLocaleDateStrin
 // and what is open with the client; the decisions and the latest documents.
 // On the side: the team, similar studies, and what Claude knows (folded).
 export function OverviewView({ id }: { id: string }) {
-	const { studies, corpusOf } = useMartine();
+	const { studies, corporaOf } = useMartine();
 	const study = studies.find((s) => s.id === id);
-	const corpus = corpusOf(id);
-	const clock = useNow(Boolean(corpus.run && !corpus.checked));
+	const corpora = corporaOf(id);
+	const clock = useCorporaClock(corpora);
 	if (!study) return null;
-	const corpusLine = STAGE_LABEL[corpusStage(corpus, clock).stage];
+	const corpusLine = corporaLine(corpora, clock);
 
 	const views = phaseViews(study);
 	const method = methodEntry(study.method.id);
