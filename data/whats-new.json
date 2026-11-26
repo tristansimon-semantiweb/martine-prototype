@@ -9,6 +9,12 @@
       "items": [
         {
           "kind": "new",
+          "title": "Corpus and Explore: the study’s data, from the exports to the analysis",
+          "text": "Two new study tabs. Corpus: confirm the scope the off topic filter works from, deposit the exports (each accepted or refused with its reason), launch the processing (cost and duration shown first; the other phases go on meanwhile), then check what was removed and detected. Explore: the Explorer inside the study, with filters from the metadata and from the AI; pin a chart or a verbatim to a phase. The phases that build or read the corpus show where it stands, and the Corpus Manager and the ICC open the study’s own pages. Fictional data, on Hair skinification.",
+          "href": "/studies/TR-2611-01/corpus"
+        },
+        {
+          "kind": "new",
           "title": "Fold the sidebar",
           "text": "As in Ratings & Reviews, the button at the top of the sidebar folds it to a rail of icons, for more room on a study; hover an icon for its name. Martine remembers the choice in this browser.",
           "href": "/"

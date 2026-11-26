@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { Building2, ChevronDown, ExternalLink, File, FileSpreadsheet, FileText, Folder, Plus, Presentation } from "lucide-react";
+import { BarChart3, Building2, ChevronDown, ExternalLink, File, FileSpreadsheet, FileText, Folder, Plus, Presentation } from "lucide-react";
 import { Popover } from "@/shared/components/ui/Popover";
 import { useMartine } from "@/shared/hooks/useMartine";
 import { personById } from "@/shared/lib/data";
@@ -32,9 +32,10 @@ const TYPE_TONE: Record<string, string> = {
 	Excel: "bg-[var(--color-positive-bg)] text-[var(--color-positive)]",
 	Deck: "bg-[var(--color-attention-bg)] text-[var(--color-attention)]",
 	Slides: "bg-[var(--color-attention-bg)] text-[var(--color-attention)]",
+	Explorer: "bg-[var(--color-accent-dim)] text-[var(--color-accent)]",
 };
-const TYPE_ICON: Record<string, typeof File> = { Doc: FileText, Sheet: FileSpreadsheet, Excel: FileSpreadsheet, Deck: Presentation, Slides: Presentation };
-const TYPE_LABEL: Record<string, string> = { Doc: "Google Doc", Sheet: "Google Sheet", Excel: "Excel file", PDF: "PDF", Deck: "Deck", Slides: "Slides" };
+const TYPE_ICON: Record<string, typeof File> = { Doc: FileText, Sheet: FileSpreadsheet, Excel: FileSpreadsheet, Deck: Presentation, Slides: Presentation, Explorer: BarChart3 };
+const TYPE_LABEL: Record<string, string> = { Doc: "Google Doc", Sheet: "Google Sheet", Excel: "Excel file", PDF: "PDF", Deck: "Deck", Slides: "Slides", Explorer: "Pinned from the Explorer" };
 function TypeTile({ type }: { type: string }) {
 	const Icon = TYPE_ICON[type] ?? File;
 	return (
@@ -44,7 +45,7 @@ function TypeTile({ type }: { type: string }) {
 	);
 }
 // The name, with its type spelled out underneath, as a drive lists a file.
-function NameCell({ name, type, url }: { name: string; type: string; url?: string }) {
+function NameCell({ name, type, url, label }: { name: string; type: string; url?: string; label?: string }) {
 	return (
 		<span className="flex min-w-0 items-center gap-3">
 			<TypeTile type={type} />
@@ -56,7 +57,7 @@ function NameCell({ name, type, url }: { name: string; type: string; url?: strin
 				) : (
 					<span className="block font-semibold leading-snug">{name}</span>
 				)}
-				<span className="block text-[12px] text-[var(--color-ink-muted)]">{TYPE_LABEL[type] ?? type}</span>
+				<span className="block text-[12px] text-[var(--color-ink-muted)]">{label ?? TYPE_LABEL[type] ?? type}</span>
 			</span>
 		</span>
 	);
@@ -205,7 +206,7 @@ export function FilesView({ id }: { id: string }) {
 							const phases = usedIn(f.id);
 							return (
 								<li key={f.id} className={cn(cols, "border-b border-[var(--color-border)] px-5 py-3 text-sm last:border-b-0 hover:bg-[var(--color-hover)]", f.id === pointed && "bg-[var(--color-accent-dim)]")}>
-									<NameCell name={f.name} type={f.type} url={f.url} />
+									<NameCell name={f.name} type={f.type} url={f.url} label={f.type === "Explorer" ? `Pinned from the Explorer for phase ${f.phase}` : undefined} />
 									<span className={cn("hidden sm:block", f.added ? "text-[var(--color-ink-secondary)]" : "text-[var(--color-ink-muted)]")}>{f.added ? shortDate(f.added) : "not dated"}</span>
 									<span className="hidden sm:block">
 										<From study={study} file={f} />

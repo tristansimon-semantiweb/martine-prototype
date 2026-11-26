@@ -3,7 +3,8 @@
 import { createContext, useCallback, useContext, useMemo, useSyncExternalStore } from "react";
 import { methodEntry, registerDraftSkills, seedStudies, seedSuggestions } from "@/shared/lib/data";
 import { helpKey, type HelpDoc } from "@/shared/lib/help";
-import type { AddedStep, AddedTask, BriefReading, CatalogSkill, MethodSuggestion, MethodTask, FileCategory, PhaseStatus, RoleId, Study, StudyState } from "@/shared/lib/types";
+import { corpusSeed, readFormat } from "@/shared/lib/corpus";
+import type { AddedStep, AddedTask, BriefReading, CatalogSkill, CorpusFile, CorpusState, MethodSuggestion, MethodTask, FileCategory, PhaseStatus, RoleId, Study, StudyState } from "@/shared/lib/types";
 
 // The prototype's whole mutable state, persisted in localStorage like the R&R
 // prototype (useUserContent). Seeded from /data; "Reset the demo" restores it.
@@ -31,7 +32,11 @@ interface MartineData {
 	helpDocs?: HelpDoc[]; // guides added from Martine (the library's own are in data/help.json)
 	helpLinks?: Record<string, string[]>; // "method|task key" → guides attached by hand
 	helpUrls?: Record<string, string>; // guide id → its link, for the library's guides that had none
+	corpus?: Record<string, CorpusState>; // study id → its corpus, once changed (else the seed)
 }
+
+const EMPTY_CORPUS: CorpusState = { files: [] };
+const today = () => new Date().toISOString().slice(0, 10);
 
 // Bumped when the seed data changes shape (v2: the methods import), so a
 // browser that kept an older demo starts again from the new seed (v3: files
@@ -115,6 +120,13 @@ function useMartineState() {
 	const patchState = useCallback(
 		(id: string, fn: (st: StudyState) => StudyState) => patchStudy(id, (s) => ({ ...s, state: fn(s.state) })),
 		[patchStudy],
+	);
+	// A study's corpus as it stands: what changed here, else the seed.
+	const corpusOf = useCallback((id: string): CorpusState => data.corpus?.[id] ?? corpusSeed[id] ?? EMPTY_CORPUS, [data.corpus]);
+	const patchCorpus = useCallback(
+		(id: string, fn: (c: CorpusState) => CorpusState) =>
+			update((d) => ({ ...d, corpus: { ...d.corpus, [id]: fn(d.corpus?.[id] ?? corpusSeed[id] ?? EMPTY_CORPUS) } })),
+		[update],
 	);
 	const patchDraft = useCallback(
 		(methodId: string, version: string | null, fn: (dr: MethodDraft) => MethodDraft) =>
@@ -219,6 +231,31 @@ function useMartineState() {
 			addTeamMember: (studyId: string, person: string, role: RoleId) =>
 				patchStudy(studyId, (s) => (s.team.some((m) => m.person === person) ? s : { ...s, team: [...s.team, { person, role }] })),
 			removeTeamMember: (studyId: string, person: string) => patchStudy(studyId, (s) => ({ ...s, team: s.team.filter((m) => m.person !== person) })),
+
+			// ── Corpus ──
+			// The scope the relevance filter works from, confirmed by the analyst.
+			confirmTarget: (studyId: string, scope: string, exclusions: string[]) =>
+				patchCorpus(studyId, (c) => ({ ...c, target: { scope, exclusions, confirmedBy: me, confirmedOn: today() } })),
+			editTarget: (studyId: string, scope: string, exclusions: string[]) => patchCorpus(studyId, (c) => ({ ...c, target: { scope, exclusions } })),
+			// Deposit exports: each is read against its source's format contract.
+			deposit: (studyId: string, files: { name: string; size: number; source: string }[]): CorpusFile[] => {
+				const added = files.map((f) => ({
+					id: `c${uid()}`,
+					name: f.name,
+					source: f.source,
+					rows: Math.max(200, Math.round(f.size / 350)),
+					added: today(),
+					by: me,
+					...readFormat(f.name, f.source),
+				}));
+				patchCorpus(studyId, (c) => ({ ...c, files: [...c.files, ...added] }));
+				return added;
+			},
+			removeCorpusFile: (studyId: string, fileId: string) => patchCorpus(studyId, (c) => ({ ...c, files: c.files.filter((f) => f.id !== fileId) })),
+			// Launch the processing; new files after a run start a new one.
+			launchCorpus: (studyId: string) =>
+				patchCorpus(studyId, (c) => ({ ...c, files: c.files.map((f) => ({ ...f, processed: f.accepted })), run: { startedAt: Date.now(), by: me }, checked: undefined, ready: undefined })),
+			checkCorpus: (studyId: string) => patchCorpus(studyId, (c) => ({ ...c, checked: { by: me, on: today() } })),
 
 			// ── New study: what Martine creates with it (simulated) ──
 			createStudy: (reading: BriefReading, briefKey: string): string => {
@@ -416,10 +453,10 @@ function useMartineState() {
 			saveDraft: (methodId: string, version: string | null) =>
 				update((d) => ({ ...d, drafts: { ...d.drafts, [methodId]: { ...(d.drafts[methodId] ?? emptyDraft(version)), saved: true } } })),
 		}),
-		[update, patchState, patchStudy, patchDraft, me],
+		[update, patchState, patchStudy, patchDraft, patchCorpus, me],
 	);
 
-	return { ...data, me, ...actions };
+	return { ...data, me, corpusOf, ...actions };
 }
 
 // Accepting a suggestion adds a sentence to the field, never replaces it, so

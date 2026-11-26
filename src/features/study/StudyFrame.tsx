@@ -9,7 +9,9 @@ import { methodEntry } from "@/shared/lib/data";
 import { dueDate } from "@/shared/lib/format";
 import { methodLabel } from "@/shared/lib/martineContext";
 
-// The study header and its tabs, shared by Overview, Steps, Team and Files.
+// The study header and its tabs, shared by Overview, Steps, Corpus, Explore,
+// Files and Team. Explore is the Explorer inside the study: same band, same
+// tabs, so the analysis does not feel like another tool.
 // The header shows the study's identifier and method version: what the
 // Martine connector knows it by.
 export function StudyFrame({ id, children }: { id: string; children: React.ReactNode }) {
@@ -55,8 +57,10 @@ export function StudyFrame({ id, children }: { id: string; children: React.React
 				items={[
 					{ href: base, label: "Overview" },
 					{ href: `${base}/steps`, label: "Steps" },
-					{ href: `${base}/team`, label: "Team" },
+					{ href: `${base}/corpus`, label: "Corpus" },
+					{ href: `${base}/explore`, label: "Explore" },
 					{ href: `${base}/files`, label: "Files" },
+					{ href: `${base}/team`, label: "Team" },
 				]}
 				aside={
 					onSteps && method?.version ? (

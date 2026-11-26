@@ -228,7 +228,31 @@ export function taskRows(task: MethodTask, format: MethodFormat, slots: Partial<
 // A tool as an action in a study: "Open Talkwalker" opens it in a new tab.
 // Semantiweb's internal tools have no address in the prototype: the button
 // says so and leads to the tool's page in Tools.
-export function ToolOpenButton({ id, toConfirm }: { id: string; toConfirm?: boolean }) {
+// In a study, the chain the data platform replaces opens the study's own
+// pages: Files Tools and the Corpus Manager its Corpus tab, the ICC its
+// Explorer. Elsewhere (a method), the tool itself.
+const INTERNAL: Record<string, { label: string; path: string }> = {
+	files_tool: { label: "Open the corpus", path: "corpus" },
+	corpus_manager: { label: "Open the corpus", path: "corpus" },
+	icc: { label: "Open in Explore", path: "explore" },
+};
+
+export function ToolOpenButton({ id, toConfirm, study, phase }: { id: string; toConfirm?: boolean; study?: string; phase?: string }) {
+	const internal = study ? INTERNAL[id] : undefined;
+	if (internal) {
+		return (
+			<Link
+				href={`/studies/${study}/${internal.path}${internal.path === "explore" && phase ? `?phase=${encodeURIComponent(phase)}` : ""}`}
+				className="inline-flex items-center gap-1.5 rounded-[var(--radius)] border border-[var(--color-accent)] bg-[var(--color-surface)] px-3 py-1.5 text-[13px] font-semibold text-[var(--color-accent)] no-underline hover:bg-[var(--color-accent-dim)]"
+			>
+				{internal.label}
+			</Link>
+		);
+	}
+	return <ExternalToolButton id={id} toConfirm={toConfirm} />;
+}
+
+function ExternalToolButton({ id, toConfirm }: { id: string; toConfirm?: boolean }) {
 	const t = toolById(id);
 	const toast = useToast();
 	const router = useRouter();

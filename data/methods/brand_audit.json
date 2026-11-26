@@ -385,7 +385,8 @@
 						"icc"
 					]
 				}
-			]
+			],
+			"corpus": "build"
 		},
 		{
 			"phase": "5",
@@ -480,7 +481,8 @@
 						"icc"
 					]
 				}
-			]
+			],
+			"corpus": "analyse"
 		},
 		{
 			"phase": "6",
@@ -555,7 +557,8 @@
 					"owner": "Analyst",
 					"skills": []
 				}
-			]
+			],
+			"corpus": "analyse"
 		},
 		{
 			"phase": "7",
@@ -635,7 +638,8 @@
 					"owner": "Analyst",
 					"skills": []
 				}
-			]
+			],
+			"corpus": "analyse"
 		},
 		{
 			"phase": "8",

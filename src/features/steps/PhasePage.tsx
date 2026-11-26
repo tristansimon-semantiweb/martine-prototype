@@ -15,6 +15,8 @@ import { PhaseStatusPicker } from "./PhaseStatus";
 import { TaskPipeline } from "./TaskPipeline";
 import { TaskDetail } from "./TaskDetail";
 import { Assignee } from "./Assignee";
+import { CorpusStrip } from "@/features/corpus/CorpusStrip";
+import { corpusRole } from "@/shared/lib/corpus";
 
 // A phase of a study, on the full width of the page: where it stands and what
 // it works in, the team's note, then its tasks as a run, top to bottom. A
@@ -27,6 +29,7 @@ export function PhasePage({ study, phase }: { study: Study; phase: PhaseView }) 
 	const note = study.state.notes[phase.id];
 	const first = (id: string) => personById(id)?.name.split(" ")[0];
 	const total = phase.tasks.length + phase.added.length;
+	const corpus = corpusRole(study, phase.id);
 	const prop = "text-[11px] font-semibold uppercase tracking-wide text-[var(--color-ink-muted)]";
 
 	return (
@@ -98,6 +101,8 @@ export function PhasePage({ study, phase }: { study: Study; phase: PhaseView }) 
 					)
 				)}
 			</section>
+
+			{corpus && <CorpusStrip study={study} phase={phase.id} role={corpus} />}
 
 			{/* Its tasks, in one card, one row each; adding and what your role can change close it. */}
 			<section

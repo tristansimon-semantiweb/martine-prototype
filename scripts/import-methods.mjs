@@ -313,12 +313,16 @@ for (const x of methods) {
 		...(x.glossary.length ? { glossary: x.glossary } : {}),
 		...(x.notes.length ? { notes: x.notes } : {}),
 	};
-	// Links to confirm live in the method data, not in the export: a new
-	// import keeps them on the task of the same phase and name.
+	// Links to confirm and corpus tags live in the method data, not in the
+	// export: a new import keeps them on the phase and task of the same name.
 	const path = join(ROOT, `data/methods/${x.id}.json`);
 	if (existsSync(path)) {
 		const before = JSON.parse(readFileSync(path, "utf8"));
-		for (const p of before.phases)
+		for (const p of before.phases) {
+			// The phase that builds or reads the corpus, set by the method owner.
+			const q = x.phases.find((q) => q.phase === p.phase);
+			if (p.corpus && q) q.corpus = p.corpus;
+			else if (p.corpus) console.log(`  Corpus tag lost (phase gone): ${x.id} ${p.phase}`);
 			for (const t of p.tasks) {
 				if (!t.tool_ids_to_confirm?.length) continue;
 				const now = x.phases.find((q) => q.phase === p.phase)?.tasks.find((u) => u.task === t.task);
@@ -329,6 +333,7 @@ for (const x of methods) {
 				const keep = t.tool_ids_to_confirm.filter((id) => !now.tool_ids.includes(id));
 				if (keep.length) Object.assign(now, { tool_ids: [...now.tool_ids, ...keep], tool_ids_to_confirm: keep });
 			}
+		}
 	}
 	writeFileSync(path, JSON.stringify(file, null, "\t") + "\n");
 	const tasks = x.phases.flatMap((p) => p.tasks);

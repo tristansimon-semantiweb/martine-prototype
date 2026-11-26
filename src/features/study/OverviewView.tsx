@@ -8,6 +8,9 @@ import { days, dueDate, fromToday, plural } from "@/shared/lib/format";
 import { knownToClaude } from "@/shared/lib/martineContext";
 import { methodEntry, personById } from "@/shared/lib/data";
 import { hasMethodFile, phaseViews, type PhaseView } from "@/shared/lib/studyModel";
+import { CorpusSummary } from "@/features/corpus/CorpusStrip";
+import { useNow } from "@/features/corpus/useNow";
+import { STAGE_LABEL, corpusStage } from "@/shared/lib/corpus";
 import { cn } from "@/shared/lib/cn";
 import type { PhaseStatus, Study } from "@/shared/lib/types";
 
@@ -29,9 +32,12 @@ const shortDate = (iso: string) => new Date(`${iso}T12:00:00`).toLocaleDateStrin
 // and what is open with the client; the decisions and the latest documents.
 // On the side: the team, similar studies, and what Claude knows (folded).
 export function OverviewView({ id }: { id: string }) {
-	const { studies } = useMartine();
+	const { studies, corpusOf } = useMartine();
 	const study = studies.find((s) => s.id === id);
+	const corpus = corpusOf(id);
+	const clock = useNow(Boolean(corpus.run && !corpus.checked));
 	if (!study) return null;
+	const corpusLine = STAGE_LABEL[corpusStage(corpus, clock).stage];
 
 	const views = phaseViews(study);
 	const method = methodEntry(study.method.id);
@@ -119,6 +125,8 @@ export function OverviewView({ id }: { id: string }) {
 					</section>
 				)}
 
+				<CorpusSummary study={study} className={`${card} px-6 py-4`} />
+
 				<div>
 					<section aria-labelledby="docs" className={tile}>
 						<div className="flex items-baseline gap-2">
@@ -184,7 +192,7 @@ export function OverviewView({ id }: { id: string }) {
 					</summary>
 					<p className="m-0 mt-1.5 text-[13px] text-[var(--color-ink-muted)]">Claude finds this study by its code and reads the same as this page, through Martine. Nothing else.</p>
 					<dl className="m-0 mt-3 flex flex-col gap-2 text-sm">
-						{knownToClaude(study, views).map((item) => (
+						{knownToClaude(study, views, corpusLine).map((item) => (
 							<div key={item.label}>
 								<dt className="text-[12px] text-[var(--color-ink-muted)]">{item.label}</dt>
 								<dd className="m-0 flex flex-wrap items-baseline gap-x-2">

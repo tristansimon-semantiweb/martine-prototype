@@ -84,7 +84,7 @@ function Body({ study, phase, taskKey }: { study: Study; phase: PhaseView; taskK
 						),
 					)}
 					{task.tool_ids.map((t) => (
-						<ToolOpenButton key={t} id={t} toConfirm={task.tool_ids_to_confirm?.includes(t)} />
+						<ToolOpenButton key={t} id={t} toConfirm={task.tool_ids_to_confirm?.includes(t)} study={study.id} phase={phase.id} />
 					))}
 					{task.skills.length === 0 && (
 						<RequestSkill methodId={study.method.id} version={study.method.version} taskKey={key} task={task} openInClaude={(sk) => openInClaudeUrl(study, phase, key, sk)} />

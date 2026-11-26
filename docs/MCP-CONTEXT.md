@@ -36,6 +36,8 @@ Le code d'étude se lit : préfixe de la méthode (`TR` trend report, `BA` brand
 | --- | --- | --- |
 | *Open in Claude* sur une tâche | étude, méthode et version, phase, tâche, skill | l'étude, le brief et les décisions, la tâche et son contrôle, la note du consultant, les données de l'étude sur la data platform |
 | *Walk me through in Claude* sur une phase | étude, méthode et version, phase | la même chose pour chaque tâche de la phase, dans l'ordre : Claude lance la skill quand il y en a une, dit quel outil ouvrir et passe le contrôle avant la tâche suivante |
+| *Deposit from Claude* (onglet Corpus) | étude, méthode et version | Claude demande à la data platform un lien de dépôt par fichier ; le fichier part du navigateur vers la data platform, jamais par Claude (pas de limite de poids côté Claude). Claude dit ensuite si chaque fichier est accepté pour sa source, et pourquoi sinon |
+| *Ask Claude about this corpus* (onglet Explore) | étude, méthode et version, la phase s'il y en a une | le corpus de l'étude par le connecteur data platform : chaque chiffre vient du connecteur, chaque verbatim est cité avec son identifiant |
 | Ask Martine sur une page d'étude | l'étude en cours | toute l'étude, ses fichiers, sa vague précédente du même client |
 | Ask Martine ailleurs | rien de particulier | toutes les études de l'utilisateur |
 
@@ -56,6 +58,7 @@ Claude ne valide jamais une phase à jalon : c'est le consultant.
 1. Un identifiant d'étude commun avec la data platform : aujourd'hui le prototype suppose le même code des deux côtés.
 2. Connecteur Martine ou API : le prototype ne tranche pas.
 3. Qui gouverne le catalogue (propriétaires des skills, statuts).
+4. Le corpus : comment Martine est prévenue quand son état change (traité, à vérifier), et si Explorer peut s'ouvrir sur une étude et des filtres donnés. Voir `docs/CORPUS.md`.
 
 ## Annexe : dans ce dépôt
 

@@ -38,6 +38,9 @@ export interface MethodPhase {
 	time?: string | null;
 	days_min?: number | null;
 	days_max?: number | null;
+	// Set by the method owner: the phase that builds the study's corpus, or
+	// one that reads it in the Explorer. Kept on re-import.
+	corpus?: "build" | "analyse";
 }
 
 export interface MethodFile {
@@ -253,4 +256,29 @@ export interface AskScript {
 	keywords: string[];
 	answer: string;
 	sources: AskSource[];
+}
+
+// ── Corpus (the study's data, processed by the data platform) ──
+// Every study can have one. The analyst confirms the scope the relevance
+// filter works from, deposits the exports, launches the processing, checks
+// what it removed and detected, then reads the corpus in the Explorer.
+export interface CorpusFile {
+	id: string;
+	name: string;
+	source: string; // the tool it was exported from: its format contract
+	rows: number;
+	added: string; // ISO date
+	by: string;
+	accepted: boolean;
+	reason?: string; // why the format was not accepted
+	processed?: boolean; // part of the last run
+}
+
+export interface CorpusState {
+	target?: { scope: string; exclusions: string[]; confirmedBy?: string; confirmedOn?: string };
+	files: CorpusFile[];
+	run?: { startedAt: number; by: string }; // the processing, launched (ms timestamp)
+	checked?: { by: string; on: string }; // the analyst checked it: ready in the Explorer
+	// A study delivered before the prototype: its corpus as it was.
+	ready?: { received: number; duplicates: number; offTopic: number; kept: number; period: string; languages: string[] };
 }

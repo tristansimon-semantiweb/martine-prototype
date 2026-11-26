@@ -380,7 +380,8 @@
 					],
 					"skills": []
 				}
-			]
+			],
+			"corpus": "build"
 		},
 		{
 			"phase": "5",
@@ -469,7 +470,8 @@
 					"tool_ids": [],
 					"skills": []
 				}
-			]
+			],
+			"corpus": "analyse"
 		},
 		{
 			"phase": "6",

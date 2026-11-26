@@ -72,7 +72,7 @@ export function TaskPipeline({ study, phase, onOpen }: { study: Study; phase: Ph
 										<Play size={13} aria-hidden className="fill-current" /> Run in Claude <ExternalLink size={12} aria-hidden />
 									</a>
 								)}
-								{e.kind === "tool" && <ToolOpenButton id={e.tool} toConfirm={t.task.tool_ids_to_confirm?.includes(e.tool)} />}
+								{e.kind === "tool" && <ToolOpenButton id={e.tool} toConfirm={t.task.tool_ids_to_confirm?.includes(e.tool)} study={study.id} phase={phase.id} />}
 							</span>
 						</div>
 					</li>
