@@ -102,7 +102,7 @@ export function PhasePage({ study, phase }: { study: Study; phase: PhaseView }) 
 				)}
 			</section>
 
-			{corpus && <CorpusStrip study={study} phase={phase.id} role={corpus} />}
+			{corpus && <CorpusStrip study={study} phase={phase.id} phaseName={phase.name} role={corpus} />}
 
 			{/* Its tasks, in one card, one row each; adding and what your role can change close it. */}
 			<section

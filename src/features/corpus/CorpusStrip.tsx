@@ -4,21 +4,22 @@ import Link from "next/link";
 import { ArrowRight, Database, Loader2 } from "lucide-react";
 import { useMartine } from "@/shared/hooks/useMartine";
 import { STAGE_LABEL, corpusFigures, corpusStage, fmt } from "@/shared/lib/corpus";
+import { OpenInExplorer } from "./OpenInExplorer";
 import { cn } from "@/shared/lib/cn";
 import type { Study } from "@/shared/lib/types";
 import { useNow } from "./useNow";
 
 // On a phase that builds or reads the corpus (the method says which), where
 // the corpus stands and the one way in: the Corpus tab to build it, the
-// Explorer, opened for this phase, to read it. In place of an "Open tool" link.
-export function CorpusStrip({ study, phase, role }: { study: Study; phase: string; role: "build" | "analyse" }) {
+// Explorer (its own application), opened for this phase, to read it. In place
+// of an "Open tool" link.
+export function CorpusStrip({ study, phase, phaseName, role }: { study: Study; phase: string; phaseName: string; role: "build" | "analyse" }) {
 	const { corpusOf } = useMartine();
 	const c = corpusOf(study.id);
 	const now = useNow(Boolean(c.run && !c.checked));
 	const { stage } = corpusStage(c, now);
 	const ready = stage === "ready";
 	const toExplore = role === "analyse" && ready;
-	const href = toExplore ? `/studies/${study.id}/explore?phase=${encodeURIComponent(phase)}` : `/studies/${study.id}/corpus`;
 
 	return (
 		<section
@@ -33,18 +34,22 @@ export function CorpusStrip({ study, phase, role }: { study: Study; phase: strin
 				<span className="block text-sm text-[var(--color-ink-secondary)]">
 					{STAGE_LABEL[stage]}
 					{ready && `, ${fmt(corpusFigures(c).kept)} verbatims`}
-					{role === "analyse" && !ready && ": it opens here once processed and checked"}
+					{role === "analyse" && !ready && ": it opens in the Explorer once processed and checked"}
 				</span>
 			</span>
-			<Link
-				href={href}
-				className={cn(
-					"inline-flex items-center gap-1.5 rounded-[var(--radius)] px-3.5 py-2 text-sm font-semibold no-underline",
-					toExplore || role === "build" ? "bg-[var(--color-accent)] text-white hover:opacity-90" : "border border-[var(--color-border-hover)] bg-[var(--color-surface)] text-[var(--color-ink)]",
-				)}
-			>
-				{toExplore ? "Open in Explore" : role === "build" ? "Open the corpus" : "See where it stands"} <ArrowRight size={14} aria-hidden />
-			</Link>
+			{toExplore ? (
+				<OpenInExplorer study={study} phase={phase} phaseName={phaseName} />
+			) : (
+				<Link
+					href={`/studies/${study.id}/corpus`}
+					className={cn(
+						"inline-flex items-center gap-1.5 rounded-[var(--radius)] px-3.5 py-2 text-sm font-semibold no-underline",
+						role === "build" ? "bg-[var(--color-accent)] text-white hover:opacity-90" : "border border-[var(--color-border-hover)] bg-[var(--color-surface)] text-[var(--color-ink)]",
+					)}
+				>
+					{role === "build" ? "Open the corpus" : "See where it stands"} <ArrowRight size={14} aria-hidden />
+				</Link>
+			)}
 		</section>
 	);
 }
@@ -66,9 +71,13 @@ export function CorpusSummary({ study, className }: { study: Study; className?: 
 				{STAGE_LABEL[stage]}
 				{ready ? `, ${fmt(f.kept)} verbatims` : f.received ? `, ${fmt(f.received)} rows in` : ""}
 			</span>
-			<Link href={`/studies/${study.id}/${ready ? "explore" : "corpus"}`} className="inline-flex items-center gap-1 text-sm font-semibold">
-				{ready ? "Open in Explore" : "Open the corpus"} <ArrowRight size={14} aria-hidden />
-			</Link>
+			{ready ? (
+				<OpenInExplorer study={study} variant="link" />
+			) : (
+				<Link href={`/studies/${study.id}/corpus`} className="inline-flex items-center gap-1 text-sm font-semibold">
+					Open the corpus <ArrowRight size={14} aria-hidden />
+				</Link>
+			)}
 		</section>
 	);
 }

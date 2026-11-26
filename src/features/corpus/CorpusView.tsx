@@ -1,19 +1,19 @@
 "use client";
 
 import { useRef, useState } from "react";
-import Link from "next/link";
-import { ArrowRight, Check, ExternalLink, FileUp, Loader2, X } from "lucide-react";
+import { Check, ExternalLink, FileUp, Loader2, X } from "lucide-react";
 import { useMartine } from "@/shared/hooks/useMartine";
 import { useToast } from "@/shared/components/ui/Toast";
 import { Modal } from "@/shared/components/ui/Modal";
 import { AddRow, InlineEdit, RemoveButton } from "@/shared/components/ui/Editing";
 import { personById } from "@/shared/lib/data";
 import { dueDate } from "@/shared/lib/format";
-import { depositUrl } from "@/shared/lib/martineContext";
+import { askCorpusUrl, depositUrl } from "@/shared/lib/martineContext";
 import { STAGES, corpusFigures, corpusStage, fmt, launchQuote, processing, toCheck, type CorpusStage, type Verbatim } from "@/shared/lib/corpus";
 import { cn } from "@/shared/lib/cn";
 import type { CorpusState, Study } from "@/shared/lib/types";
 import { useNow } from "./useNow";
+import { OpenInExplorer } from "./OpenInExplorer";
 
 const card = "rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-surface)] shadow-[var(--shadow-xs)]";
 const h2 = "m-0 font-[family-name:var(--font-body)] text-[17px] font-semibold";
@@ -22,8 +22,8 @@ const first = (id?: string) => (id ? personById(id)?.name.split(" ")[0] : undefi
 // The study's corpus, in the order the work goes: the scope the relevance
 // filter works from, the exports deposited, the processing (it takes time:
 // the analyst works on other phases meanwhile), the check of what was removed
-// and detected, then the Explorer. The data platform does the work; this page
-// shows where it stands.
+// and detected, then the Explorer, its own application. The data platform
+// does the work; this page shows where it stands.
 export function CorpusView({ id }: { id: string }) {
 	const { studies, corpusOf } = useMartine();
 	const study = studies.find((s) => s.id === id);
@@ -92,12 +92,12 @@ function StageCard({ study, c, stage, step }: { study: Study; c: CorpusState; st
 					</button>
 				)}
 				{stage === "ready" && (
-					<Link
-						href={`/studies/${study.id}/explore`}
-						className="inline-flex items-center gap-1.5 rounded-[var(--radius)] bg-[var(--color-accent)] px-4 py-2.5 text-sm font-semibold text-white no-underline hover:opacity-90"
-					>
-						Open in Explore <ArrowRight size={15} aria-hidden />
-					</Link>
+					<div className="flex flex-wrap items-center gap-3">
+						<a href={askCorpusUrl(study)} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-sm font-semibold">
+							Ask Claude about it <ExternalLink size={12} aria-hidden />
+						</a>
+						<OpenInExplorer study={study} />
+					</div>
 				)}
 			</div>
 
@@ -440,7 +440,7 @@ function ToCheck({ study, stage }: { study: Study; stage: CorpusStage }) {
 	);
 }
 
-export function VerbatimRow({ v, meta, children }: { v: Verbatim; meta?: string; children?: React.ReactNode }) {
+function VerbatimRow({ v, children }: { v: Verbatim; children?: React.ReactNode }) {
 	return (
 		<div className="flex items-start gap-3 rounded-[var(--radius-md)] bg-[var(--color-canvas)] px-4 py-3">
 			<div className="min-w-0 flex-1">
@@ -448,7 +448,6 @@ export function VerbatimRow({ v, meta, children }: { v: Verbatim; meta?: string;
 				{v.translation && <p className="m-0 mt-0.5 text-sm text-[var(--color-ink-secondary)]">Translation: {v.translation}</p>}
 				<p className="m-0 mt-1 font-mono text-[12px] text-[var(--color-ink-muted)]">
 					{v.id}
-					{meta && <span className="font-[family-name:var(--font-body)]"> · {meta}</span>}
 					{v.why && <span className="font-[family-name:var(--font-body)]"> · {v.why}</span>}
 				</p>
 			</div>

@@ -16,8 +16,7 @@ Toute étude peut avoir un corpus, quel que soit son type. La méthode dit quell
 | Dépôt | Il dépose les exports, en disant de quel outil ils viennent. Chaque fichier est « accepté » ou « format non accepté », avec la raison. | Chaque source a un contrat de format ; l'IA lit le fichier selon ce contrat. Le fichier va directement à la data platform. |
 | Traitement | Il lance le traitement après avoir vu le coût et la durée estimés. Le traitement prend du temps (des heures) : les phases qui n'ont pas besoin du corpus continuent. Il est prévenu dans Martine et sur Slack. | Langue, traduction, doublons, hors sujet, détections IA (sentiment, sujets de l'étude). |
 | Vérification | Il voit des exemples de ce qui a été retiré comme hors sujet et de ce que l'IA a détecté ; il remet ce qui a été retiré à tort et signale une détection qui lit mal. | Les filtres IA se trompent parfois : on ne les utilise pas sans les avoir regardés. |
-| Analyse | Sur une phase qui lit le corpus, une carte ouvre l'Explorer pour cette phase. L'Explorer s'affiche dans l'étude (onglet Explore), avec le même bandeau et les mêmes onglets. | Filtres posés sur les métadonnées (marché, source, langue, date) ou sur les détections IA, plutôt qu'un système de facettes. |
-| Livrable | Un graphique ou un verbatim s'épingle sur une phase ; il rejoint les documents de production de l'étude. | Il garde son chemin vers l'Explorer. |
+| Analyse | Sur une phase qui lit le corpus, une carte « Open in Explorer » ouvre l'Explorer dans un nouvel onglet, sur l'étude et la phase. L'Explorer est une application à part : il n'est pas intégré dans Martine. | Filtres posés sur les métadonnées (marché, source, langue, date) ou sur les détections IA, plutôt qu'un système de facettes. |
 
 ## 3. Le dépôt
 
@@ -29,16 +28,17 @@ Toute étude peut avoir un corpus, quel que soit son type. La méthode dit quell
 
 1. Martine peut-elle utiliser le lien de dépôt de la data platform, et pas seulement Claude ?
 2. Comment Martine est-elle prévenue d'un changement d'état du corpus ?
-3. L'Explorer peut-il s'ouvrir sur une étude et des filtres donnés depuis son adresse, et reprendre le bandeau de l'étude ?
-4. Identifiant d'étude et connexion communs entre Martine et l'Explorer.
-5. Qui lance le traitement (coût, plafond, relecture), l'analyste ou le consultant ?
-6. Les études déjà lancées restent sur Files Tools, Corpus Manager et ICC : choix du circuit à la création, ou deuxième version de la méthode ?
-7. Les filtres des sujets de l'étude se définissent-ils dans Martine (méthode et périmètre) ou dans l'Explorer ?
+3. L'Explorer peut-il s'ouvrir sur une étude et une phase données depuis son adresse, et offrir un retour vers l'étape dans Martine ?
+4. Ce qu'on retient dans l'Explorer (un graphique, des verbatims) peut-il revenir dans les documents de l'étude ?
+5. Identifiant d'étude et connexion communs entre Martine et l'Explorer.
+6. Qui lance le traitement (coût, plafond, relecture), l'analyste ou le consultant ?
+7. Les études déjà lancées restent sur Files Tools, Corpus Manager et ICC : choix du circuit à la création, ou deuxième version de la méthode ?
+8. Les filtres des sujets de l'étude se définissent-ils dans Martine (méthode et périmètre) ou dans l'Explorer ?
 
 ## Annexe : dans ce dépôt
 
-- Données fictives : `data/corpus.json` (états de départ, paramètres du traitement, exemples à vérifier, données de l'Explorer pour TR-2611-01).
+- Données fictives : `data/corpus.json` (états de départ, paramètres du traitement, exemples à vérifier pour TR-2611-01).
 - La phase qui construit ou lit le corpus : champ `corpus` (`build`, `analyse`) d'une phase dans `data/methods/*.json`, conservé à chaque import.
 - Logique : `src/shared/lib/corpus.ts` ; état dans le store local (`corpusOf`, `confirmTarget`, `deposit`, `launchCorpus`, `checkCorpus`).
-- Écrans : `src/features/corpus/` (onglet Corpus, carte sur une phase, résumé sur Overview), `src/features/explore/` (l'Explorer simulé).
+- Écrans : `src/features/corpus/` (onglet Corpus, carte sur une phase, résumé sur Overview, bouton *Open in Explorer*). L'adresse de l'Explorer reste hors du prototype : un clic dit où il mènerait.
 - Le traitement prend quelques secondes par étape dans le prototype, pour la démo.

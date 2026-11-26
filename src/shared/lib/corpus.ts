@@ -14,23 +14,7 @@ export interface Verbatim {
 	translation?: string;
 	why?: string;
 }
-export interface ExplorerVerbatim extends Verbatim {
-	market: string;
-	code: string;
-	sentiment: string;
-	source: string;
-	date: string;
-}
-export interface ExplorerData {
-	markets: Record<string, number>;
-	languages: Record<string, number>;
-	sentiment: Record<string, number>;
-	codes: Record<string, Record<string, number>>;
-	months: { month: string; n: number }[];
-	verbatims: ExplorerVerbatim[];
-}
 export const toCheck = corpusRaw.toCheck as unknown as Record<string, { offTopic: Verbatim[]; detections: { filter: string; examples: Verbatim[] }[] }>;
-export const explorerData = corpusRaw.explorer as unknown as Record<string, ExplorerData>;
 
 export type CorpusStage = "empty" | "files" | "processing" | "to_check" | "ready";
 

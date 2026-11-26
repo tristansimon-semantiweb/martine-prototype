@@ -197,6 +197,14 @@
       "note": "Semantiweb’s analysis platform. It works on the facets set in the corpus (Corpus Manager): frequencies (ICC TOOLS 1.1), the Difference between two periods (1.2), the concordancer (4). The R&R reviews database is checked there too."
     },
     {
+      "id": "explorer",
+      "label": "Explorer",
+      "kind": "Semantiweb",
+      "claude_connector": null,
+      "url": null,
+      "note": "Semantiweb’s analysis interface, its own application. It reads the corpora the data platform processed, with filters from the metadata and from the AI. Takes over from the ICC for the studies whose corpus is built in Martine."
+    },
+    {
       "id": "corpus_manager",
       "label": "Corpus Manager",
       "kind": "Semantiweb",

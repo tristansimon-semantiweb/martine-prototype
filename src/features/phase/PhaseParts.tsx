@@ -9,7 +9,8 @@ import { Check, ExternalLink, X } from "lucide-react";
 import { methodFile } from "@/shared/lib/data";
 import { otherToolItems, toolById } from "@/shared/lib/tools";
 import { dayRange } from "@/shared/lib/format";
-import type { MethodFormat, MethodTask } from "@/shared/lib/types";
+import type { MethodFormat, MethodTask, Study } from "@/shared/lib/types";
+import { OpenInExplorer } from "@/features/corpus/OpenInExplorer";
 
 // The pieces a phase drawer is made of, shared by the study (read and tick)
 // and the method (edit): the brief asks for "the same drawer, in edit mode".
@@ -228,24 +229,20 @@ export function taskRows(task: MethodTask, format: MethodFormat, slots: Partial<
 // A tool as an action in a study: "Open Talkwalker" opens it in a new tab.
 // Semantiweb's internal tools have no address in the prototype: the button
 // says so and leads to the tool's page in Tools.
-// In a study, the chain the data platform replaces opens the study's own
-// pages: Files Tools and the Corpus Manager its Corpus tab, the ICC its
-// Explorer. Elsewhere (a method), the tool itself.
-const INTERNAL: Record<string, { label: string; path: string }> = {
-	files_tool: { label: "Open the corpus", path: "corpus" },
-	corpus_manager: { label: "Open the corpus", path: "corpus" },
-	icc: { label: "Open in Explore", path: "explore" },
-};
+// In a study, the chain the data platform replaces opens what takes over:
+// Files Tools and the Corpus Manager the study's Corpus tab, the ICC the
+// Explorer (its own application). Elsewhere (a method), the tool itself.
+const TO_CORPUS = ["files_tool", "corpus_manager"];
 
-export function ToolOpenButton({ id, toConfirm, study, phase }: { id: string; toConfirm?: boolean; study?: string; phase?: string }) {
-	const internal = study ? INTERNAL[id] : undefined;
-	if (internal) {
+export function ToolOpenButton({ id, toConfirm, study, phase, phaseName }: { id: string; toConfirm?: boolean; study?: Study; phase?: string; phaseName?: string }) {
+	if (study && id === "icc") return <OpenInExplorer study={study} phase={phase} phaseName={phaseName} variant="outline" />;
+	if (study && TO_CORPUS.includes(id)) {
 		return (
 			<Link
-				href={`/studies/${study}/${internal.path}${internal.path === "explore" && phase ? `?phase=${encodeURIComponent(phase)}` : ""}`}
+				href={`/studies/${study.id}/corpus`}
 				className="inline-flex items-center gap-1.5 rounded-[var(--radius)] border border-[var(--color-accent)] bg-[var(--color-surface)] px-3 py-1.5 text-[13px] font-semibold text-[var(--color-accent)] no-underline hover:bg-[var(--color-accent-dim)]"
 			>
-				{internal.label}
+				Open the corpus
 			</Link>
 		);
 	}
